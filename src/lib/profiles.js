@@ -32,9 +32,12 @@ function inferDefaultNickname({ email = "", displayName = "" } = {}) {
   return e.split("@")[0].slice(0, 24);
 }
 
-export async function ensureProfile(uid, { email = "", displayName = "", photoURL } = {}) {
+export async function ensureProfile(uid, { email = "", displayName = "", photoURL, accountCreatedAt } = {}) {
   if (!firebaseReady || !firebaseDb) return;
   if (!uid) return;
+
+  const safeAccountCreatedAt =
+    accountCreatedAt instanceof Date && Number.isFinite(accountCreatedAt.getTime()) ? accountCreatedAt : null;
 
   const ref = profileDocRef(uid);
   if (!ref) return;
@@ -51,6 +54,7 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
     if (typeof photoURL === "string" && photoURL.trim()) updates.photoURL = photoURL.trim();
 
     // Backfill fields for older profiles.
+    if (!data.createdAt) updates.createdAt = safeAccountCreatedAt || serverTimestamp();
     if (!data.nickname) {
       const nick = inferDefaultNickname({ email, displayName });
       if (nick) updates.nickname = nick;
@@ -66,7 +70,7 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
   await setDoc(
     ref,
     {
-      createdAt: serverTimestamp(),
+      createdAt: safeAccountCreatedAt || serverTimestamp(),
       lastLoginAt: serverTimestamp(),
       email: email || "",
       displayName: displayName || "",

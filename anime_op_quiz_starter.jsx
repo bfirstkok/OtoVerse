@@ -28,6 +28,9 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
   createUserWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
+  linkWithCredential,
+  OAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -79,7 +82,7 @@ const animeData = [
   },
   {
     id: 3,
-    title: "Demon Slayer",
+    title: "Kimetsu no Yaiba",
     altTitles: ["Kimetsu no Yaiba", "ดาบพิฆาตอสูร"],
     difficulty: "easy",
     year: 2019,
@@ -669,7 +672,7 @@ const animeData = [
   },
   {
     id: 62,
-    title: "Food Wars!",
+    title: "Shokugeki no Soma",
     altTitles: ["Shokugeki no Soma", "ยอดนักปรุงโซมะ"],
     difficulty: "normal",
     year: 2015,
@@ -879,13 +882,13 @@ const animeData = [
   },
   {
     id: 83,
-    title: "Future Diary",
+    title: "Mirai Nikki",
     altTitles: ["Mirai Nikki", "บันทึกมรณะ เกมล่าท้าอนาคต"],
     difficulty: "normal",
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=LLDA9cfRLlg&list=RDLLDA9cfRLlg&start_radio=1",
     acceptedAnswers: ["future diary", "mirai nikki", "บันทึกมรณะ เกมล่าท้าอนาคต", "บันทึกมรณะ"],
-    note: "Kuusou Mesorogiwi"
+    note: "โรคจิตผมชมพู"
   },
   {
     id: 84,
@@ -915,7 +918,7 @@ const animeData = [
     year: 2019,
     youtubeVideoId: "https://www.youtube.com/watch?v=62hOiNH0K44&list=RD62hOiNH0K44&start_radio=1",
     acceptedAnswers: ["fate grand order", "fgo", "fate/grand order", "เฟทแกรนด์ออเดอร์"],
-    note: "Phantom Joke"
+    note: "น้องโล่่ผมชมพู"
   },
   {
     id: 87,
@@ -935,7 +938,7 @@ const animeData = [
     year: 2008,
     youtubeVideoId: "https://www.youtube.com/watch?v=zzJ8U8OtEsE&list=RDzzJ8U8OtEsE&start_radio=1",
     acceptedAnswers: ["soul eater", "โซลอีทเตอร์"],
-    note: "Resonance"
+    note: "พระเอกกินวิญญาณ"
   },
   {
     id: 89,
@@ -945,7 +948,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=s99s4VCtCP8&list=RDs99s4VCtCP8&start_radio=1",
     acceptedAnswers: ["blue exorcist", "ao no exorcist", "เอ็กซอร์ซิสต์พันธุ์ปีศาจ", "บลูเอ็กซอร์ซิสต์"],
-    note: "Core Pride"
+    note: "ไฟสีฟ้าซาตาน"
   },
   {
     id: 90,
@@ -955,7 +958,7 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=gWCnKoEgfP0&list=RDgWCnKoEgfP0&start_radio=1",
     acceptedAnswers: ["noragami", "โนรางามิ เทวดาขาจร", "โนรางามิ"],
-    note: "Goya no Machiawase"
+    note: "เทพยาจก"
   },
   {
     id: 91,
@@ -1015,7 +1018,7 @@ const animeData = [
     year: 2022,
     youtubeVideoId: "https://www.youtube.com/watch?v=Yd8kUoB72xU&list=RDYd8kUoB72xU&start_radio=1",
     acceptedAnswers: ["bocchi the rock!", "bocchi the rock", "บจจิเดอะร็อก!", "บจจิเดอะร็อก"],
-    note: "Seishun Complex"
+    note: "สาวผมชมพูเล่นกีต้าร์"
   },
   {
     id: 97,
@@ -1025,7 +1028,7 @@ const animeData = [
     year: 2017,
     youtubeVideoId: "https://www.youtube.com/watch?v=7hBoJDcBt28&list=RD7hBoJDcBt28&start_radio=1",
     acceptedAnswers: ["kakegurui", "โคตรเซียนโรงเรียนพนัน", "คาเคกุรุย"],
-    note: "Deal with the devil"
+    note: "โรงเรียนพนันที่มีแต่คนบ้าๆ"
   },
   {
     id: 98,
@@ -1035,7 +1038,7 @@ const animeData = [
     year: 2017,
     youtubeVideoId: "https://www.youtube.com/watch?v=EOVQh5xyrKg&list=RDEOVQh5xyrKg&start_radio=1",
     acceptedAnswers: ["no game no life zero", "โนเกม โนไลฟ์ ซีโร่", "โนเกมโนไลฟ์ ซีโร่"],
-    note: "There is a Reason"
+    note: "ไม่มีภาค2"
   },
   {
     id: 99,
@@ -1045,7 +1048,7 @@ const animeData = [
     year: 2008,
     youtubeVideoId: "https://www.youtube.com/watch?v=7q0lNz_5vLo&list=RD7q0lNz_5vLo&start_radio=1",
     acceptedAnswers: ["black butler", "kuroshitsuji", "คนลึกไขปริศนาลับ", "พ่อบ้านดำ"],
-    note: "Monochrome no Kiss"
+    note: "พ่อบ้านเก"
   },
   {
     id: 100,
@@ -2589,7 +2592,7 @@ const animeData = [
   },
   {
     id: 254,
-    title: "Demon Slayer: Swordsmith Village Arc",
+    title: "Kimetsu No Yaiba Swordsmith Village Arc",
     altTitles: ["ดาบพิฆาตอสูร ภาคหมู่บ้านช่างตีดาบ"],
     difficulty: "easy",
     year: 2023,
@@ -2939,7 +2942,7 @@ const animeData = [
   },
   {
     id: 289,
-    title: "Food Wars! (OP2)",
+    title: "Shokugeki no Soma (OP2)",
     altTitles: ["ยอดนักปรุงโซมะ"],
     difficulty: "normal",
     year: 2015,
@@ -4473,11 +4476,7 @@ export default function AnimeOPQuizStarter() {
   const [feedback, setFeedback] = useState(null);
   const [showHint, setShowHint] = useState(false);
   const [useVideo, setUseVideo] = useState(true);
-  const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem("theme");
-    if (saved) return saved === "dark";
-    return true; // Dark mode เป็นค่าเริ่มต้น
-  });
+  const isDark = true;
   const [libraryTab, setLibraryTab] = useState("catalog");
   const [libraryListMode, setLibraryListMode] = useState("works");
   const [legalSearch, setLegalSearch] = useState("");
@@ -4558,6 +4557,96 @@ export default function AnimeOPQuizStarter() {
   const [authPassword, setAuthPassword] = useState("");
   const [authBusy, setAuthBusy] = useState(false);
   const [authError, setAuthError] = useState("");
+
+  const AUTH_PENDING_LINK_STORAGE_KEY = "otoverse_auth_pending_link_v1";
+  const [pendingLink, setPendingLink] = useState(null);
+
+  const persistPendingLink = (next) => {
+    setPendingLink(next);
+    try {
+      if (!next) {
+        sessionStorage.removeItem(AUTH_PENDING_LINK_STORAGE_KEY);
+        return;
+      }
+      sessionStorage.setItem(AUTH_PENDING_LINK_STORAGE_KEY, JSON.stringify(next));
+    } catch {
+      // ignore
+    }
+  };
+
+  const readPersistedPendingLink = () => {
+    try {
+      const raw = sessionStorage.getItem(AUTH_PENDING_LINK_STORAGE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object") return null;
+      if (!parsed.credentialJson) return null;
+      return parsed;
+    } catch {
+      return null;
+    }
+  };
+
+  const providerIdToThai = (providerId) => {
+    const id = String(providerId || "");
+    if (id === "google.com") return "Google";
+    if (id === "github.com") return "GitHub";
+    if (id === "password") return "อีเมล/รหัสผ่าน";
+    return id || "ผู้ให้บริการเดิม";
+  };
+
+  const describeSignInMethodsThai = (methods) => {
+    const unique = Array.from(new Set((methods || []).map((m) => String(m || "").trim()).filter(Boolean)));
+    if (!unique.length) return "";
+    return unique.map(providerIdToThai).join(" หรือ ");
+  };
+
+  const consumePendingLinkForUser = async (currentUser) => {
+    if (!currentUser) return false;
+    const pending = pendingLink || readPersistedPendingLink();
+    if (!pending) return false;
+
+    const pendingEmail = String(pending.email || "").trim().toLowerCase();
+    const userEmail = String(currentUser.email || "").trim().toLowerCase();
+    if (pendingEmail && userEmail && pendingEmail !== userEmail) {
+      return false;
+    }
+
+    let credential;
+    try {
+      credential = OAuthProvider.credentialFromJSON(pending.credentialJson);
+    } catch {
+      credential = null;
+    }
+    if (!credential) {
+      persistPendingLink(null);
+      return false;
+    }
+
+    try {
+      await linkWithCredential(currentUser, credential);
+      persistPendingLink(null);
+      return true;
+    } catch (e) {
+      const code = String(e?.code || "");
+      if (code === "auth/provider-already-linked") {
+        persistPendingLink(null);
+        return true;
+      }
+      if (code === "auth/credential-already-in-use") {
+        setAuthError("ไม่สามารถเชื่อมบัญชีได้: GitHub นี้ถูกใช้กับบัญชีอื่นแล้ว");
+        return false;
+      }
+      setAuthError(firebaseErrorToThai(e));
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    const persisted = readPersistedPendingLink();
+    if (persisted) setPendingLink(persisted);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [authChecked, setAuthChecked] = useState(false);
   const [user, setUser] = useState(null);
@@ -4642,10 +4731,23 @@ export default function AnimeOPQuizStarter() {
       setAuthChecked(true);
       setProfileNotice("");
       if (nextUser) {
+        const accountCreatedAt = (() => {
+          try {
+            const raw = nextUser?.metadata?.creationTime;
+            if (!raw) return null;
+            const d = new Date(raw);
+            return Number.isFinite(d.getTime()) ? d : null;
+          } catch {
+            return null;
+          }
+        })();
+
+        await consumePendingLinkForUser(nextUser).catch(() => {});
         await ensureProfile(nextUser.uid, {
           email: nextUser.email || "",
           displayName: nextUser.displayName || "",
-          photoURL: nextUser.photoURL || undefined
+          photoURL: nextUser.photoURL || undefined,
+          accountCreatedAt
         }).catch(() => {});
       } else {
         setProfile(null);
@@ -4743,10 +4845,22 @@ export default function AnimeOPQuizStarter() {
     setProfileNotice("");
     setProfileError("");
     try {
+      const accountCreatedAt = (() => {
+        try {
+          const raw = user?.metadata?.creationTime;
+          if (!raw) return null;
+          const d = new Date(raw);
+          return Number.isFinite(d.getTime()) ? d : null;
+        } catch {
+          return null;
+        }
+      })();
+
       await ensureProfile(user.uid, {
         email: user.email || "",
         displayName: user.displayName || "",
-        photoURL: user.photoURL || undefined
+        photoURL: user.photoURL || undefined,
+        accountCreatedAt
       });
       setProfileNotice("สร้าง/ซ่อมโปรไฟล์เรียบร้อยแล้ว");
     } catch (e) {
@@ -4794,7 +4908,6 @@ export default function AnimeOPQuizStarter() {
     if (!user?.uid || !profile?.settings) return;
     if (appliedProfileSettingsRef.current === user.uid) return;
     const s = profile.settings || {};
-    if (s.theme === "dark" || s.theme === "light") setIsDark(s.theme === "dark");
     if (typeof s.defaultAnswerMode === "string" && s.defaultAnswerMode) setAnswerMode(s.defaultAnswerMode);
     if (typeof s.defaultQuestionCount === "number" && Number.isFinite(s.defaultQuestionCount)) setQuestionCount(s.defaultQuestionCount);
     appliedProfileSettingsRef.current = user.uid;
@@ -4807,7 +4920,13 @@ export default function AnimeOPQuizStarter() {
 
   const formatProfileDate = (ts) => {
     try {
-      const date = ts?.toDate ? ts.toDate() : null;
+      const date = (() => {
+        if (!ts) return null;
+        if (typeof ts?.toDate === "function") return ts.toDate(); // Firestore Timestamp
+        if (ts instanceof Date) return ts;
+        if (typeof ts === "number" && Number.isFinite(ts)) return new Date(ts);
+        return null;
+      })();
       if (!date) return "-";
       return new Intl.DateTimeFormat("th-TH", { dateStyle: "medium" }).format(date);
     } catch {
@@ -4856,6 +4975,33 @@ export default function AnimeOPQuizStarter() {
     return "แชทมีปัญหา";
   };
 
+  const storageErrorToThai = (err) => {
+    const code = String(err?.code || "");
+    const msg = String(err?.message || err || "");
+    const raw = code || msg;
+    const lower = raw.toLowerCase();
+
+    if (raw === "invalid_file_type" || raw === "not_image") return "กรุณาเลือกไฟล์รูปภาพเท่านั้น";
+    if (raw === "firebase_not_ready") return "ยังไม่ได้ตั้งค่า Firebase";
+    if (raw === "missing_uid") return "ยังไม่ได้ล็อกอิน";
+    if (raw === "missing_file") return "กรุณาเลือกไฟล์ก่อน";
+    if (raw === "upload_canceled") return "ยกเลิกการอัปโหลดแล้ว";
+    if (raw === "upload_timeout") return "อัปโหลดนานเกินไป ลองใหม่อีกครั้ง";
+
+    if (code === "storage/unauthenticated" || lower.includes("unauthenticated")) return "ต้องล็อกอินก่อนจึงจะอัปโหลดรูปได้";
+    if (code === "storage/unauthorized" || lower.includes("permission") || lower.includes("unauthorized")) {
+      return "อัปโหลดไม่ได้ (Firebase Storage Rules ไม่อนุญาต)";
+    }
+    if (code === "storage/canceled" || lower.includes("canceled")) return "ยกเลิกการอัปโหลดแล้ว";
+    if (code === "storage/retry-limit-exceeded" || lower.includes("retry")) return "อัปโหลดไม่สำเร็จ (ลองใหม่อีกครั้ง)";
+    if (code === "storage/quota-exceeded" || lower.includes("quota")) return "โควต้า Firebase Storage เต็ม";
+    if (code === "storage/unknown" || lower.includes("storage")) {
+      return "อัปโหลดรูปไม่สำเร็จ (อาจยังไม่ได้เปิด Firebase Storage หรือมีปัญหาการเชื่อมต่อ)";
+    }
+
+    return "อัปโหลดรูปไม่สำเร็จ";
+  };
+
   const handleEmailAuth = async () => {
     if (!firebaseReady || !firebaseAuth) {
       setAuthError("ยังไม่ได้ตั้งค่า Firebase");
@@ -4864,11 +5010,13 @@ export default function AnimeOPQuizStarter() {
     setAuthError("");
     setAuthBusy(true);
     try {
-      if (authMode === "signup") {
-        await createUserWithEmailAndPassword(firebaseAuth, authEmail.trim(), authPassword);
-      } else {
-        await signInWithEmailAndPassword(firebaseAuth, authEmail.trim(), authPassword);
-      }
+      const email = authEmail.trim();
+      const cred =
+        authMode === "signup"
+          ? await createUserWithEmailAndPassword(firebaseAuth, email, authPassword)
+          : await signInWithEmailAndPassword(firebaseAuth, email, authPassword);
+
+      await consumePendingLinkForUser(cred.user).catch(() => {});
       setAuthOpen(false);
       setAuthPassword("");
     } catch (e) {
@@ -4887,11 +5035,50 @@ export default function AnimeOPQuizStarter() {
     setAuthBusy(true);
     try {
       const provider = providerKey === "google" ? new GoogleAuthProvider() : new GithubAuthProvider();
-      await signInWithPopup(firebaseAuth, provider);
+      const cred = await signInWithPopup(firebaseAuth, provider);
+
+      await consumePendingLinkForUser(cred.user).catch(() => {});
       setAuthOpen(false);
       setAuthPassword("");
     } catch (e) {
       const code = String(e?.code || "");
+
+      if (code === "auth/account-exists-with-different-credential") {
+        const email = String(e?.customData?.email || "").trim();
+        const credential = providerKey === "google" ? GoogleAuthProvider.credentialFromError(e) : GithubAuthProvider.credentialFromError(e);
+        const methods = email ? await fetchSignInMethodsForEmail(firebaseAuth, email).catch(() => []) : [];
+
+        const credentialJson = credential?.toJSON ? credential.toJSON() : null;
+
+        if (credentialJson && email) {
+          persistPendingLink({
+            email,
+            methods,
+            createdAt: Date.now(),
+            credentialJson
+          });
+        }
+
+        const methodsText = describeSignInMethodsThai(methods);
+        if (methods.includes("google.com")) {
+          setAuthError(
+            `อีเมลนี้เคยสมัครด้วย ${methodsText || "Google"} — ให้กดปุ่ม “เข้าสู่ระบบด้วย Google” ก่อน แล้วระบบจะเชื่อม GitHub ให้อัตโนมัติ`
+          );
+          return;
+        }
+        if (methods.includes("password")) {
+          setAuthError(
+            `อีเมลนี้เคยสมัครด้วย ${methodsText || "อีเมล/รหัสผ่าน"} — ให้เข้าสู่ระบบด้วยอีเมล/รหัสผ่านเดิมก่อน แล้วระบบจะเชื่อม GitHub ให้อัตโนมัติ`
+          );
+          return;
+        }
+
+        setAuthError(
+          `อีเมลนี้เคยสมัครด้วยวิธีอื่น${methodsText ? ` (${methodsText})` : ""} — ให้ล็อกอินด้วยวิธีเดิมก่อน แล้วค่อยเชื่อม GitHub`
+        );
+        return;
+      }
+
       const shouldFallbackToRedirect =
         code === "auth/popup-blocked" ||
         code === "auth/operation-not-supported-in-this-environment";
@@ -4926,7 +5113,6 @@ export default function AnimeOPQuizStarter() {
     try {
       const tasks = [
         updateProfileSettings(user.uid, {
-          theme: isDark ? "dark" : "light",
           defaultAnswerMode: answerMode,
           defaultQuestionCount: Number(questionCount) || 5
         })
@@ -5540,7 +5726,7 @@ export default function AnimeOPQuizStarter() {
       setPostModalOpen(false);
     } catch (e) {
       if (!isActive()) return;
-      const msg = String(e?.message || e?.code || "post_failed");
+      const msg = postStep === "uploading" ? storageErrorToThai(e) : String(e?.message || e?.code || "post_failed");
       setPostStep("");
       setPostUploadPct(0);
       setPostNotice(`${isEditing ? "บันทึกไม่สำเร็จ" : "โพสต์ไม่สำเร็จ"} (${msg})`);
@@ -5675,10 +5861,7 @@ export default function AnimeOPQuizStarter() {
       await updateProfilePhotoURL(user.uid, url);
       setProfileNotice("อัปเดตรูปโปรไฟล์แล้ว");
     } catch (e) {
-      const code = typeof e?.message === "string" ? e.message : "";
-      if (code === "invalid_file_type") setAvatarError("กรุณาเลือกไฟล์รูปภาพเท่านั้น");
-      else if (code === "firebase_not_ready") setAvatarError("ยังไม่ได้ตั้งค่า Firebase");
-      else setAvatarError("อัปโหลดไม่สำเร็จ (อาจยังไม่ได้เปิด Firebase Storage หรือสิทธิ์ไม่อนุญาต)");
+      setAvatarError(storageErrorToThai(e));
     } finally {
       setAvatarBusy(false);
       setAvatarInputKey((k) => k + 1);
@@ -5771,15 +5954,23 @@ export default function AnimeOPQuizStarter() {
   };
 
   useEffect(() => {
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      document.body.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      document.body.classList.remove("dark");
+    document.documentElement.classList.add("dark");
+    document.body.classList.add("dark");
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (page === "home") {
+        document.documentElement.style.setProperty("--bg-gif", 'url("/backg.gif")');
+        document.body.classList.add("with-gif");
+      } else {
+        document.documentElement.style.setProperty("--bg-gif", "none");
+        document.body.classList.remove("with-gif");
+      }
+    } catch {
+      // ignore
     }
-  }, [isDark]);
+  }, [page]);
 
   // (removed) GIF background upload feature
 
@@ -8695,30 +8886,6 @@ export default function AnimeOPQuizStarter() {
 
                 <div className="space-y-3">
                   <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">ตั้งค่าพื้นฐาน</div>
-
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <div className="space-y-2">
-                      <div className="text-xs font-semibold text-slate-700 dark:text-slate-200">ธีม</div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <Button
-                          type="button"
-                          variant={isDark ? "default" : "outline"}
-                          className="rounded-2xl font-semibold"
-                          onClick={() => setIsDark(true)}
-                        >
-                          🌙 Dark
-                        </Button>
-                        <Button
-                          type="button"
-                          variant={!isDark ? "default" : "outline"}
-                          className="rounded-2xl font-semibold"
-                          onClick={() => setIsDark(false)}
-                        >
-                          ☀️ Light
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
 
                   <div className="grid sm:grid-cols-2 gap-3">
                     <div className="space-y-2">
