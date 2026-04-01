@@ -4363,7 +4363,7 @@ function hashStringToUint(str) {
   return hash >>> 0;
 }
 
-const SYNOPSIS_CACHE_STORAGE_KEY = "animequiz_synopsis_cache_v2";
+const SYNOPSIS_CACHE_STORAGE_KEY = "animequiz_synopsis_cache_v3";
 
 function normalizeSynopsisKey(title) {
   return String(title || "")
@@ -4424,22 +4424,32 @@ function truncateSynopsis(text, maxLen = 320) {
   return `${t.slice(0, Math.max(0, maxLen - 1)).trimEnd()}…`;
 }
 
+function hasEnoughThai(text) {
+  const s = String(text || "");
+  if (!s) return false;
+  const thaiMatches = s.match(/[\u0E00-\u0E7F]/g);
+  const thaiCount = thaiMatches ? thaiMatches.length : 0;
+  return thaiCount >= 10;
+}
+
 async function fetchAniListSynopsis(searchTitle) {
   const title = String(searchTitle || "").trim();
   if (!title) {
     return { text: "", url: "", fetchedAt: Date.now() };
   }
 
-  const tryThaiWikipedia = async () => {
-    const searchUrl = `https://th.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(title)}&limit=1&namespace=0&format=json&origin=*`;
+  const tryThaiWikipedia = async (queryText) => {
+    const q = String(queryText || "").trim();
+    if (!q) return null;
+
+    const searchUrl = `https://th.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=1&format=json&origin=*`;
     const searchRes = await fetch(searchUrl, {
       method: "GET",
       headers: { Accept: "application/json" }
     });
     if (!searchRes.ok) return null;
     const searchJson = await searchRes.json();
-    const pageTitle = searchJson?.[1]?.[0] ? String(searchJson[1][0]) : "";
-    const pageUrl = searchJson?.[3]?.[0] ? String(searchJson[3][0]) : "";
+    const pageTitle = searchJson?.query?.search?.[0]?.title ? String(searchJson.query.search[0].title) : "";
     if (!pageTitle) return null;
 
     const summaryUrl = `https://th.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`;
@@ -4451,19 +4461,32 @@ async function fetchAniListSynopsis(searchTitle) {
     const summaryJson = await summaryRes.json();
     const extract = summaryJson?.extract ? String(summaryJson.extract) : "";
     const plain = truncateSynopsis(extract, 320);
-    if (!plain) return null;
+    if (!plain || !hasEnoughThai(plain)) return null;
+
+    const pageUrl = summaryJson?.content_urls?.desktop?.page ? String(summaryJson.content_urls.desktop.page) : "";
     return {
       text: plain,
-      url: pageUrl || (summaryJson?.content_urls?.desktop?.page ? String(summaryJson.content_urls.desktop.page) : ""),
+      url: pageUrl,
       fetchedAt: Date.now()
     };
   };
 
-  try {
-    const thai = await tryThaiWikipedia();
-    if (thai?.text) return thai;
-  } catch {
-    // ignore and fall back to AniList
+  const baseTitle = availabilityBaseKeyFromTitle(title) || title;
+  const candidates = Array.from(
+    new Set(
+      [title, baseTitle]
+        .map((t) => String(t || "").trim())
+        .filter(Boolean)
+    )
+  );
+
+  for (const c of candidates) {
+    try {
+      const thai = await tryThaiWikipedia(c);
+      if (thai?.text) return thai;
+    } catch {
+      // ignore and continue
+    }
   }
 
   const query = `query ($search: String) {
@@ -4485,10 +4508,9 @@ async function fetchAniListSynopsis(searchTitle) {
   if (!res.ok) throw new Error(`AniList error: ${res.status}`);
   const json = await res.json();
   const media = json?.data?.Media;
-  const description = toPlainTextDescription(media?.description);
   const siteUrl = media?.siteUrl ? String(media.siteUrl) : "";
   return {
-    text: truncateSynopsis(description, 320),
+    text: "",
     url: siteUrl,
     fetchedAt: Date.now()
   };
@@ -5967,7 +5989,8 @@ export default function AnimeOPQuizStarter() {
 
   const ensureSynopsis = async ({ cacheKey, searchTitle }) => {
     if (!cacheKey || !searchTitle) return;
-    if (synopsisCache?.[cacheKey]?.text) return;
+    const existing = synopsisCache?.[cacheKey];
+    if (existing && (existing?.text || existing?.url || existing?.error || existing?.fetchedAt)) return;
     if (synopsisLoading?.[cacheKey]) return;
 
     setSynopsisLoading((prev) => ({ ...prev, [cacheKey]: true }));
