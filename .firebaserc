@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "animequiz-8a93b"
-  }
+  },
+  "targets": {
+    "animequiz-8a93b": {
+      "hosting": {
+        "otoverse": [
+          "otoverse"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

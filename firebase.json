@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "otoverse",
     "public": "dist",
     "ignore": [
       "firebase.json",
