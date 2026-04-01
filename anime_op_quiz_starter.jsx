@@ -2628,7 +2628,7 @@ const animeData = [
     year: 2018,
     youtubeVideoId: "https://www.youtube.com/watch?v=3hdJ8PKNXrc&list=RD3hdJ8PKNXrc&start_radio=1",
     acceptedAnswers: ["sword art online", "sao", "ซอร์ดอาร์ตออนไลน์"],
-    note: "ADAMAS"
+    note: "ดาบศิลปะออนไลน์"
   },
   {
     id: 258,
@@ -2638,7 +2638,7 @@ const animeData = [
     year: 2018,
     youtubeVideoId: "https://www.youtube.com/watch?v=kXyRLrPWU_E&list=RDkXyRLrPWU_E&start_radio=1",
     acceptedAnswers: ["tokyo ghoul", "tokyo ghoul re", "โตเกียวกูล", "โตเกียวกูล รี"],
-    note: "asphyxia"
+    note: "ซอยจุ๊แซ่บๆ"
   },
   {
     id: 259,
@@ -2802,7 +2802,7 @@ const animeData = [
   },
   {
     id: 275,
-    title: "A Certain Magical Index",
+    title: "Toaru Majutsu no Index (OP1)",
     altTitles: ["Toaru Majutsu no Index", "อินเด็กซ์ คัมภีร์คาถาต้องห้าม"],
     difficulty: "hard",
     year: 2008,
@@ -2818,7 +2818,7 @@ const animeData = [
     year: 2008,
     youtubeVideoId: "https://www.youtube.com/watch?v=FKWUJnjmz_0&list=RDFKWUJnjmz_0&start_radio=1",
     acceptedAnswers: ["toradora!", "toradora", "โทระโดระ"],
-    note: "silky heart"
+    note: "เตี้ยกับสูง"
   },
   {
     id: 277,
@@ -2828,7 +2828,7 @@ const animeData = [
     year: 2010,
     youtubeVideoId: "https://www.youtube.com/watch?v=_d8lv6YLuGc&list=RD_d8lv6YLuGc&start_radio=1",
     acceptedAnswers: ["angel beats!", "angel beats", "แองเจิลบีทส์"],
-    note: "Brave Song"
+    note: "ตัวละครในเรื่องนี้ตายกันหมดเลยนะ"
   },
   {
     id: 278,
@@ -2858,7 +2858,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=Hv4znGv6lzg&list=RDHv4znGv6lzg&start_radio=1",
     acceptedAnswers: ["guilty crown", "ปฏิวัติหัตถ์ราชัน", "กิลตี้คราวน์"],
-    note: "The Everlasting Guilty Crown"
+    note: "โรคระบาดที่ชื่อว่าอัลฟ่า"
   },
   {
     id: 281,
@@ -2868,7 +2868,7 @@ const animeData = [
     year: 2012,
     youtubeVideoId: "https://www.youtube.com/watch?v=6m_NwZYVefo&list=RD6m_NwZYVefo&start_radio=1",
     acceptedAnswers: ["psycho-pass", "psycho pass", "ไซโคพาส"],
-    note: "Namae no Nai Kaibutsu"
+    note: "พระเอกในเรื่องนี้เป็นตำรวจที่มีความสุข"
   },
   {
     id: 282,
@@ -2878,7 +2878,7 @@ const animeData = [
     year: 2015,
     youtubeVideoId: "https://www.youtube.com/watch?v=aZenmeRytEM&list=RDaZenmeRytEM&start_radio=1",
     acceptedAnswers: ["noragami aragoto", "noragami", "โนรางามิ"],
-    note: "Kyouran Hey Kids!!"
+    note: "เทพขาจร"
   },
   {
     id: 283,
@@ -2888,7 +2888,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=vSUsiPvJv2Q&list=RDvSUsiPvJv2Q&start_radio=1",
     acceptedAnswers: ["blue exorcist", "ao no exorcist", "บลูเอ็กซอร์ซิสต์"],
-    note: "IN MY WORLD"
+    note: "ซาตานไฟสีฟ้า"
   },
   {
     id: 284,
@@ -2898,7 +2898,7 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=XLvaHFVwFkg&list=RDXLvaHFVwFkg&start_radio=1",
     acceptedAnswers: ["sword art online", "sao", "ซอร์ดอาร์ตออนไลน์"],
-    note: "courage"
+    note: "คนคอนมีปืน"
   },
   {
     id: 285,
@@ -2918,17 +2918,17 @@ const animeData = [
     year: 2017,
     youtubeVideoId: "https://www.youtube.com/watch?v=vdcddjV0l5o&list=RDvdcddjV0l5o&start_radio=1",
     acceptedAnswers: ["konosuba", "ขอให้โชคดีมีชัยในโลกแฟนตาซี!"],
-    note: "TOMORROW"
+    note: "ต่างโลกโคตรปั่น"
   },
   {
     id: 287,
-    title: "The Seven Deadly Sins (OP2)",
+    title: "Nanatsu no taizai (OP2)",
     altTitles: ["ศึกตำนาน 7 อัศวิน"],
     difficulty: "easy",
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=lD-nLjQE9SU&list=RDlD-nLjQE9SU&start_radio=1",
     acceptedAnswers: ["the seven deadly sins", "nanatsu no taizai", "ศึกตำนาน 7 อัศวิน", "บาป 7 ประการ"],
-    note: "Seven Deadly Sins"
+    note: "เมลีโอดัส"
   },
   {
     id: 288,
@@ -2948,7 +2948,7 @@ const animeData = [
     year: 2015,
     youtubeVideoId: "https://www.youtube.com/watch?v=CqF0aOPT2XQ&list=RDCqF0aOPT2XQ&start_radio=1",
     acceptedAnswers: ["food wars!", "food wars", "shokugeki no soma", "ยอดนักปรุงโซมะ"],
-    note: "Kibou no Uta"
+    note: "ทำอาหารที่มากกว่าแค่การทำอาหาร"
   },
   {
     id: 290,
@@ -2958,7 +2958,7 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=6kQzRm21N_g&list=RD6kQzRm21N_g&start_radio=1",
     acceptedAnswers: ["no game no life", "โนเกมโนไลฟ์", "โนเกม โนไลฟ์"],
-    note: "Oracion"
+    note: "เก่งเกมเก่งทุกอย่าง"
   },
   {
     id: 291,
@@ -2968,7 +2968,7 @@ const animeData = [
     year: 2018,
     youtubeVideoId: "https://www.youtube.com/watch?v=yxptP0CXMVo&list=RDyxptP0CXMVo&start_radio=1",
     acceptedAnswers: ["overlord", "โอเวอร์ลอร์ด"],
-    note: "VORACITY"
+    note: "กระดูกโคตรเท่"
   },
   {
     id: 292,
@@ -2978,16 +2978,16 @@ const animeData = [
     year: 2019,
     youtubeVideoId: "https://www.youtube.com/watch?v=OzKLiHJGZbw&list=RDOzKLiHJGZbw&start_radio=1",
     acceptedAnswers: ["the rising of the shield hero", "tate no yuusha", "shield hero", "ผู้กล้าโล่ผงาด"],
-    note: "FAITH"
+    note: "กูมีโล่"
   },
   {
     id: 293,
-    title: "That Time I Got Reincarnated as a Slime (OP2)",
+    title: "Tensei shitara slime datta ken (OP2)",
     altTitles: ["เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว"],
     difficulty: "normal",
     year: 2018,
     youtubeVideoId: "https://www.youtube.com/watch?v=3wki_SgEUnU&list=RD3wki_SgEUnU&start_radio=1",
-    acceptedAnswers: ["that time i got reincarnated as a slime", "tensura", "เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว", "สไลม์"],
+    acceptedAnswers: ["that time i got reincarnated as a slime", "tensura", "เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว", "สไลม์ , tensei shitara slime datta ken , slime"],
     note: "Meguru Mono"
   },
   {
@@ -2998,7 +2998,7 @@ const animeData = [
     year: 2023,
     youtubeVideoId: "https://www.youtube.com/watch?v=hkcdLR_tdtA&list=RDhkcdLR_tdtA&start_radio=1",
     acceptedAnswers: ["mushoku tensei", "jobless reincarnation", "เกิดชาตินี้พี่ต้องเทพ"],
-    note: "spiral"
+    note: "รูเดียส"
   },
   {
     id: 295,
@@ -3008,7 +3008,7 @@ const animeData = [
     year: 2022,
     youtubeVideoId: "https://www.youtube.com/watch?v=Hlw8dTz_iq0&list=RDHlw8dTz_iq0&start_radio=1",
     acceptedAnswers: ["spy x family", "spy family", "สปายแฟมิลี", "สปาย x แฟมิลี"],
-    note: "SOUVENIR"
+    note: "พ่อสปายแม่นักฆ่า"
   },
   {
     id: 296,
@@ -3018,7 +3018,7 @@ const animeData = [
     year: 2023,
     youtubeVideoId: "https://www.youtube.com/watch?v=QUTShho-5I8&list=RDQUTShho-5I8&start_radio=1",
     acceptedAnswers: ["oshi no ko", "เกิดใหม่เป็นลูกโอชิ", "ลูกโอชิ"],
-    note: "Mephisto"
+    note: "ไอดอล"
   },
   {
     id: 297,
@@ -3028,7 +3028,7 @@ const animeData = [
     year: 2024,
     youtubeVideoId: "https://www.youtube.com/watch?v=wfmYSuPiYEQ&list=RDwfmYSuPiYEQ&start_radio=1",
     acceptedAnswers: ["frieren", "sousou no frieren", "คำอธิษฐานในวันที่จากลา", "ฟรีเรน"],
-    note: "Haru"
+    note: "เอลฟ์ลืมผัวเก่าไม่ได้"
   },
   {
     id: 298,
@@ -3038,7 +3038,7 @@ const animeData = [
     year: 2024,
     youtubeVideoId: "https://www.youtube.com/watch?v=z-UPUXGYYqo&list=RDz-UPUXGYYqo&start_radio=1",
     acceptedAnswers: ["the apothecary diaries", "kusuriya no hitorigoto", "สืบคดีปริศนา หมอยาตำรับโคมแดง", "หมอยาตำรับโคมแดง"],
-    note: "Ambivalent"
+    note: "ตำยาโคมแดง"
   },
   {
     id: 299,
@@ -3048,7 +3048,7 @@ const animeData = [
     year: 2023,
     youtubeVideoId: "https://www.youtube.com/watch?v=cEIJLNBF4VU&list=RDcEIJLNBF4VU&start_radio=1",
     acceptedAnswers: ["mashle", "ศึกโลกเวทมนตร์คนพลังกล้าม", "มัชลี"],
-    note: "Knock Out"
+    note: "เวทย์มนตร์ที่ใช้กล้ามเนื้อ"
   },
   {
     id: 300,
@@ -3058,7 +3058,7 @@ const animeData = [
     year: 2022,
     youtubeVideoId: "https://www.youtube.com/watch?v=HEwAiwttN10&list=RDHEwAiwttN10&start_radio=1",
     acceptedAnswers: ["chainsaw man", "เชนซอว์แมน"],
-    note: "Hawatari Nioku Centi"
+    note: "โปจิตะ"
   },
   {
     id: 301,
@@ -3068,7 +3068,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=gpoPoKqpBNY",
     acceptedAnswers: ["cardfight vanguard", "vanguard", "แวนการ์ด", "การ์ดไฟท์ แวนการ์ด"],
-    note: "Vanguard"
+    note: "จินตนาการสิ"
   },
   {
     id: 302,
@@ -3078,7 +3078,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=7nwVRHYISCI",
     acceptedAnswers: ["cardfight vanguard", "vanguard", "แวนการ์ด", "การ์ดไฟท์ แวนการ์ด"],
-    note: "Believe in my existence"
+    note: "เบียวไซควอเลีย"
   },
   {
     id: 303,
@@ -3098,7 +3098,7 @@ const animeData = [
     year: 2013,
     youtubeVideoId: "https://www.youtube.com/watch?v=bO5r5YJrgJY&list=RDbO5r5YJrgJY&start_radio=1",
     acceptedAnswers: ["coppelion", "สามนางฟ้าผ่าโลกนิวเคลียร์"],
-    note: "ANGEL"
+    note: "โลกนิวเคลียร์"
   },
   {
     id: 305,
@@ -3108,7 +3108,7 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=R9KhHVcRb7c&list=RDR9KhHVcRb7c&start_radio=1",
     acceptedAnswers: ["madan no ou to vanadis", "vanadis", "วานาดีสกับราชันกระสุนมนตรา", "วานาดีส"],
-    note: "Ginsen no Kaze"
+    note: "สงครามที่มีแต่ผู้หญิงกับพระเอกใช้ธนู"
   },
   {
     id: 306,
@@ -3118,7 +3118,7 @@ const animeData = [
     year: 2012,
     youtubeVideoId: "https://www.youtube.com/watch?v=ES06Fkkl8ac&list=RDES06Fkkl8ac&start_radio=1",
     acceptedAnswers: ["girls und panzer", "สาวปิ๊ง! ซิ่งแทงค์"],
-    note: "DreamRiser"
+    note: "รถถัง"
   },
   {
     id: 307,
@@ -3128,7 +3128,7 @@ const animeData = [
     year: 2016,
     youtubeVideoId: "https://www.youtube.com/watch?v=cXabZ_-QPb0&list=RDcXabZ_-QPb0&start_radio=1",
     acceptedAnswers: ["drifters", "สงครามผ่ามิติ", "ดริฟเตอร์ส"],
-    note: "Gospel of the Throttle"
+    note: "ตัวละครในประวัติศาสตร์ที่ถูกส่งไปต่างโลกเพื่อสู้กันเอง"
   },
   {
     id: 308,
@@ -3138,7 +3138,7 @@ const animeData = [
     year: 2016,
     youtubeVideoId: "https://www.youtube.com/watch?v=lGs1qWdUAr4&list=RDlGs1qWdUAr4&start_radio=1",
     acceptedAnswers: ["qualidea code", "ควอลิเดีย โค้ด"],
-    note: "Brave Freak Out"
+    note: "หลอนทั้งเรื่อง"
   },
   {
     id: 309,
@@ -3152,37 +3152,37 @@ const animeData = [
   },
   {
     id: 310,
-    title: "The Irregular at Magic High School (OP1)",
+    title: "Mahouka Koukou no Rettousei (OP1)",
     altTitles: ["Mahouka Koukou no Rettousei", "พี่น้องปริศนาโรงเรียนมหาเวท"],
     difficulty: "normal",
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=hRxZ2qfF1Dg&list=RDhRxZ2qfF1Dg&start_radio=1",
     acceptedAnswers: ["mahouka koukou no rettousei", "mahouka", "the irregular at magic high school", "พี่น้องปริศนาโรงเรียนมหาเวท"],
-    note: "Rising Hope"
+    note: "เทพทัต"
   },
   {
     id: 311,
-    title: "The Irregular at Magic High School (OP2)",
+    title: "Mahouka Koukou no Rettousei (OP2)",
     altTitles: ["Mahouka Koukou no Rettousei", "พี่น้องปริศนาโรงเรียนมหาเวท"],
     difficulty: "normal",
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=m0XmNdUPhxA&list=RDm0XmNdUPhxA&start_radio=1",
     acceptedAnswers: ["mahouka koukou no rettousei", "mahouka", "the irregular at magic high school", "พี่น้องปริศนาโรงเรียนมหาเวท"],
-    note: "grilletto"
+    note: "เวทมนตร์ที่ใช้วิทยาศาสตร์อธิบายได้"
   },
   {
     id: 312,
-    title: "The Irregular at Magic High School: Visitor Arc",
+    title: "Mahouka Koukou no Rettousei: Visitor Arc",
     altTitles: ["Mahouka Koukou no Rettousei Season 2", "พี่น้องปริศนาโรงเรียนมหาเวท ภาค 2"],
     difficulty: "normal",
     year: 2020,
     youtubeVideoId: "https://www.youtube.com/watch?v=OLa9O1Rja28&list=RDOLa9O1Rja28&start_radio=1",
     acceptedAnswers: ["mahouka koukou no rettousei", "mahouka", "the irregular at magic high school", "พี่น้องปริศนาโรงเรียนมหาเวท"],
-    note: "Howling"
+    note: "มีเวทย์มนต์ภาคที่มีผมเหลือง"
   },
   {
     id: 313,
-    title: "The Asterisk War",
+    title: "Gakusen Toshi Asterisk",
     altTitles: ["Gakusen Toshi Asterisk", "โรงเรียนสัประยุทธ์ แอสเทอริสก์"],
     difficulty: "normal",
     year: 2015,
@@ -3192,7 +3192,7 @@ const animeData = [
   },
   {
     id: 314,
-    title: "The Asterisk War Season 2",
+    title: "Gakusen Toshi Asterisk Season 2",
     altTitles: ["Gakusen Toshi Asterisk Season 2", "โรงเรียนสัประยุทธ์ แอสเทอริสก์ ภาค 2"],
     difficulty: "normal",
     year: 2016,
@@ -3202,13 +3202,13 @@ const animeData = [
   },
   {
     id: 315,
-    title: "The Eden of Grisaia",
-    altTitles: ["Grisaia no Rakuen", "ฮาเร็มรักนักฆ่า"],
+    title: "Grisaia no Rakuen",
+    altTitles: ["Grisaia no Rakuen", "ฮาเร็มในรั้วโรงเรียน"],
     difficulty: "hard",
     year: 2015,
     youtubeVideoId: "https://www.youtube.com/watch?v=fABdDZBFJzs",
     acceptedAnswers: ["grisaia no rakuen", "grisaia", "the eden of grisaia"],
-    note: "Setsuna no Kajitsu"
+    note: "เนื้อเรื่องตรงข้ามกกับชื่อเรื่อง"
   },
   {
     id: 316,
@@ -3218,31 +3218,31 @@ const animeData = [
     year: 2015,
     youtubeVideoId: "https://www.youtube.com/watch?v=lKanVTWDH90&list=RDlKanVTWDH90&start_radio=1",
     acceptedAnswers: ["absolute duo", "ศึกศาสตรา วิญญาณแฝด"],
-    note: "Absolute Soul"
+    note: "นางเอกผมขาวน่ารักสัส"
   },
   {
     id: 317,
-    title: "World Break: Aria of Curse for a Holy Swordsman",
+    title: "Seiken Tsukai no World Break",
     altTitles: ["Seiken Tsukai no World Break", "ดาบศักดิ์สิทธิ์และบทสวดต้องห้าม"],
     difficulty: "hard",
     year: 2015,
     youtubeVideoId: "https://www.youtube.com/watch?v=6mCS9uL_YxU&list=RD6mCS9uL_YxU&start_radio=1",
     acceptedAnswers: ["seiken tsukai no world break", "world break", "ดาบศักดิ์สิทธิ์และบทสวดต้องห้าม"],
-    note: "Hi no Ito Rinne no GEMINI"
+    note: "ผู้กล้าผมดำกับนางเอกผมขาวที่มีพลังเวทย์มนต์ที่ใช้ดาบเป็นอาวุธ"
   },
   {
     id: 318,
-    title: "In Another World With My Smartphone (OP1)",
+    title: "Isekai wa Smartphone to Tomo ni (OP1)",
     altTitles: ["Isekai wa Smartphone to Tomo ni", "ไปต่างโลกกับสมาร์ทโฟน"],
     difficulty: "normal",
     year: 2017,
     youtubeVideoId: "https://www.youtube.com/watch?v=LNfxVXR6U4o&list=RDLNfxVXR6U4o&start_radio=1",
     acceptedAnswers: ["isekai wa smartphone", "isekai wa smartphone to tomo ni", "in another world with my smartphone", "ไปต่างโลกกับสมาร์ทโฟน"],
-    note: "Another World"
+    note: "สมาร์ทโฟนที่ใช้ได้ทุกอย่าง"
   },
   {
     id: 319,
-    title: "In Another World With My Smartphone Season 2",
+    title: "Isekai wa Smartphone to Tomo ni Season 2",
     altTitles: ["Isekai wa Smartphone to Tomo ni 2", "ไปต่างโลกกับสมาร์ทโฟน ภาค 2"],
     difficulty: "normal",
     year: 2023,
@@ -3272,7 +3272,7 @@ const animeData = [
   },
   {
     id: 322,
-    title: "Chivalry of a Failed Knight",
+    title: "Rakudai Kishi no Cavalry",
     altTitles: ["Rakudai Kishi no Cavalry", "เจ้าหญิงสีชาดกับอัศวินดาบไร้ทัพ"],
     difficulty: "normal",
     year: 2015,
@@ -3282,7 +3282,7 @@ const animeData = [
   },
   {
     id: 323,
-    title: "Undefeated Bahamut Chronicle",
+    title: "Saijaku Muhai no Bahamut",
     altTitles: ["Saijaku Muhai no Bahamut", "มังกรเหล็กไร้พ่าย"],
     difficulty: "hard",
     year: 2016,
@@ -3622,7 +3622,7 @@ const animeData = [
   },
   {
     id: 357,
-    title: "Is It Wrong to Try to Pick Up Girls in a Dungeon? (OP1)",
+    title: "DanMachi (OP1)",
     altTitles: ["DanMachi", "มันผิดรึไงถ้าใจอยากจะพบรักในดันเจี้ยน"],
     difficulty: "normal",
     year: 2015,
@@ -3632,7 +3632,7 @@ const animeData = [
   },
   {
     id: 358,
-    title: "Is It Wrong to Try to Pick Up Girls in a Dungeon? II",
+    title: "DanMachi II",
     altTitles: ["DanMachi Season 2", "มันผิดรึไงถ้าใจอยากจะพบรักในดันเจี้ยน ภาค 2"],
     difficulty: "normal",
     year: 2019,
@@ -3642,7 +3642,7 @@ const animeData = [
   },
   {
     id: 359,
-    title: "Seraph of the End (OP1)",
+    title: "Owari no Serap (OP1)",
     altTitles: ["Owari no Seraph", "เทวทูตแห่งโลกมืด"],
     difficulty: "normal",
     year: 2015,
@@ -3652,7 +3652,7 @@ const animeData = [
   },
   {
     id: 360,
-    title: "Seraph of the End: Battle in Nagoya",
+    title: "Owari no Serap: Battle in Nagoya Season 2",
     altTitles: ["Owari no Seraph Season 2", "เทวทูตแห่งโลกมืด ภาค 2"],
     difficulty: "normal",
     year: 2015,
@@ -3662,7 +3662,7 @@ const animeData = [
   },
   {
     id: 361,
-    title: "The Ambition of Oda Nobuna",
+    title: "Oda Nobuna no Yabou",
     altTitles: ["Oda Nobuna no Yabou", "จอมนางอหังการ โอดะ โนบุนะ"],
     difficulty: "hard",
     year: 2012,
@@ -3702,7 +3702,7 @@ const animeData = [
   },
   {
     id: 365,
-    title: "High School Prodigies Have It Easy Even In Another World",
+    title: "Choujin Koukousei-tachi wa Isekai demo Yoyuu de Ikinuku you desu",
     altTitles: ["Choujin Koukousei-tachi wa Isekai demo Yoyuu de Ikinuku you desu!", "เจ็ดเทพม.ปลายกับการใช้ชีวิตสบายๆในต่างโลก"],
     difficulty: "hard",
     year: 2019,
@@ -3722,7 +3722,7 @@ const animeData = [
   },
   {
     id: 367,
-    title: "Seton Academy: Join the Pack!",
+    title: "Murenase! Seton Gakuen",
     altTitles: ["Murenase! Seton Gakuen", "มุเรนาเสะ! เซตง กาคุเอน"],
     difficulty: "hard",
     year: 2020,
@@ -3732,7 +3732,7 @@ const animeData = [
   },
   {
     id: 368,
-    title: "The Misfit of Demon King Academy (OP1)",
+    title: "Maou Gakuin no Futekigousha (OP1)",
     altTitles: ["Maou Gakuin no Futekigousha", "ใครว่าข้าไม่เหมาะเป็นจอมมาร"],
     difficulty: "normal",
     year: 2020,
@@ -6851,6 +6851,18 @@ export default function AnimeOPQuizStarter() {
             </CardContent>
           </Card>
         </motion.div>
+      </div>
+
+      <div className="pt-1 text-center text-xs font-semibold text-slate-600 dark:text-slate-300">
+        สร้างโดย{" "}
+        <a
+          href="https://github.com/bfirstkok"
+          target="_blank"
+          rel="noreferrer"
+          className="text-cyan-700 hover:underline dark:text-cyan-300"
+        >
+          bfirstkok
+        </a>
       </div>
 
       {homeSetupOpen && (
