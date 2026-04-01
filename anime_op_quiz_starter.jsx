@@ -5102,6 +5102,9 @@ export default function AnimeOPQuizStarter() {
 
   const handleLogout = async () => {
     if (!firebaseAuth) return;
+
+    const ok = window.confirm("ยืนยันออกจากระบบใช่ไหม?");
+    if (!ok) return;
     await signOut(firebaseAuth).catch(() => {});
     setProfileOpen(false);
   };
@@ -6851,21 +6854,6 @@ export default function AnimeOPQuizStarter() {
             </CardContent>
           </Card>
 
-          <Card className="mt-4 rounded-3xl border border-white/70 bg-white/85 shadow-[0_20px_40px_rgba(19,34,76,0.10)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_20px_40px_rgba(0,0,0,0.28)]">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between gap-3">
-                <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">เครดิตผู้สร้าง</div>
-                <a
-                  href="https://github.com/bfirstkok"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-xs font-extrabold text-cyan-700 hover:border-slate-300 hover:bg-white hover:underline dark:border-slate-700 dark:bg-slate-950/35 dark:text-cyan-300 dark:hover:border-slate-600 dark:hover:bg-slate-950/55"
-                >
-                  bfirstkok
-                </a>
-              </div>
-            </CardContent>
-          </Card>
         </motion.div>
       </div>
 
