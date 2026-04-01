@@ -4761,6 +4761,11 @@ export default function AnimeOPQuizStarter() {
 
   useEffect(() => {
     if (!firebaseReady) return;
+    if (!user?.uid) {
+      setLeaderboard([]);
+      setLeaderboardError("");
+      return;
+    }
     setLeaderboardError("");
     return subscribeLeaderboard(
       { max: 25 },
@@ -4783,7 +4788,7 @@ export default function AnimeOPQuizStarter() {
         setLeaderboardError(msg);
       }
     );
-  }, [firebaseReady]);
+  }, [firebaseReady, user?.uid]);
 
   useEffect(() => {
     if (!user?.uid || !profile?.settings) return;
@@ -6606,6 +6611,11 @@ export default function AnimeOPQuizStarter() {
               <CardDescription>อิงคะแนนสะสม • เสมอค่อยดูจำนวนการเล่น</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
+              {!user?.uid ? (
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm font-semibold text-slate-800 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-100">
+                  ล็อกอินก่อนเพื่อดูอันดับผู้เล่น
+                </div>
+              ) : null}
               {leaderboardError ? (
                 <div className="rounded-2xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-900 dark:border-rose-400/40 dark:bg-slate-900/40 dark:text-rose-100">
                   โหลดอันดับผู้เล่นไม่สำเร็จ ({leaderboardError})
