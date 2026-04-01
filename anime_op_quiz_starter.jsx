@@ -31,6 +31,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
   signOut,
   updateProfile
 } from "firebase/auth";
@@ -4816,6 +4817,18 @@ export default function AnimeOPQuizStarter() {
     if (code === "auth/weak-password") return "รหัสผ่านสั้นเกินไป (ควรอย่างน้อย 6 ตัวอักษร)";
     if (code === "auth/invalid-credential" || code === "auth/wrong-password" || code === "auth/user-not-found") return "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
     if (code === "auth/popup-closed-by-user") return "ปิดหน้าต่างล็อกอินก่อนเสร็จ";
+    if (code === "auth/popup-blocked") return "บราวเซอร์บล็อกหน้าต่างล็อกอิน (popup) — ลองอนุญาต popup หรือระบบจะพาไปล็อกอินแบบ redirect";
+    if (code === "auth/unauthorized-domain") {
+      const host = (() => {
+        try {
+          return window?.location?.hostname ? String(window.location.hostname) : "";
+        } catch {
+          return "";
+        }
+      })();
+      return `โดเมนนี้ยังไม่ได้รับอนุญาตใน Firebase Auth (Authentication → Settings → Authorized domains)${host ? `: ${host}` : ""}`;
+    }
+    if (code === "auth/operation-not-allowed") return "ยังไม่ได้เปิดใช้งานผู้ให้บริการล็อกอินนี้ใน Firebase Authentication";
     if (code === "auth/account-exists-with-different-credential") return "บัญชีนี้เคยสมัครด้วยวิธีอื่น (ลองใช้อีเมล/ผู้ให้บริการเดิม)";
     return "เกิดข้อผิดพลาดในการล็อกอิน";
   };
@@ -4873,6 +4886,22 @@ export default function AnimeOPQuizStarter() {
       setAuthOpen(false);
       setAuthPassword("");
     } catch (e) {
+      const code = String(e?.code || "");
+      const shouldFallbackToRedirect =
+        code === "auth/popup-blocked" ||
+        code === "auth/operation-not-supported-in-this-environment";
+
+      if (shouldFallbackToRedirect) {
+        try {
+          const provider = providerKey === "google" ? new GoogleAuthProvider() : new GithubAuthProvider();
+          await signInWithRedirect(firebaseAuth, provider);
+          return;
+        } catch (e2) {
+          setAuthError(firebaseErrorToThai(e2));
+          return;
+        }
+      }
+
       setAuthError(firebaseErrorToThai(e));
     } finally {
       setAuthBusy(false);
