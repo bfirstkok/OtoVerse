@@ -4363,7 +4363,7 @@ function hashStringToUint(str) {
   return hash >>> 0;
 }
 
-const SYNOPSIS_CACHE_STORAGE_KEY = "animequiz_synopsis_cache_v1";
+const SYNOPSIS_CACHE_STORAGE_KEY = "animequiz_synopsis_cache_v2";
 
 function normalizeSynopsisKey(title) {
   return String(title || "")
@@ -4425,6 +4425,47 @@ function truncateSynopsis(text, maxLen = 320) {
 }
 
 async function fetchAniListSynopsis(searchTitle) {
+  const title = String(searchTitle || "").trim();
+  if (!title) {
+    return { text: "", url: "", fetchedAt: Date.now() };
+  }
+
+  const tryThaiWikipedia = async () => {
+    const searchUrl = `https://th.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(title)}&limit=1&namespace=0&format=json&origin=*`;
+    const searchRes = await fetch(searchUrl, {
+      method: "GET",
+      headers: { Accept: "application/json" }
+    });
+    if (!searchRes.ok) return null;
+    const searchJson = await searchRes.json();
+    const pageTitle = searchJson?.[1]?.[0] ? String(searchJson[1][0]) : "";
+    const pageUrl = searchJson?.[3]?.[0] ? String(searchJson[3][0]) : "";
+    if (!pageTitle) return null;
+
+    const summaryUrl = `https://th.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`;
+    const summaryRes = await fetch(summaryUrl, {
+      method: "GET",
+      headers: { Accept: "application/json" }
+    });
+    if (!summaryRes.ok) return null;
+    const summaryJson = await summaryRes.json();
+    const extract = summaryJson?.extract ? String(summaryJson.extract) : "";
+    const plain = truncateSynopsis(extract, 320);
+    if (!plain) return null;
+    return {
+      text: plain,
+      url: pageUrl || (summaryJson?.content_urls?.desktop?.page ? String(summaryJson.content_urls.desktop.page) : ""),
+      fetchedAt: Date.now()
+    };
+  };
+
+  try {
+    const thai = await tryThaiWikipedia();
+    if (thai?.text) return thai;
+  } catch {
+    // ignore and fall back to AniList
+  }
+
   const query = `query ($search: String) {
     Media(search: $search, type: ANIME) {
       siteUrl
@@ -4438,7 +4479,7 @@ async function fetchAniListSynopsis(searchTitle) {
       "Content-Type": "application/json",
       Accept: "application/json"
     },
-    body: JSON.stringify({ query, variables: { search: String(searchTitle || "").trim() } })
+    body: JSON.stringify({ query, variables: { search: title } })
   });
 
   if (!res.ok) throw new Error(`AniList error: ${res.status}`);
@@ -7789,7 +7830,7 @@ export default function AnimeOPQuizStarter() {
                                               rel="noreferrer"
                                               className="mt-1 inline-block text-xs font-semibold text-cyan-700 hover:underline dark:text-cyan-300"
                                             >
-                                              อ่านต่อใน AniList
+                                              อ่านต่อ (แหล่งข้อมูล)
                                             </a>
                                           )}
                                         </>
@@ -7808,7 +7849,7 @@ export default function AnimeOPQuizStarter() {
                                               rel="noreferrer"
                                               className="font-semibold text-cyan-700 hover:underline dark:text-cyan-300"
                                             >
-                                              เปิดใน AniList
+                                              เปิดแหล่งข้อมูล
                                             </a>
                                           </>
                                         ) : null}
