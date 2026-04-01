@@ -1,0 +1,6763 @@
+{
+  "version": 1,
+  "generatedAt": "2026-03-31T09:53:58.474Z",
+  "byTitle": {
+    "86 -eighty six-": {
+      "title": "86 -Eighty Six-",
+      "genres": [
+        "ไซไฟ",
+        "สงคราม",
+        "ดราม่า",
+        "เมก้า"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ]
+    },
+    "absolute duo": {
+      "title": "Absolute Duo",
+      "genres": [
+        "แอ็กชัน",
+        "โรงเรียน",
+        "ฮาเร็ม"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "a certain magical index": {
+      "title": "A Certain Magical Index",
+      "genres": [
+        "แอ็กชัน",
+        "เวทมนตร์",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "a certain scientific railgun": {
+      "title": "A Certain Scientific Railgun",
+      "genres": [
+        "แอ็กชัน",
+        "พลังจิต",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "aharen-san wa hakarenai": {
+      "title": "Aharen-san wa Hakarenai",
+      "genres": [
+        "ตลก",
+        "โรแมนติก",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "air": {
+      "title": "Air",
+      "genres": [
+        "ดราม่า",
+        "โรแมนติก",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "akame ga kill!": {
+      "title": "Akame ga Kill!",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "akira": {
+      "title": "Akira",
+      "genres": [
+        "ไซไฟ",
+        "ไซเบอร์พังก์",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "akudama drive": {
+      "title": "Akudama Drive",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "อาชญากรรม"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "aldnoah.zero": {
+      "title": "Aldnoah.Zero",
+      "genres": [
+        "แอ็กชัน",
+        "เมก้า",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "angel beats!": {
+      "title": "Angel Beats!",
+      "genres": [
+        "ดราม่า",
+        "เหนือธรรมชาติ",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "anohana": {
+      "title": "Anohana",
+      "genres": [
+        "ดราม่า",
+        "ชีวิตประจำวัน",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "another": {
+      "title": "Another",
+      "genres": [
+        "สยองขวัญ",
+        "ลึกลับ",
+        "จิตวิทยา"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "arifureta: from commonplace to world's strongest": {
+      "title": "Arifureta: From Commonplace to World's Strongest",
+      "genres": [
+        "ต่างโลก",
+        "แอ็กชัน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "arifureta season 2": {
+      "title": "Arifureta Season 2",
+      "genres": [
+        "ต่างโลก",
+        "แอ็กชัน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "a silent voice": {
+      "title": "A Silent Voice",
+      "genres": [
+        "ดราม่า",
+        "โรแมนติก",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "assassination classroom": {
+      "title": "Assassination Classroom",
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "assassins pride": {
+      "title": "Assassins Pride",
+      "genres": [
+        "แฟนตาซี",
+        "แอ็กชัน",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "attack on titan": {
+      "title": "Attack on Titan",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "disney"
+      ]
+    },
+    "attack on titan the final season": {
+      "title": "Attack on Titan The Final Season",
+      "genres": [
+        "แอ็กชัน",
+        "การเมือง",
+        "ดาร์กแฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "disney"
+      ]
+    },
+    "baccano!": {
+      "title": "Baccano!",
+      "genres": [
+        "แอ็กชัน",
+        "ลึกลับ",
+        "มาเฟีย"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "bakemonogatari": {
+      "title": "Bakemonogatari",
+      "genres": [
+        "เหนือธรรมชาติ",
+        "จิตวิทยา",
+        "ลึกลับ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "bakuman": {
+      "title": "Bakuman",
+      "genres": [
+        "ชีวิตประจำวัน",
+        "แรงบันดาลใจ",
+        "สร้างมังงะ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "bakusou kyoudai let's & go!!": {
+      "title": "Bakusou Kyoudai Let's & Go!!",
+      "genres": [
+        "กีฬา (รถแข่งของเล่น)",
+        "ตลก"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "banana fish": {
+      "title": "Banana Fish",
+      "genres": [
+        "แอ็กชัน",
+        "อาชญากรรม",
+        "ดราม่า"
+      ],
+      "providers": [
+        "prime"
+      ]
+    },
+    "beck: mongolian chop squad": {
+      "title": "Beck: Mongolian Chop Squad",
+      "genres": [
+        "ดนตรี",
+        "ดราม่า",
+        "วัยรุ่น"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "beelzebub": {
+      "title": "Beelzebub",
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "berserk": {
+      "title": "Berserk",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "สยองขวัญ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "beyblade": {
+      "title": "Beyblade",
+      "genres": [
+        "กีฬา (ลูกข่าง)",
+        "แอ็กชัน",
+        "ของเล่น"
+      ],
+      "providers": [
+        "trueid",
+        "youtube"
+      ]
+    },
+    "black butler": {
+      "title": "Black Butler",
+      "genres": [
+        "ลึกลับ",
+        "แฟนตาซี",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "black clover": {
+      "title": "Black Clover",
+      "genres": [
+        "แอ็กชัน",
+        "เวทมนตร์",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "black lagoon": {
+      "title": "Black Lagoon",
+      "genres": [
+        "แอ็กชัน",
+        "อาชญากรรม",
+        "มาเฟีย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "bleach": {
+      "title": "Bleach",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "anione"
+      ]
+    },
+    "bleach: thousand-year blood war": {
+      "title": "Bleach: Thousand-Year Blood War",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "blood blockade battlefront": {
+      "title": "Blood Blockade Battlefront",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili",
+        "netflix"
+      ]
+    },
+    "blue exorcist": {
+      "title": "Blue Exorcist",
+      "genres": [
+        "แอ็กชัน",
+        "ปีศาจ",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "blue lock": {
+      "title": "Blue Lock",
+      "genres": [
+        "กีฬา (ฟุตบอล)",
+        "จิตวิทยา",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "bocchi the rock!": {
+      "title": "Bocchi the Rock!",
+      "genres": [
+        "ดนตรี",
+        "ตลก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "boruto: naruto next generations": {
+      "title": "Boruto: Naruto Next Generations",
+      "genres": [
+        "แอ็กชัน",
+        "นินจา",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "bungou stray dogs": {
+      "title": "Bungou Stray Dogs",
+      "genres": [
+        "แอ็กชัน",
+        "ลึกลับ",
+        "พลังพิเศษ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "call of the night": {
+      "title": "Call of the Night",
+      "genres": [
+        "โรแมนติก",
+        "เหนือธรรมชาติ",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "captain tsubasa": {
+      "title": "Captain Tsubasa",
+      "genres": [
+        "กีฬา (ฟุตบอล)",
+        "สร้างแรงบันดาลใจ"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "cardcaptor sakura": {
+      "title": "Cardcaptor Sakura",
+      "genres": [
+        "เวทมนตร์",
+        "โรแมนติก",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "cardfight!! vanguard: asia circuit": {
+      "title": "Cardfight!! Vanguard: Asia Circuit",
+      "genres": [
+        "การ์ดเกม",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "youtube"
+      ]
+    },
+    "cardfight!! vanguard divinez": {
+      "title": "Cardfight!! Vanguard Divinez",
+      "genres": [
+        "การ์ดเกม",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "youtube"
+      ]
+    },
+    "cardfight!! vanguard g: girs crisis": {
+      "title": "Cardfight!! Vanguard G: GIRS Crisis",
+      "genres": [
+        "การ์ดเกม",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "youtube"
+      ]
+    },
+    "cardfight!! vanguard g: stride gate": {
+      "title": "Cardfight!! Vanguard G: Stride Gate",
+      "genres": [
+        "การ์ดเกม",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "youtube"
+      ]
+    },
+    "cardfight!! vanguard: shinemon": {
+      "title": "Cardfight!! Vanguard: Shinemon",
+      "genres": [
+        "การ์ดเกม",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "youtube"
+      ]
+    },
+    "carole & tuesday": {
+      "title": "Carole & Tuesday",
+      "genres": [
+        "ดนตรี",
+        "ไซไฟ",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "chainsaw man": {
+      "title": "Chainsaw Man",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "prime",
+        "anione"
+      ]
+    },
+    "charlotte": {
+      "title": "Charlotte",
+      "genres": [
+        "พลังพิเศษ",
+        "ดราม่า",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "chihayafuru": {
+      "title": "Chihayafuru",
+      "genres": [
+        "กีฬา (คารุตะ)",
+        "โรแมนติก",
+        "ดราม่า"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "chivalry of a failed knight": {
+      "title": "Chivalry of a Failed Knight",
+      "genres": [
+        "แอ็กชัน",
+        "โรงเรียน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "city hunter": {
+      "title": "City Hunter",
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "สืบสวน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "clannad": {
+      "title": "Clannad",
+      "genres": [
+        "ดราม่า",
+        "โรแมนติก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "clannad: after story": {
+      "title": "Clannad: After Story",
+      "genres": [
+        "ดราม่า",
+        "โรแมนติก",
+        "ชีวิตครอบครัว"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "claymore": {
+      "title": "Claymore",
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "code geass": {
+      "title": "Code Geass",
+      "genres": [
+        "แอ็กชัน",
+        "เมก้า",
+        "การเมือง",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "code geass r2": {
+      "title": "Code Geass R2",
+      "genres": [
+        "แอ็กชัน",
+        "เมก้า",
+        "การเมือง",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "coppelion": {
+      "title": "Coppelion",
+      "genres": [
+        "ไซไฟ",
+        "แอ็กชัน",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "cowboy bebop": {
+      "title": "Cowboy Bebop",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "อวกาศ",
+        "อาชญากรรม"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "crayon shin-chan": {
+      "title": "Crayon Shin-chan",
+      "genres": [
+        "ตลก",
+        "ครอบครัว",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "pops",
+        "trueid",
+        "flixer"
+      ]
+    },
+    "crush gear turbo": {
+      "title": "Crush Gear Turbo",
+      "genres": [
+        "กีฬา (รถแข่ง)",
+        "แอ็กชัน"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "cyberpunk: edgerunners": {
+      "title": "Cyberpunk: Edgerunners",
+      "genres": [
+        "ไซไฟ",
+        "แอ็กชัน",
+        "ไซเบอร์พังก์"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "dandadan": {
+      "title": "Dandadan",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ตลก",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "crunchyroll"
+      ]
+    },
+    "danganronpa: the animation": {
+      "title": "Danganronpa: The Animation",
+      "genres": [
+        "สืบสวน",
+        "จิตวิทยา",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "bilibili",
+        "muse"
+      ]
+    },
+    "darker than black": {
+      "title": "Darker than Black",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "ลึกลับ"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "darling in the franxx": {
+      "title": "Darling in the Franxx",
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "โรแมนติก",
+        "ดราม่า"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "date a live": {
+      "title": "Date A Live",
+      "genres": [
+        "ฮาเร็ม",
+        "ไซไฟ",
+        "โรแมนติก",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "date a live ii": {
+      "title": "Date A Live II",
+      "genres": [
+        "ฮาเร็ม",
+        "ไซไฟ",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "date a live iii": {
+      "title": "Date A Live III",
+      "genres": [
+        "ฮาเร็ม",
+        "ไซไฟ",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "date a live iv": {
+      "title": "Date A Live IV",
+      "genres": [
+        "ฮาเร็ม",
+        "ไซไฟ",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "deadman wonderland": {
+      "title": "Deadman Wonderland",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "สยองขวัญ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "death note": {
+      "title": "Death Note",
+      "genres": [
+        "จิตวิทยา",
+        "สืบสวน",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "death parade": {
+      "title": "Death Parade",
+      "genres": [
+        "จิตวิทยา",
+        "ปรัชญา",
+        "เกม"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "deca-dence": {
+      "title": "Deca-Dence",
+      "genres": [
+        "ไซไฟ",
+        "แอ็กชัน",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "delicious in dungeon": {
+      "title": "Delicious in Dungeon",
+      "genres": [
+        "แฟนตาซี",
+        "ทำอาหาร",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "demon slayer": {
+      "title": "Demon Slayer",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "prime",
+        "viu"
+      ]
+    },
+    "demon slayer: entertainment district arc": {
+      "title": "Demon Slayer: Entertainment District Arc",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "demon slayer: swordsmith village arc": {
+      "title": "Demon Slayer: Swordsmith Village Arc",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "detective conan": {
+      "title": "Detective Conan",
+      "genres": [
+        "สืบสวน",
+        "ลึกลับ",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "viu"
+      ]
+    },
+    "detective conan: black iron submarine": {
+      "title": "Detective Conan: Black Iron Submarine",
+      "genres": [
+        "สืบสวน",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "prime"
+      ]
+    },
+    "devilman crybaby": {
+      "title": "Devilman Crybaby",
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "สยองขวัญ",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "d.gray-man": {
+      "title": "D.Gray-man",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ปีศาจ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "digimon adventure": {
+      "title": "Digimon Adventure",
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "สัตว์ประหลาด"
+      ],
+      "providers": [
+        "iqiyi",
+        "bilibili"
+      ]
+    },
+    "digimon adventure 02": {
+      "title": "Digimon Adventure 02",
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "digimon frontier": {
+      "title": "Digimon Frontier",
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "digimon tamers": {
+      "title": "Digimon Tamers",
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "doraemon": {
+      "title": "Doraemon",
+      "genres": [
+        "ตลก",
+        "ไซไฟ",
+        "ครอบครัว"
+      ],
+      "providers": [
+        "pops",
+        "trueid",
+        "youtube"
+      ]
+    },
+    "dorohedoro": {
+      "title": "Dorohedoro",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "ตลกตลกร้าย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "dragon ball gt": {
+      "title": "Dragon Ball GT",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "iqiyi",
+        "bilibili"
+      ]
+    },
+    "dragon ball super": {
+      "title": "Dragon Ball Super",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "iqiyi",
+        "bilibili"
+      ]
+    },
+    "dragon ball z": {
+      "title": "Dragon Ball Z",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "drifters": {
+      "title": "Drifters",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "dr. stone": {
+      "title": "Dr. Stone",
+      "genres": [
+        "ไซไฟ",
+        "เอาชีวิตรอด",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "durarara!!": {
+      "title": "Durarara!!",
+      "genres": [
+        "แอ็กชัน",
+        "ลึกลับ",
+        "ชีวิตในเมือง"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "edens zero": {
+      "title": "Edens Zero",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "elfen lied": {
+      "title": "Elfen Lied",
+      "genres": [
+        "สยองขวัญ",
+        "จิตวิทยา",
+        "ดาร์กแฟนตาซี"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "erased": {
+      "title": "Erased",
+      "genres": [
+        "ลึกลับ",
+        "จิตวิทยา",
+        "ไซไฟ (ย้อนเวลา)"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "evangelion: 3.0+1.0 thrice upon a time": {
+      "title": "Evangelion: 3.0+1.0 Thrice Upon a Time",
+      "genres": [
+        "เมก้า",
+        "จิตวิทยา",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "prime"
+      ]
+    },
+    "fairy tail": {
+      "title": "Fairy Tail",
+      "genres": [
+        "แอ็กชัน",
+        "เวทมนตร์",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "muse"
+      ]
+    },
+    "fairy tail (series 2)": {
+      "title": "Fairy Tail (Series 2)",
+      "genres": [
+        "แอ็กชัน",
+        "เวทมนตร์",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "fate/apocrypha": {
+      "title": "Fate/Apocrypha",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "fate/grand order - babylonia": {
+      "title": "Fate/Grand Order - Babylonia",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "fate/stay night (2006)": {
+      "title": "Fate/stay night (2006)",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "โรแมนติก"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "fate/stay night: heaven's feel": {
+      "title": "Fate/stay night: Heaven's Feel",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "fate/stay night: unlimited blade works": {
+      "title": "Fate/stay night: Unlimited Blade Works",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "bilibili",
+        "netflix"
+      ]
+    },
+    "fate/zero": {
+      "title": "Fate/Zero",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "bilibili",
+        "netflix"
+      ]
+    },
+    "fire force": {
+      "title": "Fire Force",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili",
+        "muse"
+      ]
+    },
+    "fist of the north star": {
+      "title": "Fist of the North Star",
+      "genres": [
+        "แอ็กชัน",
+        "ศิลปะการต่อสู้",
+        "โพสต์อะพอคคาลิปส์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "food wars!": {
+      "title": "Food Wars!",
+      "genres": [
+        "ทำอาหาร",
+        "ตลก",
+        "ฮาเร็มแฝง"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "free!": {
+      "title": "Free!",
+      "genres": [
+        "กีฬา (ว่ายน้ำ)",
+        "ชีวิตประจำวัน",
+        "มิตรภาพ"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "frieren: beyond journey's end": {
+      "title": "Frieren: Beyond Journey's End",
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "muse"
+      ]
+    },
+    "fruit basket": {
+      "title": "Fruit Basket",
+      "genres": [
+        "โรแมนติก",
+        "ดราม่า",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "fullmetal alchemist: brotherhood": {
+      "title": "Fullmetal Alchemist: Brotherhood",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "future diary": {
+      "title": "Future Diary",
+      "genres": [
+        "จิตวิทยา",
+        "เอาชีวิตรอด",
+        "ระทึกขวัญ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "galaxy express 999": {
+      "title": "Galaxy Express 999",
+      "genres": [
+        "ไซไฟ",
+        "ผจญภัย",
+        "อวกาศ"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "gantz": {
+      "title": "Gantz",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "สยองขวัญ"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "ghost in the shell": {
+      "title": "Ghost in the Shell",
+      "genres": [
+        "ไซไฟ",
+        "ไซเบอร์พังก์",
+        "ปรัชญา"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์ • เช่าผ่าน Apple TV"
+    },
+    "ghost in the shell: stand alone complex": {
+      "title": "Ghost in the Shell: Stand Alone Complex",
+      "genres": [
+        "ไซไฟ",
+        "ไซเบอร์พังก์",
+        "สืบสวน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "gintama": {
+      "title": "Gintama",
+      "genres": [
+        "ตลก",
+        "แอ็กชัน",
+        "ซามูไร"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "gintama 2": {
+      "title": "Gintama 2",
+      "genres": [
+        "ตลก",
+        "แอ็กชัน",
+        "ซามูไร"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "girls und panzer": {
+      "title": "Girls und Panzer",
+      "genres": [
+        "กีฬา (รถถัง)",
+        "โรงเรียน",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "girls und panzer das finale": {
+      "title": "Girls und Panzer das Finale",
+      "genres": [
+        "กีฬา (รถถัง)",
+        "ตลก"
+      ],
+      "providers": [
+        "flixer",
+        "bilibili"
+      ]
+    },
+    "given": {
+      "title": "Given",
+      "genres": [
+        "ดนตรี",
+        "ดราม่า",
+        "บอยเลิฟ (BL)"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "goblin slayer ii": {
+      "title": "Goblin Slayer II",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "golden kamuy": {
+      "title": "Golden Kamuy",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "bilibili",
+        "prime"
+      ]
+    },
+    "great pretender": {
+      "title": "Great Pretender",
+      "genres": [
+        "แอ็กชัน",
+        "อาชญากรรม (ต้มตุ๋น)",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "great teacher onizuka": {
+      "title": "Great Teacher Onizuka",
+      "genres": [
+        "ตลก",
+        "โรงเรียน",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "guilty crown": {
+      "title": "Guilty Crown",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "gundam wing": {
+      "title": "Gundam Wing",
+      "genres": [
+        "เมก้า",
+        "แอ็กชัน",
+        "การเมือง"
+      ],
+      "providers": [
+        "flixer",
+        "gundaminfo"
+      ]
+    },
+    "gurren lagann": {
+      "title": "Gurren Lagann",
+      "genres": [
+        "แอ็กชัน",
+        "เมก้า",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "gyakkyou burai kaiji: ultimate survivor": {
+      "title": "Gyakkyou Burai Kaiji: Ultimate Survivor",
+      "genres": [
+        "จิตวิทยา",
+        "ระทึกขวัญ",
+        "เกมเดิมพัน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "haikyuu!!": {
+      "title": "Haikyuu!!",
+      "genres": [
+        "กีฬา (วอลเลย์บอล)",
+        "สร้างแรงบันดาลใจ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "prime"
+      ]
+    },
+    "haikyuu!! second season": {
+      "title": "Haikyuu!! Second Season",
+      "genres": [
+        "กีฬา (วอลเลย์บอล)"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "haruhi suzumiya": {
+      "title": "Haruhi Suzumiya",
+      "genres": [
+        "ตลก",
+        "ไซไฟ",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "hellsing": {
+      "title": "Hellsing",
+      "genres": [
+        "แอ็กชัน",
+        "สยองขวัญ",
+        "แวมไพร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "hellsing ultimate": {
+      "title": "Hellsing Ultimate",
+      "genres": [
+        "แอ็กชัน",
+        "สยองขวัญ",
+        "แวมไพร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "hell's paradise": {
+      "title": "Hell's Paradise",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "netflix",
+        "prime"
+      ]
+    },
+    "high school dxd": {
+      "title": "High School DxD",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ฮาเร็ม",
+        "เอคโค่"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "high school fleet": {
+      "title": "High School Fleet",
+      "genres": [
+        "โรงเรียน",
+        "กองทัพเรือ",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "highschool of the dead": {
+      "title": "Highschool of the Dead",
+      "genres": [
+        "เอาชีวิตรอด",
+        "สยองขวัญ (ซอมบี้)",
+        "เอคโค่"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "high school prodigies have it easy even in another world": {
+      "title": "High School Prodigies Have It Easy Even In Another World",
+      "genres": [
+        "ต่างโลก",
+        "แฟนตาซี",
+        "การเมือง"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "himouto! umaru-chan": {
+      "title": "Himouto! Umaru-chan",
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "himouto! umaru-chan r": {
+      "title": "Himouto! Umaru-chan R",
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "horimiya": {
+      "title": "Horimiya",
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ]
+    },
+    "how a realist hero rebuilt the kingdom": {
+      "title": "How a Realist Hero Rebuilt the Kingdom",
+      "genres": [
+        "ต่างโลก",
+        "การบริหาร",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "hundred": {
+      "title": "Hundred",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "ฮาเร็ม"
+      ],
+      "providers": [
+        "crunchyroll"
+      ]
+    },
+    "hunter x hunter": {
+      "title": "Hunter x Hunter",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "hyouka": {
+      "title": "Hyouka",
+      "genres": [
+        "สืบสวน",
+        "โรงเรียน",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili",
+        "muse"
+      ]
+    },
+    "i'm quitting heroing": {
+      "title": "I'm Quitting Heroing",
+      "genres": [
+        "แฟนตาซี",
+        "ตลก",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "in another world with my smartphone season 2": {
+      "title": "In Another World With My Smartphone Season 2",
+      "genres": [
+        "ต่างโลก",
+        "ฮาเร็ม",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "inazuma eleven": {
+      "title": "Inazuma Eleven",
+      "genres": [
+        "กีฬา (ฟุตบอล)",
+        "พลังพิเศษ"
+      ],
+      "providers": [
+        "trueid"
+      ]
+    },
+    "inuyasha": {
+      "title": "Inuyasha",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ผจญภัย",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "inuyasha: the final act": {
+      "title": "Inuyasha: The Final Act",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "is it wrong to try to pick up girls in a dungeon? ii": {
+      "title": "Is It Wrong to Try to Pick Up Girls in a Dungeon? II",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "jojo: diamond is unbreakable": {
+      "title": "JoJo: Diamond is Unbreakable",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "สืบสวน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "jojo: golden wind": {
+      "title": "JoJo: Golden Wind",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "มาเฟีย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "jojo's bizarre adventure": {
+      "title": "JoJo's Bizarre Adventure",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "jojo: stardust crusaders": {
+      "title": "JoJo: Stardust Crusaders",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "jojo: stone ocean": {
+      "title": "JoJo: Stone Ocean",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "jujutsu kaisen": {
+      "title": "Jujutsu Kaisen",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "trueid",
+        "anione"
+      ]
+    },
+    "kabaneri of the iron fortress": {
+      "title": "Kabaneri of the Iron Fortress",
+      "genres": [
+        "แอ็กชัน",
+        "เอาชีวิตรอด (ซอมบี้)",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "prime",
+        "bilibili"
+      ]
+    },
+    "kaguya-sama: love is war": {
+      "title": "Kaguya-sama: Love is War",
+      "genres": [
+        "ตลก",
+        "โรแมนติก",
+        "จิตวิทยา"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "kaiju no. 8": {
+      "title": "Kaiju No. 8",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "สัตว์ประหลาด"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ]
+    },
+    "kakegurui": {
+      "title": "Kakegurui",
+      "genres": [
+        "เกมเดิมพัน",
+        "จิตวิทยา",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "kantai collection: kancolle": {
+      "title": "Kantai Collection: KanColle",
+      "genres": [
+        "แอ็กชัน",
+        "กองทัพเรือ",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "katekyo hitman reborn!": {
+      "title": "Katekyo Hitman Reborn!",
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "มาเฟีย"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "kids on the slope": {
+      "title": "Kids on the Slope",
+      "genres": [
+        "ดนตรี (แจ๊ส)",
+        "ดราม่า",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "kill la kill": {
+      "title": "Kill la Kill",
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "kimi ni todoke": {
+      "title": "Kimi ni Todoke",
+      "genres": [
+        "โรแมนติก",
+        "ชีวิตประจำวัน",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "kinnikuman": {
+      "title": "Kinnikuman",
+      "genres": [
+        "แอ็กชัน",
+        "กีฬา (มวยปล้ำ)",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "kiznaiver": {
+      "title": "Kiznaiver",
+      "genres": [
+        "ดราม่า",
+        "ไซไฟ",
+        "จิตวิทยา"
+      ],
+      "providers": [
+        "crunchyroll"
+      ]
+    },
+    "k-on!": {
+      "title": "K-On!",
+      "genres": [
+        "ดนตรี",
+        "ชีวิตประจำวัน",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "konosuba": {
+      "title": "KonoSuba",
+      "genres": [
+        "ตลก",
+        "ต่างโลก",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "kuroko's basketball": {
+      "title": "Kuroko's Basketball",
+      "genres": [
+        "กีฬา (บาสเกตบอล)",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "log horizon": {
+      "title": "Log Horizon",
+      "genres": [
+        "ต่างโลก (เกม)",
+        "ผจญภัย",
+        "การเมือง"
+      ],
+      "providers": [
+        "bilibili",
+        "crunchyroll"
+      ]
+    },
+    "love live! school idol project": {
+      "title": "Love Live! School Idol Project",
+      "genres": [
+        "ไอดอล",
+        "ดนตรี",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "lucky star": {
+      "title": "Lucky Star",
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน",
+        "ล้อเลียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "lupin iii": {
+      "title": "Lupin III",
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "อาชญากรรม (จอมโจร)"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "lycoris recoil": {
+      "title": "Lycoris Recoil",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "macross delta": {
+      "title": "Macross Delta",
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "ดนตรี"
+      ],
+      "providers": [
+        "disney"
+      ]
+    },
+    "macross frontier": {
+      "title": "Macross Frontier",
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "ดนตรี"
+      ],
+      "providers": [
+        "disney"
+      ]
+    },
+    "madan no ou to vanadis": {
+      "title": "Madan no Ou to Vanadis",
+      "genres": [
+        "แฟนตาซี",
+        "แอ็กชัน",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "made in abyss": {
+      "title": "Made in Abyss",
+      "genres": [
+        "ผจญภัย",
+        "ดาร์กแฟนตาซี",
+        "ลึกลับ"
+      ],
+      "providers": [
+        "bilibili",
+        "muse"
+      ]
+    },
+    "magic knight rayearth": {
+      "title": "Magic Knight Rayearth",
+      "genres": [
+        "แฟนตาซี",
+        "เมก้า",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "flixer"
+      ]
+    },
+    "magi: the labyrinth of magic": {
+      "title": "Magi: The Labyrinth of Magic",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "maoyu: archenemy & hero": {
+      "title": "Maoyu: Archenemy & Hero",
+      "genres": [
+        "แฟนตาซี",
+        "เศรษฐศาสตร์",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "maruko-chan": {
+      "title": "Maruko-chan",
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน",
+        "ครอบครัว"
+      ],
+      "providers": [
+        "trueid",
+        "youtube"
+      ]
+    },
+    "masamune-kun's revenge": {
+      "title": "Masamune-kun's Revenge",
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ฮาเร็ม"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "masamune-kun's revenge r": {
+      "title": "Masamune-kun's Revenge R",
+      "genres": [
+        "โรแมนติก",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili",
+        "crunchyroll"
+      ]
+    },
+    "mashle season 2": {
+      "title": "Mashle season 2",
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "prime"
+      ]
+    },
+    "mobile suit gundam 00": {
+      "title": "Mobile Suit Gundam 00",
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "การเมือง",
+        "สงคราม"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ]
+    },
+    "mobile suit gundam: iron-blooded orphans": {
+      "title": "Mobile Suit Gundam: Iron-Blooded Orphans",
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "ดราม่า",
+        "สงคราม"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ]
+    },
+    "mobile suit gundam seed": {
+      "title": "Mobile Suit Gundam SEED",
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "โรแมนติก",
+        "สงคราม"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ]
+    },
+    "mobile suit gundam: the witch from mercury": {
+      "title": "Mobile Suit Gundam: The Witch from Mercury",
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ]
+    },
+    "mob psycho 100": {
+      "title": "Mob Psycho 100",
+      "genres": [
+        "แอ็กชัน",
+        "พลังจิต",
+        "ตลก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ]
+    },
+    "mob psycho 100 ii": {
+      "title": "Mob Psycho 100 II",
+      "genres": [
+        "แอ็กชัน",
+        "พลังจิต",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ]
+    },
+    "monster": {
+      "title": "Monster",
+      "genres": [
+        "จิตวิทยา",
+        "สืบสวน",
+        "ระทึกขวัญ"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "motto to love-ru": {
+      "title": "Motto To LOVE-Ru",
+      "genres": [
+        "ตลก",
+        "ฮาเร็ม",
+        "ไซไฟ",
+        "เอคโค่"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "mushoku tensei: jobless reincarnation": {
+      "title": "Mushoku Tensei: Jobless Reincarnation",
+      "genres": [
+        "ต่างโลก",
+        "ผจญภัย",
+        "ดราม่า",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "mushoku tensei season 2": {
+      "title": "Mushoku Tensei Season 2",
+      "genres": [
+        "ต่างโลก",
+        "แฟนตาซี",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "my hero academia": {
+      "title": "My Hero Academia",
+      "genres": [
+        "แอ็กชัน",
+        "ซูเปอร์ฮีโร่",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "trueid"
+      ]
+    },
+    "my teen romantic comedy snafu": {
+      "title": "My Teen Romantic Comedy SNAFU",
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ดราม่า"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "nana": {
+      "title": "NANA",
+      "genres": [
+        "ดนตรี",
+        "โรแมนติก",
+        "ดราม่าชีวิต"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "naruto": {
+      "title": "Naruto",
+      "genres": [
+        "แอ็กชัน",
+        "นินจา",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "naruto: shippuden": {
+      "title": "Naruto: Shippuden",
+      "genres": [
+        "แอ็กชัน",
+        "นินจา",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "neon genesis evangelion": {
+      "title": "Neon Genesis Evangelion",
+      "genres": [
+        "เมก้า",
+        "จิตวิทยา",
+        "ไซไฟ",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "nichijou": {
+      "title": "Nichijou",
+      "genres": [
+        "ตลกขบขัน",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "nisekoi": {
+      "title": "Nisekoi",
+      "genres": [
+        "ฮาเร็ม",
+        "โรแมนติก",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "nodame cantabile": {
+      "title": "Nodame Cantabile",
+      "genres": [
+        "ดนตรี (คลาสสิก)",
+        "โรแมนติก",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "no game no life": {
+      "title": "No Game No Life",
+      "genres": [
+        "ต่างโลก",
+        "เกม",
+        "แฟนตาซี",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "no game no life: zero": {
+      "title": "No Game No Life: Zero",
+      "genres": [
+        "ดราม่า",
+        "แฟนตาซี",
+        "สงคราม"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "noragami": {
+      "title": "Noragami",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "noragami aragoto": {
+      "title": "Noragami Aragoto",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "nyan koi!": {
+      "title": "Nyan Koi!",
+      "genres": [
+        "ตลก",
+        "ฮาเร็ม",
+        "โรแมนติก"
+      ],
+      "providers": [],
+      "note": "ขาดสตรีมมิ่งในไทยปัจจุบัน"
+    },
+    "ojamajo doremi": {
+      "title": "Ojamajo Doremi",
+      "genres": [
+        "สาวน้อยเวทมนตร์",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "trueid"
+      ]
+    },
+    "one piece": {
+      "title": "One Piece",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "viu",
+        "trueid"
+      ]
+    },
+    "one punch man": {
+      "title": "One Punch Man",
+      "genres": [
+        "แอ็กชัน",
+        "ซูเปอร์ฮีโร่",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "oshi no ko": {
+      "title": "Oshi no Ko",
+      "genres": [
+        "วงการบันเทิง",
+        "ไอดอล",
+        "ดราม่า",
+        "สืบสวน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "ouran high school host club": {
+      "title": "Ouran High School Host Club",
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ฮาเร็ม (Reverse)"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "overlord": {
+      "title": "Overlord",
+      "genres": [
+        "ต่างโลก (เกม)",
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "anione"
+      ]
+    },
+    "overlord ii": {
+      "title": "Overlord II",
+      "genres": [
+        "ต่างโลก",
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "anione"
+      ]
+    },
+    "overlord iii": {
+      "title": "Overlord III",
+      "genres": [
+        "ต่างโลก",
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "anione"
+      ]
+    },
+    "parasyte: the maxim": {
+      "title": "Parasyte: The Maxim",
+      "genres": [
+        "ไซไฟ",
+        "สยองขวัญ",
+        "จิตวิทยา",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "plastic memories": {
+      "title": "Plastic Memories",
+      "genres": [
+        "ไซไฟ",
+        "โรแมนติก",
+        "ดราม่า"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "pokémon": {
+      "title": "Pokémon",
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "กีฬา (โปเกมอน)"
+      ],
+      "providers": [
+        "netflix",
+        "trueid",
+        "prime",
+        "youtube"
+      ]
+    },
+    "pokémon: advanced generation": {
+      "title": "Pokémon: Advanced Generation",
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "trueid"
+      ]
+    },
+    "psycho-pass": {
+      "title": "Psycho-Pass",
+      "genres": [
+        "ไซไฟ",
+        "ไซเบอร์พังก์",
+        "สืบสวนอาชญากรรม"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "qualidea code": {
+      "title": "Qualidea Code",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "พลังพิเศษ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "ranking of kings": {
+      "title": "Ranking of Kings",
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "prime"
+      ]
+    },
+    "ranma 1/2": {
+      "title": "Ranma 1/2",
+      "genres": [
+        "ตลก",
+        "ศิลปะการต่อสู้",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "rascal does not dream of bunny girl senpai": {
+      "title": "Rascal Does Not Dream of Bunny Girl Senpai",
+      "genres": [
+        "โรแมนติก",
+        "เหนือธรรมชาติ",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ]
+    },
+    "re:creators": {
+      "title": "Re:CREATORS",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "เมก้า"
+      ],
+      "providers": [
+        "prime"
+      ]
+    },
+    "redo of healer": {
+      "title": "Redo of Healer",
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "ล้างแค้น",
+        "เอคโค่"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "rent-a-girlfriend": {
+      "title": "Rent-a-Girlfriend",
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ฮาเร็ม"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "re:zero": {
+      "title": "Re:Zero",
+      "genres": [
+        "ต่างโลก",
+        "ดาร์กแฟนตาซี",
+        "จิตวิทยา (ย้อนเวลา)"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse",
+        "anione"
+      ]
+    },
+    "rurouni kenshin": {
+      "title": "Rurouni Kenshin",
+      "genres": [
+        "แอ็กชัน",
+        "ซามูไร",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "prime"
+      ]
+    },
+    "saga of tanya the evil": {
+      "title": "Saga of Tanya the Evil",
+      "genres": [
+        "แอ็กชัน",
+        "สงคราม",
+        "ต่างโลก"
+      ],
+      "providers": [
+        "bilibili",
+        "muse",
+        "crunchyroll"
+      ]
+    },
+    "sailor moon": {
+      "title": "Sailor Moon",
+      "genres": [
+        "สาวน้อยเวทมนตร์",
+        "โรแมนติก"
+      ],
+      "providers": []
+    },
+    "saint seiya": {
+      "title": "Saint Seiya",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ตำนานเทพ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "sankarea": {
+      "title": "Sankarea",
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ซอมบี้"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "seraph of the end: battle in nagoya": {
+      "title": "Seraph of the End: Battle in Nagoya",
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "แวมไพร์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "seton academy: join the pack!": {
+      "title": "Seton Academy: Join the Pack!",
+      "genres": [
+        "ตลก",
+        "โรงเรียน",
+        "สัตว์ประหลาด"
+      ],
+      "providers": [
+        "crunchyroll"
+      ]
+    },
+    "seven knights revolution: hero successor": {
+      "title": "Seven Knights Revolution: Hero Successor",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "crunchyroll"
+      ]
+    },
+    "shaman king": {
+      "title": "Shaman King",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "shaman king (2021)": {
+      "title": "Shaman King (2021)",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "shangri-la frontier": {
+      "title": "Shangri-La Frontier",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "เกม VR"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "sket dance": {
+      "title": "Sket Dance",
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "slam dunk": {
+      "title": "Slam Dunk",
+      "genres": [
+        "กีฬา (บาสเกตบอล)",
+        "ตลก",
+        "วัยรุ่น"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ]
+    },
+    "so i'm a spider, so what?": {
+      "title": "So I'm a Spider, So What?",
+      "genres": [
+        "ต่างโลก",
+        "แอ็กชัน",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "solo leveling": {
+      "title": "Solo Leveling",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ]
+    },
+    "soul eater": {
+      "title": "Soul Eater",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "space battleship yamato": {
+      "title": "Space Battleship Yamato",
+      "genres": [
+        "ไซไฟ",
+        "อวกาศ",
+        "แอ็กชัน"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "spice and wolf": {
+      "title": "Spice and Wolf",
+      "genres": [
+        "แฟนตาซี",
+        "เศรษฐศาสตร์",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ]
+    },
+    "spy x family": {
+      "title": "Spy x Family",
+      "genres": [
+        "ตลก",
+        "แอ็กชัน",
+        "สายลับ",
+        "ครอบครัว"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "muse"
+      ]
+    },
+    "steins;gate": {
+      "title": "Steins;Gate",
+      "genres": [
+        "ไซไฟ (ข้ามเวลา)",
+        "จิตวิทยา",
+        "ทริลเลอร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "steins;gate 0": {
+      "title": "Steins;Gate 0",
+      "genres": [
+        "ไซไฟ",
+        "จิตวิทยา",
+        "ทริลเลอร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "summer time rendering": {
+      "title": "Summer Time Rendering",
+      "genres": [
+        "ลึกลับ",
+        "เหนือธรรมชาติ",
+        "ไซไฟ (วนลูป)"
+      ],
+      "providers": [
+        "disney"
+      ]
+    },
+    "suzume": {
+      "title": "Suzume",
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "sword art online": {
+      "title": "Sword Art Online",
+      "genres": [
+        "แอ็กชัน",
+        "เกม VR",
+        "ไซไฟ",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "flixer"
+      ]
+    },
+    "sword art online: alicization": {
+      "title": "Sword Art Online: Alicization",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "flixer"
+      ]
+    },
+    "sword art online ii": {
+      "title": "Sword Art Online II",
+      "genres": [
+        "แอ็กชัน",
+        "เกม VR",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "symphogear": {
+      "title": "Symphogear",
+      "genres": [
+        "ดนตรี",
+        "ไซไฟ",
+        "เมก้า",
+        "สาวน้อยเวทมนตร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "tengoku daimakyou": {
+      "title": "Tengoku Daimakyou",
+      "genres": [
+        "ไซไฟ",
+        "ผจญภัย",
+        "ลึกลับ",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "disney"
+      ]
+    },
+    "terra formars": {
+      "title": "Terra Formars",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "สยองขวัญ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "that time i got reincarnated as a slime": {
+      "title": "That Time I Got Reincarnated as a Slime",
+      "genres": [
+        "ต่างโลก",
+        "การสร้างเมือง",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "the apothecary diaries": {
+      "title": "The Apothecary Diaries",
+      "genres": [
+        "สืบสวน",
+        "อิงประวัติศาสตร์ (จีน)",
+        "การแพทย์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ]
+    },
+    "the eminence in shadow": {
+      "title": "The Eminence in Shadow",
+      "genres": [
+        "แอ็กชัน",
+        "ต่างโลก",
+        "ตลก (จูนิเบียว)"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "the god of high school": {
+      "title": "The God of High School",
+      "genres": [
+        "ศิลปะการต่อสู้",
+        "แอ็กชัน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ]
+    },
+    "the irregular at magic high school: visitor arc": {
+      "title": "The Irregular at Magic High School: Visitor Arc",
+      "genres": [
+        "ไซไฟ",
+        "เวทมนตร์",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ]
+    },
+    "the promised neverland": {
+      "title": "The Promised Neverland",
+      "genres": [
+        "ระทึกขวัญ",
+        "จิตวิทยา",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "the quintessential quintuplets": {
+      "title": "The Quintessential Quintuplets",
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ฮาเร็ม",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili",
+        "netflix"
+      ]
+    },
+    "the rising of the shield hero": {
+      "title": "The Rising of the Shield Hero",
+      "genres": [
+        "ต่างโลก",
+        "แอ็กชัน",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "the seven deadly sins": {
+      "title": "The Seven Deadly Sins",
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "tokyo ghoul": {
+      "title": "Tokyo Ghoul",
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "สยองขวัญ",
+        "จิตวิทยา"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "tokyo ghoul a": {
+      "title": "Tokyo Ghoul √A",
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "tokyo ghoul:re": {
+      "title": "Tokyo Ghoul:re",
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "tokyo revengers": {
+      "title": "Tokyo Revengers",
+      "genres": [
+        "แอ็กชัน",
+        "นักเลง",
+        "ไซไฟ (ย้อนเวลา)"
+      ],
+      "providers": [
+        "disney",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "tonikawa: over the moon for you": {
+      "title": "TONIKAWA: Over The Moon For You",
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "tower of god": {
+      "title": "Tower of God",
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี",
+        "ปริศนา"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "crunchyroll",
+        "anione"
+      ]
+    },
+    "to your eternity": {
+      "title": "To Your Eternity",
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ]
+    },
+    "trigun": {
+      "title": "Trigun",
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "คาวบอย"
+      ],
+      "providers": [
+        "bilibili",
+        "crunchyroll"
+      ]
+    },
+    "tsukimichi -moonlit fantasy-": {
+      "title": "TSUKIMICHI -Moonlit Fantasy-",
+      "genres": [
+        "ต่างโลก",
+        "แฟนตาซี",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "undead unluck": {
+      "title": "Undead Unluck",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ตลก"
+      ],
+      "providers": [
+        "disney"
+      ]
+    },
+    "uzaki-chan wants to hang out!": {
+      "title": "Uzaki-chan Wants to Hang Out!",
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "vinland saga": {
+      "title": "Vinland Saga",
+      "genres": [
+        "แอ็กชัน",
+        "ประวัติศาสตร์ (ไวกิ้ง)",
+        "ปรัชญา"
+      ],
+      "providers": [
+        "netflix",
+        "prime"
+      ]
+    },
+    "violet evergarden": {
+      "title": "Violet Evergarden",
+      "genres": [
+        "ดราม่า",
+        "สงคราม",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "vivy: fluorite eye's song": {
+      "title": "Vivy: Fluorite Eye's Song",
+      "genres": [
+        "ไซไฟ",
+        "ดนตรี",
+        "แอ็กชัน (ข้ามเวลา)"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "weathering with you": {
+      "title": "Weathering with You",
+      "genres": [
+        "โรแมนติก",
+        "แฟนตาซี",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "wonder egg priority": {
+      "title": "Wonder Egg Priority",
+      "genres": [
+        "จิตวิทยา",
+        "ดราม่า",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "your lie in april": {
+      "title": "Your Lie in April",
+      "genres": [
+        "ดนตรี",
+        "โรแมนติก",
+        "ดราม่า"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "your name": {
+      "title": "Your Name",
+      "genres": [
+        "โรแมนติก",
+        "แฟนตาซี",
+        "ไซไฟ (สลับร่าง)"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "yu yu hakusho": {
+      "title": "Yu Yu Hakusho",
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ปีศาจ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "zom 100: bucket list of the dead": {
+      "title": "Zom 100: Bucket List of the Dead",
+      "genres": [
+        "เอาชีวิตรอด (ซอมบี้)",
+        "ตลก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    }
+  },
+  "byBase": {
+    "86 -eighty six-": {
+      "genres": [
+        "ไซไฟ",
+        "สงคราม",
+        "ดราม่า",
+        "เมก้า"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ]
+    },
+    "absolute duo": {
+      "genres": [
+        "แอ็กชัน",
+        "โรงเรียน",
+        "ฮาเร็ม"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "a certain magical index": {
+      "genres": [
+        "แอ็กชัน",
+        "เวทมนตร์",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "a certain scientific railgun": {
+      "genres": [
+        "แอ็กชัน",
+        "พลังจิต",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "aharen": {
+      "genres": [
+        "ตลก",
+        "โรแมนติก",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "air": {
+      "genres": [
+        "ดราม่า",
+        "โรแมนติก",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "akame ga kill!": {
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "akira": {
+      "genres": [
+        "ไซไฟ",
+        "ไซเบอร์พังก์",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "akudama drive": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "อาชญากรรม"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "aldnoah.zero": {
+      "genres": [
+        "แอ็กชัน",
+        "เมก้า",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "angel beats!": {
+      "genres": [
+        "ดราม่า",
+        "เหนือธรรมชาติ",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "anohana": {
+      "genres": [
+        "ดราม่า",
+        "ชีวิตประจำวัน",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "another": {
+      "genres": [
+        "สยองขวัญ",
+        "ลึกลับ",
+        "จิตวิทยา"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "arifureta: from commonplace to world's strongest": {
+      "genres": [
+        "ต่างโลก",
+        "แอ็กชัน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "arifureta": {
+      "genres": [
+        "ต่างโลก",
+        "แอ็กชัน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "a silent voice": {
+      "genres": [
+        "ดราม่า",
+        "โรแมนติก",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "assassination classroom": {
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "assassins pride": {
+      "genres": [
+        "แฟนตาซี",
+        "แอ็กชัน",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "attack on titan": {
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "เอาชีวิตรอด",
+        "การเมือง"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "disney"
+      ]
+    },
+    "baccano!": {
+      "genres": [
+        "แอ็กชัน",
+        "ลึกลับ",
+        "มาเฟีย"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "bakemonogatari": {
+      "genres": [
+        "เหนือธรรมชาติ",
+        "จิตวิทยา",
+        "ลึกลับ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "bakuman": {
+      "genres": [
+        "ชีวิตประจำวัน",
+        "แรงบันดาลใจ",
+        "สร้างมังงะ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "bakusou kyoudai let's & go!!": {
+      "genres": [
+        "กีฬา (รถแข่งของเล่น)",
+        "ตลก"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "banana fish": {
+      "genres": [
+        "แอ็กชัน",
+        "อาชญากรรม",
+        "ดราม่า"
+      ],
+      "providers": [
+        "prime"
+      ]
+    },
+    "beck: mongolian chop squad": {
+      "genres": [
+        "ดนตรี",
+        "ดราม่า",
+        "วัยรุ่น"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "beelzebub": {
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "berserk": {
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "สยองขวัญ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "beyblade": {
+      "genres": [
+        "กีฬา (ลูกข่าง)",
+        "แอ็กชัน",
+        "ของเล่น"
+      ],
+      "providers": [
+        "trueid",
+        "youtube"
+      ]
+    },
+    "black butler": {
+      "genres": [
+        "ลึกลับ",
+        "แฟนตาซี",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "black clover": {
+      "genres": [
+        "แอ็กชัน",
+        "เวทมนตร์",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "black lagoon": {
+      "genres": [
+        "แอ็กชัน",
+        "อาชญากรรม",
+        "มาเฟีย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "bleach": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "anione"
+      ]
+    },
+    "bleach: thousand-year blood war": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "blood blockade battlefront": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili",
+        "netflix"
+      ]
+    },
+    "blue exorcist": {
+      "genres": [
+        "แอ็กชัน",
+        "ปีศาจ",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "blue lock": {
+      "genres": [
+        "กีฬา (ฟุตบอล)",
+        "จิตวิทยา",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "bocchi the rock!": {
+      "genres": [
+        "ดนตรี",
+        "ตลก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "boruto: naruto next generations": {
+      "genres": [
+        "แอ็กชัน",
+        "นินจา",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "bungou stray dogs": {
+      "genres": [
+        "แอ็กชัน",
+        "ลึกลับ",
+        "พลังพิเศษ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "call of the night": {
+      "genres": [
+        "โรแมนติก",
+        "เหนือธรรมชาติ",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "captain tsubasa": {
+      "genres": [
+        "กีฬา (ฟุตบอล)",
+        "สร้างแรงบันดาลใจ"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "cardcaptor sakura": {
+      "genres": [
+        "เวทมนตร์",
+        "โรแมนติก",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "cardfight!! vanguard: asia circuit": {
+      "genres": [
+        "การ์ดเกม",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "youtube"
+      ]
+    },
+    "cardfight!! vanguard divinez": {
+      "genres": [
+        "การ์ดเกม",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "youtube"
+      ]
+    },
+    "cardfight!! vanguard g: girs crisis": {
+      "genres": [
+        "การ์ดเกม",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "youtube"
+      ]
+    },
+    "cardfight!! vanguard g": {
+      "genres": [
+        "การ์ดเกม",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "youtube"
+      ]
+    },
+    "cardfight!! vanguard": {
+      "genres": [
+        "การ์ดเกม",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "youtube"
+      ]
+    },
+    "carole & tuesday": {
+      "genres": [
+        "ดนตรี",
+        "ไซไฟ",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "chainsaw man": {
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "prime",
+        "anione"
+      ]
+    },
+    "charlotte": {
+      "genres": [
+        "พลังพิเศษ",
+        "ดราม่า",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "chihayafuru": {
+      "genres": [
+        "กีฬา (คารุตะ)",
+        "โรแมนติก",
+        "ดราม่า"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "chivalry of a failed knight": {
+      "genres": [
+        "แอ็กชัน",
+        "โรงเรียน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "city hunter": {
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "สืบสวน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "clannad": {
+      "genres": [
+        "ดราม่า",
+        "โรแมนติก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "clannad: after story": {
+      "genres": [
+        "ดราม่า",
+        "โรแมนติก",
+        "ชีวิตครอบครัว"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "claymore": {
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "code geass": {
+      "genres": [
+        "แอ็กชัน",
+        "เมก้า",
+        "การเมือง",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "code geass r2": {
+      "genres": [
+        "แอ็กชัน",
+        "เมก้า",
+        "การเมือง",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "coppelion": {
+      "genres": [
+        "ไซไฟ",
+        "แอ็กชัน",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "cowboy bebop": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "อวกาศ",
+        "อาชญากรรม"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "crayon shin-chan": {
+      "genres": [
+        "ตลก",
+        "ครอบครัว",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "pops",
+        "trueid",
+        "flixer"
+      ]
+    },
+    "crush gear turbo": {
+      "genres": [
+        "กีฬา (รถแข่ง)",
+        "แอ็กชัน"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "cyberpunk: edgerunners": {
+      "genres": [
+        "ไซไฟ",
+        "แอ็กชัน",
+        "ไซเบอร์พังก์"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "dandadan": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ตลก",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "crunchyroll"
+      ]
+    },
+    "danganronpa: the animation": {
+      "genres": [
+        "สืบสวน",
+        "จิตวิทยา",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "bilibili",
+        "muse"
+      ]
+    },
+    "darker than black": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "ลึกลับ"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "darling in the franxx": {
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "โรแมนติก",
+        "ดราม่า"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "date a live": {
+      "genres": [
+        "ฮาเร็ม",
+        "ไซไฟ",
+        "โรแมนติก",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "date a live ii": {
+      "genres": [
+        "ฮาเร็ม",
+        "ไซไฟ",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "date a live iii": {
+      "genres": [
+        "ฮาเร็ม",
+        "ไซไฟ",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "date a live iv": {
+      "genres": [
+        "ฮาเร็ม",
+        "ไซไฟ",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "deadman wonderland": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "สยองขวัญ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "death note": {
+      "genres": [
+        "จิตวิทยา",
+        "สืบสวน",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "death parade": {
+      "genres": [
+        "จิตวิทยา",
+        "ปรัชญา",
+        "เกม"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "deca-dence": {
+      "genres": [
+        "ไซไฟ",
+        "แอ็กชัน",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "delicious in dungeon": {
+      "genres": [
+        "แฟนตาซี",
+        "ทำอาหาร",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "demon slayer": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "prime",
+        "viu"
+      ]
+    },
+    "demon slayer: entertainment district arc": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "detective conan": {
+      "genres": [
+        "สืบสวน",
+        "ลึกลับ",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "viu"
+      ]
+    },
+    "detective conan: black iron submarine": {
+      "genres": [
+        "สืบสวน",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "prime"
+      ]
+    },
+    "devilman crybaby": {
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "สยองขวัญ",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "d.gray-man": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ปีศาจ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "digimon adventure": {
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "สัตว์ประหลาด"
+      ],
+      "providers": [
+        "iqiyi",
+        "bilibili"
+      ]
+    },
+    "digimon adventure 02": {
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "digimon frontier": {
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "digimon tamers": {
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "doraemon": {
+      "genres": [
+        "ตลก",
+        "ไซไฟ",
+        "ครอบครัว"
+      ],
+      "providers": [
+        "pops",
+        "trueid",
+        "youtube"
+      ]
+    },
+    "dorohedoro": {
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "ตลกตลกร้าย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "dragon ball gt": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "iqiyi",
+        "bilibili"
+      ]
+    },
+    "dragon ball super": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "iqiyi",
+        "bilibili"
+      ]
+    },
+    "dragon ball z": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "drifters": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "dr. stone": {
+      "genres": [
+        "ไซไฟ",
+        "เอาชีวิตรอด",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "durarara!!": {
+      "genres": [
+        "แอ็กชัน",
+        "ลึกลับ",
+        "ชีวิตในเมือง"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "edens zero": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "elfen lied": {
+      "genres": [
+        "สยองขวัญ",
+        "จิตวิทยา",
+        "ดาร์กแฟนตาซี"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "erased": {
+      "genres": [
+        "ลึกลับ",
+        "จิตวิทยา",
+        "ไซไฟ (ย้อนเวลา)"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "evangelion: 3.0+1.0 thrice upon a time": {
+      "genres": [
+        "เมก้า",
+        "จิตวิทยา",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "prime"
+      ]
+    },
+    "fairy tail": {
+      "genres": [
+        "แอ็กชัน",
+        "เวทมนตร์",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "muse"
+      ]
+    },
+    "fairy tail (series 2)": {
+      "genres": [
+        "แอ็กชัน",
+        "เวทมนตร์",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "fate/apocrypha": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "fate/grand order - babylonia": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "fate": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "โรแมนติก",
+        "ดาร์กแฟนตาซี",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "bilibili",
+        "netflix"
+      ],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "fate/zero": {
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "bilibili",
+        "netflix"
+      ]
+    },
+    "fire force": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili",
+        "muse"
+      ]
+    },
+    "fist of the north star": {
+      "genres": [
+        "แอ็กชัน",
+        "ศิลปะการต่อสู้",
+        "โพสต์อะพอคคาลิปส์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "food wars!": {
+      "genres": [
+        "ทำอาหาร",
+        "ตลก",
+        "ฮาเร็มแฝง"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "free!": {
+      "genres": [
+        "กีฬา (ว่ายน้ำ)",
+        "ชีวิตประจำวัน",
+        "มิตรภาพ"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "frieren: beyond journey's end": {
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "muse"
+      ]
+    },
+    "fruit basket": {
+      "genres": [
+        "โรแมนติก",
+        "ดราม่า",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "fullmetal alchemist: brotherhood": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "future diary": {
+      "genres": [
+        "จิตวิทยา",
+        "เอาชีวิตรอด",
+        "ระทึกขวัญ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "galaxy express 999": {
+      "genres": [
+        "ไซไฟ",
+        "ผจญภัย",
+        "อวกาศ"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "gantz": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "สยองขวัญ"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "ghost in the shell": {
+      "genres": [
+        "ไซไฟ",
+        "ไซเบอร์พังก์",
+        "ปรัชญา",
+        "สืบสวน"
+      ],
+      "providers": [
+        "netflix"
+      ],
+      "note": "แผ่นลิขสิทธิ์ • เช่าผ่าน Apple TV"
+    },
+    "gintama": {
+      "genres": [
+        "ตลก",
+        "แอ็กชัน",
+        "ซามูไร"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "gintama 2": {
+      "genres": [
+        "ตลก",
+        "แอ็กชัน",
+        "ซามูไร"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "girls und panzer": {
+      "genres": [
+        "กีฬา (รถถัง)",
+        "โรงเรียน",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "girls und panzer das": {
+      "genres": [
+        "กีฬา (รถถัง)",
+        "ตลก"
+      ],
+      "providers": [
+        "flixer",
+        "bilibili"
+      ]
+    },
+    "given": {
+      "genres": [
+        "ดนตรี",
+        "ดราม่า",
+        "บอยเลิฟ (BL)"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "goblin slayer ii": {
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "golden kamuy": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "bilibili",
+        "prime"
+      ]
+    },
+    "great pretender": {
+      "genres": [
+        "แอ็กชัน",
+        "อาชญากรรม (ต้มตุ๋น)",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "great teacher onizuka": {
+      "genres": [
+        "ตลก",
+        "โรงเรียน",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "guilty crown": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "gundam wing": {
+      "genres": [
+        "เมก้า",
+        "แอ็กชัน",
+        "การเมือง"
+      ],
+      "providers": [
+        "flixer",
+        "gundaminfo"
+      ]
+    },
+    "gurren lagann": {
+      "genres": [
+        "แอ็กชัน",
+        "เมก้า",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "gyakkyou burai kaiji: ultimate survivor": {
+      "genres": [
+        "จิตวิทยา",
+        "ระทึกขวัญ",
+        "เกมเดิมพัน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "haikyuu!!": {
+      "genres": [
+        "กีฬา (วอลเลย์บอล)",
+        "สร้างแรงบันดาลใจ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "prime"
+      ]
+    },
+    "haikyuu!! second season": {
+      "genres": [
+        "กีฬา (วอลเลย์บอล)"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "haruhi suzumiya": {
+      "genres": [
+        "ตลก",
+        "ไซไฟ",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "hellsing": {
+      "genres": [
+        "แอ็กชัน",
+        "สยองขวัญ",
+        "แวมไพร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "hellsing ultimate": {
+      "genres": [
+        "แอ็กชัน",
+        "สยองขวัญ",
+        "แวมไพร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "hell's paradise": {
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "netflix",
+        "prime"
+      ]
+    },
+    "high school dxd": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ฮาเร็ม",
+        "เอคโค่"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "high school fleet": {
+      "genres": [
+        "โรงเรียน",
+        "กองทัพเรือ",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "highschool of the dead": {
+      "genres": [
+        "เอาชีวิตรอด",
+        "สยองขวัญ (ซอมบี้)",
+        "เอคโค่"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "high school prodigies have it easy even in another world": {
+      "genres": [
+        "ต่างโลก",
+        "แฟนตาซี",
+        "การเมือง"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "himouto! umaru-chan": {
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "himouto! umaru-chan r": {
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "horimiya": {
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ]
+    },
+    "how a realist hero rebuilt the kingdom": {
+      "genres": [
+        "ต่างโลก",
+        "การบริหาร",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "hundred": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "ฮาเร็ม"
+      ],
+      "providers": [
+        "crunchyroll"
+      ]
+    },
+    "hunter x hunter": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "hyouka": {
+      "genres": [
+        "สืบสวน",
+        "โรงเรียน",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili",
+        "muse"
+      ]
+    },
+    "i'm quitting heroing": {
+      "genres": [
+        "แฟนตาซี",
+        "ตลก",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "in another world with my smartphone": {
+      "genres": [
+        "ต่างโลก",
+        "ฮาเร็ม",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "inazuma eleven": {
+      "genres": [
+        "กีฬา (ฟุตบอล)",
+        "พลังพิเศษ"
+      ],
+      "providers": [
+        "trueid"
+      ]
+    },
+    "inuyasha": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ผจญภัย",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "inuyasha: the": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "is it wrong to try to pick up girls in a dungeon? ii": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "jojo: diamond is unbreakable": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "สืบสวน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "jojo: golden wind": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "มาเฟีย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "jojo's bizarre adventure": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "jojo": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ผจญภัย",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "jujutsu kaisen": {
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "trueid",
+        "anione"
+      ]
+    },
+    "kabaneri of the iron fortress": {
+      "genres": [
+        "แอ็กชัน",
+        "เอาชีวิตรอด (ซอมบี้)",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "prime",
+        "bilibili"
+      ]
+    },
+    "kaguya": {
+      "genres": [
+        "ตลก",
+        "โรแมนติก",
+        "จิตวิทยา"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "kaiju no. 8": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "สัตว์ประหลาด"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ]
+    },
+    "kakegurui": {
+      "genres": [
+        "เกมเดิมพัน",
+        "จิตวิทยา",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "kantai collection: kancolle": {
+      "genres": [
+        "แอ็กชัน",
+        "กองทัพเรือ",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "katekyo hitman reborn!": {
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "มาเฟีย"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "kids on the slope": {
+      "genres": [
+        "ดนตรี (แจ๊ส)",
+        "ดราม่า",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "kill la kill": {
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "kimi ni todoke": {
+      "genres": [
+        "โรแมนติก",
+        "ชีวิตประจำวัน",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "kinnikuman": {
+      "genres": [
+        "แอ็กชัน",
+        "กีฬา (มวยปล้ำ)",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "kiznaiver": {
+      "genres": [
+        "ดราม่า",
+        "ไซไฟ",
+        "จิตวิทยา"
+      ],
+      "providers": [
+        "crunchyroll"
+      ]
+    },
+    "k-on!": {
+      "genres": [
+        "ดนตรี",
+        "ชีวิตประจำวัน",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "konosuba": {
+      "genres": [
+        "ตลก",
+        "ต่างโลก",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "kuroko's basketball": {
+      "genres": [
+        "กีฬา (บาสเกตบอล)",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "log horizon": {
+      "genres": [
+        "ต่างโลก (เกม)",
+        "ผจญภัย",
+        "การเมือง"
+      ],
+      "providers": [
+        "bilibili",
+        "crunchyroll"
+      ]
+    },
+    "love live! school idol project": {
+      "genres": [
+        "ไอดอล",
+        "ดนตรี",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "lucky star": {
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน",
+        "ล้อเลียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "lupin iii": {
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "อาชญากรรม (จอมโจร)"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "lycoris recoil": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "macross delta": {
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "ดนตรี"
+      ],
+      "providers": [
+        "disney"
+      ]
+    },
+    "macross frontier": {
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "ดนตรี"
+      ],
+      "providers": [
+        "disney"
+      ]
+    },
+    "madan no ou to vanadis": {
+      "genres": [
+        "แฟนตาซี",
+        "แอ็กชัน",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "made in abyss": {
+      "genres": [
+        "ผจญภัย",
+        "ดาร์กแฟนตาซี",
+        "ลึกลับ"
+      ],
+      "providers": [
+        "bilibili",
+        "muse"
+      ]
+    },
+    "magic knight rayearth": {
+      "genres": [
+        "แฟนตาซี",
+        "เมก้า",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "flixer"
+      ]
+    },
+    "magi: the labyrinth of magic": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "maoyu": {
+      "genres": [
+        "แฟนตาซี",
+        "เศรษฐศาสตร์",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "maruko-chan": {
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน",
+        "ครอบครัว"
+      ],
+      "providers": [
+        "trueid",
+        "youtube"
+      ]
+    },
+    "masamune-kun's revenge": {
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ฮาเร็ม"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "masamune-kun's revenge r": {
+      "genres": [
+        "โรแมนติก",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili",
+        "crunchyroll"
+      ]
+    },
+    "mashle": {
+      "genres": [
+        "แอ็กชัน",
+        "ตลก",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "prime"
+      ]
+    },
+    "mobile suit gundam 00": {
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "การเมือง",
+        "สงคราม"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ]
+    },
+    "mobile suit gundam: iron-blooded orphans": {
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "ดราม่า",
+        "สงคราม"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ]
+    },
+    "mobile suit gundam seed": {
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "โรแมนติก",
+        "สงคราม"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ]
+    },
+    "mobile suit gundam: the witch from mercury": {
+      "genres": [
+        "เมก้า",
+        "ไซไฟ",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ]
+    },
+    "mob psycho 100": {
+      "genres": [
+        "แอ็กชัน",
+        "พลังจิต",
+        "ตลก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ]
+    },
+    "mob psycho 100 ii": {
+      "genres": [
+        "แอ็กชัน",
+        "พลังจิต",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ]
+    },
+    "monster": {
+      "genres": [
+        "จิตวิทยา",
+        "สืบสวน",
+        "ระทึกขวัญ"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "motto to love-ru": {
+      "genres": [
+        "ตลก",
+        "ฮาเร็ม",
+        "ไซไฟ",
+        "เอคโค่"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "mushoku tensei: jobless reincarnation": {
+      "genres": [
+        "ต่างโลก",
+        "ผจญภัย",
+        "ดราม่า",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "mushoku tensei": {
+      "genres": [
+        "ต่างโลก",
+        "แฟนตาซี",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "my hero academia": {
+      "genres": [
+        "แอ็กชัน",
+        "ซูเปอร์ฮีโร่",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "trueid"
+      ]
+    },
+    "my teen romantic comedy snafu": {
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ดราม่า"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "nana": {
+      "genres": [
+        "ดนตรี",
+        "โรแมนติก",
+        "ดราม่าชีวิต"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "naruto": {
+      "genres": [
+        "แอ็กชัน",
+        "นินจา",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ]
+    },
+    "neon genesis evangelion": {
+      "genres": [
+        "เมก้า",
+        "จิตวิทยา",
+        "ไซไฟ",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "nichijou": {
+      "genres": [
+        "ตลกขบขัน",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "nisekoi": {
+      "genres": [
+        "ฮาเร็ม",
+        "โรแมนติก",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "nodame cantabile": {
+      "genres": [
+        "ดนตรี (คลาสสิก)",
+        "โรแมนติก",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "no game no life": {
+      "genres": [
+        "ต่างโลก",
+        "เกม",
+        "แฟนตาซี",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "no game no life: zero": {
+      "genres": [
+        "ดราม่า",
+        "แฟนตาซี",
+        "สงคราม"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "noragami": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "noragami aragoto": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "nyan koi!": {
+      "genres": [
+        "ตลก",
+        "ฮาเร็ม",
+        "โรแมนติก"
+      ],
+      "providers": [],
+      "note": "ขาดสตรีมมิ่งในไทยปัจจุบัน"
+    },
+    "ojamajo doremi": {
+      "genres": [
+        "สาวน้อยเวทมนตร์",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "trueid"
+      ]
+    },
+    "one piece": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "viu",
+        "trueid"
+      ]
+    },
+    "one punch man": {
+      "genres": [
+        "แอ็กชัน",
+        "ซูเปอร์ฮีโร่",
+        "ตลก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "oshi no ko": {
+      "genres": [
+        "วงการบันเทิง",
+        "ไอดอล",
+        "ดราม่า",
+        "สืบสวน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "ouran high school host club": {
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ฮาเร็ม (Reverse)"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "overlord": {
+      "genres": [
+        "ต่างโลก (เกม)",
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "anione"
+      ]
+    },
+    "overlord ii": {
+      "genres": [
+        "ต่างโลก",
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "anione"
+      ]
+    },
+    "overlord iii": {
+      "genres": [
+        "ต่างโลก",
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "anione"
+      ]
+    },
+    "parasyte: the maxim": {
+      "genres": [
+        "ไซไฟ",
+        "สยองขวัญ",
+        "จิตวิทยา",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "plastic memories": {
+      "genres": [
+        "ไซไฟ",
+        "โรแมนติก",
+        "ดราม่า"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "pokémon": {
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "กีฬา (โปเกมอน)"
+      ],
+      "providers": [
+        "netflix",
+        "trueid",
+        "prime",
+        "youtube"
+      ]
+    },
+    "pokémon: advanced generation": {
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "trueid"
+      ]
+    },
+    "psycho-pass": {
+      "genres": [
+        "ไซไฟ",
+        "ไซเบอร์พังก์",
+        "สืบสวนอาชญากรรม"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "qualidea code": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "พลังพิเศษ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "ranking of kings": {
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "prime"
+      ]
+    },
+    "ranma 1/2": {
+      "genres": [
+        "ตลก",
+        "ศิลปะการต่อสู้",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "rascal does not dream of bunny girl senpai": {
+      "genres": [
+        "โรแมนติก",
+        "เหนือธรรมชาติ",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ]
+    },
+    "re:creators": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "เมก้า"
+      ],
+      "providers": [
+        "prime"
+      ]
+    },
+    "redo of healer": {
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "ล้างแค้น",
+        "เอคโค่"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "rent-a-girlfriend": {
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ฮาเร็ม"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "re:zero": {
+      "genres": [
+        "ต่างโลก",
+        "ดาร์กแฟนตาซี",
+        "จิตวิทยา (ย้อนเวลา)"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse",
+        "anione"
+      ]
+    },
+    "rurouni kenshin": {
+      "genres": [
+        "แอ็กชัน",
+        "ซามูไร",
+        "อิงประวัติศาสตร์"
+      ],
+      "providers": [
+        "prime"
+      ]
+    },
+    "saga of tanya the evil": {
+      "genres": [
+        "แอ็กชัน",
+        "สงคราม",
+        "ต่างโลก"
+      ],
+      "providers": [
+        "bilibili",
+        "muse",
+        "crunchyroll"
+      ]
+    },
+    "sailor moon": {
+      "genres": [
+        "สาวน้อยเวทมนตร์",
+        "โรแมนติก"
+      ],
+      "providers": []
+    },
+    "saint seiya": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ตำนานเทพ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "sankarea": {
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ซอมบี้"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "seraph of the end: battle in nagoya": {
+      "genres": [
+        "แอ็กชัน",
+        "ดาร์กแฟนตาซี",
+        "แวมไพร์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "seton academy: join the pack!": {
+      "genres": [
+        "ตลก",
+        "โรงเรียน",
+        "สัตว์ประหลาด"
+      ],
+      "providers": [
+        "crunchyroll"
+      ]
+    },
+    "seven knights revolution: hero successor": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เวทมนตร์"
+      ],
+      "providers": [
+        "crunchyroll"
+      ]
+    },
+    "shaman king": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "shaman king (2021)": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "shangri-la frontier": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "เกม VR"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "sket dance": {
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "slam dunk": {
+      "genres": [
+        "กีฬา (บาสเกตบอล)",
+        "ตลก",
+        "วัยรุ่น"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ]
+    },
+    "so i'm a spider, so what?": {
+      "genres": [
+        "ต่างโลก",
+        "แอ็กชัน",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "solo leveling": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ]
+    },
+    "soul eater": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "เหนือธรรมชาติ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "space battleship yamato": {
+      "genres": [
+        "ไซไฟ",
+        "อวกาศ",
+        "แอ็กชัน"
+      ],
+      "providers": [],
+      "note": "แผ่นลิขสิทธิ์"
+    },
+    "spice and wolf": {
+      "genres": [
+        "แฟนตาซี",
+        "เศรษฐศาสตร์",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ]
+    },
+    "spy x family": {
+      "genres": [
+        "ตลก",
+        "แอ็กชัน",
+        "สายลับ",
+        "ครอบครัว"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "muse"
+      ]
+    },
+    "steins;gate": {
+      "genres": [
+        "ไซไฟ (ข้ามเวลา)",
+        "จิตวิทยา",
+        "ทริลเลอร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "steins;gate 0": {
+      "genres": [
+        "ไซไฟ",
+        "จิตวิทยา",
+        "ทริลเลอร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "summer time rendering": {
+      "genres": [
+        "ลึกลับ",
+        "เหนือธรรมชาติ",
+        "ไซไฟ (วนลูป)"
+      ],
+      "providers": [
+        "disney"
+      ]
+    },
+    "suzume": {
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "sword art online": {
+      "genres": [
+        "แอ็กชัน",
+        "เกม VR",
+        "ไซไฟ",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "flixer"
+      ]
+    },
+    "sword art online: alicization": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "flixer"
+      ]
+    },
+    "sword art online ii": {
+      "genres": [
+        "แอ็กชัน",
+        "เกม VR",
+        "ไซไฟ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "symphogear": {
+      "genres": [
+        "ดนตรี",
+        "ไซไฟ",
+        "เมก้า",
+        "สาวน้อยเวทมนตร์"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "tengoku daimakyou": {
+      "genres": [
+        "ไซไฟ",
+        "ผจญภัย",
+        "ลึกลับ",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "disney"
+      ]
+    },
+    "terra formars": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "สยองขวัญ"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "that time i got reincarnated as a slime": {
+      "genres": [
+        "ต่างโลก",
+        "การสร้างเมือง",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ]
+    },
+    "the apothecary diaries": {
+      "genres": [
+        "สืบสวน",
+        "อิงประวัติศาสตร์ (จีน)",
+        "การแพทย์"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ]
+    },
+    "the eminence in shadow": {
+      "genres": [
+        "แอ็กชัน",
+        "ต่างโลก",
+        "ตลก (จูนิเบียว)"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "the god of high school": {
+      "genres": [
+        "ศิลปะการต่อสู้",
+        "แอ็กชัน",
+        "แฟนตาซี"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ]
+    },
+    "the irregular at magic high school: visitor arc": {
+      "genres": [
+        "ไซไฟ",
+        "เวทมนตร์",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ]
+    },
+    "the promised neverland": {
+      "genres": [
+        "ระทึกขวัญ",
+        "จิตวิทยา",
+        "เอาชีวิตรอด"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ]
+    },
+    "the quintessential quintuplets": {
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ฮาเร็ม",
+        "โรงเรียน"
+      ],
+      "providers": [
+        "bilibili",
+        "netflix"
+      ]
+    },
+    "the rising of the shield hero": {
+      "genres": [
+        "ต่างโลก",
+        "แอ็กชัน",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "the seven deadly sins": {
+      "genres": [
+        "แอ็กชัน",
+        "แฟนตาซี",
+        "ผจญภัย"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "tokyo ghoul": {
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "สยองขวัญ",
+        "จิตวิทยา"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "tokyo ghoul a": {
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "tokyo ghoul:re": {
+      "genres": [
+        "ดาร์กแฟนตาซี",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "tokyo revengers": {
+      "genres": [
+        "แอ็กชัน",
+        "นักเลง",
+        "ไซไฟ (ย้อนเวลา)"
+      ],
+      "providers": [
+        "disney",
+        "bilibili",
+        "muse"
+      ]
+    },
+    "tonikawa: over the moon for you": {
+      "genres": [
+        "โรแมนติก",
+        "ตลก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "bilibili",
+        "anione"
+      ]
+    },
+    "tower of god": {
+      "genres": [
+        "แอ็กชัน",
+        "ผจญภัย",
+        "แฟนตาซี",
+        "ปริศนา"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "crunchyroll",
+        "anione"
+      ]
+    },
+    "to your eternity": {
+      "genres": [
+        "ผจญภัย",
+        "แฟนตาซี",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ]
+    },
+    "trigun": {
+      "genres": [
+        "แอ็กชัน",
+        "ไซไฟ",
+        "คาวบอย"
+      ],
+      "providers": [
+        "bilibili",
+        "crunchyroll"
+      ]
+    },
+    "tsukimichi -moonlit fantasy-": {
+      "genres": [
+        "ต่างโลก",
+        "แฟนตาซี",
+        "ตลก"
+      ],
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ]
+    },
+    "undead unluck": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ตลก"
+      ],
+      "providers": [
+        "disney"
+      ]
+    },
+    "uzaki-chan wants to hang out!": {
+      "genres": [
+        "ตลก",
+        "ชีวิตประจำวัน",
+        "โรแมนติก"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "vinland saga": {
+      "genres": [
+        "แอ็กชัน",
+        "ประวัติศาสตร์ (ไวกิ้ง)",
+        "ปรัชญา"
+      ],
+      "providers": [
+        "netflix",
+        "prime"
+      ]
+    },
+    "violet evergarden": {
+      "genres": [
+        "ดราม่า",
+        "สงคราม",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "netflix"
+      ]
+    },
+    "vivy: fluorite eye's song": {
+      "genres": [
+        "ไซไฟ",
+        "ดนตรี",
+        "แอ็กชัน (ข้ามเวลา)"
+      ],
+      "providers": [
+        "bilibili",
+        "flixer"
+      ]
+    },
+    "weathering with you": {
+      "genres": [
+        "โรแมนติก",
+        "แฟนตาซี",
+        "ดราม่า"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "wonder egg priority": {
+      "genres": [
+        "จิตวิทยา",
+        "ดราม่า",
+        "แอ็กชัน"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "your lie in april": {
+      "genres": [
+        "ดนตรี",
+        "โรแมนติก",
+        "ดราม่า"
+      ],
+      "providers": [
+        "bilibili"
+      ]
+    },
+    "your name": {
+      "genres": [
+        "โรแมนติก",
+        "แฟนตาซี",
+        "ไซไฟ (สลับร่าง)"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "yu yu hakusho": {
+      "genres": [
+        "แอ็กชัน",
+        "เหนือธรรมชาติ",
+        "ปีศาจ"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili"
+      ]
+    },
+    "zom 100: bucket list of the dead": {
+      "genres": [
+        "เอาชีวิตรอด (ซอมบี้)",
+        "ตลก",
+        "ชีวิตประจำวัน"
+      ],
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ]
+    }
+  }
+}

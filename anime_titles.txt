@@ -1,0 +1,404 @@
+﻿001. Attack on Titan
+002. Death Note
+003. Demon Slayer
+004. Jujutsu Kaisen
+005. Naruto
+006. One Piece
+007. Fullmetal Alchemist: Brotherhood
+008. Tokyo Ghoul
+009. Steins;Gate
+010. Code Geass
+011. Sword Art Online
+012. Fate/Zero
+013. Fate/stay night: Unlimited Blade Works
+014. No Game No Life
+015. Log Horizon
+016. Overlord
+017. Saga of Tanya the Evil
+018. 86 -Eighty Six-
+019. Ghost in the Shell: Stand Alone Complex
+020. Cyberpunk: Edgerunners
+021. Neon Genesis Evangelion
+022. My Hero Academia
+023. Hunter x Hunter
+024. Bleach
+025. Fairy Tail
+026. Black Clover
+027. JoJo's Bizarre Adventure
+028. Gintama
+029. Haikyuu!!
+030. Your Lie in April
+031. One Punch Man
+032. Mob Psycho 100
+033. Cowboy Bebop
+034. Sailor Moon
+035. Dragon Ball Z
+036. Pokémon
+037. Digimon Adventure
+038. Detective Conan
+039. K-On!
+040. Toradora!
+041. Re:Zero
+042. KonoSuba
+043. Tokyo Revengers
+044. Chainsaw Man
+045. Spy x Family
+046. Oshi no Ko
+047. Frieren: Beyond Journey's End
+048. Slam Dunk
+049. Inuyasha
+050. Dr. Stone
+051. Kuroko's Basketball
+052. Assassination Classroom
+053. The Seven Deadly Sins
+054. That Time I Got Reincarnated as a Slime
+055. Akame ga Kill!
+056. Parasyte: The Maxim
+057. Erased
+058. Violet Evergarden
+059. Blue Lock
+060. Mushoku Tensei: Jobless Reincarnation
+061. The Rising of the Shield Hero
+062. Food Wars!
+063. Kaguya-sama: Love is War
+064. Fire Force
+065. The Promised Neverland
+066. Made in Abyss
+067. Vinland Saga
+068. Psycho-Pass
+069. Gurren Lagann
+070. Kill la Kill
+071. Darling in the Franxx
+072. Rascal Does Not Dream of Bunny Girl Senpai
+073. Angel Beats!
+074. Anohana
+075. Your Name
+076. Weathering with You
+077. A Silent Voice
+078. Nisekoi
+079. My Teen Romantic Comedy SNAFU
+080. Horimiya
+081. High School DxD
+082. Date A Live
+083. Future Diary
+084. Guilty Crown
+085. Danganronpa: The Animation
+086. Fate/Grand Order - Absolute Demonic Front: Babylonia
+087. Fate/Apocrypha
+088. Soul Eater
+089. Blue Exorcist
+090. Noragami
+091. Yona of the Dawn
+092. Magi: The Labyrinth of Magic
+093. Rent-a-Girlfriend
+094. The Quintessential Quintuplets
+095. Lycoris Recoil
+096. Bocchi the Rock!
+097. Kakegurui
+098. No Game No Life: Zero
+099. Black Butler
+100. Suzume
+101. Ghost in the Shell
+102. Akira
+103. Mobile Suit Gundam SEED
+104. Mobile Suit Gundam 00
+105. Fate/stay night (2006)
+106. Fate/stay night: Heaven's Feel
+107. Hellsing Ultimate
+108. Berserk
+109. Overlord II
+110. Re:Zero Season 2
+111. Clannad
+112. Great Teacher Onizuka
+113. Rurouni Kenshin
+114. Inuyasha: The Final Act
+115. Yu-Gi-Oh! Duel Monsters
+116. Shaman King
+117. Saint Seiya
+118. Doraemon
+119. Crayon Shin-chan
+120. Maruko-chan
+121. Lucky Star
+122. Haruhi Suzumiya
+123. Ouran High School Host Club
+124. Fruit Basket
+125. Mob Psycho 100 II
+126. Devilman Crybaby
+127. Bungou Stray Dogs
+128. Golden Kamuy
+129. Banana Fish
+130. Dorohedoro
+131. JoJo: Stardust Crusaders
+132. JoJo: Golden Wind
+133. Black Lagoon
+134. Hellsing
+135. Claymore
+136. Highschool of the Dead
+137. Gantz
+138. Elfen Lied
+139. Deadman Wonderland
+140. Terra Formars
+141. Gundam Wing
+142. Macross Frontier
+143. Code Geass R2
+144. Darker than Black
+145. Monster
+146. Baccano!
+147. Durarara!!
+148. Hyouka
+149. Nichijou
+150. Gyakkyou Burai Kaiji: Ultimate Survivor
+151. Yu Yu Hakusho
+152. City Hunter
+153. Ranma 1/2
+154. Cardcaptor Sakura
+155. Magic Knight Rayearth
+156. NANA
+157. Beck: Mongolian Chop Squad
+158. Kimi ni Todoke
+159. Nodame Cantabile
+160. Chihayafuru
+161. Spice and Wolf
+162. Attack on Titan Season 2
+163. Sword Art Online II
+164. Tokyo Ghoul √A
+165. My Hero Academia Season 2
+166. Naruto: Shippuden
+167. Boruto: Naruto Next Generations
+168. Dragon Ball Super
+169. Dragon Ball GT
+170. Ojamajo Doremi
+171. Digimon Tamers
+172. Digimon Frontier
+173. Zatch Bell!
+174. Katekyo Hitman Reborn!
+175. D.Gray-man
+176. Beelzebub
+177. Sket Dance
+178. Bakuman
+179. Death Parade
+180. Blood Blockade Battlefront
+181. The God of High School
+182. Tower of God
+183. To Your Eternity
+184. Vivy: Fluorite Eye's Song
+185. Wonder Egg Priority
+186. Akudama Drive
+187. Deca-Dence
+188. Great Pretender
+189. Summer Time Rendering
+190. The Apothecary Diaries
+191. Solo Leveling
+192. Mashle season 2
+193. Undead Unluck
+194. Shangri-La Frontier
+195. Zom 100: Bucket List of the Dead
+196. Hell's Paradise
+197. Tengoku Daimakyou
+198. Call of the Night
+199. Ranking of Kings
+200. Mobile Suit Gundam: The Witch from Mercury
+201. Bakemonogatari
+202. A Certain Scientific Railgun
+203. Love Live! School Idol Project
+204. Aldnoah.Zero
+205. Mobile Suit Gundam: Iron-Blooded Orphans
+206. The Eminence in Shadow
+207. Kaiju No. 8
+208. Delicious in Dungeon
+209. Dandadan
+210. Bleach: Thousand-Year Blood War
+211. Yuri!!! on Ice
+212. Free!
+213. Kuroko's Basketball Season 2
+214. Haikyuu!! Second Season
+215. K-On!!
+216. Charlotte
+217. Plastic Memories
+218. Air
+219. Clannad: After Story
+220. Re:CREATORS
+221. Kiznaiver
+222. Symphogear
+223. Macross Delta
+224. Carole & Tuesday
+225. Given
+226. Kids on the Slope
+227. Trigun
+228. Gintama 2 
+229. Fairy Tail (Series 2)
+230. Edens Zero
+231. Shaman King (2021)
+232. Digimon Adventure 02
+233. Pokémon: Advanced Generation
+234. Yu-Gi-Oh! GX
+235. Yu-Gi-Oh! 5D's
+236. Inazuma Eleven
+237. Beyblade
+238. Crush Gear Turbo
+239. Bakusou Kyoudai Let's & Go!!
+240. Captain Tsubasa
+241. Kinnikuman
+242. Fist of the North Star
+243. Space Battleship Yamato
+244. Galaxy Express 999
+245. Lupin III
+246. Detective Conan: Black Iron Submarine
+247. Your Name (ED)
+248. Weathering with You (Insert)
+249. Suzume (ED)
+250. Oshi no Ko Season 2
+251. Jujutsu Kaisen Season 2
+252. Jujutsu Kaisen Season 2 (Shibuya Arc)
+253. Demon Slayer: Entertainment District Arc
+254. Demon Slayer: Swordsmith Village Arc
+255. Kaguya-sama: Love is War Season 2
+256. Evangelion: 3.0+1.0 Thrice Upon a Time
+257. Sword Art Online: Alicization
+258. Tokyo Ghoul:re
+259. Fate/Zero (ED1)
+260. Steins;Gate 0
+261. Fullmetal Alchemist: Brotherhood (OP4)
+262. One Piece (OP11)
+263. Gintama (OP5)
+264. Haikyuu!! Season 3
+265. My Hero Academia Season 3
+266. Attack on Titan Season 3
+267. Attack on Titan The Final Season
+268. Attack on Titan The Final Season Part 2
+269. JoJo: Diamond is Unbreakable
+270. JoJo: Stone Ocean
+271. Black Clover (OP3)
+272. Black Clover (OP10)
+273. K-On! (ED1)
+274. Haruhi Suzumiya (ED1)
+275. A Certain Magical Index
+276. Toradora! (OP2)
+277. Angel Beats! (ED1)
+278. Anohana (ED)
+279. Your Lie in April (ED2)
+280. Guilty Crown (OP2)
+281. Psycho-Pass (ED1)
+282. Noragami Aragoto
+283. Blue Exorcist (OP2)
+284. Sword Art Online II (OP2)
+285. Re:Zero (OP2)
+286. KonoSuba Season 2
+287. The Seven Deadly Sins (OP2)
+288. Assassination Classroom Season 2
+289. Food Wars! (OP2)
+290. No Game No Life (ED)
+291. Overlord III
+292. The Rising of the Shield Hero (OP2)
+293. That Time I Got Reincarnated as a Slime (OP2)
+294. Mushoku Tensei Season 2
+295. Spy x Family Season 2
+296. Oshi no Ko (ED)
+297. Frieren: Beyond Journey's End (OP2)
+298. The Apothecary Diaries (OP2)
+299. Mashle Season 1
+300. Chainsaw Man (ED3)
+301. Cardfight!! Vanguard (OP1)
+302. Cardfight!! Vanguard (OP2)
+303. Cardfight!! Vanguard: Asia Circuit
+304. Coppelion
+305. Madan no Ou to Vanadis
+306. Girls und Panzer
+307. Drifters
+308. Qualidea Code
+309. Trinity Seven
+310. The Irregular at Magic High School (OP1)
+311. The Irregular at Magic High School (OP2)
+312. The Irregular at Magic High School: Visitor Arc
+313. The Asterisk War
+314. The Asterisk War Season 2
+315. The Eden of Grisaia
+316. Absolute Duo
+317. World Break: Aria of Curse for a Holy Swordsman
+318. In Another World With My Smartphone (OP1)
+319. In Another World With My Smartphone Season 2
+320. Hundred
+321. Maoyu: Archenemy & Hero
+322. Chivalry of a Failed Knight
+323. Undefeated Bahamut Chronicle
+324. Date A Live II
+325. Date A Live III
+326. Date A Live IV
+327. Goblin Slayer (OP1)
+328. Goblin Slayer II
+329. Amagami SS (OP1)
+330. Amagami SS (OP2)
+331. Nyan Koi!
+332. Gundam Build Fighters (OP1)
+333. Gundam Build Fighters (OP2)
+334. To LOVE-Ru
+335. Motto To LOVE-Ru
+336. To LOVE-Ru Darkness
+337. Sankarea
+338. Toriko (OP1)
+339. Toriko (OP2)
+340. Kabaneri of the Iron Fortress
+341. Masamune-kun's Revenge
+342. Masamune-kun's Revenge R
+343. Another
+344. Strike the Blood (OP1)
+345. Strike the Blood (OP2)
+346. Accel World (OP1)
+347. Accel World (OP2)
+348. The World God Only Knows (OP1)
+349. The World God Only Knows II
+350. The World God Only Knows: Goddesses Arc
+351. GATE (OP1)
+352. GATE (OP2)
+353. Himouto! Umaru-chan
+354. Himouto! Umaru-chan R
+355. Arifureta: From Commonplace to World's Strongest
+356. Arifureta Season 2
+357. Is It Wrong to Try to Pick Up Girls in a Dungeon? (OP1)
+358. Is It Wrong to Try to Pick Up Girls in a Dungeon? II
+359. Seraph of the End (OP1)
+360. Seraph of the End: Battle in Nagoya
+361. The Ambition of Oda Nobuna
+362. Assassins Pride
+363. High School Fleet
+364. Kantai Collection: KanColle
+365. High School Prodigies Have It Easy Even In Another World
+366. The Legend of the Legendary Heroes
+367. Seton Academy: Join the Pack!
+368. The Misfit of Demon King Academy (OP1)
+369. Uzaki-chan Wants to Hang Out!
+370. TONIKAWA: Over The Moon For You
+371. Seven Knights Revolution: Hero Successor
+372. So I'm a Spider, So What?
+373. Redo of Healer
+374. How a Realist Hero Rebuilt the Kingdom
+375. TSUKIMICHI -Moonlit Fantasy-
+376. The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat
+377. The Strongest Sage with the Weakest Crest
+378. The Genius Prince's Guide to Raising a Nation Out of Debt
+379. Aharen-san wa Hakarenai
+380. I'm Quitting Heroing
+381. Strike the Blood II (OVA)
+382. Strike the Blood III (OVA)
+383. Strike the Blood IV (OVA)
+384. Strike the Blood FINAL
+385. Girls und Panzer das Finale 
+386. Girls und Panzer das Finale (Part 4)
+387. Cardfight!! Vanguard: Link Joker (OP1)
+388. Cardfight!! Vanguard: Link Joker (OP2)
+389. Cardfight!! Vanguard: Link Joker (OP3)
+390. Cardfight!! Vanguard: Legion Mate (OP1)
+391. Cardfight!! Vanguard: Legion Mate (OP2)
+392. Cardfight!! Vanguard G (OP1)
+393. Cardfight!! Vanguard G (OP2)
+394. Cardfight!! Vanguard G: GIRS Crisis
+395. Cardfight!! Vanguard G: Stride Gate
+396. Cardfight!! Vanguard (2018) (OP1)
+397. Cardfight!! Vanguard (2018) (OP2)
+398. Cardfight!! Vanguard: Shinemon
+399. Cardfight!! Vanguard overDress (OP1)
+400. Cardfight!! Vanguard overDress (OP2)
+401. Cardfight!! Vanguard will+Dress (OP1)
+402. Cardfight!! Vanguard will+Dress (OP2)
+403. Cardfight!! Vanguard Divinez
+TOTAL: 403

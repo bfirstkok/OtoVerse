@@ -1,0 +1,4301 @@
+{
+  "version": 1,
+  "generatedAt": "2026-03-31T09:44:43.088Z",
+  "byTitle": {
+    "attack on titan": {
+      "title": "Attack on Titan",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "disney",
+        "flixer"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime Video",
+        "Disney+ Hotstar",
+        "Flixer"
+      ]
+    },
+    "death note": {
+      "title": "Death Note",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "demon slayer": {
+      "title": "Demon Slayer",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "prime",
+        "viu"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "TrueID",
+        "Prime Video",
+        "Viu",
+        "Entertainment District Arc: Netflix",
+        "Swordsmith Village Arc: Netflix"
+      ]
+    },
+    "jujutsu kaisen": {
+      "title": "Jujutsu Kaisen",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "trueid",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime Video",
+        "TrueID",
+        "Ani-One Asia"
+      ]
+    },
+    "naruto": {
+      "title": "Naruto",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "TrueID",
+        "Shippuden: Netflix"
+      ]
+    },
+    "one piece": {
+      "title": "One Piece",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "viu",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Netflix",
+        "Viu",
+        "TrueID"
+      ]
+    },
+    "fullmetal alchemist": {
+      "title": "Fullmetal Alchemist",
+      "providers": [],
+      "rawProviders": [
+        "Brotherhood: Bilibili"
+      ]
+    },
+    "tokyo ghoul": {
+      "title": "Tokyo Ghoul",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "re: Netflix"
+      ]
+    },
+    "steins;gate": {
+      "title": "Steins;Gate",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "code geass": {
+      "title": "Code Geass",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Flixer"
+      ]
+    },
+    "sword art online": {
+      "title": "Sword Art Online",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "flixer"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Flixer",
+        "Alicization: Netflix"
+      ]
+    },
+    "fate/zero": {
+      "title": "Fate/Zero",
+      "providers": [
+        "bilibili",
+        "netflix"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Netflix"
+      ]
+    },
+    "fate/stay night": {
+      "title": "Fate/stay night",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Unlimited Blade Works: Bilibili",
+        "Netflix",
+        "Heaven's Feel: Bilibili"
+      ]
+    },
+    "no game no life": {
+      "title": "No Game No Life",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Zero: Bilibili"
+      ]
+    },
+    "log horizon": {
+      "title": "Log Horizon",
+      "providers": [
+        "bilibili",
+        "crunchyroll"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Crunchyroll"
+      ]
+    },
+    "overlord": {
+      "title": "Overlord",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Netflix",
+        "Ani-One Asia"
+      ]
+    },
+    "saga of tanya the evil": {
+      "title": "Saga of Tanya the Evil",
+      "providers": [
+        "bilibili",
+        "muse",
+        "crunchyroll"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Muse Thailand",
+        "Crunchyroll"
+      ]
+    },
+    "86 -eighty six-": {
+      "title": "86 -Eighty Six-",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Netflix"
+      ]
+    },
+    "ghost in the shell": {
+      "title": "Ghost in the Shell",
+      "providers": [],
+      "rawProviders": [
+        "Stand Alone Complex: Netflix",
+        "อาจต้องพึ่งพาแผ่นลิขสิทธิ์ / เช่าผ่าน Apple TV"
+      ]
+    },
+    "cyberpunk": {
+      "title": "Cyberpunk",
+      "providers": [],
+      "rawProviders": [
+        "Edgerunners: Netflix"
+      ]
+    },
+    "neon genesis evangelion": {
+      "title": "Neon Genesis Evangelion",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "my hero academia": {
+      "title": "My Hero Academia",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "prime"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "TrueID",
+        "Prime Video"
+      ]
+    },
+    "hunter x hunter": {
+      "title": "Hunter x Hunter",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "bleach": {
+      "title": "Bleach",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "TrueID",
+        "Ani-One Asia",
+        "Thousand-Year Blood War: Netflix"
+      ]
+    },
+    "fairy tail": {
+      "title": "Fairy Tail",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "muse"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "TrueID",
+        "Muse Thailand"
+      ]
+    },
+    "black clover": {
+      "title": "Black Clover",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "TrueID"
+      ]
+    },
+    "jojo's bizarre adventure": {
+      "title": "JoJo's Bizarre Adventure",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "gintama": {
+      "title": "Gintama",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "TrueID"
+      ]
+    },
+    "haikyuu!!": {
+      "title": "Haikyuu!!",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "prime"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "TrueID",
+        "Prime Video"
+      ]
+    },
+    "your lie in april": {
+      "title": "Your Lie in April",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "one punch man": {
+      "title": "One Punch Man",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Muse Thailand"
+      ]
+    },
+    "mob psycho 100": {
+      "title": "Mob Psycho 100",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "cowboy bebop": {
+      "title": "Cowboy Bebop",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "sailor moon": {
+      "title": "Sailor Moon",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix (ฉบับภาพยนตร์/Crystal)"
+      ]
+    },
+    "dragon ball z": {
+      "title": "Dragon Ball Z",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "TrueID"
+      ]
+    },
+    "pokémon": {
+      "title": "Pokémon",
+      "providers": [
+        "netflix",
+        "trueid",
+        "prime",
+        "pokemonasia"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "TrueID",
+        "Prime Video",
+        "Pokémon Asia Official (YouTube)",
+        "Advanced Generation: TrueID (อาจมีการหมุนเวียนออก)"
+      ]
+    },
+    "digimon adventure": {
+      "title": "Digimon Adventure",
+      "providers": [
+        "iqiyi",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "iQIYI",
+        "Bilibili"
+      ]
+    },
+    "detective conan": {
+      "title": "Detective Conan",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid",
+        "viu",
+        "prime"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "TrueID",
+        "Viu",
+        "Black Iron Submarine: Bilibili",
+        "Prime Video"
+      ]
+    },
+    "k-on!": {
+      "title": "K-On!",
+      "providers": [
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "toradora!": {
+      "title": "Toradora!",
+      "providers": [
+        "bilibili",
+        "netflix"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Netflix"
+      ]
+    },
+    "re": {
+      "title": "Re",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse",
+        "anione",
+        "prime",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "Zero: Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Muse Thailand",
+        "Ani-One Asia",
+        "Zero Season 2: Netflix",
+        "CREATORS: Prime Video",
+        "Zero (OP2): (เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "konosuba": {
+      "title": "KonoSuba",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "tokyo revengers": {
+      "title": "Tokyo Revengers",
+      "providers": [
+        "disney",
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Disney+ Hotstar",
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "chainsaw man": {
+      "title": "Chainsaw Man",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "prime",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Prime Video",
+        "Ani-One Asia"
+      ]
+    },
+    "spy x family": {
+      "title": "Spy x Family",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime Video",
+        "Muse Thailand"
+      ]
+    },
+    "oshi no ko": {
+      "title": "Oshi no Ko",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "frieren": {
+      "title": "Frieren",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "muse"
+      ],
+      "rawProviders": [
+        "Beyond Journey's End: Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime Video",
+        "Muse Thailand"
+      ]
+    },
+    "slam dunk": {
+      "title": "Slam Dunk",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Netflix"
+      ]
+    },
+    "inuyasha": {
+      "title": "Inuyasha",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "TrueID",
+        "The Final Act: Netflix"
+      ]
+    },
+    "dr. stone": {
+      "title": "Dr. Stone",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "TrueID"
+      ]
+    },
+    "kuroko's basketball": {
+      "title": "Kuroko's Basketball",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "assassination classroom": {
+      "title": "Assassination Classroom",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "the seven deadly sins": {
+      "title": "The Seven Deadly Sins",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix (บางซีซั่นใน Bilibili)"
+      ]
+    },
+    "that time i got reincarnated as a slime": {
+      "title": "That Time I Got Reincarnated as a Slime",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Muse Thailand"
+      ]
+    },
+    "akame ga kill!": {
+      "title": "Akame ga Kill!",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "parasyte": {
+      "title": "Parasyte",
+      "providers": [
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "The Maxim: Netflix",
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "erased": {
+      "title": "Erased",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "violet evergarden": {
+      "title": "Violet Evergarden",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "blue lock": {
+      "title": "Blue Lock",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "mushoku tensei": {
+      "title": "Mushoku Tensei",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Muse Thailand"
+      ]
+    },
+    "the rising of the shield hero": {
+      "title": "The Rising of the Shield Hero",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "food wars!": {
+      "title": "Food Wars!",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "kaguya-sama": {
+      "title": "Kaguya-sama",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Love is War: Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Love is War Season 2: Netflix"
+      ]
+    },
+    "fire force": {
+      "title": "Fire Force",
+      "providers": [
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "the promised neverland": {
+      "title": "The Promised Neverland",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "made in abyss": {
+      "title": "Made in Abyss",
+      "providers": [
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "vinland saga": {
+      "title": "Vinland Saga",
+      "providers": [
+        "netflix",
+        "prime"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Prime Video"
+      ]
+    },
+    "psycho-pass": {
+      "title": "Psycho-Pass",
+      "providers": [
+        "bilibili",
+        "flixer"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Flixer"
+      ]
+    },
+    "gurren lagann": {
+      "title": "Gurren Lagann",
+      "providers": [
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "kill la kill": {
+      "title": "Kill la Kill",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "darling in the franxx": {
+      "title": "Darling in the Franxx",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "rascal does not dream of bunny girl senpai": {
+      "title": "Rascal Does Not Dream of Bunny Girl Senpai",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "angel beats!": {
+      "title": "Angel Beats!",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "anohana": {
+      "title": "Anohana",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "your name": {
+      "title": "Your Name",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili (มักจะมาเป็นรอบสตรีมมิ่ง)"
+      ]
+    },
+    "weathering with you": {
+      "title": "Weathering with You",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "a silent voice": {
+      "title": "A Silent Voice",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "nisekoi": {
+      "title": "Nisekoi",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "my teen romantic comedy snafu": {
+      "title": "My Teen Romantic Comedy SNAFU",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "horimiya": {
+      "title": "Horimiya",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Netflix"
+      ]
+    },
+    "high school dxd": {
+      "title": "High School DxD",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "date a live": {
+      "title": "Date A Live",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Muse Thailand"
+      ]
+    },
+    "future diary": {
+      "title": "Future Diary",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "guilty crown": {
+      "title": "Guilty Crown",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "danganronpa": {
+      "title": "Danganronpa",
+      "providers": [
+        "muse"
+      ],
+      "rawProviders": [
+        "The Animation: Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "fate/grand order - babylonia": {
+      "title": "Fate/Grand Order - Babylonia",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "fate/apocrypha": {
+      "title": "Fate/Apocrypha",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "soul eater": {
+      "title": "Soul Eater",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "blue exorcist": {
+      "title": "Blue Exorcist",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Muse Thailand"
+      ]
+    },
+    "noragami": {
+      "title": "Noragami",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "yona of the dawn": {
+      "title": "Yona of the Dawn",
+      "providers": [
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "magi": {
+      "title": "Magi",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "The Labyrinth of Magic: Netflix",
+        "Bilibili"
+      ]
+    },
+    "rent-a-girlfriend": {
+      "title": "Rent-a-Girlfriend",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Muse Thailand"
+      ]
+    },
+    "the quintessential quintuplets": {
+      "title": "The Quintessential Quintuplets",
+      "providers": [
+        "bilibili",
+        "netflix"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Netflix"
+      ]
+    },
+    "lycoris recoil": {
+      "title": "Lycoris Recoil",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "bocchi the rock!": {
+      "title": "Bocchi the Rock!",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "kakegurui": {
+      "title": "Kakegurui",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "black butler": {
+      "title": "Black Butler",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "suzume": {
+      "title": "Suzume",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "akira": {
+      "title": "Akira",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix (บางช่วงเวลา)"
+      ]
+    },
+    "mobile suit gundam seed": {
+      "title": "Mobile Suit Gundam SEED",
+      "providers": [
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Flixer",
+        "GundamInfo (YouTube)"
+      ]
+    },
+    "mobile suit gundam 00": {
+      "title": "Mobile Suit Gundam 00",
+      "providers": [
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Flixer",
+        "GundamInfo"
+      ]
+    },
+    "hellsing ultimate": {
+      "title": "Hellsing Ultimate",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "berserk": {
+      "title": "Berserk",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili (ขึ้นกับเวอร์ชั่นปีที่ผลิต)"
+      ]
+    },
+    "overlord ii": {
+      "title": "Overlord II",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "netflix",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Netflix",
+        "Ani-One Asia"
+      ]
+    },
+    "clannad": {
+      "title": "Clannad",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "After Story: Bilibili"
+      ]
+    },
+    "great teacher onizuka": {
+      "title": "Great Teacher Onizuka",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "rurouni kenshin": {
+      "title": "Rurouni Kenshin",
+      "providers": [
+        "prime"
+      ],
+      "rawProviders": [
+        "Prime Video (เวอร์ชั่นใหม่)"
+      ]
+    },
+    "yu-gi-oh! duel monsters": {
+      "title": "Yu-Gi-Oh! Duel Monsters",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "TrueID"
+      ]
+    },
+    "shaman king": {
+      "title": "Shaman King",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix (เวอร์ชั่นใหม่)"
+      ]
+    },
+    "saint seiya": {
+      "title": "Saint Seiya",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "doraemon": {
+      "title": "Doraemon",
+      "providers": [
+        "pops",
+        "trueid",
+        "linetv",
+        "youtube"
+      ],
+      "rawProviders": [
+        "POPS",
+        "TrueID",
+        "LINE TV (อดีต)",
+        "YouTube ลิขสิทธิ์"
+      ]
+    },
+    "crayon shin-chan": {
+      "title": "Crayon Shin-chan",
+      "providers": [
+        "pops",
+        "trueid",
+        "flixer"
+      ],
+      "rawProviders": [
+        "POPS",
+        "TrueID",
+        "Flixer"
+      ]
+    },
+    "maruko-chan": {
+      "title": "Maruko-chan",
+      "providers": [
+        "trueid",
+        "youtube"
+      ],
+      "rawProviders": [
+        "TrueID",
+        "YouTube ลิขสิทธิ์"
+      ]
+    },
+    "lucky star": {
+      "title": "Lucky Star",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "haruhi suzumiya": {
+      "title": "Haruhi Suzumiya",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "ouran high school host club": {
+      "title": "Ouran High School Host Club",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "fruit basket": {
+      "title": "Fruit Basket",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "mob psycho 100 ii": {
+      "title": "Mob Psycho 100 II",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "devilman crybaby": {
+      "title": "Devilman Crybaby",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "bungou stray dogs": {
+      "title": "Bungou Stray Dogs",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "golden kamuy": {
+      "title": "Golden Kamuy",
+      "providers": [
+        "bilibili",
+        "prime"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Prime Video"
+      ]
+    },
+    "banana fish": {
+      "title": "Banana Fish",
+      "providers": [
+        "prime"
+      ],
+      "rawProviders": [
+        "Prime Video"
+      ]
+    },
+    "dorohedoro": {
+      "title": "Dorohedoro",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "jojo": {
+      "title": "JoJo",
+      "providers": [
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Stardust Crusaders: Netflix",
+        "Bilibili",
+        "Muse Thailand",
+        "Golden Wind: Netflix",
+        "Diamond is Unbreakable: Netflix",
+        "Stone Ocean: Netflix"
+      ]
+    },
+    "black lagoon": {
+      "title": "Black Lagoon",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix (บางช่วงเวลา)"
+      ]
+    },
+    "hellsing": {
+      "title": "Hellsing",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "claymore": {
+      "title": "Claymore",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "highschool of the dead": {
+      "title": "Highschool of the Dead",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "deadman wonderland": {
+      "title": "Deadman Wonderland",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "terra formars": {
+      "title": "Terra Formars",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "gundam wing": {
+      "title": "Gundam Wing",
+      "providers": [
+        "flixer",
+        "gundaminfo"
+      ],
+      "rawProviders": [
+        "Flixer",
+        "GundamInfo (หมุนเวียนลง)"
+      ]
+    },
+    "macross frontier": {
+      "title": "Macross Frontier",
+      "providers": [
+        "disney"
+      ],
+      "rawProviders": [
+        "Disney+ Hotstar"
+      ]
+    },
+    "code geass r2": {
+      "title": "Code Geass R2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Flixer"
+      ]
+    },
+    "monster": {
+      "title": "Monster",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "durarara!!": {
+      "title": "Durarara!!",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "hyouka": {
+      "title": "Hyouka",
+      "providers": [
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "nichijou": {
+      "title": "Nichijou",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "gyakkyou burai kaiji": {
+      "title": "Gyakkyou Burai Kaiji",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "yu yu hakusho": {
+      "title": "Yu Yu Hakusho",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "city hunter": {
+      "title": "City Hunter",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix (ภาพยนตร์ใหม่)",
+        "Bilibili"
+      ]
+    },
+    "ranma 1/2": {
+      "title": "Ranma 1/2",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix (ฉบับรีเมค 2024 กำลังมา)"
+      ]
+    },
+    "cardcaptor sakura": {
+      "title": "Cardcaptor Sakura",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Flixer"
+      ]
+    },
+    "magic knight rayearth": {
+      "title": "Magic Knight Rayearth",
+      "providers": [
+        "flixer"
+      ],
+      "rawProviders": [
+        "Flixer"
+      ]
+    },
+    "nana": {
+      "title": "NANA",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "kimi ni todoke": {
+      "title": "Kimi ni Todoke",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "nodame cantabile": {
+      "title": "Nodame Cantabile",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "chihayafuru": {
+      "title": "Chihayafuru",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "spice and wolf": {
+      "title": "Spice and Wolf",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "attack on titan season 2": {
+      "title": "Attack on Titan Season 2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "disney"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime",
+        "Disney+"
+      ]
+    },
+    "sword art online ii": {
+      "title": "Sword Art Online II",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "flixer"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Flixer"
+      ]
+    },
+    "tokyo ghoul a": {
+      "title": "Tokyo Ghoul √A",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "my hero academia season 2": {
+      "title": "My Hero Academia Season 2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime Video"
+      ]
+    },
+    "boruto": {
+      "title": "Boruto",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Naruto Next Generations: Netflix",
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "dragon ball super": {
+      "title": "Dragon Ball Super",
+      "providers": [
+        "iqiyi",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "iQIYI",
+        "Bilibili"
+      ]
+    },
+    "dragon ball gt": {
+      "title": "Dragon Ball GT",
+      "providers": [
+        "iqiyi",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "iQIYI",
+        "Bilibili"
+      ]
+    },
+    "ojamajo doremi": {
+      "title": "Ojamajo Doremi",
+      "providers": [
+        "trueid"
+      ],
+      "rawProviders": [
+        "TrueID"
+      ]
+    },
+    "digimon tamers": {
+      "title": "Digimon Tamers",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "digimon frontier": {
+      "title": "Digimon Frontier",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "katekyo hitman reborn!": {
+      "title": "Katekyo Hitman Reborn!",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "TrueID"
+      ]
+    },
+    "d.gray-man": {
+      "title": "D.Gray-man",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "beelzebub": {
+      "title": "Beelzebub",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "sket dance": {
+      "title": "Sket Dance",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "bakuman": {
+      "title": "Bakuman",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "death parade": {
+      "title": "Death Parade",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "blood blockade battlefront": {
+      "title": "Blood Blockade Battlefront",
+      "providers": [
+        "bilibili",
+        "netflix"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Netflix"
+      ]
+    },
+    "the god of high school": {
+      "title": "The God of High School",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Crunchyroll"
+      ]
+    },
+    "tower of god": {
+      "title": "Tower of God",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "crunchyroll",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Crunchyroll",
+        "Ani-One Asia"
+      ]
+    },
+    "to your eternity": {
+      "title": "To Your Eternity",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "vivy": {
+      "title": "Vivy",
+      "providers": [
+        "flixer"
+      ],
+      "rawProviders": [
+        "Fluorite Eye's Song: Bilibili",
+        "Flixer"
+      ]
+    },
+    "wonder egg priority": {
+      "title": "Wonder Egg Priority",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "akudama drive": {
+      "title": "Akudama Drive",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "deca-dence": {
+      "title": "Deca-Dence",
+      "providers": [
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "great pretender": {
+      "title": "Great Pretender",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "summer time rendering": {
+      "title": "Summer Time Rendering",
+      "providers": [
+        "disney"
+      ],
+      "rawProviders": [
+        "Disney+ Hotstar"
+      ]
+    },
+    "the apothecary diaries": {
+      "title": "The Apothecary Diaries",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Crunchyroll"
+      ]
+    },
+    "solo leveling": {
+      "title": "Solo Leveling",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "crunchyroll"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Crunchyroll"
+      ]
+    },
+    "mashle season 2": {
+      "title": "Mashle season 2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "prime"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Prime Video"
+      ]
+    },
+    "undead unluck": {
+      "title": "Undead Unluck",
+      "providers": [
+        "disney"
+      ],
+      "rawProviders": [
+        "Disney+ Hotstar"
+      ]
+    },
+    "shangri-la frontier": {
+      "title": "Shangri-La Frontier",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "zom 100": {
+      "title": "Zom 100",
+      "providers": [
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Bucket List of the Dead: Netflix",
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "hell's paradise": {
+      "title": "Hell's Paradise",
+      "providers": [
+        "netflix",
+        "prime"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Prime Video"
+      ]
+    },
+    "tengoku daimakyou": {
+      "title": "Tengoku Daimakyou",
+      "providers": [
+        "disney"
+      ],
+      "rawProviders": [
+        "Disney+ Hotstar"
+      ]
+    },
+    "call of the night": {
+      "title": "Call of the Night",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "ranking of kings": {
+      "title": "Ranking of Kings",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "prime"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Prime Video"
+      ]
+    },
+    "mobile suit gundam": {
+      "title": "Mobile Suit Gundam",
+      "providers": [
+        "bilibili",
+        "flixer",
+        "gundaminfo"
+      ],
+      "rawProviders": [
+        "The Witch from Mercury: Netflix",
+        "Bilibili",
+        "Flixer",
+        "GundamInfo",
+        "Iron-Blooded Orphans: Bilibili"
+      ]
+    },
+    "bakemonogatari": {
+      "title": "Bakemonogatari",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "a certain scientific railgun": {
+      "title": "A Certain Scientific Railgun",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "love live! school idol project": {
+      "title": "Love Live! School Idol Project",
+      "providers": [
+        "bilibili",
+        "flixer"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Flixer"
+      ]
+    },
+    "aldnoah.zero": {
+      "title": "Aldnoah.Zero",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "the eminence in shadow": {
+      "title": "The Eminence in Shadow",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "kaiju no. 8": {
+      "title": "Kaiju No. 8",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "crunchyroll",
+        "x"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Crunchyroll",
+        "X (Twitter Official)"
+      ]
+    },
+    "delicious in dungeon": {
+      "title": "Delicious in Dungeon",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "dandadan": {
+      "title": "Dandadan",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "crunchyroll"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Crunchyroll (เมื่อฉายจริง)"
+      ]
+    },
+    "yuri!!! on ice": {
+      "title": "Yuri!!! on Ice",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "free!": {
+      "title": "Free!",
+      "providers": [
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "kuroko's basketball season 2": {
+      "title": "Kuroko's Basketball Season 2",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "haikyuu!! second season": {
+      "title": "Haikyuu!! Second Season",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "TrueID"
+      ]
+    },
+    "k-on!!": {
+      "title": "K-On!!",
+      "providers": [
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "charlotte": {
+      "title": "Charlotte",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "plastic memories": {
+      "title": "Plastic Memories",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "air": {
+      "title": "Air",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili (บางโซน) หรือแผ่นลิขสิทธิ์",
+        "Bilibili"
+      ]
+    },
+    "kiznaiver": {
+      "title": "Kiznaiver",
+      "providers": [
+        "crunchyroll"
+      ],
+      "rawProviders": [
+        "Crunchyroll"
+      ]
+    },
+    "symphogear": {
+      "title": "Symphogear",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "macross delta": {
+      "title": "Macross Delta",
+      "providers": [
+        "disney"
+      ],
+      "rawProviders": [
+        "Disney+ Hotstar"
+      ]
+    },
+    "carole & tuesday": {
+      "title": "Carole & Tuesday",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "given": {
+      "title": "Given",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "kids on the slope": {
+      "title": "Kids on the Slope",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "trigun": {
+      "title": "Trigun",
+      "providers": [
+        "bilibili",
+        "crunchyroll"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Crunchyroll (Stampede)"
+      ]
+    },
+    "gintama 2": {
+      "title": "Gintama 2",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "fairy tail (series 2)": {
+      "title": "Fairy Tail (Series 2)",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Muse Thailand"
+      ]
+    },
+    "edens zero": {
+      "title": "Edens Zero",
+      "providers": [
+        "netflix",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili"
+      ]
+    },
+    "shaman king (2021)": {
+      "title": "Shaman King (2021)",
+      "providers": [
+        "netflix"
+      ],
+      "rawProviders": [
+        "Netflix"
+      ]
+    },
+    "digimon adventure 02": {
+      "title": "Digimon Adventure 02",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "yu-gi-oh! gx": {
+      "title": "Yu-Gi-Oh! GX",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "yu-gi-oh! 5d's": {
+      "title": "Yu-Gi-Oh! 5D's",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "inazuma eleven": {
+      "title": "Inazuma Eleven",
+      "providers": [
+        "trueid"
+      ],
+      "rawProviders": [
+        "TrueID"
+      ]
+    },
+    "beyblade": {
+      "title": "Beyblade",
+      "providers": [
+        "trueid",
+        "youtube"
+      ],
+      "rawProviders": [
+        "TrueID",
+        "YouTube Official"
+      ]
+    },
+    "captain tsubasa": {
+      "title": "Captain Tsubasa",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI (รีเมค)"
+      ]
+    },
+    "fist of the north star": {
+      "title": "Fist of the North Star",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "lupin iii": {
+      "title": "Lupin III",
+      "providers": [
+        "bilibili",
+        "flixer"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Flixer"
+      ]
+    },
+    "your name (ed)": {
+      "title": "Your Name (ED)",
+      "providers": [
+        "spotify",
+        "applemusic",
+        "ytmusic"
+      ],
+      "rawProviders": [
+        "Spotify",
+        "Apple Music",
+        "YouTube Music"
+      ]
+    },
+    "weathering with you (insert)": {
+      "title": "Weathering with You (Insert)",
+      "providers": [
+        "spotify",
+        "applemusic",
+        "ytmusic"
+      ],
+      "rawProviders": [
+        "Spotify",
+        "Apple Music",
+        "YouTube Music"
+      ]
+    },
+    "suzume (ed)": {
+      "title": "Suzume (ED)",
+      "providers": [
+        "spotify",
+        "applemusic",
+        "ytmusic"
+      ],
+      "rawProviders": [
+        "Spotify",
+        "Apple Music",
+        "YouTube Music"
+      ]
+    },
+    "oshi no ko season 2": {
+      "title": "Oshi no Ko Season 2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "jujutsu kaisen season 2": {
+      "title": "Jujutsu Kaisen Season 2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime Video",
+        "Ani-One Asia"
+      ]
+    },
+    "evangelion": {
+      "title": "Evangelion",
+      "providers": [
+        "prime"
+      ],
+      "rawProviders": [
+        "3.0+1.0 Thrice Upon a Time: Prime Video"
+      ]
+    },
+    "steins;gate 0": {
+      "title": "Steins;Gate 0",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "one piece (op11)": {
+      "title": "One Piece (OP11)",
+      "providers": [
+        "spotify",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "(เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "gintama (op5)": {
+      "title": "Gintama (OP5)",
+      "providers": [
+        "spotify",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "(เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "haikyuu!! season 3": {
+      "title": "Haikyuu!! Season 3",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "trueid"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "TrueID"
+      ]
+    },
+    "my hero academia season 3": {
+      "title": "My Hero Academia Season 3",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime Video"
+      ]
+    },
+    "attack on titan season 3": {
+      "title": "Attack on Titan Season 3",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "disney"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime",
+        "Disney+"
+      ]
+    },
+    "attack on titan the final season": {
+      "title": "Attack on Titan The Final Season",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "disney"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime",
+        "Disney+"
+      ]
+    },
+    "attack on titan the final season part 2": {
+      "title": "Attack on Titan The Final Season Part 2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime",
+        "disney"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime",
+        "Disney+"
+      ]
+    },
+    "toradora! (op2)": {
+      "title": "Toradora! (OP2)",
+      "providers": [
+        "spotify",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "(เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "angel beats! (ed1)": {
+      "title": "Angel Beats! (ED1)",
+      "providers": [
+        "spotify",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "(เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "anohana (ed)": {
+      "title": "Anohana (ED)",
+      "providers": [
+        "spotify",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "(เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "your lie in april (ed2)": {
+      "title": "Your Lie in April (ED2)",
+      "providers": [
+        "spotify",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "(เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "guilty crown (op2)": {
+      "title": "Guilty Crown (OP2)",
+      "providers": [
+        "spotify",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "(เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "psycho-pass (ed1)": {
+      "title": "Psycho-Pass (ED1)",
+      "providers": [
+        "spotify",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "(เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "blue exorcist (op2)": {
+      "title": "Blue Exorcist (OP2)",
+      "providers": [
+        "spotify",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "(เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "sword art online ii (op2)": {
+      "title": "Sword Art Online II (OP2)",
+      "providers": [
+        "spotify",
+        "applemusic"
+      ],
+      "rawProviders": [
+        "(เพลง) Spotify",
+        "Apple Music"
+      ]
+    },
+    "konosuba season 2": {
+      "title": "KonoSuba Season 2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "assassination classroom season 2": {
+      "title": "Assassination Classroom Season 2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "mushoku tensei season 2": {
+      "title": "Mushoku Tensei Season 2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "muse"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Muse Thailand"
+      ]
+    },
+    "spy x family season 2": {
+      "title": "Spy x Family Season 2",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "iqiyi",
+        "prime"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "iQIYI",
+        "Prime Video"
+      ]
+    },
+    "mashle season 1": {
+      "title": "Mashle Season 1",
+      "providers": [
+        "netflix",
+        "bilibili",
+        "prime"
+      ],
+      "rawProviders": [
+        "Netflix",
+        "Bilibili",
+        "Prime Video"
+      ]
+    },
+    "the irregular at magic high school": {
+      "title": "The Irregular at Magic High School",
+      "providers": [
+        "iqiyi",
+        "netflix"
+      ],
+      "rawProviders": [
+        "Visitor Arc: Bilibili",
+        "iQIYI",
+        "Netflix"
+      ]
+    },
+    "absolute duo": {
+      "title": "Absolute Duo",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "arifureta": {
+      "title": "Arifureta",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "arifureta season 2": {
+      "title": "Arifureta Season 2",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "how a realist hero rebuilt the kingdom": {
+      "title": "How a Realist Hero Rebuilt the Kingdom",
+      "providers": [
+        "bilibili",
+        "iqiyi"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI"
+      ]
+    },
+    "tsukimichi -moonlit fantasy-": {
+      "title": "TSUKIMICHI -Moonlit Fantasy-",
+      "providers": [
+        "bilibili",
+        "iqiyi",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "iQIYI",
+        "Ani-One Asia"
+      ]
+    },
+    "the world's finest assassin": {
+      "title": "The World's Finest Assassin",
+      "providers": [
+        "bilibili",
+        "muse"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Muse Thailand"
+      ]
+    },
+    "the misfit of demon king academy": {
+      "title": "The Misfit of Demon King Academy",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "uzaki-chan wants to hang out!": {
+      "title": "Uzaki-chan Wants to Hang Out!",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "tonikawa": {
+      "title": "TONIKAWA",
+      "providers": [
+        "anione"
+      ],
+      "rawProviders": [
+        "Over The Moon For You: Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "so i'm a spider, so what?": {
+      "title": "So I'm a Spider, So What?",
+      "providers": [
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "how not to summon a demon lord": {
+      "title": "How Not to Summon a Demon Lord",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "aharen-san wa hakarenai": {
+      "title": "Aharen-san wa Hakarenai",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "i'm quitting heroing": {
+      "title": "I'm Quitting Heroing",
+      "providers": [
+        "bilibili",
+        "anione"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Ani-One Asia"
+      ]
+    },
+    "himouto! umaru-chan": {
+      "title": "Himouto! Umaru-chan",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "himouto! umaru-chan r": {
+      "title": "Himouto! Umaru-chan R",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "to love-ru": {
+      "title": "To LOVE-Ru",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "motto to love-ru": {
+      "title": "Motto To LOVE-Ru",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "to love-ru darkness": {
+      "title": "To LOVE-Ru Darkness",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "sankarea": {
+      "title": "Sankarea",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "kabaneri of the iron fortress": {
+      "title": "Kabaneri of the Iron Fortress",
+      "providers": [
+        "prime",
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Prime Video",
+        "Bilibili"
+      ]
+    },
+    "masamune-kun's revenge": {
+      "title": "Masamune-kun's Revenge",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "another": {
+      "title": "Another",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "the world god only knows ii": {
+      "title": "The World God Only Knows II",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "the world god only knows": {
+      "title": "The World God Only Knows",
+      "providers": [],
+      "rawProviders": [
+        "Goddesses Arc: Bilibili"
+      ]
+    },
+    "gate": {
+      "title": "GATE",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "the ambition of oda nobuna": {
+      "title": "The Ambition of Oda Nobuna",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "assassins pride": {
+      "title": "Assassins Pride",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    },
+    "high school fleet": {
+      "title": "High School Fleet",
+      "providers": [
+        "bilibili",
+        "flixer"
+      ],
+      "rawProviders": [
+        "Bilibili",
+        "Flixer"
+      ]
+    },
+    "kantai collection": {
+      "title": "Kantai Collection",
+      "providers": [],
+      "rawProviders": [
+        "KanColle: Bilibili"
+      ]
+    },
+    "the legend of the legendary heroes": {
+      "title": "The Legend of the Legendary Heroes",
+      "providers": [
+        "bilibili"
+      ],
+      "rawProviders": [
+        "Bilibili"
+      ]
+    }
+  },
+  "byBase": {
+    "attack on titan": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "prime",
+      "disney",
+      "flixer"
+    ],
+    "death note": [
+      "netflix",
+      "bilibili"
+    ],
+    "demon slayer": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "trueid",
+      "prime",
+      "viu"
+    ],
+    "jujutsu kaisen": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "prime",
+      "trueid",
+      "anione"
+    ],
+    "naruto": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "trueid"
+    ],
+    "one piece": [
+      "bilibili",
+      "iqiyi",
+      "netflix",
+      "viu",
+      "trueid"
+    ],
+    "fullmetal alchemist": [],
+    "tokyo ghoul": [
+      "netflix",
+      "bilibili"
+    ],
+    "steins;gate": [
+      "bilibili"
+    ],
+    "code geass": [
+      "netflix",
+      "bilibili",
+      "flixer"
+    ],
+    "sword art online": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "flixer"
+    ],
+    "fate/zero": [
+      "bilibili",
+      "netflix"
+    ],
+    "fate": [
+      "netflix"
+    ],
+    "no game no life": [
+      "netflix",
+      "bilibili"
+    ],
+    "log horizon": [
+      "bilibili",
+      "crunchyroll"
+    ],
+    "overlord": [
+      "bilibili",
+      "iqiyi",
+      "netflix",
+      "anione"
+    ],
+    "saga of tanya the evil": [
+      "bilibili",
+      "muse",
+      "crunchyroll"
+    ],
+    "86 -eighty six-": [
+      "bilibili",
+      "iqiyi",
+      "netflix"
+    ],
+    "ghost in the shell": [],
+    "cyberpunk": [],
+    "neon genesis evangelion": [
+      "netflix"
+    ],
+    "my hero academia": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "trueid",
+      "prime"
+    ],
+    "hunter x hunter": [
+      "netflix",
+      "bilibili",
+      "iqiyi"
+    ],
+    "bleach": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "trueid",
+      "anione"
+    ],
+    "fairy tail": [
+      "bilibili",
+      "iqiyi",
+      "trueid",
+      "muse"
+    ],
+    "black clover": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "trueid"
+    ],
+    "jojo's bizarre adventure": [
+      "netflix",
+      "bilibili",
+      "muse"
+    ],
+    "gintama": [
+      "bilibili",
+      "iqiyi",
+      "trueid"
+    ],
+    "haikyuu!!": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "trueid",
+      "prime"
+    ],
+    "your lie in april": [
+      "bilibili"
+    ],
+    "one punch man": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "muse"
+    ],
+    "mob psycho 100": [
+      "netflix",
+      "bilibili",
+      "anione"
+    ],
+    "cowboy bebop": [
+      "netflix",
+      "bilibili"
+    ],
+    "sailor moon": [
+      "netflix"
+    ],
+    "dragon ball z": [
+      "bilibili",
+      "iqiyi",
+      "trueid"
+    ],
+    "pokémon": [
+      "netflix",
+      "trueid",
+      "prime",
+      "pokemonasia"
+    ],
+    "digimon adventure": [
+      "iqiyi",
+      "bilibili"
+    ],
+    "detective conan": [
+      "bilibili",
+      "iqiyi",
+      "trueid",
+      "viu",
+      "prime"
+    ],
+    "k-on!": [
+      "bilibili",
+      "anione"
+    ],
+    "toradora!": [
+      "bilibili",
+      "netflix"
+    ],
+    "re": [
+      "bilibili",
+      "iqiyi",
+      "muse",
+      "anione",
+      "prime",
+      "applemusic"
+    ],
+    "konosuba": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "anione"
+    ],
+    "tokyo revengers": [
+      "disney",
+      "bilibili",
+      "muse"
+    ],
+    "chainsaw man": [
+      "netflix",
+      "bilibili",
+      "prime",
+      "anione"
+    ],
+    "spy x family": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "prime",
+      "muse"
+    ],
+    "oshi no ko": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "anione"
+    ],
+    "frieren": [
+      "bilibili",
+      "iqiyi",
+      "prime",
+      "muse"
+    ],
+    "slam dunk": [
+      "bilibili",
+      "iqiyi",
+      "netflix"
+    ],
+    "inuyasha": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "trueid"
+    ],
+    "dr. stone": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "trueid"
+    ],
+    "kuroko's basketball": [
+      "netflix",
+      "bilibili",
+      "iqiyi"
+    ],
+    "assassination classroom": [
+      "netflix",
+      "bilibili",
+      "muse"
+    ],
+    "the seven deadly sins": [
+      "netflix"
+    ],
+    "that time i got reincarnated as a slime": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "muse"
+    ],
+    "akame ga kill!": [
+      "bilibili"
+    ],
+    "parasyte": [
+      "bilibili",
+      "muse"
+    ],
+    "erased": [
+      "netflix",
+      "bilibili"
+    ],
+    "violet evergarden": [
+      "netflix"
+    ],
+    "blue lock": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "anione"
+    ],
+    "mushoku tensei": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "muse"
+    ],
+    "the rising of the shield hero": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "anione"
+    ],
+    "food wars!": [
+      "netflix",
+      "bilibili",
+      "iqiyi"
+    ],
+    "kaguya": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "fire force": [
+      "bilibili",
+      "muse"
+    ],
+    "the promised neverland": [
+      "netflix",
+      "bilibili",
+      "iqiyi"
+    ],
+    "made in abyss": [
+      "bilibili",
+      "muse"
+    ],
+    "vinland saga": [
+      "netflix",
+      "prime"
+    ],
+    "psycho-pass": [
+      "bilibili",
+      "flixer"
+    ],
+    "gurren lagann": [
+      "bilibili",
+      "anione"
+    ],
+    "kill la kill": [
+      "netflix",
+      "bilibili"
+    ],
+    "darling in the franxx": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "rascal does not dream of bunny girl senpai": [
+      "netflix",
+      "bilibili",
+      "anione"
+    ],
+    "angel beats!": [
+      "bilibili"
+    ],
+    "anohana": [
+      "netflix",
+      "bilibili"
+    ],
+    "your name": [
+      "netflix",
+      "bilibili"
+    ],
+    "weathering with you": [
+      "netflix",
+      "bilibili"
+    ],
+    "a silent voice": [
+      "netflix",
+      "bilibili"
+    ],
+    "nisekoi": [
+      "bilibili"
+    ],
+    "my teen romantic comedy snafu": [
+      "bilibili"
+    ],
+    "horimiya": [
+      "bilibili",
+      "iqiyi",
+      "netflix"
+    ],
+    "high school dxd": [
+      "bilibili"
+    ],
+    "date a live": [
+      "bilibili",
+      "iqiyi",
+      "muse"
+    ],
+    "future diary": [
+      "bilibili"
+    ],
+    "guilty crown": [
+      "bilibili"
+    ],
+    "danganronpa": [
+      "muse"
+    ],
+    "fate/grand order - babylonia": [
+      "bilibili"
+    ],
+    "fate/apocrypha": [
+      "netflix",
+      "bilibili"
+    ],
+    "soul eater": [
+      "bilibili"
+    ],
+    "blue exorcist": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "muse"
+    ],
+    "noragami": [
+      "bilibili"
+    ],
+    "yona of the dawn": [
+      "bilibili",
+      "muse"
+    ],
+    "magi": [
+      "bilibili"
+    ],
+    "rent-a-girlfriend": [
+      "bilibili",
+      "iqiyi",
+      "muse"
+    ],
+    "the quintessential quintuplets": [
+      "bilibili",
+      "netflix"
+    ],
+    "lycoris recoil": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "anione"
+    ],
+    "bocchi the rock!": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "anione"
+    ],
+    "kakegurui": [
+      "netflix"
+    ],
+    "black butler": [
+      "netflix",
+      "bilibili",
+      "iqiyi"
+    ],
+    "suzume": [
+      "netflix",
+      "bilibili"
+    ],
+    "akira": [
+      "netflix"
+    ],
+    "mobile suit gundam seed": [
+      "bilibili",
+      "flixer",
+      "gundaminfo"
+    ],
+    "mobile suit gundam 00": [
+      "bilibili",
+      "flixer",
+      "gundaminfo"
+    ],
+    "hellsing ultimate": [
+      "bilibili"
+    ],
+    "berserk": [
+      "netflix",
+      "bilibili"
+    ],
+    "overlord ii": [
+      "bilibili",
+      "iqiyi",
+      "netflix",
+      "anione"
+    ],
+    "clannad": [
+      "bilibili"
+    ],
+    "great teacher onizuka": [
+      "netflix",
+      "bilibili",
+      "muse"
+    ],
+    "rurouni kenshin": [
+      "prime"
+    ],
+    "yu-gi-oh! duel monsters": [
+      "netflix",
+      "bilibili",
+      "trueid"
+    ],
+    "shaman king": [
+      "netflix"
+    ],
+    "saint seiya": [
+      "netflix",
+      "bilibili"
+    ],
+    "doraemon": [
+      "pops",
+      "trueid",
+      "linetv",
+      "youtube"
+    ],
+    "crayon shin-chan": [
+      "pops",
+      "trueid",
+      "flixer"
+    ],
+    "maruko-chan": [
+      "trueid",
+      "youtube"
+    ],
+    "lucky star": [
+      "bilibili"
+    ],
+    "haruhi suzumiya": [
+      "bilibili"
+    ],
+    "ouran high school host club": [
+      "netflix",
+      "bilibili"
+    ],
+    "fruit basket": [
+      "netflix",
+      "bilibili",
+      "iqiyi"
+    ],
+    "mob psycho 100 ii": [
+      "netflix",
+      "bilibili",
+      "anione"
+    ],
+    "devilman crybaby": [
+      "netflix"
+    ],
+    "bungou stray dogs": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "anione"
+    ],
+    "golden kamuy": [
+      "bilibili",
+      "prime"
+    ],
+    "banana fish": [
+      "prime"
+    ],
+    "dorohedoro": [
+      "netflix"
+    ],
+    "jojo": [
+      "bilibili",
+      "muse"
+    ],
+    "black lagoon": [
+      "netflix"
+    ],
+    "hellsing": [
+      "bilibili"
+    ],
+    "claymore": [
+      "bilibili"
+    ],
+    "highschool of the dead": [
+      "bilibili"
+    ],
+    "deadman wonderland": [
+      "bilibili"
+    ],
+    "terra formars": [
+      "bilibili"
+    ],
+    "gundam wing": [
+      "flixer",
+      "gundaminfo"
+    ],
+    "macross frontier": [
+      "disney"
+    ],
+    "code geass r2": [
+      "netflix",
+      "bilibili",
+      "flixer"
+    ],
+    "monster": [
+      "netflix"
+    ],
+    "durarara!!": [
+      "bilibili"
+    ],
+    "hyouka": [
+      "bilibili",
+      "muse"
+    ],
+    "nichijou": [
+      "bilibili"
+    ],
+    "gyakkyou burai kaiji": [
+      "bilibili"
+    ],
+    "yu yu hakusho": [
+      "netflix",
+      "bilibili"
+    ],
+    "city hunter": [
+      "netflix",
+      "bilibili"
+    ],
+    "ranma 1/2": [
+      "netflix"
+    ],
+    "cardcaptor sakura": [
+      "netflix",
+      "bilibili",
+      "flixer"
+    ],
+    "magic knight rayearth": [
+      "flixer"
+    ],
+    "nana": [
+      "netflix",
+      "bilibili"
+    ],
+    "kimi ni todoke": [
+      "netflix"
+    ],
+    "nodame cantabile": [
+      "bilibili"
+    ],
+    "chihayafuru": [
+      "bilibili"
+    ],
+    "spice and wolf": [
+      "netflix",
+      "bilibili",
+      "anione"
+    ],
+    "sword art online ii": [
+      "netflix",
+      "bilibili",
+      "flixer"
+    ],
+    "tokyo ghoul a": [
+      "netflix",
+      "bilibili"
+    ],
+    "boruto": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "dragon ball super": [
+      "iqiyi",
+      "bilibili"
+    ],
+    "dragon ball gt": [
+      "iqiyi",
+      "bilibili"
+    ],
+    "ojamajo doremi": [
+      "trueid"
+    ],
+    "digimon tamers": [
+      "bilibili"
+    ],
+    "digimon frontier": [
+      "bilibili"
+    ],
+    "katekyo hitman reborn!": [
+      "bilibili",
+      "iqiyi",
+      "trueid"
+    ],
+    "d.gray-man": [
+      "bilibili"
+    ],
+    "beelzebub": [
+      "bilibili"
+    ],
+    "sket dance": [
+      "bilibili"
+    ],
+    "bakuman": [
+      "bilibili"
+    ],
+    "death parade": [
+      "bilibili"
+    ],
+    "blood blockade battlefront": [
+      "bilibili",
+      "netflix"
+    ],
+    "the god of high school": [
+      "bilibili",
+      "iqiyi",
+      "crunchyroll"
+    ],
+    "tower of god": [
+      "bilibili",
+      "iqiyi",
+      "crunchyroll",
+      "anione"
+    ],
+    "to your eternity": [
+      "netflix",
+      "bilibili",
+      "anione"
+    ],
+    "vivy": [
+      "flixer"
+    ],
+    "wonder egg priority": [
+      "bilibili"
+    ],
+    "akudama drive": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "deca-dence": [
+      "bilibili",
+      "anione"
+    ],
+    "great pretender": [
+      "netflix"
+    ],
+    "summer time rendering": [
+      "disney"
+    ],
+    "the apothecary diaries": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "crunchyroll"
+    ],
+    "solo leveling": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "crunchyroll"
+    ],
+    "mashle": [
+      "netflix",
+      "bilibili",
+      "prime"
+    ],
+    "undead unluck": [
+      "disney"
+    ],
+    "shangri-la frontier": [
+      "netflix",
+      "bilibili",
+      "muse"
+    ],
+    "zom 100": [
+      "bilibili",
+      "muse"
+    ],
+    "hell's paradise": [
+      "netflix",
+      "prime"
+    ],
+    "tengoku daimakyou": [
+      "disney"
+    ],
+    "call of the night": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "ranking of kings": [
+      "netflix",
+      "bilibili",
+      "prime"
+    ],
+    "mobile suit gundam": [
+      "bilibili",
+      "flixer",
+      "gundaminfo"
+    ],
+    "bakemonogatari": [
+      "bilibili"
+    ],
+    "a certain scientific railgun": [
+      "bilibili"
+    ],
+    "love live! school idol project": [
+      "bilibili",
+      "flixer"
+    ],
+    "aldnoah.zero": [
+      "bilibili"
+    ],
+    "the eminence in shadow": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "kaiju no. 8": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "crunchyroll",
+      "x"
+    ],
+    "delicious in dungeon": [
+      "netflix"
+    ],
+    "dandadan": [
+      "netflix",
+      "bilibili",
+      "crunchyroll"
+    ],
+    "yuri!!! on ice": [
+      "bilibili"
+    ],
+    "free!": [
+      "bilibili",
+      "anione"
+    ],
+    "haikyuu!! second season": [
+      "netflix",
+      "bilibili",
+      "iqiyi",
+      "trueid"
+    ],
+    "k-on!!": [
+      "bilibili",
+      "anione"
+    ],
+    "charlotte": [
+      "bilibili"
+    ],
+    "plastic memories": [
+      "bilibili"
+    ],
+    "air": [
+      "bilibili"
+    ],
+    "kiznaiver": [
+      "crunchyroll"
+    ],
+    "symphogear": [
+      "bilibili"
+    ],
+    "macross delta": [
+      "disney"
+    ],
+    "carole & tuesday": [
+      "netflix"
+    ],
+    "given": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "kids on the slope": [
+      "bilibili"
+    ],
+    "trigun": [
+      "bilibili",
+      "crunchyroll"
+    ],
+    "gintama 2": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "fairy tail (series 2)": [
+      "bilibili",
+      "iqiyi",
+      "muse"
+    ],
+    "edens zero": [
+      "netflix",
+      "bilibili"
+    ],
+    "shaman king (2021)": [
+      "netflix"
+    ],
+    "digimon adventure 02": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "yu-gi-oh! gx": [
+      "bilibili"
+    ],
+    "yu-gi-oh! 5d's": [
+      "bilibili"
+    ],
+    "inazuma eleven": [
+      "trueid"
+    ],
+    "beyblade": [
+      "trueid",
+      "youtube"
+    ],
+    "captain tsubasa": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "fist of the north star": [
+      "bilibili"
+    ],
+    "lupin iii": [
+      "bilibili",
+      "flixer"
+    ],
+    "your name (ed)": [
+      "spotify",
+      "applemusic",
+      "ytmusic"
+    ],
+    "weathering with you (insert)": [
+      "spotify",
+      "applemusic",
+      "ytmusic"
+    ],
+    "suzume (ed)": [
+      "spotify",
+      "applemusic",
+      "ytmusic"
+    ],
+    "evangelion": [
+      "prime"
+    ],
+    "steins;gate 0": [
+      "bilibili"
+    ],
+    "one piece (op11)": [
+      "spotify",
+      "applemusic"
+    ],
+    "gintama (op5)": [
+      "spotify",
+      "applemusic"
+    ],
+    "toradora! (op2)": [
+      "spotify",
+      "applemusic"
+    ],
+    "angel beats! (ed1)": [
+      "spotify",
+      "applemusic"
+    ],
+    "anohana (ed)": [
+      "spotify",
+      "applemusic"
+    ],
+    "your lie in april (ed2)": [
+      "spotify",
+      "applemusic"
+    ],
+    "guilty crown (op2)": [
+      "spotify",
+      "applemusic"
+    ],
+    "psycho-pass (ed1)": [
+      "spotify",
+      "applemusic"
+    ],
+    "blue exorcist (op2)": [
+      "spotify",
+      "applemusic"
+    ],
+    "sword art online ii (op2)": [
+      "spotify",
+      "applemusic"
+    ],
+    "the irregular at magic high school": [
+      "iqiyi",
+      "netflix"
+    ],
+    "absolute duo": [
+      "bilibili"
+    ],
+    "arifureta": [
+      "bilibili",
+      "iqiyi",
+      "anione"
+    ],
+    "how a realist hero rebuilt the kingdom": [
+      "bilibili",
+      "iqiyi"
+    ],
+    "tsukimichi -moonlit fantasy-": [
+      "bilibili",
+      "iqiyi",
+      "anione"
+    ],
+    "the world's finest assassin": [
+      "bilibili",
+      "muse"
+    ],
+    "the misfit of demon king academy": [
+      "bilibili"
+    ],
+    "uzaki-chan wants to hang out!": [
+      "bilibili"
+    ],
+    "tonikawa": [
+      "anione"
+    ],
+    "so i'm a spider, so what?": [
+      "bilibili",
+      "anione"
+    ],
+    "how not to summon a demon lord": [
+      "bilibili"
+    ],
+    "aharen": [
+      "bilibili"
+    ],
+    "i'm quitting heroing": [
+      "bilibili",
+      "anione"
+    ],
+    "himouto! umaru-chan": [
+      "bilibili"
+    ],
+    "himouto! umaru-chan r": [
+      "bilibili"
+    ],
+    "to love-ru": [
+      "bilibili"
+    ],
+    "motto to love-ru": [
+      "bilibili"
+    ],
+    "to love-ru darkness": [
+      "bilibili"
+    ],
+    "sankarea": [
+      "bilibili"
+    ],
+    "kabaneri of the iron fortress": [
+      "prime",
+      "bilibili"
+    ],
+    "masamune-kun's revenge": [
+      "bilibili"
+    ],
+    "another": [
+      "bilibili"
+    ],
+    "the world god only knows ii": [
+      "bilibili"
+    ],
+    "the world god only knows": [],
+    "gate": [
+      "bilibili"
+    ],
+    "the ambition of oda nobuna": [
+      "bilibili"
+    ],
+    "assassins pride": [
+      "bilibili"
+    ],
+    "high school fleet": [
+      "bilibili",
+      "flixer"
+    ],
+    "kantai collection": [],
+    "the legend of the legendary heroes": [
+      "bilibili"
+    ]
+  }
+}

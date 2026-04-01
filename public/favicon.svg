@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="#0b1220"/>
+  <rect x="14" y="14" width="228" height="228" rx="50" fill="url(#g)" opacity="0.18"/>
+
+  <!-- Simple gamepad glyph (no external assets) -->
+  <g fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M78 150c-20 0-34-18-34-38s14-38 34-38h100c20 0 34 18 34 38s-14 38-34 38"/>
+    <path d="M90 150c-10 0-18 8-18 18s8 18 18 18c14 0 24-10 38-10h0c14 0 24 10 38 10c10 0 18-8 18-18s-8-18-18-18"/>
+    <path d="M92 112h28"/>
+    <path d="M106 98v28"/>
+    <path d="M164 108h0"/>
+    <path d="M186 120h0"/>
+  </g>
+
+  <circle cx="164" cy="108" r="6" fill="#e2e8f0"/>
+  <circle cx="186" cy="120" r="6" fill="#e2e8f0"/>
+</svg>

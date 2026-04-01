@@ -1,0 +1,28 @@
+Missing from legal_catalog_th_raw: 26/320
+
+001  Fate/Grand Order - Absolute Demonic Front: Babylonia
+002  Strike the Blood FINAL
+003  Strike the Blood III (OVA)
+004  Strike the Blood II (OVA)
+005  Strike the Blood IV (OVA)
+006  The Ambition of Oda Nobuna
+007  The Asterisk War
+008  The Eden of Grisaia
+009  The Genius Prince's Guide to Raising a Nation Out of Debt
+010  The Legend of the Legendary Heroes
+011  The Strongest Sage with the Weakest Crest
+012  The World God Only Knows: Goddesses Arc
+013  The World God Only Knows II
+014  The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat
+015  To LOVE-Ru
+016  To LOVE-Ru Darkness
+017  Toradora!
+018  Trinity Seven
+019  Undefeated Bahamut Chronicle
+020  World Break: Aria of Curse for a Holy Swordsman
+021  Yona of the Dawn
+022  Yu-Gi-Oh! 5D's
+023  Yu-Gi-Oh! Duel Monsters
+024  Yu-Gi-Oh! GX
+025  Yuri!!! on Ice
+026  Zatch Bell!

@@ -1,0 +1,330 @@
+# Anime works list (deduped)
+
+# Generated: 2026-03-31T09:31:32.775Z
+
+# Source: anime_op_quiz_starter.jsx
+
+# Count: 320
+
+
+
+001  86 -Eighty Six-
+002  Absolute Duo
+003  A Certain Magical Index
+004  A Certain Scientific Railgun
+005  Aharen-san wa Hakarenai
+006  Air
+007  Akame ga Kill!
+008  Akira
+009  Akudama Drive
+010  Aldnoah.Zero
+011  Angel Beats!
+012  Anohana
+013  Another
+014  Arifureta: From Commonplace to World's Strongest
+015  Arifureta Season 2
+016  A Silent Voice
+017  Assassination Classroom
+018  Assassins Pride
+019  Attack on Titan
+020  Attack on Titan The Final Season
+021  Baccano!
+022  Bakemonogatari
+023  Bakuman
+024  Bakusou Kyoudai Let's & Go!!
+025  Banana Fish
+026  Beck: Mongolian Chop Squad
+027  Beelzebub
+028  Berserk
+029  Beyblade
+030  Black Butler
+031  Black Clover
+032  Black Lagoon
+033  Bleach
+034  Bleach: Thousand-Year Blood War
+035  Blood Blockade Battlefront
+036  Blue Exorcist
+037  Blue Lock
+038  Bocchi the Rock!
+039  Boruto: Naruto Next Generations
+040  Bungou Stray Dogs
+041  Call of the Night
+042  Captain Tsubasa
+043  Cardcaptor Sakura
+044  Cardfight!! Vanguard: Asia Circuit
+045  Cardfight!! Vanguard Divinez
+046  Cardfight!! Vanguard G: GIRS Crisis
+047  Cardfight!! Vanguard G: Stride Gate
+048  Cardfight!! Vanguard: Shinemon
+049  Carole & Tuesday
+050  Chainsaw Man
+051  Charlotte
+052  Chihayafuru
+053  Chivalry of a Failed Knight
+054  City Hunter
+055  Clannad
+056  Clannad: After Story
+057  Claymore
+058  Code Geass
+059  Code Geass R2
+060  Coppelion
+061  Cowboy Bebop
+062  Crayon Shin-chan
+063  Crush Gear Turbo
+064  Cyberpunk: Edgerunners
+065  Dandadan
+066  Danganronpa: The Animation
+067  Darker than Black
+068  Darling in the Franxx
+069  Date A Live
+070  Date A Live II
+071  Date A Live III
+072  Date A Live IV
+073  Deadman Wonderland
+074  Death Note
+075  Death Parade
+076  Deca-Dence
+077  Delicious in Dungeon
+078  Demon Slayer
+079  Demon Slayer: Entertainment District Arc
+080  Demon Slayer: Swordsmith Village Arc
+081  Detective Conan
+082  Detective Conan: Black Iron Submarine
+083  Devilman Crybaby
+084  D.Gray-man
+085  Digimon Adventure
+086  Digimon Adventure 02
+087  Digimon Frontier
+088  Digimon Tamers
+089  Doraemon
+090  Dorohedoro
+091  Dragon Ball GT
+092  Dragon Ball Super
+093  Dragon Ball Z
+094  Drifters
+095  Dr. Stone
+096  Durarara!!
+097  Edens Zero
+098  Elfen Lied
+099  Erased
+100  Evangelion: 3.0+1.0 Thrice Upon a Time
+101  Fairy Tail
+102  Fairy Tail (Series 2)
+103  Fate/Apocrypha
+104  Fate/Grand Order - Absolute Demonic Front: Babylonia
+105  Fate/stay night (2006)
+106  Fate/stay night: Heaven's Feel
+107  Fate/stay night: Unlimited Blade Works
+108  Fate/Zero
+109  Fire Force
+110  Fist of the North Star
+111  Food Wars!
+112  Free!
+113  Frieren: Beyond Journey's End
+114  Fruit Basket
+115  Fullmetal Alchemist: Brotherhood
+116  Future Diary
+117  Galaxy Express 999
+118  Gantz
+119  Ghost in the Shell
+120  Ghost in the Shell: Stand Alone Complex
+121  Gintama
+122  Gintama 2 
+123  Girls und Panzer
+124  Girls und Panzer das Finale 
+125  Given
+126  Goblin Slayer II
+127  Golden Kamuy
+128  Great Pretender
+129  Great Teacher Onizuka
+130  Guilty Crown
+131  Gundam Wing
+132  Gurren Lagann
+133  Gyakkyou Burai Kaiji: Ultimate Survivor
+134  Haikyuu!!
+135  Haikyuu!! Second Season
+136  Haruhi Suzumiya
+137  Hellsing
+138  Hellsing Ultimate
+139  Hell's Paradise
+140  High School DxD
+141  High School Fleet
+142  Highschool of the Dead
+143  High School Prodigies Have It Easy Even In Another World
+144  Himouto! Umaru-chan
+145  Himouto! Umaru-chan R
+146  Horimiya
+147  How a Realist Hero Rebuilt the Kingdom
+148  Hundred
+149  Hunter x Hunter
+150  Hyouka
+151  I'm Quitting Heroing
+152  In Another World With My Smartphone Season 2
+153  Inazuma Eleven
+154  Inuyasha
+155  Inuyasha: The Final Act
+156  Is It Wrong to Try to Pick Up Girls in a Dungeon? II
+157  JoJo: Diamond is Unbreakable
+158  JoJo: Golden Wind
+159  JoJo's Bizarre Adventure
+160  JoJo: Stardust Crusaders
+161  JoJo: Stone Ocean
+162  Jujutsu Kaisen
+163  Kabaneri of the Iron Fortress
+164  Kaguya-sama: Love is War
+165  Kaiju No. 8
+166  Kakegurui
+167  Kantai Collection: KanColle
+168  Katekyo Hitman Reborn!
+169  Kids on the Slope
+170  Kill la Kill
+171  Kimi ni Todoke
+172  Kinnikuman
+173  Kiznaiver
+174  K-On!
+175  KonoSuba
+176  Kuroko's Basketball
+177  Log Horizon
+178  Love Live! School Idol Project
+179  Lucky Star
+180  Lupin III
+181  Lycoris Recoil
+182  Macross Delta
+183  Macross Frontier
+184  Madan no Ou to Vanadis
+185  Made in Abyss
+186  Magic Knight Rayearth
+187  Magi: The Labyrinth of Magic
+188  Maoyu: Archenemy & Hero
+189  Maruko-chan
+190  Masamune-kun's Revenge
+191  Masamune-kun's Revenge R
+192  Mashle season 2
+193  Mobile Suit Gundam 00
+194  Mobile Suit Gundam: Iron-Blooded Orphans
+195  Mobile Suit Gundam SEED
+196  Mobile Suit Gundam: The Witch from Mercury
+197  Mob Psycho 100
+198  Mob Psycho 100 II
+199  Monster
+200  Motto To LOVE-Ru
+201  Mushoku Tensei: Jobless Reincarnation
+202  Mushoku Tensei Season 2
+203  My Hero Academia
+204  My Teen Romantic Comedy SNAFU
+205  NANA
+206  Naruto
+207  Naruto: Shippuden
+208  Neon Genesis Evangelion
+209  Nichijou
+210  Nisekoi
+211  Nodame Cantabile
+212  No Game No Life
+213  No Game No Life: Zero
+214  Noragami
+215  Noragami Aragoto
+216  Nyan Koi!
+217  Ojamajo Doremi
+218  One Piece
+219  One Punch Man
+220  Oshi no Ko
+221  Ouran High School Host Club
+222  Overlord
+223  Overlord II
+224  Overlord III
+225  Parasyte: The Maxim
+226  Plastic Memories
+227  Pokémon
+228  Pokémon: Advanced Generation
+229  Psycho-Pass
+230  Qualidea Code
+231  Ranking of Kings
+232  Ranma 1/2
+233  Rascal Does Not Dream of Bunny Girl Senpai
+234  Re:CREATORS
+235  Redo of Healer
+236  Rent-a-Girlfriend
+237  Re:Zero
+238  Rurouni Kenshin
+239  Saga of Tanya the Evil
+240  Sailor Moon
+241  Saint Seiya
+242  Sankarea
+243  Seraph of the End: Battle in Nagoya
+244  Seton Academy: Join the Pack!
+245  Seven Knights Revolution: Hero Successor
+246  Shaman King
+247  Shaman King (2021)
+248  Shangri-La Frontier
+249  Sket Dance
+250  Slam Dunk
+251  So I'm a Spider, So What?
+252  Solo Leveling
+253  Soul Eater
+254  Space Battleship Yamato
+255  Spice and Wolf
+256  Spy x Family
+257  Steins;Gate
+258  Steins;Gate 0
+259  Strike the Blood FINAL
+260  Strike the Blood III (OVA)
+261  Strike the Blood II (OVA)
+262  Strike the Blood IV (OVA)
+263  Summer Time Rendering
+264  Suzume
+265  Sword Art Online
+266  Sword Art Online: Alicization
+267  Sword Art Online II
+268  Symphogear
+269  Tengoku Daimakyou
+270  Terra Formars
+271  That Time I Got Reincarnated as a Slime
+272  The Ambition of Oda Nobuna
+273  The Apothecary Diaries
+274  The Asterisk War
+275  The Eden of Grisaia
+276  The Eminence in Shadow
+277  The Genius Prince's Guide to Raising a Nation Out of Debt
+278  The God of High School
+279  The Irregular at Magic High School: Visitor Arc
+280  The Legend of the Legendary Heroes
+281  The Promised Neverland
+282  The Quintessential Quintuplets
+283  The Rising of the Shield Hero
+284  The Seven Deadly Sins
+285  The Strongest Sage with the Weakest Crest
+286  The World God Only Knows: Goddesses Arc
+287  The World God Only Knows II
+288  The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat
+289  Tokyo Ghoul
+290  Tokyo Ghoul √A
+291  Tokyo Ghoul:re
+292  Tokyo Revengers
+293  To LOVE-Ru
+294  To LOVE-Ru Darkness
+295  TONIKAWA: Over The Moon For You
+296  Toradora!
+297  Tower of God
+298  To Your Eternity
+299  Trigun
+300  Trinity Seven
+301  TSUKIMICHI -Moonlit Fantasy-
+302  Undead Unluck
+303  Undefeated Bahamut Chronicle
+304  Uzaki-chan Wants to Hang Out!
+305  Vinland Saga
+306  Violet Evergarden
+307  Vivy: Fluorite Eye's Song
+308  Weathering with You
+309  Wonder Egg Priority
+310  World Break: Aria of Curse for a Holy Swordsman
+311  Yona of the Dawn
+312  Your Lie in April
+313  Your Name
+314  Yu-Gi-Oh! 5D's
+315  Yu-Gi-Oh! Duel Monsters
+316  Yu-Gi-Oh! GX
+317  Yuri!!! on Ice
+318  Yu Yu Hakusho
+319  Zatch Bell!
+320  Zom 100: Bucket List of the Dead
