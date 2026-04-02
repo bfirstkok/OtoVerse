@@ -4267,6 +4267,65 @@ function SmartImage({ src, fallbackSrc, alt, className }) {
   );
 }
 
+function SynopsisInline({ title, synopsisCache, synopsisLoading, ensureSynopsis }) {
+  const cacheKey = normalizeSynopsisKey(title);
+
+  React.useEffect(() => {
+    if (!cacheKey || !title) return;
+    const existing = synopsisCache?.[cacheKey];
+    if (existing && (existing?.text || existing?.url || existing?.error || existing?.fetchedAt)) return;
+    if (synopsisLoading?.[cacheKey]) return;
+    ensureSynopsis({ cacheKey, searchTitle: title });
+  }, [cacheKey, title, synopsisCache, synopsisLoading, ensureSynopsis]);
+
+  const cached = synopsisCache?.[cacheKey];
+  const text = cached?.text || "";
+  const url = cached?.url || "";
+  const hadError = Boolean(cached?.error);
+  const isLoading = Boolean(synopsisLoading?.[cacheKey]);
+
+  return (
+    <div className="text-sm leading-6 text-slate-700 dark:text-slate-200/90">
+      {isLoading ? (
+        <div className="text-xs text-slate-600 dark:text-slate-300">กำลังโหลดเรื่องย่อ…</div>
+      ) : null}
+
+      {text ? (
+        <>
+          <div className="whitespace-pre-line">{text}</div>
+          {url ? (
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-1 inline-block text-xs font-semibold text-cyan-700 hover:underline dark:text-cyan-300"
+            >
+              อ่านต่อ (แหล่งข้อมูล)
+            </a>
+          ) : null}
+        </>
+      ) : (
+        <div className="text-slate-600 dark:text-slate-300">
+          {hadError ? "โหลดเรื่องย่อไม่สำเร็จ (ลองใหม่ได้)" : "ยังไม่มีเรื่องย่อ"}
+          {url ? (
+            <>
+              {" "}—{" "}
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-cyan-700 hover:underline dark:text-cyan-300"
+              >
+                เปิดแหล่งข้อมูล
+              </a>
+            </>
+          ) : null}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function isSongEntryTitle(title) {
   const t = String(title || "");
   // Heuristic: entries that are explicitly OP/ED/Insert tracks.
@@ -4488,7 +4547,6 @@ export default function AnimeOPQuizStarter() {
   const [legalGenreFilter, setLegalGenreFilter] = useState("all");
   const [synopsisCache, setSynopsisCache] = useState(() => loadSynopsisCache());
   const [synopsisLoading, setSynopsisLoading] = useState({});
-  const [synopsisOpen, setSynopsisOpen] = useState({});
   const [providerIcons, setProviderIcons] = useState(null);
   const [legalAvailability, setLegalAvailability] = useState(null);
   const [legalCatalogTH, setLegalCatalogTH] = useState(null);
@@ -7745,83 +7803,14 @@ export default function AnimeOPQuizStarter() {
                             </div>
                           </div>
 
-                          {libraryListMode !== "songs" && (
+                          {!isSongLike && (
                             <div className="mt-3">
-                              <div className="flex flex-wrap items-center gap-2">
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setSynopsisOpen((prev) => {
-                                      const next = { ...(prev || {}), [item.key]: !prev?.[item.key] };
-                                      return next;
-                                    });
-
-                                    const cacheKey = normalizeSynopsisKey(item.title);
-                                    const willOpen = !synopsisOpen?.[item.key];
-                                    if (willOpen && !synopsisCache?.[cacheKey]?.text && !synopsisLoading?.[cacheKey]) {
-                                      ensureSynopsis({ cacheKey, searchTitle: item.title });
-                                    }
-                                  }}
-                                  className="inline-flex items-center justify-center h-9 px-3 rounded-xl border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
-                                >
-                                  {synopsisOpen?.[item.key] ? "ซ่อนเรื่องย่อ" : "ดูเรื่องย่อ"}
-                                </button>
-                                {(() => {
-                                  const cacheKey = normalizeSynopsisKey(item.title);
-                                  return synopsisLoading?.[cacheKey] ? (
-                                    <span className="text-xs text-slate-600 dark:text-slate-300">กำลังโหลดเรื่องย่อ…</span>
-                                  ) : null;
-                                })()}
-                              </div>
-
-                              {synopsisOpen?.[item.key] && (
-                                <div className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200/90">
-                                  {(() => {
-                                    const cacheKey = normalizeSynopsisKey(item.title);
-                                    const cached = synopsisCache?.[cacheKey];
-                                    const text = cached?.text || "";
-                                    const url = cached?.url || "";
-                                    const hadError = Boolean(cached?.error);
-
-                                    if (text) {
-                                      return (
-                                        <>
-                                          <div className="whitespace-pre-line">{text}</div>
-                                          {url && (
-                                            <a
-                                              href={url}
-                                              target="_blank"
-                                              rel="noreferrer"
-                                              className="mt-1 inline-block text-xs font-semibold text-cyan-700 hover:underline dark:text-cyan-300"
-                                            >
-                                              อ่านต่อ (แหล่งข้อมูล)
-                                            </a>
-                                          )}
-                                        </>
-                                      );
-                                    }
-
-                                    return (
-                                      <div className="text-slate-600 dark:text-slate-300">
-                                        {hadError ? "โหลดเรื่องย่อไม่สำเร็จ (ลองใหม่ได้)" : "ยังไม่มีเรื่องย่อ"}
-                                        {url ? (
-                                          <>
-                                            {" "}—{" "}
-                                            <a
-                                              href={url}
-                                              target="_blank"
-                                              rel="noreferrer"
-                                              className="font-semibold text-cyan-700 hover:underline dark:text-cyan-300"
-                                            >
-                                              เปิดแหล่งข้อมูล
-                                            </a>
-                                          </>
-                                        ) : null}
-                                      </div>
-                                    );
-                                  })()}
-                                </div>
-                              )}
+                              <SynopsisInline
+                                title={item.title}
+                                synopsisCache={synopsisCache}
+                                synopsisLoading={synopsisLoading}
+                                ensureSynopsis={ensureSynopsis}
+                              />
                             </div>
                           )}
 
