@@ -4363,7 +4363,7 @@ function hashStringToUint(str) {
   return hash >>> 0;
 }
 
-const SYNOPSIS_CACHE_STORAGE_KEY = "animequiz_synopsis_cache_v3";
+const SYNOPSIS_CACHE_STORAGE_KEY = "animequiz_synopsis_cache_v4";
 
 function normalizeSynopsisKey(title) {
   return String(title || "")
@@ -4424,12 +4424,17 @@ function truncateSynopsis(text, maxLen = 320) {
   return `${t.slice(0, Math.max(0, maxLen - 1)).trimEnd()}…`;
 }
 
-function hasEnoughThai(text) {
-  const s = String(text || "");
-  if (!s) return false;
-  const thaiMatches = s.match(/[\u0E00-\u0E7F]/g);
-  const thaiCount = thaiMatches ? thaiMatches.length : 0;
-  return thaiCount >= 10;
+let manualSynopsisDbPromise = null;
+async function loadManualSynopsisDb() {
+  if (manualSynopsisDbPromise) return manualSynopsisDbPromise;
+  manualSynopsisDbPromise = fetch("/synopsis_th.json")
+    .then((r) => (r.ok ? r.json() : null))
+    .then((json) => {
+      const items = json?.items;
+      return items && typeof items === "object" ? items : {};
+    })
+    .catch(() => ({}));
+  return manualSynopsisDbPromise;
 }
 
 async function fetchAniListSynopsis(searchTitle) {
@@ -4438,80 +4443,16 @@ async function fetchAniListSynopsis(searchTitle) {
     return { text: "", url: "", fetchedAt: Date.now() };
   }
 
-  const tryThaiWikipedia = async (queryText) => {
-    const q = String(queryText || "").trim();
-    if (!q) return null;
-
-    const searchUrl = `https://th.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=1&format=json&origin=*`;
-    const searchRes = await fetch(searchUrl, {
-      method: "GET",
-      headers: { Accept: "application/json" }
-    });
-    if (!searchRes.ok) return null;
-    const searchJson = await searchRes.json();
-    const pageTitle = searchJson?.query?.search?.[0]?.title ? String(searchJson.query.search[0].title) : "";
-    if (!pageTitle) return null;
-
-    const summaryUrl = `https://th.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`;
-    const summaryRes = await fetch(summaryUrl, {
-      method: "GET",
-      headers: { Accept: "application/json" }
-    });
-    if (!summaryRes.ok) return null;
-    const summaryJson = await summaryRes.json();
-    const extract = summaryJson?.extract ? String(summaryJson.extract) : "";
-    const plain = truncateSynopsis(extract, 320);
-    if (!plain || !hasEnoughThai(plain)) return null;
-
-    const pageUrl = summaryJson?.content_urls?.desktop?.page ? String(summaryJson.content_urls.desktop.page) : "";
-    return {
-      text: plain,
-      url: pageUrl,
-      fetchedAt: Date.now()
-    };
-  };
-
+  const db = await loadManualSynopsisDb();
+  const directKey = normalizeSynopsisKey(title);
   const baseTitle = availabilityBaseKeyFromTitle(title) || title;
-  const candidates = Array.from(
-    new Set(
-      [title, baseTitle]
-        .map((t) => String(t || "").trim())
-        .filter(Boolean)
-    )
-  );
+  const baseKey = normalizeSynopsisKey(baseTitle);
 
-  for (const c of candidates) {
-    try {
-      const thai = await tryThaiWikipedia(c);
-      if (thai?.text) return thai;
-    } catch {
-      // ignore and continue
-    }
-  }
-
-  const query = `query ($search: String) {
-    Media(search: $search, type: ANIME) {
-      siteUrl
-      description(asHtml: false)
-    }
-  }`;
-
-  const res = await fetch("https://graphql.anilist.co", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify({ query, variables: { search: title } })
-  });
-
-  if (!res.ok) throw new Error(`AniList error: ${res.status}`);
-  const json = await res.json();
-  const media = json?.data?.Media;
-  const siteUrl = media?.siteUrl ? String(media.siteUrl) : "";
+  const entry = (directKey && db?.[directKey]) || (baseKey && db?.[baseKey]) || null;
+  const text = entry?.text ? truncateSynopsis(entry.text, 320) : "";
   return {
-    text: "",
-    url: siteUrl,
+    text,
+    url: "",
     fetchedAt: Date.now()
   };
 }
