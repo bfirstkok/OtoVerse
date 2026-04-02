@@ -4314,22 +4314,22 @@ function ProviderIconButton({ providerKey, query, title, iconSrc }) {
       type="button"
       onClick={() => window.open(buildLegalSearchUrl(query), "_blank", "noopener,noreferrer")}
       title={title || provider.label}
-      className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
+      className="inline-flex items-center justify-center h-[50px] w-[50px] rounded-xl border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
     >
       {iconSrc ? (
         <img
           src={iconSrc}
           alt={provider.label}
           loading="lazy"
-          className="h-5 w-5 object-contain"
+          className="h-[28px] w-[28px] object-contain"
           referrerPolicy="no-referrer"
         />
       ) : isYouTube ? (
-        <Youtube className="h-4 w-4" />
+        <Youtube className="h-[22px] w-[22px]" />
       ) : isMusic ? (
-        <Music2 className="h-4 w-4" />
+        <Music2 className="h-[22px] w-[22px]" />
       ) : (
-        <Film className="h-4 w-4" />
+        <Film className="h-[22px] w-[22px]" />
       )}
       <span className="sr-only">{provider.label}</span>
     </button>
@@ -7844,7 +7844,7 @@ export default function AnimeOPQuizStarter() {
                               type="button"
                               onClick={() => window.open(buildLegalSearchUrl(`${baseQuery} ${libraryListMode === "songs" ? "Spotify Apple Music YouTube Music" : "Netflix Prime Disney+ Crunchyroll iQIYI Bilibili TrueID"}`), "_blank", "noopener,noreferrer")}
                               title="ค้นหาเพิ่มเติม"
-                              className="inline-flex items-center justify-center h-9 px-3 rounded-xl border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
+                              className="inline-flex items-center justify-center h-[50px] px-3 rounded-xl border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
                             >
                               เพิ่มเติม
                             </button>
