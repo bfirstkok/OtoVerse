@@ -6204,11 +6204,22 @@ export default function AnimeOPQuizStarter() {
       ? animeWithGenre
       : animeWithGenre.filter((anime) => anime.genre === selectedGenre);
 
-    if (!q) return source;
-    return source.filter((anime) => {
+    const filtered = !q
+      ? source
+      : source.filter((anime) => {
       const haystack = [anime.title, ...(anime.altTitles || []), anime.note || ""].join(" ");
       return normalize(haystack).includes(q);
-    });
+      });
+
+    return filtered
+      .slice()
+      .sort((a, b) => {
+        const at = String(a?.title || "");
+        const bt = String(b?.title || "");
+        const byTitle = at.localeCompare(bt, "en", { sensitivity: "base", numeric: true });
+        if (byTitle) return byTitle;
+        return String(a?.id || "").localeCompare(String(b?.id || ""), "en", { numeric: true });
+      });
   }, [animeWithGenre, search, selectedGenre]);
 
   const libraryTitleLists = useMemo(() => {
