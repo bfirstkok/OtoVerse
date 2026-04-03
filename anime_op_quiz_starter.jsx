@@ -4365,7 +4365,7 @@ function buildProviderSearchUrl(providerKey, term) {
     case "iqiyi":
       return `https://www.iq.com/search?query=${q}`;
     case "bilibili":
-      return rawTerm ? `https://www.bilibili.tv/th/search-result?keyword=${q}` : "https://www.bilibili.tv/th/search";
+      return rawTerm ? `https://www.bilibili.tv/th/search-result?q=${q}` : "https://www.bilibili.tv/th/search-result";
     case "trueid":
       return rawTerm ? `https://www.trueid.net/search/${q}` : "https://www.trueid.net/search";
     case "viu":
