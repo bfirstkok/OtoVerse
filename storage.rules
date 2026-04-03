@@ -1,0 +1,42 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isImageUpload(maxSizeBytes) {
+      return request.resource != null
+        && request.resource.size < maxSizeBytes
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // User avatars
+    match /avatars/{uid} {
+      allow read: if isSignedIn();
+
+      allow create, update: if isSignedIn()
+        && request.auth.uid == uid
+        && isImageUpload(5 * 1024 * 1024);
+
+      allow delete: if isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Community post images
+    match /community_posts/{uid}/{fileName} {
+      allow read: if isSignedIn();
+
+      allow create, update: if isSignedIn()
+        && request.auth.uid == uid
+        && isImageUpload(8 * 1024 * 1024);
+
+      allow delete: if isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Default: deny everything else
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
