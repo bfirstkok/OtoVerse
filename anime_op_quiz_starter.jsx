@@ -4339,7 +4339,8 @@ function buildLegalSearchUrl(query) {
 }
 
 function buildProviderSearchUrl(providerKey, term) {
-  const q = encodeURIComponent(String(term || "").trim());
+  const rawTerm = String(term || "").trim();
+  const q = encodeURIComponent(rawTerm);
   switch (providerKey) {
     case "youtube":
     case "muse":
@@ -4366,7 +4367,7 @@ function buildProviderSearchUrl(providerKey, term) {
     case "bilibili":
       return `https://www.bilibili.tv/th/search?keyword=${q}`;
     case "trueid":
-      return `https://www.trueid.net/search?keyword=${q}`;
+      return rawTerm ? `https://www.trueid.net/search/${q}` : "https://www.trueid.net/search";
     case "viu":
       return `https://www.viu.com/ott/th/th/search?keyword=${q}`;
     case "flixer":
