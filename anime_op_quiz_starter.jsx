@@ -7840,7 +7840,7 @@ export default function AnimeOPQuizStarter() {
                             src={getAnimeImageUrl(item.anime)}
                             fallbackSrc={getYouTubeThumbUrl(item.anime?.youtubeVideoId)}
                             alt={item.title}
-                            className="h-28 w-28 sm:h-[136px] sm:w-[136px] rounded-2xl object-cover border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900"
+                            className="h-[134px] w-[134px] sm:h-[164px] sm:w-[164px] rounded-2xl object-cover border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900"
                           />
                         </div>
 
