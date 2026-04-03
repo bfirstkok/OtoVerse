@@ -223,7 +223,7 @@ const animeData = [
   },
   {
     id: 17,
-    title: "Saga of Tanya the Evil",
+    title: "Youjo Senki",
     altTitles: ["Youjo Senki", "บันทึกสงครามของยัยเผด็จการ"],
     difficulty: "hard",
     year: 2017,
@@ -263,7 +263,7 @@ const animeData = [
   },
   {
     id: 21,
-    title: "Neon Genesis Evangelion",
+    title: "Evangelion",
     altTitles: ["อีวานเกเลียน", "Evangelion"],
     difficulty: "easy",
     year: 1995,
@@ -353,7 +353,7 @@ const animeData = [
   },
   {
     id: 30,
-    title: "Your Lie in April",
+    title: "Shigatsu wa Kimi no Uso",
     altTitles: ["Shigatsu wa Kimi no Uso", "เพลงรักสองหัวใจ"],
     difficulty: "normal",
     year: 2014,
@@ -433,7 +433,7 @@ const animeData = [
   },
   {
     id: 38,
-    title: "Detective Conan",
+    title: "Conan",
     altTitles: ["ยอดนักสืบจิ๋วโคนัน", "โคนัน"],
     difficulty: "easy",
     year: 1996,
@@ -523,7 +523,7 @@ const animeData = [
   },
   {
     id: 47,
-    title: "Frieren: Beyond Journey's End",
+    title: "Sousou no Frieren",
     altTitles: ["Sousou no Frieren", "คำอธิษฐานในวันที่จากลา"],
     difficulty: "normal",
     year: 2023,
@@ -583,7 +583,7 @@ const animeData = [
   },
   {
     id: 53,
-    title: "The Seven Deadly Sins",
+    title: "Nanatsu no Taizai",
     altTitles: ["Nanatsu no Taizai", "ศึกตำนาน 7 อัศวิน"],
     difficulty: "easy",
     year: 2014,
@@ -593,7 +593,7 @@ const animeData = [
   },
   {
     id: 54,
-    title: "That Time I Got Reincarnated as a Slime",
+    title: "Tensei shitara slime datta ken",
     altTitles: ["TenSura", "เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว"],
     difficulty: "normal",
     year: 2018,
@@ -653,7 +653,7 @@ const animeData = [
   },
   {
     id: 60,
-    title: "Mushoku Tensei: Jobless Reincarnation",
+    title: "Mushoku Tensei",
     altTitles: ["Mushoku Tensei", "เกิดชาตินี้พี่ต้องเทพ"],
     difficulty: "normal",
     year: 2021,
@@ -663,7 +663,7 @@ const animeData = [
   },
   {
     id: 61,
-    title: "The Rising of the Shield Hero",
+    title: "Tate no Yuusha no Nariagari",
     altTitles: ["Tate no Yuusha no Nariagari", "ผู้กล้าโล่ผงาด"],
     difficulty: "normal",
     year: 2019,
@@ -693,7 +693,7 @@ const animeData = [
   },
   {
     id: 64,
-    title: "Fire Force",
+    title: "Enen no Shouboutai",
     altTitles: ["Enen no Shouboutai", "หน่วยผจญคนไฟลุก"],
     difficulty: "normal",
     year: 2019,
@@ -703,7 +703,7 @@ const animeData = [
   },
   {
     id: 65,
-    title: "The Promised Neverland",
+    title: "Yakusoku no Neverland",
     altTitles: ["Yakusoku no Neverland", "พันธสัญญาเนเวอร์แลนด์"],
     difficulty: "normal",
     year: 2019,
@@ -773,7 +773,7 @@ const animeData = [
   },
   {
     id: 72,
-    title: "Rascal Does Not Dream of Bunny Girl Senpai",
+    title: "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai",
     altTitles: ["Aobuta", "เรื่องฝันปั่นป่วยของผมกับรุ่นพี่บันนี่เกิร์ล"],
     difficulty: "normal",
     year: 2018,
@@ -813,7 +813,7 @@ const animeData = [
   },
   {
     id: 76,
-    title: "Weathering with You",
+    title: "Tenki no Ko",
     altTitles: ["Tenki no Ko", "ฤดูฝัน ฉันมีเธอ"],
     difficulty: "normal",
     year: 2019,
@@ -843,7 +843,7 @@ const animeData = [
   },
   {
     id: 79,
-    title: "My Teen Romantic Comedy SNAFU",
+    title: "Oregairu",
     altTitles: ["Oregairu", "กะแล้วชีวิตรักวัยรุ่นของผมมันต้องไม่สดใสเลยสักนิด"],
     difficulty: "hard",
     year: 2013,
@@ -963,7 +963,7 @@ const animeData = [
   },
   {
     id: 91,
-    title: "Yona of the Dawn",
+    title: "Akatsuki no Yona",
     altTitles: ["Akatsuki no Yona", "กู้บัลลังก์มังกรแดง"],
     difficulty: "hard",
     year: 2014,
@@ -983,7 +983,7 @@ const animeData = [
   },
   {
     id: 93,
-    title: "Rent-a-Girlfriend",
+    title: "Kanojo, Okarishimasu",
     altTitles: ["Kanojo, Okarishimasu", "สะดุดรักยัยแฟนเช่า"],
     difficulty: "normal",
     year: 2020,
@@ -993,7 +993,7 @@ const animeData = [
   },
   {
     id: 94,
-    title: "The Quintessential Quintuplets",
+    title: "Gotoubun no Hanayome",
     altTitles: ["Gotoubun no Hanayome", "เจ้าสาวผมเป็นแฝดห้า"],
     difficulty: "normal",
     year: 2019,
@@ -2013,7 +2013,7 @@ const animeData = [
   },
   {
     id: 196,
-    title: "Hell's Paradise",
+    title: "Jigokuraku",
     altTitles: ["Jigokuraku", "สุขาวดีอเวจี"],
     difficulty: "normal",
     year: 2023,
@@ -2033,7 +2033,7 @@ const animeData = [
   },
   {
     id: 198,
-    title: "Call of the Night",
+    title: "Yofukashi no Uta",
     altTitles: ["Yofukashi no Uta", "เพลงรักมนุษย์ค้างคาว"],
     difficulty: "normal",
     year: 2022,
@@ -2043,7 +2043,7 @@ const animeData = [
   },
   {
     id: 199,
-    title: "Ranking of Kings",
+    title: "Ousama Ranking",
     altTitles: ["Ousama Ranking", "การจัดอันดับพระราชา"],
     difficulty: "normal",
     year: 2021,
@@ -2073,7 +2073,7 @@ const animeData = [
   },
   {
     id: 202,
-    title: "A Certain Scientific Railgun",
+    title: "Toaru Kagaku no Railgun",
     altTitles: ["Toaru Kagaku no Railgun", "เรลกัน แฟ้มลับคดีวิทยาศาสตร์"],
     difficulty: "normal",
     year: 2009,
