@@ -5051,6 +5051,7 @@ export default function AnimeOPQuizStarter() {
     if (raw === "missing_file") return "กรุณาเลือกไฟล์ก่อน";
     if (raw === "upload_canceled") return "ยกเลิกการอัปโหลดแล้ว";
     if (raw === "upload_timeout") return "อัปโหลดนานเกินไป ลองใหม่อีกครั้ง";
+    if (raw === "image_too_large") return "รูปใหญ่เกินไป ลองใช้รูปที่เล็กลง/ครอปก่อน";
 
     if (code === "storage/unauthenticated" || lower.includes("unauthenticated")) return "ต้องล็อกอินก่อนจึงจะอัปโหลดรูปได้";
     if (code === "storage/unauthorized" || lower.includes("permission") || lower.includes("unauthorized")) {
