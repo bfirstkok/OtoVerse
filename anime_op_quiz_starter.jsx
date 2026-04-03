@@ -233,7 +233,7 @@ const animeData = [
   },
   {
     id: 18,
-    title: "86 -Eighty Six-",
+    title: "86 Eighty Six",
     altTitles: ["เอทตี้ซิกซ์"],
     difficulty: "hard",
     year: 2021,
@@ -6216,6 +6216,18 @@ export default function AnimeOPQuizStarter() {
       .sort((a, b) => {
         const at = String(a?.title || "");
         const bt = String(b?.title || "");
+
+        const aTrim = at.trim();
+        const bTrim = bt.trim();
+        const rank = (s) => {
+          if (/^[A-Za-z]/.test(s)) return 0;
+          if (/^[0-9]/.test(s)) return 1;
+          return 2;
+        };
+        const ra = rank(aTrim);
+        const rb = rank(bTrim);
+        if (ra !== rb) return ra - rb;
+
         const byTitle = at.localeCompare(bt, "en", { sensitivity: "base", numeric: true });
         if (byTitle) return byTitle;
         return String(a?.id || "").localeCompare(String(b?.id || ""), "en", { numeric: true });
