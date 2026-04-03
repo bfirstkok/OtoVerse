@@ -4415,11 +4415,13 @@ function ProviderIconButton({ providerKey, term, title, iconSrc }) {
 
   const isYouTube = providerKey === "ytmusic" || providerKey === "youtube" || providerKey === "pokemonasia" || providerKey === "gundaminfo";
   const isMusic = providerKey === "spotify" || providerKey === "applemusic" || providerKey === "ytmusic";
+  const openUrl = buildProviderSearchUrl(providerKey, term);
+  const openFeatures = providerKey === "bilibili" ? "noopener" : "noopener,noreferrer";
 
   return (
     <button
       type="button"
-      onClick={() => window.open(buildProviderSearchUrl(providerKey, term), "_blank", "noopener,noreferrer")}
+      onClick={() => window.open(openUrl, "_blank", openFeatures)}
       title={title || provider.label}
       className="inline-flex items-center justify-center h-[50px] w-[50px] rounded-xl border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
     >
