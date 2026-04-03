@@ -38,7 +38,8 @@ import {
   signOut,
   updateProfile
 } from "firebase/auth";
-import { firebaseAuth, firebaseReady } from "@/lib/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { firebaseAuth, firebaseDb, firebaseReady } from "@/lib/firebase";
 import {
   bumpPlayCount,
   bumpTotalScore,
@@ -4550,6 +4551,7 @@ export default function AnimeOPQuizStarter() {
   const [providerIcons, setProviderIcons] = useState(null);
   const [legalAvailability, setLegalAvailability] = useState(null);
   const [legalCatalogTH, setLegalCatalogTH] = useState(null);
+  const [songRequestBusy, setSongRequestBusy] = useState(false);
   const iframeRef = useRef(null);
   const playFocusRef = useRef(null);
   const playScrollKeyRef = useRef("");
@@ -6016,6 +6018,52 @@ export default function AnimeOPQuizStarter() {
       });
     } finally {
       setSynopsisLoading((prev) => ({ ...prev, [cacheKey]: false }));
+    }
+  };
+
+  const submitSongRequest = async () => {
+    if (songRequestBusy) return;
+
+    if (!firebaseReady || !firebaseDb) {
+      window.alert("Firebase ยังไม่พร้อม");
+      return;
+    }
+    if (!user?.uid) {
+      window.alert("กรุณาเข้าสู่ระบบก่อนส่งคำขอเพลง");
+      return;
+    }
+
+    const raw = window.prompt("ต้องการเพลง/เรื่องอะไรเพิ่ม? (พิมพ์ชื่อเรื่องหรือชื่อเพลง)", "");
+    const requestText = String(raw || "").trim();
+    if (!requestText) return;
+
+    setSongRequestBusy(true);
+    try {
+      await addDoc(collection(firebaseDb, "song_requests"), {
+        uid: user.uid,
+        displayName: String(user.displayName || "").trim(),
+        email: String(user.email || "").trim(),
+        photoURL: String(user.photoURL || "").trim(),
+        requestText: requestText.slice(0, 220),
+        context: {
+          page: "library",
+          mode: "songs",
+          search: String(legalSearch || "").trim().slice(0, 120)
+        },
+        userAgent: typeof navigator !== "undefined" ? String(navigator.userAgent || "") : "",
+        clientNow: Date.now(),
+        createdAt: serverTimestamp()
+      });
+      window.alert("ส่งคำขอเพลงเรียบร้อย ขอบคุณครับ");
+    } catch (e) {
+      const code = String(e?.code || e?.message || "send_failed");
+      if (code.includes("permission-denied")) {
+        window.alert("ส่งคำขอไม่สำเร็จ: ไม่มีสิทธิ์เขียนข้อมูล (permission-denied)");
+      } else {
+        window.alert("ส่งคำขอไม่สำเร็จ: " + code);
+      }
+    } finally {
+      setSongRequestBusy(false);
     }
   };
 
@@ -7665,6 +7713,18 @@ export default function AnimeOPQuizStarter() {
               >
                 ทั้งหมด (403)
               </Button>
+
+              {libraryListMode === "songs" ? (
+                <Button
+                  variant="outline"
+                  className="rounded-2xl"
+                  onClick={submitSongRequest}
+                  disabled={songRequestBusy}
+                  title="ส่งคำขอเพลงที่อยากได้ให้ผู้พัฒนา"
+                >
+                  {songRequestBusy ? "กำลังส่ง…" : "ขอเพลงเพิ่ม"}
+                </Button>
+              ) : null}
             </div>
 
             <div className="space-y-3">
