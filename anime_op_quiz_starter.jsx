@@ -4338,6 +4338,52 @@ function buildLegalSearchUrl(query) {
   return `https://www.google.com/search?q=${q}`;
 }
 
+function buildProviderSearchUrl(providerKey, term) {
+  const q = encodeURIComponent(String(term || "").trim());
+  switch (providerKey) {
+    case "youtube":
+    case "muse":
+    case "anione":
+    case "gundaminfo":
+    case "pokemonasia":
+      return `https://www.youtube.com/results?search_query=${q}`;
+    case "ytmusic":
+      return `https://music.youtube.com/search?q=${q}`;
+    case "spotify":
+      return `https://open.spotify.com/search/${q}`;
+    case "applemusic":
+      return `https://music.apple.com/search?term=${q}`;
+    case "netflix":
+      return `https://www.netflix.com/search?q=${q}`;
+    case "prime":
+      return `https://www.primevideo.com/search/ref=atv_nb_sr?phrase=${q}`;
+    case "disney":
+      return `https://www.disneyplus.com/search/${q}`;
+    case "crunchyroll":
+      return `https://www.crunchyroll.com/search?q=${q}`;
+    case "iqiyi":
+      return `https://www.iq.com/search?query=${q}`;
+    case "bilibili":
+      return `https://search.bilibili.com/all?keyword=${q}`;
+    case "trueid":
+      return `https://www.trueid.net/search?keyword=${q}`;
+    case "viu":
+      return `https://www.viu.com/ott/th/th/search?keyword=${q}`;
+    case "flixer":
+      return `https://flixer.tv/search?keyword=${q}`;
+    case "pops":
+      return `https://pops.tv/search?keyword=${q}`;
+    case "linetv":
+      return `https://www.linetv.me/search?keyword=${q}`;
+    case "x":
+      return `https://x.com/search?q=${q}&src=typed_query`;
+    case "appletv":
+      return `https://tv.apple.com/search?term=${q}`;
+    default:
+      return `https://www.google.com/search?q=${q}`;
+  }
+}
+
 const LEGAL_PROVIDER_PRESETS = {
   netflix: { label: "Netflix", short: "N" },
   prime: { label: "Prime Video", short: "PV" },
@@ -4362,7 +4408,7 @@ const LEGAL_PROVIDER_PRESETS = {
   ytmusic: { label: "YouTube Music", short: "YM" }
 };
 
-function ProviderIconButton({ providerKey, query, title, iconSrc }) {
+function ProviderIconButton({ providerKey, term, title, iconSrc }) {
   const provider = LEGAL_PROVIDER_PRESETS[providerKey];
   if (!provider) return null;
 
@@ -4372,7 +4418,7 @@ function ProviderIconButton({ providerKey, query, title, iconSrc }) {
   return (
     <button
       type="button"
-      onClick={() => window.open(buildLegalSearchUrl(query), "_blank", "noopener,noreferrer")}
+      onClick={() => window.open(buildProviderSearchUrl(providerKey, term), "_blank", "noopener,noreferrer")}
       title={title || provider.label}
       className="inline-flex items-center justify-center h-[50px] w-[50px] rounded-xl border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
     >
@@ -7928,12 +7974,12 @@ export default function AnimeOPQuizStarter() {
                           <div className="mt-3 flex flex-wrap items-center gap-2">
                             {visibleProviderKeys.map((providerKey) => {
                               const provider = LEGAL_PROVIDER_PRESETS[providerKey];
-                              const query = `${baseQuery} ${provider?.label || ""}`.trim();
+                              const term = item.title;
                               return (
                                 <ProviderIconButton
                                   key={providerKey}
                                   providerKey={providerKey}
-                                  query={query}
+                                  term={term}
                                   title={provider?.label}
                                   iconSrc={providerIcons?.[providerKey] || ""}
                                 />
