@@ -6265,16 +6265,31 @@ export default function AnimeOPQuizStarter() {
       }
     }
 
-    const works = Array.from(byBase.values())
-      .sort((a, b) => a.title.localeCompare(b.title, undefined, { sensitivity: "base" }));
+    const compareEnglishTitle = (aRaw, bRaw) => {
+      const a = String(aRaw || "");
+      const b = String(bRaw || "");
+      const aTrim = a.trim();
+      const bTrim = b.trim();
+      const rank = (s) => {
+        if (/^[A-Za-z]/.test(s)) return 0;
+        if (/^[0-9]/.test(s)) return 1;
+        return 2;
+      };
+      const ra = rank(aTrim);
+      const rb = rank(bTrim);
+      if (ra !== rb) return ra - rb;
+      return a.localeCompare(b, "en", { sensitivity: "base", numeric: true });
+    };
+
+    const works = Array.from(byBase.values()).sort((a, b) => compareEnglishTitle(a.title, b.title));
 
     return {
       all: allTitles
         .slice()
-        .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" })),
+        .sort((a, b) => compareEnglishTitle(a, b)),
       songs: songs
         .slice()
-        .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" })),
+        .sort((a, b) => compareEnglishTitle(a, b)),
       works
     };
   }, [animeWithGenre]);
