@@ -7598,14 +7598,26 @@ export default function AnimeOPQuizStarter() {
               </CardDescription>
             </div>
             {libraryTab === "catalog" && (
-              <div className="relative w-full md:w-80">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-slate-400" />
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="ค้นหาชื่อเรื่อง..."
-                  className="pl-9 rounded-2xl"
-                />
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full md:w-auto">
+                <div className="relative w-full md:w-80">
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-slate-400" />
+                  <Input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="ค้นหาชื่อเรื่อง..."
+                    className="pl-9 rounded-2xl"
+                  />
+                </div>
+
+                <Button
+                  variant="outline"
+                  className="rounded-2xl sm:shrink-0"
+                  onClick={submitSongRequest}
+                  disabled={songRequestBusy}
+                  title="ส่งคำขอเพลงที่อยากได้ให้ผู้พัฒนา"
+                >
+                  {songRequestBusy ? "กำลังส่ง…" : "ขอเพลงเพิ่ม"}
+                </Button>
               </div>
             )}
           </div>
