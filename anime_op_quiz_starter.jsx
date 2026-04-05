@@ -63,7 +63,7 @@ import { ensureDirectChat, getDirectChatId, sendDirectMessage, subscribeDirectMe
 const animeData = [
   {
     id: 1,
-    title: "Attack on Titan (OP1)",
+    title: "Shingeki no Kyojin (OP1)",
     altTitles: ["Shingeki no Kyojin", "ผ่าพิภพไททัน"],
     difficulty: "easy",
     year: 2013,
@@ -153,7 +153,7 @@ const animeData = [
   },
   {
     id: 10,
-    title: "Code Geass (OP1)",
+    title: "Code Geass: Hangyaku no Lelouch (OP1)",
     altTitles: ["โค้ดกีอัส"],
     difficulty: "hard",
     year: 2006,
@@ -183,7 +183,7 @@ const animeData = [
   },
   {
     id: 13,
-    title: "Fate/stay night: Unlimited Blade Works (OP1)",
+    title: "Fate - Stay Night (OP1)",
     altTitles: ["Fate UBW", "มหาสงครามจอกศักดิ์สิทธิ์"],
     difficulty: "hard",
     year: 2014,
@@ -223,7 +223,7 @@ const animeData = [
   },
   {
     id: 17,
-    title: "Saga of Tanya the Evil (OP1)",
+    title: "Saga of Tanya the Evil (Youjo Senki) (OP1)",
     altTitles: ["Youjo Senki", "บันทึกสงครามของยัยเผด็จการ"],
     difficulty: "hard",
     year: 2017,
@@ -233,7 +233,7 @@ const animeData = [
   },
   {
     id: 18,
-    title: "86 Eighty Six (OP1)",
+    title: "86 Eighty-Six (OP1)",
     altTitles: ["เอทตี้ซิกซ์"],
     difficulty: "hard",
     year: 2021,
@@ -273,7 +273,7 @@ const animeData = [
   },
   {
     id: 22,
-    title: "My Hero Academia (OP1)",
+    title: "Boku no Hero Academia (OP1)",
     altTitles: ["Boku no Hero Academia", "มายฮีโร่ อคาเดเมีย"],
     difficulty: "easy",
     year: 2016,
@@ -323,7 +323,7 @@ const animeData = [
   },
   {
     id: 27,
-    title: "JoJo's Bizarre Adventure (OP1)",
+    title: "JoJo's Bizarre Adventure (OVA) (OP1)",
     altTitles: ["JoJo", "โจโจ้ ล่าข้ามศตวรรษ"],
     difficulty: "easy",
     year: 2012,
@@ -353,7 +353,7 @@ const animeData = [
   },
   {
     id: 30,
-    title: "Your Lie in April (OP1)",
+    title: "Shigatsu wa Kimi no Uso (OP1)",
     altTitles: ["Shigatsu wa Kimi no Uso", "เพลงรักสองหัวใจ"],
     difficulty: "normal",
     year: 2014,
@@ -463,7 +463,7 @@ const animeData = [
   },
   {
     id: 41,
-    title: "Re:Zero (OP1)",
+    title: "Re:ZERO -Starting Life in Another World- (OP1)",
     altTitles: ["Re:Zero - Starting Life in Another World", "รีเซทชีวิต ฝ่าวิกฤตต่างโลก"],
     difficulty: "normal",
     year: 2016,
@@ -473,7 +473,7 @@ const animeData = [
   },
   {
     id: 42,
-    title: "KonoSuba (OP1)",
+    title: "KonoSuba: God's Blessing on This Wonderful World! (OP1)",
     altTitles: ["ขอให้โชคดีมีชัยในโลกแฟนตาซี!"],
     difficulty: "normal",
     year: 2016,
@@ -513,7 +513,7 @@ const animeData = [
   },
   {
     id: 46,
-    title: "Oshi no Ko (OP1)",
+    title: "[Oshi no Ko] (OP1)",
     altTitles: ["เกิดใหม่เป็นลูกโอชิ"],
     difficulty: "easy",
     year: 2023,
@@ -523,7 +523,7 @@ const animeData = [
   },
   {
     id: 47,
-    title: "Frieren: Beyond Journey's End (OP1)",
+    title: "Sousou no Frieren (OP1)",
     altTitles: ["Sousou no Frieren", "คำอธิษฐานในวันที่จากลา"],
     difficulty: "normal",
     year: 2023,
@@ -543,7 +543,7 @@ const animeData = [
   },
   {
     id: 49,
-    title: "Inuyasha (OP1)",
+    title: "InuYasha (OP1)",
     altTitles: ["อินุยาฉะ", "เทพอสูรจิ้งจอกเงิน"],
     difficulty: "easy",
     year: 2000,
@@ -563,7 +563,7 @@ const animeData = [
   },
   {
     id: 51,
-    title: "Kuroko's Basketball (OP1)",
+    title: "Kuroko no Basket (OP1)",
     altTitles: ["Kuroko no Basket", "คุโรโกะ โนะ บาสเก็ต"],
     difficulty: "easy",
     year: 2012,
@@ -573,7 +573,7 @@ const animeData = [
   },
   {
     id: 52,
-    title: "Assassination Classroom (OP1)",
+    title: "Ansatsu Kyoushitsu (OP1)",
     altTitles: ["Ansatsu Kyoushitsu", "ห้องเรียนลอบสังหาร"],
     difficulty: "normal",
     year: 2015,
@@ -583,7 +583,7 @@ const animeData = [
   },
   {
     id: 53,
-    title: "The Seven Deadly Sins (OP1)",
+    title: "Trinity Seven: The Seven Deadly Sins and The Seven Mages (OP1)",
     altTitles: ["Nanatsu no Taizai", "ศึกตำนาน 7 อัศวิน"],
     difficulty: "easy",
     year: 2014,
@@ -623,7 +623,7 @@ const animeData = [
   },
   {
     id: 57,
-    title: "Erased (OP1)",
+    title: "Boku dake ga Inai Machi (OP1)",
     altTitles: ["Boku dake ga Inai Machi", "รีไววัล ย้อนอดีตไขปริศนา"],
     difficulty: "normal",
     year: 2016,
@@ -693,7 +693,7 @@ const animeData = [
   },
   {
     id: 64,
-    title: "Fire Force (OP1)",
+    title: "Enen no Shouboutai (OP1)",
     altTitles: ["Enen no Shouboutai", "หน่วยผจญคนไฟลุก"],
     difficulty: "normal",
     year: 2019,
@@ -703,7 +703,7 @@ const animeData = [
   },
   {
     id: 65,
-    title: "The Promised Neverland (OP1)",
+    title: "Yakusoku no Neverland (OP1)",
     altTitles: ["Yakusoku no Neverland", "พันธสัญญาเนเวอร์แลนด์"],
     difficulty: "normal",
     year: 2019,
@@ -743,7 +743,7 @@ const animeData = [
   },
   {
     id: 69,
-    title: "Gurren Lagann (OP1)",
+    title: "Tengen Toppa Gurren Lagann (OP1)",
     altTitles: ["Tengen Toppa Gurren Lagann", "อภินิหารหุ่นทะลวงสวรรค์"],
     difficulty: "hard",
     year: 2007,
@@ -763,7 +763,7 @@ const animeData = [
   },
   {
     id: 71,
-    title: "Darling in the Franxx (OP1)",
+    title: "Darling in the FranXX (OP1)",
     altTitles: ["ดาร์ลิง อิน เดอะ แฟรง็อกซ์"],
     difficulty: "normal",
     year: 2018,
@@ -793,7 +793,7 @@ const animeData = [
   },
   {
     id: 74,
-    title: "Anohana (OP1)",
+    title: "Meiji x Kokosake & anohana Receipt Oubo Campaign (OP1)",
     altTitles: ["ดอกไม้ มิตรภาพ และความทรงจำ"],
     difficulty: "normal",
     year: 2011,
@@ -803,7 +803,7 @@ const animeData = [
   },
   {
     id: 75,
-    title: "Your Name (OP1)",
+    title: "Kimi no Na wa. (OP1)",
     altTitles: ["Kimi no Na wa.", "หลับตาฝัน ถึงชื่อเธอ"],
     difficulty: "easy",
     year: 2016,
@@ -813,7 +813,7 @@ const animeData = [
   },
   {
     id: 76,
-    title: "Weathering with You (OP1)",
+    title: "With You: Mitsumeteitai (OP1)",
     altTitles: ["Tenki no Ko", "ฤดูฝัน ฉันมีเธอ"],
     difficulty: "normal",
     year: 2019,
@@ -823,7 +823,7 @@ const animeData = [
   },
   {
     id: 77,
-    title: "A Silent Voice (OP1)",
+    title: "Koe no Katachi (OP1)",
     altTitles: ["Koe no Katachi", "รักไร้เสียง"],
     difficulty: "normal",
     year: 2016,
@@ -913,7 +913,7 @@ const animeData = [
   },
   {
     id: 86,
-    title: "Fate/Grand Order - Absolute Demonic Front: Babylonia (OP1)",
+    title: "Fate/Grand Order (OP1)",
     altTitles: ["FGO Babylonia", "เฟท/แกรนด์ออเดอร์"],
     difficulty: "hard",
     year: 2019,
@@ -943,7 +943,7 @@ const animeData = [
   },
   {
     id: 89,
-    title: "Blue Exorcist (OP1)",
+    title: "Ao no Exorcist (OP1)",
     altTitles: ["Ao no Exorcist", "เอ็กซอร์ซิสต์พันธุ์ปีศาจ"],
     difficulty: "normal",
     year: 2011,
@@ -963,7 +963,7 @@ const animeData = [
   },
   {
     id: 91,
-    title: "Yona of the Dawn (OP1)",
+    title: "Akatsuki no Yona (OP1)",
     altTitles: ["Akatsuki no Yona", "กู้บัลลังก์มังกรแดง"],
     difficulty: "hard",
     year: 2014,
@@ -983,7 +983,7 @@ const animeData = [
   },
   {
     id: 93,
-    title: "Rent-a-Girlfriend (OP1)",
+    title: "Kanojo, Okarishimasu (OP1)",
     altTitles: ["Kanojo, Okarishimasu", "สะดุดรักยัยแฟนเช่า"],
     difficulty: "normal",
     year: 2020,
@@ -1043,7 +1043,7 @@ const animeData = [
   },
   {
     id: 99,
-    title: "Black Butler (OP1)",
+    title: "Kuroshitsuji (OP1)",
     altTitles: ["Kuroshitsuji", "คนลึกไขปริศนาลับ"],
     difficulty: "normal",
     year: 2008,
@@ -1053,7 +1053,7 @@ const animeData = [
   },
   {
     id: 100,
-    title: "Suzume (OP1)",
+    title: "Suzume no Tojimari (OP1)",
     altTitles: ["Suzume no Tojimari", "การผนึกประตูของซุซุเมะ"],
     difficulty: "easy",
     year: 2022,
@@ -1063,7 +1063,7 @@ const animeData = [
   },
   {
     id: 101,
-    title: "Ghost in the Shell (OP1)",
+    title: "Ghost in the Shell: Arise - Border:1 Ghost Pain (OP1)",
     altTitles: ["โกสต์ อิน เดอะ เชลล์"],
     difficulty: "hard",
     year: 1995,
@@ -1103,7 +1103,7 @@ const animeData = [
   },
   {
     id: 105,
-    title: "Fate/stay night (2006) (OP1)",
+    title: "Fate/stay night (OP1)",
     altTitles: ["มหาสงครามจอกศักดิ์สิทธิ์"],
     difficulty: "hard",
     year: 2006,
@@ -1113,7 +1113,7 @@ const animeData = [
   },
   {
     id: 106,
-    title: "Fate/stay night: Heaven's Feel (OP1)",
+    title: "Fate/stay night: Heaven's Feel - I. Presage Flower (OP1)",
     altTitles: ["เฮฟเวนส์ฟีล"],
     difficulty: "hard",
     year: 2017,
@@ -1153,7 +1153,7 @@ const animeData = [
   },
   {
     id: 110,
-    title: "Re:Zero Season 2 (OP1)",
+    title: "Re:ZERO -Starting Life in Another World- Season 2 (OP1)",
     altTitles: ["รีเซทชีวิต ฝ่าวิกฤตต่างโลก ภาค 2"],
     difficulty: "normal",
     year: 2020,
@@ -1193,7 +1193,7 @@ const animeData = [
   },
   {
     id: 114,
-    title: "Inuyasha: The Final Act (OP1)",
+    title: "InuYasha (OP1)",
     altTitles: ["อินุยาฉะ ปัจฉิมบท"],
     difficulty: "normal",
     year: 2009,
@@ -1203,7 +1203,7 @@ const animeData = [
   },
   {
     id: 115,
-    title: "Yu-Gi-Oh! Duel Monsters (OP1)",
+    title: "Yu☆Gi☆Oh! Duel Monsters (OP1)",
     altTitles: ["ยูกิโอ เกมกลคนอัจฉริยะ"],
     difficulty: "easy",
     year: 2000,
@@ -1253,7 +1253,7 @@ const animeData = [
   },
   {
     id: 120,
-    title: "Maruko-chan (OP1)",
+    title: "Chibi Maruko-chan (OP1)",
     altTitles: ["Chibi Maruko-chan", "หนูน้อยมารูโกะ"],
     difficulty: "easy",
     year: 1990,
@@ -1263,7 +1263,7 @@ const animeData = [
   },
   {
     id: 121,
-    title: "Lucky Star (OP1)",
+    title: "Lucky☆Star (OP1)",
     altTitles: ["ลัคกี้ สตาร์"],
     difficulty: "hard",
     year: 2007,
@@ -1273,7 +1273,7 @@ const animeData = [
   },
   {
     id: 122,
-    title: "Haruhi Suzumiya (OP1)",
+    title: "The Melancholy of Haruhi Suzumiya (OP1)",
     altTitles: ["The Melancholy of Haruhi Suzumiya", "เรียกเธอว่าพระเจ้า สึซึมิยะ ฮารุฮิ"],
     difficulty: "hard",
     year: 2006,
@@ -1293,7 +1293,7 @@ const animeData = [
   },
   {
     id: 124,
-    title: "Fruit Basket (OP1)",
+    title: "Fruits Basket (OP1)",
     altTitles: ["เสน่ห์สาวข้าวปั้น"],
     difficulty: "normal",
     year: 2019,
@@ -1313,7 +1313,7 @@ const animeData = [
   },
   {
     id: 126,
-    title: "Devilman Crybaby (OP1)",
+    title: "Devilman: Crybaby (OP1)",
     altTitles: ["เดวิลแมน ไครเบบี้"],
     difficulty: "hard",
     year: 2018,
@@ -1363,7 +1363,7 @@ const animeData = [
   },
   {
     id: 131,
-    title: "JoJo: Stardust Crusaders (OP1)",
+    title: "Jojo´s Bizarre Adventure Stardust Crusaders (OP1)",
     altTitles: ["โจโจ้ ภาค 3"],
     difficulty: "normal",
     year: 2014,
@@ -1373,7 +1373,7 @@ const animeData = [
   },
   {
     id: 132,
-    title: "JoJo: Golden Wind (OP1)",
+    title: "JoJo's Bizarre Adventure: Golden Wind (OP1)",
     altTitles: ["โจโจ้ ภาค 5"],
     difficulty: "normal",
     year: 2018,
@@ -1463,7 +1463,7 @@ const animeData = [
   },
   {
     id: 141,
-    title: "Gundam Wing (OP1)",
+    title: "Mobile Suit Gundam Wing (OP1)",
     altTitles: ["กันดั้มวิง"],
     difficulty: "normal",
     year: 1995,
@@ -1483,7 +1483,7 @@ const animeData = [
   },
   {
     id: 143,
-    title: "Code Geass R2 (OP1)",
+    title: "Code Geass: Hangyaku no Lelouch R2 (OP1)",
     altTitles: ["โค้ดกีอัส ภาค 2"],
     difficulty: "normal",
     year: 2008,
@@ -1613,7 +1613,7 @@ const animeData = [
   },
   {
     id: 156,
-    title: "NANA (OP1)",
+    title: "Nana (OP1)",
     altTitles: ["นานะ"],
     difficulty: "normal",
     year: 2006,
@@ -1623,7 +1623,7 @@ const animeData = [
   },
   {
     id: 157,
-    title: "Beck: Mongolian Chop Squad (OP1)",
+    title: "Beck (OP1)",
     altTitles: ["Beck", "เบ็ค"],
     difficulty: "hard",
     year: 2004,
@@ -1713,7 +1713,7 @@ const animeData = [
   },
   {
     id: 166,
-    title: "Naruto: Shippuden (OP1)",
+    title: "Naruto Shippuden (OP1)",
     altTitles: ["นารูโตะ ตำนานวายุสลาตัน"],
     difficulty: "easy",
     year: 2007,
@@ -1793,7 +1793,7 @@ const animeData = [
   },
   {
     id: 174,
-    title: "Katekyo Hitman Reborn! (OP1)",
+    title: "Katekyou Hitman Reborn! (OP1)",
     altTitles: ["ครูพิเศษจอมป่วน รีบอร์น!"],
     difficulty: "easy",
     year: 2006,
@@ -1803,7 +1803,7 @@ const animeData = [
   },
   {
     id: 175,
-    title: "D.Gray-man (OP1)",
+    title: "Skull Man (OP1)",
     altTitles: ["ดี.เกรย์แมน"],
     difficulty: "normal",
     year: 2006,
@@ -1823,7 +1823,7 @@ const animeData = [
   },
   {
     id: 177,
-    title: "Sket Dance (OP1)",
+    title: "SKET Dance (OP1)",
     altTitles: ["สเก็ต ดานซ์"],
     difficulty: "hard",
     year: 2011,
@@ -1833,7 +1833,7 @@ const animeData = [
   },
   {
     id: 178,
-    title: "Bakuman (OP1)",
+    title: "Bakuman. (OP1)",
     altTitles: ["วัยซนคนการ์ตูน", "บาคุแมน"],
     difficulty: "normal",
     year: 2010,
@@ -1853,7 +1853,7 @@ const animeData = [
   },
   {
     id: 180,
-    title: "Blood Blockade Battlefront (OP1)",
+    title: "Blood+ (OP1)",
     altTitles: ["Kekkai Sensen", "สมรภูมิเขตป้องกันโลหิต"],
     difficulty: "hard",
     year: 2015,
@@ -1943,7 +1943,7 @@ const animeData = [
   },
   {
     id: 189,
-    title: "Summer Time Rendering (OP1)",
+    title: "Summer Time (OP1)",
     altTitles: ["ปริศนาบ้านเก่า ซัมเมอร์ไทม์"],
     difficulty: "normal",
     year: 2022,
@@ -1953,7 +1953,7 @@ const animeData = [
   },
   {
     id: 190,
-    title: "The Apothecary Diaries (OP1)",
+    title: "Kusuriya no Hitorigoto (OP1)",
     altTitles: ["Kusuriya no Hitorigoto", "สืบคดีปริศนา หมอยาตำรับโคมแดง"],
     difficulty: "easy",
     year: 2023,
@@ -1973,7 +1973,7 @@ const animeData = [
   },
   {
     id: 192,
-    title: "Mashle season 2 (OP1)",
+    title: "Mashle (OP1)",
     altTitles: ["ศึกโลกเวทมนตร์คนพลังกล้าม", "มัชลี"],
     difficulty: "easy",
     year: 2023,
@@ -2013,7 +2013,7 @@ const animeData = [
   },
   {
     id: 196,
-    title: "Hell's Paradise (OP1)",
+    title: "Paradise (OP1)",
     altTitles: ["Jigokuraku", "สุขาวดีอเวจี"],
     difficulty: "normal",
     year: 2023,
@@ -2033,7 +2033,7 @@ const animeData = [
   },
   {
     id: 198,
-    title: "Call of the Night (OP1)",
+    title: "Yofukashi no Uta (OP1)",
     altTitles: ["Yofukashi no Uta", "เพลงรักมนุษย์ค้างคาว"],
     difficulty: "normal",
     year: 2022,
@@ -2043,7 +2043,7 @@ const animeData = [
   },
   {
     id: 199,
-    title: "Ranking of Kings (OP1)",
+    title: "Ousama Ranking (OP1)",
     altTitles: ["Ousama Ranking", "การจัดอันดับพระราชา"],
     difficulty: "normal",
     year: 2021,
@@ -2073,7 +2073,7 @@ const animeData = [
   },
   {
     id: 202,
-    title: "A Certain Scientific Railgun (OP1)",
+    title: "Toaru Kagaku no Railgun (OP1)",
     altTitles: ["Toaru Kagaku no Railgun", "เรลกัน แฟ้มลับคดีวิทยาศาสตร์"],
     difficulty: "normal",
     year: 2009,
@@ -2133,7 +2133,7 @@ const animeData = [
   },
   {
     id: 208,
-    title: "Delicious in Dungeon (OP1)",
+    title: "Dungeon Meshi (OP1)",
     altTitles: ["Dungeon Meshi", "สูตรลับตำรับดันเจียน"],
     difficulty: "normal",
     year: 2024,
@@ -2183,7 +2183,7 @@ const animeData = [
   },
   {
     id: 213,
-    title: "Kuroko's Basketball Season 2 (OP1)",
+    title: "Kuroko no Basket (OP1)",
     altTitles: ["คุโรโกะ โนะ บาสเก็ต ภาค 2"],
     difficulty: "normal",
     year: 2013,
@@ -2253,7 +2253,7 @@ const animeData = [
   },
   {
     id: 220,
-    title: "Re:CREATORS (OP1)",
+    title: "Re:Creators (OP1)",
     altTitles: ["รีครีเอเตอร์ส"],
     difficulty: "hard",
     year: 2017,
@@ -2283,7 +2283,7 @@ const animeData = [
   },
   {
     id: 223,
-    title: "Macross Delta (OP1)",
+    title: "Macross Δ: Delta Shougekijou (OP1)",
     altTitles: ["มาครอส เดลต้า"],
     difficulty: "normal",
     year: 2016,
@@ -2313,7 +2313,7 @@ const animeData = [
   },
   {
     id: 226,
-    title: "Kids on the Slope (OP1)",
+    title: "Sakamichi no Apollon (OP1)",
     altTitles: ["Sakamichi no Apollon", "เพลงกวีวัยเยาว์"],
     difficulty: "hard",
     year: 2012,
@@ -2333,7 +2333,7 @@ const animeData = [
   },
   {
     id: 228,
-    title: "Gintama 2 (OP1)",
+    title: "Gintama' (OP1)",
     altTitles: ["กินทามะ ภาค 2"],
     difficulty: "normal",
     year: 2011,
@@ -2343,7 +2343,7 @@ const animeData = [
   },
   {
     id: 229,
-    title: "Fairy Tail (Series 2) (OP1)",
+    title: "Fairy Tail (OP1)",
     altTitles: ["แฟรี่เทล ภาค 2"],
     difficulty: "normal",
     year: 2014,
@@ -2383,7 +2383,7 @@ const animeData = [
   },
   {
     id: 233,
-    title: "Pokémon: Advanced Generation (OP1)",
+    title: "Pokemon Advanced Generation (OP1)",
     altTitles: ["โปเกมอน แอดวานซ์ เจเนอเรชัน"],
     difficulty: "easy",
     year: 2002,
@@ -2403,7 +2403,7 @@ const animeData = [
   },
   {
     id: 235,
-    title: "Yu-Gi-Oh! 5D's (OP1)",
+    title: "Yu☆Gi☆Oh! 5D's (OP1)",
     altTitles: ["ยูกิโอ 5D's"],
     difficulty: "normal",
     year: 2008,
@@ -2443,7 +2443,7 @@ const animeData = [
   },
   {
     id: 239,
-    title: "Bakusou Kyoudai Let's & Go!! (OP1)",
+    title: "Bakusou Kyoudai Let's & Go (OP1)",
     altTitles: ["นักซิ่งสายฟ้า เล็ทส์ แอนด์ โก"],
     difficulty: "normal",
     year: 1996,
@@ -2473,7 +2473,7 @@ const animeData = [
   },
   {
     id: 242,
-    title: "Fist of the North Star (OP1)",
+    title: "Hokuto no Ken: Fist of the North Star (OP1)",
     altTitles: ["Hokuto no Ken", "ฤทธิ์หมัดดาวเหนือ"],
     difficulty: "normal",
     year: 1984,
@@ -2513,7 +2513,7 @@ const animeData = [
   },
   {
     id: 246,
-    title: "Detective Conan: Black Iron Submarine (OP1)",
+    title: "Detective Conan (OP1)",
     altTitles: ["ยอดนักสืบจิ๋วโคนัน มฤตยูใต้น้ำทมิฬ"],
     difficulty: "normal",
     year: 2023,
@@ -2523,7 +2523,7 @@ const animeData = [
   },
   {
     id: 247,
-    title: "Your Name (ED) (ED1)",
+    title: "Kimi no Na wa. (ED1)",
     altTitles: ["Kimi no Na wa.", "หลับตาฝัน ถึงชื่อเธอ"],
     difficulty: "easy",
     year: 2016,
@@ -2533,7 +2533,7 @@ const animeData = [
   },
   {
     id: 248,
-    title: "Weathering with You (Insert) (OP1)",
+    title: "With You: Mitsumeteitai (OP1)",
     altTitles: ["Tenki no Ko", "ฤดูฝัน ฉันมีเธอ"],
     difficulty: "normal",
     year: 2019,
@@ -2543,7 +2543,7 @@ const animeData = [
   },
   {
     id: 249,
-    title: "Suzume (ED) (ED1)",
+    title: "Suzume no Tojimari (ED1)",
     altTitles: ["Suzume no Tojimari", "การผนึกประตูของซุซุเมะ"],
     difficulty: "easy",
     year: 2022,
@@ -2553,7 +2553,7 @@ const animeData = [
   },
   {
     id: 250,
-    title: "Oshi no Ko Season 2 (OP1)",
+    title: "[Oshi no Ko] (OP1)",
     altTitles: ["เกิดใหม่เป็นลูกโอชิ ภาค 2"],
     difficulty: "easy",
     year: 2024,
@@ -2563,7 +2563,7 @@ const animeData = [
   },
   {
     id: 251,
-    title: "Jujutsu Kaisen Season 2 (OP1)",
+    title: "Jujutsu Kaisen (OP1)",
     altTitles: ["มหาเวทย์ผนึกมาร ภาค 2"],
     difficulty: "easy",
     year: 2023,
@@ -2573,7 +2573,7 @@ const animeData = [
   },
   {
     id: 252,
-    title: "Jujutsu Kaisen Season 2 (Shibuya Arc) (OP1)",
+    title: "Jujutsu Kaisen (OP1)",
     altTitles: ["มหาเวทย์ผนึกมาร ภาค 2 ภาคชิบูย่า"],
     difficulty: "easy",
     year: 2023,
@@ -2583,7 +2583,7 @@ const animeData = [
   },
   {
     id: 253,
-    title: "Demon Slayer: Entertainment District Arc (OP1)",
+    title: "Demon Slayer: Kimetsu no Yaiba Mugen Train Arc (OP1)",
     altTitles: ["ดาบพิฆาตอสูร ภาคย่านเริงรมย์"],
     difficulty: "easy",
     year: 2021,
@@ -2593,7 +2593,7 @@ const animeData = [
   },
   {
     id: 254,
-    title: "Kimetsu No Yaiba Swordsmith Village Arc (OP1)",
+    title: "Demon Slayer: Kimetsu no Yaiba (OP1)",
     altTitles: ["ดาบพิฆาตอสูร ภาคหมู่บ้านช่างตีดาบ"],
     difficulty: "easy",
     year: 2023,
@@ -2603,7 +2603,7 @@ const animeData = [
   },
   {
     id: 255,
-    title: "Kaguya-sama: Love is War Season 2 (OP1)",
+    title: "Kaguya-sama: Love is War? (OP1)",
     altTitles: ["สารภาพรักกับคุณคางุยะซะดีๆ ภาค 2"],
     difficulty: "normal",
     year: 2020,
@@ -2693,7 +2693,7 @@ const animeData = [
   },
   {
     id: 264,
-    title: "Haikyuu!! Season 3 (OP1)",
+    title: "Haikyuu!! (OP1)",
     altTitles: ["ไฮคิว!! คู่ตบฟ้าประทาน ภาค 3"],
     difficulty: "easy",
     year: 2016,
@@ -2723,7 +2723,7 @@ const animeData = [
   },
   {
     id: 267,
-    title: "Attack on Titan The Final Season (OP1)",
+    title: "Attack on Titan: Final Season (OP1)",
     altTitles: ["ผ่าพิภพไททัน ไฟนอลซีซั่น"],
     difficulty: "easy",
     year: 2020,
@@ -2733,7 +2733,7 @@ const animeData = [
   },
   {
     id: 268,
-    title: "Attack on Titan The Final Season Part 2 (OP1)",
+    title: "Attack on Titan: Final Season Part 2 (OP1)",
     altTitles: ["ผ่าพิภพไททัน ไฟนอลซีซั่น พาร์ท 2"],
     difficulty: "easy",
     year: 2022,
@@ -2743,7 +2743,7 @@ const animeData = [
   },
   {
     id: 269,
-    title: "JoJo: Diamond is Unbreakable (OP1)",
+    title: "Unbreakable (OP1)",
     altTitles: ["โจโจ้ ภาค 4 เพชรแท้ไม่มีวันสลาย"],
     difficulty: "normal",
     year: 2016,
@@ -2753,7 +2753,7 @@ const animeData = [
   },
   {
     id: 270,
-    title: "JoJo: Stone Ocean (OP1)",
+    title: "JoJo's Bizarre Adventure: Stone Ocean (OP1)",
     altTitles: ["โจโจ้ ภาค 6 สโตนโอเชียน"],
     difficulty: "normal",
     year: 2021,
@@ -2793,7 +2793,7 @@ const animeData = [
   },
   {
     id: 274,
-    title: "Haruhi Suzumiya (ED1)",
+    title: "Suzumiya Haruhi no Yuuutsu (ED1)",
     altTitles: ["เรียกเธอว่าพระเจ้า สึซึมิยะ ฮารุฮิ"],
     difficulty: "hard",
     year: 2006,
@@ -2833,7 +2833,7 @@ const animeData = [
   },
   {
     id: 278,
-    title: "Anohana (ED) (ED1)",
+    title: "Meiji x Kokosake & anohana Receipt Oubo Campaign (ED1)",
     altTitles: ["ดอกไม้ มิตรภาพ และความทรงจำ"],
     difficulty: "normal",
     year: 2011,
@@ -2843,7 +2843,7 @@ const animeData = [
   },
   {
     id: 279,
-    title: "Your Lie in April (ED2)",
+    title: "Shigatsu wa Kimi no Uso (ED2)",
     altTitles: ["Shigatsu wa Kimi no Uso", "เพลงรักสองหัวใจ"],
     difficulty: "normal",
     year: 2014,
@@ -2903,7 +2903,7 @@ const animeData = [
   },
   {
     id: 285,
-    title: "Re:Zero (OP2)",
+    title: "ReZero (OP2)",
     altTitles: ["รีเซทชีวิต ฝ่าวิกฤตต่างโลก"],
     difficulty: "normal",
     year: 2016,
@@ -2913,7 +2913,7 @@ const animeData = [
   },
   {
     id: 286,
-    title: "KonoSuba Season 2 (OP1)",
+    title: "Ace Attorney Season 2 (OP1)",
     altTitles: ["ขอให้โชคดีมีชัยในโลกแฟนตาซี! ภาค 2"],
     difficulty: "normal",
     year: 2017,
@@ -2923,7 +2923,7 @@ const animeData = [
   },
   {
     id: 287,
-    title: "Nanatsu no taizai (OP2)",
+    title: "Nanatsu no Taizai (OP2)",
     altTitles: ["ศึกตำนาน 7 อัศวิน"],
     difficulty: "easy",
     year: 2014,
@@ -2933,7 +2933,7 @@ const animeData = [
   },
   {
     id: 288,
-    title: "Assassination Classroom Season 2 (OP1)",
+    title: "Assassination Classroom Staffel 2 (OP1)",
     altTitles: ["ห้องเรียนลอบสังหาร ภาค 2"],
     difficulty: "normal",
     year: 2016,
@@ -2943,7 +2943,7 @@ const animeData = [
   },
   {
     id: 289,
-    title: "Shokugeki no Soma (OP2)",
+    title: "Food Wars! Shokugeki no Soma (OP2)",
     altTitles: ["ยอดนักปรุงโซมะ"],
     difficulty: "normal",
     year: 2015,
@@ -2953,7 +2953,7 @@ const animeData = [
   },
   {
     id: 290,
-    title: "No Game No Life (ED) (ED1)",
+    title: "No Game No Life (ED1)",
     altTitles: ["โนเกม โนไลฟ์"],
     difficulty: "normal",
     year: 2014,
@@ -2983,7 +2983,7 @@ const animeData = [
   },
   {
     id: 293,
-    title: "Tensei shitara slime datta ken (OP2)",
+    title: "Tensei shitara Slime Datta Ken (OP2)",
     altTitles: ["เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว"],
     difficulty: "normal",
     year: 2018,
@@ -2993,7 +2993,7 @@ const animeData = [
   },
   {
     id: 294,
-    title: "Mushoku Tensei Season 2 (OP1)",
+    title: "Mushoku Tensei: Jobless Reincarnation Season 2 (OP1)",
     altTitles: ["เกิดชาตินี้พี่ต้องเทพ ภาค 2"],
     difficulty: "normal",
     year: 2023,
@@ -3003,7 +3003,7 @@ const animeData = [
   },
   {
     id: 295,
-    title: "Spy x Family Season 2 (OP1)",
+    title: "Spy x Family (OP1)",
     altTitles: ["สปาย x แฟมิลี ภาค 2"],
     difficulty: "easy",
     year: 2022,
@@ -3013,7 +3013,7 @@ const animeData = [
   },
   {
     id: 296,
-    title: "Oshi no Ko (ED) (ED1)",
+    title: "[Oshi no Ko] (ED1)",
     altTitles: ["เกิดใหม่เป็นลูกโอชิ"],
     difficulty: "easy",
     year: 2023,
@@ -3023,7 +3023,7 @@ const animeData = [
   },
   {
     id: 297,
-    title: "Frieren: Beyond Journey's End (OP2)",
+    title: "Sousou no Frieren (OP2)",
     altTitles: ["คำอธิษฐานในวันที่จากลา"],
     difficulty: "normal",
     year: 2024,
@@ -3043,7 +3043,7 @@ const animeData = [
   },
   {
     id: 299,
-    title: "Mashle Season 1 (OP1)",
+    title: "Mashle (OP1)",
     altTitles: ["ศึกโลกเวทมนตร์คนพลังกล้าม"],
     difficulty: "easy",
     year: 2023,
@@ -3063,7 +3063,7 @@ const animeData = [
   },
   {
     id: 301,
-    title: "Cardfight!! Vanguard (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด"],
     difficulty: "normal",
     year: 2011,
@@ -3073,7 +3073,7 @@ const animeData = [
   },
   {
     id: 302,
-    title: "Cardfight!! Vanguard (OP2)",
+    title: "Cardfight Vanguard (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด"],
     difficulty: "normal",
     year: 2011,
@@ -3083,7 +3083,7 @@ const animeData = [
   },
   {
     id: 303,
-    title: "Cardfight!! Vanguard: Asia Circuit (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด เอเชียเซอร์กิต"],
     difficulty: "normal",
     year: 2012,
@@ -3113,7 +3113,7 @@ const animeData = [
   },
   {
     id: 306,
-    title: "Girls und Panzer (OP1)",
+    title: "Girls & Panzer (OP1)",
     altTitles: ["สาวปิ๊ง! ซิ่งแทงค์"],
     difficulty: "normal",
     year: 2012,
@@ -3173,7 +3173,7 @@ const animeData = [
   },
   {
     id: 312,
-    title: "Mahouka Koukou no Rettousei: Visitor Arc (OP1)",
+    title: "Mahouka Koukou no Rettousei (OP1)",
     altTitles: ["Mahouka Koukou no Rettousei Season 2", "พี่น้องปริศนาโรงเรียนมหาเวท ภาค 2"],
     difficulty: "normal",
     year: 2020,
@@ -3193,7 +3193,7 @@ const animeData = [
   },
   {
     id: 314,
-    title: "Gakusen Toshi Asterisk Season 2 (OP1)",
+    title: "The Asterisk War: Gakusen Toshi Asterisk (OP1)",
     altTitles: ["Gakusen Toshi Asterisk Season 2", "โรงเรียนสัประยุทธ์ แอสเทอริสก์ ภาค 2"],
     difficulty: "normal",
     year: 2016,
@@ -3233,7 +3233,7 @@ const animeData = [
   },
   {
     id: 318,
-    title: "Isekai wa Smartphone to Tomo ni (OP1)",
+    title: "Isekai wa Smartphone to Tomo ni. (OP1)",
     altTitles: ["Isekai wa Smartphone to Tomo ni", "ไปต่างโลกกับสมาร์ทโฟน"],
     difficulty: "normal",
     year: 2017,
@@ -3243,7 +3243,7 @@ const animeData = [
   },
   {
     id: 319,
-    title: "Isekai wa Smartphone to Tomo ni Season 2 (OP1)",
+    title: "Isekai wa Smartphone to Tomo ni. 2 (OP1)",
     altTitles: ["Isekai wa Smartphone to Tomo ni 2", "ไปต่างโลกกับสมาร์ทโฟน ภาค 2"],
     difficulty: "normal",
     year: 2023,
@@ -3263,7 +3263,7 @@ const animeData = [
   },
   {
     id: 321,
-    title: "Maoyu: Archenemy & Hero (OP1)",
+    title: "Maoyuu Maou Yuusha (OP1)",
     altTitles: ["Maoyuu Maou Yuusha", "มาโออิ จอมมารผู้กล้า จับคู่กู้โลก"],
     difficulty: "hard",
     year: 2013,
@@ -3453,7 +3453,7 @@ const animeData = [
   },
   {
     id: 340,
-    title: "Kabaneri of the Iron Fortress (OP1)",
+    title: "Koutetsujou no Kabaneri (OP1)",
     altTitles: ["Koutetsujou no Kabaneri", "ผีดิบล้วงเหล็ก", "ซากศพปราการเหล็ก"],
     difficulty: "normal",
     year: 2016,
@@ -3463,7 +3463,7 @@ const animeData = [
   },
   {
     id: 341,
-    title: "Masamune-kun's Revenge (OP1)",
+    title: "Masamune-kun no Revenge (OP1)",
     altTitles: ["Masamune-kun no Revenge", "การแก้แค้นของมาซามุเนะคุง"],
     difficulty: "normal",
     year: 2017,
@@ -3533,7 +3533,7 @@ const animeData = [
   },
   {
     id: 348,
-    title: "The World God Only Knows (OP1)",
+    title: "Kami nomi zo Shiru Sekai (OP1)",
     altTitles: ["Kami nomi zo Shiru Sekai", "เซียนเกมรักขอเป็นเทพนักจีบ"],
     difficulty: "normal",
     year: 2010,
@@ -3553,7 +3553,7 @@ const animeData = [
   },
   {
     id: 350,
-    title: "The World God Only Knows: Goddesses Arc (OP1)",
+    title: "The World God Only Knows: Goddesses (OP1)",
     altTitles: ["เซียนเกมรักขอเป็นเทพนักจีบ ภาค 3"],
     difficulty: "normal",
     year: 2013,
@@ -3573,7 +3573,7 @@ const animeData = [
   },
   {
     id: 352,
-    title: "GATE (OP2)",
+    title: "GATE Part 2 (OP2)",
     altTitles: ["เกท หน่วยรบตะลุยโลกต่างมิติ ภาค 2"],
     difficulty: "normal",
     year: 2016,
@@ -3613,7 +3613,7 @@ const animeData = [
   },
   {
     id: 356,
-    title: "Arifureta Season 2 (OP1)",
+    title: "Arifureta: From Commonplace to World's Strongest Season 2 (OP1)",
     altTitles: ["อาชีพกระจอกแล้วทำไม ยังไงข้าก็เทพ ภาค 2"],
     difficulty: "normal",
     year: 2022,
@@ -3633,7 +3633,7 @@ const animeData = [
   },
   {
     id: 358,
-    title: "DanMachi II (OP1)",
+    title: "DanMachi 2nd Season (OP1)",
     altTitles: ["DanMachi Season 2", "มันผิดรึไงถ้าใจอยากจะพบรักในดันเจี้ยน ภาค 2"],
     difficulty: "normal",
     year: 2019,
@@ -3643,7 +3643,7 @@ const animeData = [
   },
   {
     id: 359,
-    title: "Owari no Serap (OP1)",
+    title: "Owari no Seraph (OP1)",
     altTitles: ["Owari no Seraph", "เทวทูตแห่งโลกมืด"],
     difficulty: "normal",
     year: 2015,
@@ -3653,7 +3653,7 @@ const animeData = [
   },
   {
     id: 360,
-    title: "Owari no Serap: Battle in Nagoya Season 2 (OP1)",
+    title: "Owari no Seraph (OP1)",
     altTitles: ["Owari no Seraph Season 2", "เทวทูตแห่งโลกมืด ภาค 2"],
     difficulty: "normal",
     year: 2015,
@@ -3703,7 +3703,7 @@ const animeData = [
   },
   {
     id: 365,
-    title: "Choujin Koukousei-tachi wa Isekai demo Yoyuu de Ikinuku you desu (OP1)",
+    title: "Choujin Koukousei-tachi wa Isekai demo Yoyuu de Ikinuku you desu! (OP1)",
     altTitles: ["Choujin Koukousei-tachi wa Isekai demo Yoyuu de Ikinuku you desu!", "เจ็ดเทพม.ปลายกับการใช้ชีวิตสบายๆในต่างโลก"],
     difficulty: "hard",
     year: 2019,
@@ -3713,7 +3713,7 @@ const animeData = [
   },
   {
     id: 366,
-    title: "The Legend of the Legendary Heroes (OP1)",
+    title: "Densetsu no Yuusha no Densetsu (OP1)",
     altTitles: ["Densetsu no Yuusha no Densetsu", "ตำนานผู้กล้าในตำนาน"],
     difficulty: "hard",
     year: 2010,
@@ -3733,7 +3733,7 @@ const animeData = [
   },
   {
     id: 368,
-    title: "Maou Gakuin no Futekigousha (OP1)",
+    title: "Maou Gakuin no Futekigousha: Shijou Saikyou no Maou no Shiso, Tensei shite Shison-tachi no Gakkou e Kayou (OP1)",
     altTitles: ["Maou Gakuin no Futekigousha", "ใครว่าข้าไม่เหมาะเป็นจอมมาร"],
     difficulty: "normal",
     year: 2020,
@@ -3743,7 +3743,7 @@ const animeData = [
   },
   {
     id: 369,
-    title: "Uzaki-chan Wants to Hang Out! (OP1)",
+    title: "Uzaki-chan wa Asobitai! (OP1)",
     altTitles: ["Uzaki-chan wa Asobitai!", "รุ่นน้องตัวป่วนอยากชวนเที่ยวเล่น"],
     difficulty: "normal",
     year: 2020,
@@ -3753,7 +3753,7 @@ const animeData = [
   },
   {
     id: 370,
-    title: "TONIKAWA: Over The Moon For You (OP1)",
+    title: "Tonikaku Kawaii (OP1)",
     altTitles: ["Tonikaku Kawaii", "จะยังไงภรรยาของผมก็น่ารัก"],
     difficulty: "easy",
     year: 2020,
@@ -3773,7 +3773,7 @@ const animeData = [
   },
   {
     id: 372,
-    title: "So I'm a Spider, So What? (OP1)",
+    title: "Kumo desu ga, Nani ka? (OP1)",
     altTitles: ["Kumo desu ga, Nani ka?", "แมงมุมแล้วไง ข้องใจเหรอคะ"],
     difficulty: "normal",
     year: 2021,
@@ -3783,7 +3783,7 @@ const animeData = [
   },
   {
     id: 373,
-    title: "Redo of Healer (OP1)",
+    title: "Kaifuku Jutsushi no Yarinaoshi (OP1)",
     altTitles: ["Kaifuku Jutsushi no Yarinaoshi", "การล้างแค้นของผู้กล้าสายฮีล"],
     difficulty: "normal",
     year: 2021,
@@ -3793,7 +3793,7 @@ const animeData = [
   },
   {
     id: 374,
-    title: "How a Realist Hero Rebuilt the Kingdom (OP1)",
+    title: "Genjitsu Shugi Yuusha no Oukoku Saikenki (OP1)",
     altTitles: ["Genjitsu Shugi Yuusha no Oukoku Saikenki", "ยุทธศาสตร์กู้ชาติของราชามือใหม่"],
     difficulty: "normal",
     year: 2021,
@@ -3803,7 +3803,7 @@ const animeData = [
   },
   {
     id: 375,
-    title: "TSUKIMICHI -Moonlit Fantasy- (OP1)",
+    title: "Fantasy (OP1)",
     altTitles: ["Tsuki ga Michibiku Isekai Douchuu", "จันทรานำพาสู่ต่างโลก"],
     difficulty: "normal",
     year: 2021,
@@ -3823,7 +3823,7 @@ const animeData = [
   },
   {
     id: 377,
-    title: "The Strongest Sage with the Weakest Crest (OP1)",
+    title: "Shikkakumon no Saikyou Kenja (OP1)",
     altTitles: ["Shikkakumon no Saikyou Kenja", "ปราชญ์หนึ่งในใต้หล้ากับตราสุดอัปยศ"],
     difficulty: "hard",
     year: 2022,
@@ -3833,7 +3833,7 @@ const animeData = [
   },
   {
     id: 378,
-    title: "The Genius Prince's Guide to Raising a Nation Out of Debt (OP1)",
+    title: "Tensai Ouji no Akaji Kokka Saisei Jutsu (OP1)",
     altTitles: ["Tensai Ouji no Akaji Kokka Saisei Jutsu", "การกอบกู้ประเทศชาติของเจ้าชายสายอู้"],
     difficulty: "hard",
     year: 2022,
@@ -3853,7 +3853,7 @@ const animeData = [
   },
   {
     id: 380,
-    title: "I'm Quitting Heroing (OP1)",
+    title: "Yuusha, Yamemasu (OP1)",
     altTitles: ["Yuusha, Yamemasu", "เลิกแล้วครับ เลิกเป็นผู้กล้าแล้วครับ"],
     difficulty: "normal",
     year: 2022,
@@ -3863,7 +3863,7 @@ const animeData = [
   },
   {
     id: 381,
-    title: "Strike the Blood II (OVA) (OP1)",
+    title: "Strike the Blood (OP1)",
     altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาค 2"],
     difficulty: "normal",
     year: 2016,
@@ -3873,7 +3873,7 @@ const animeData = [
   },
   {
     id: 382,
-    title: "Strike the Blood III (OVA) (OP1)",
+    title: "Strike the Blood (OP1)",
     altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาค 3"],
     difficulty: "hard",
     year: 2018,
@@ -3883,7 +3883,7 @@ const animeData = [
   },
   {
     id: 383,
-    title: "Strike the Blood IV (OVA) (OP1)",
+    title: "Strike the Blood (OP1)",
     altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาค 4"],
     difficulty: "hard",
     year: 2020,
@@ -3893,7 +3893,7 @@ const animeData = [
   },
   {
     id: 384,
-    title: "Strike the Blood FINAL (OP1)",
+    title: "Strike the Blood Final (OP1)",
     altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาคไฟนอล"],
     difficulty: "hard",
     year: 2022,
@@ -3903,7 +3903,7 @@ const animeData = [
   },
   {
     id: 385,
-    title: "Girls und Panzer das Finale (OP1)",
+    title: "Girls & Panzer (OP1)",
     altTitles: ["สาวปิ๊ง! ซิ่งแทงค์ ดาส ไฟนาเล่"],
     difficulty: "hard",
     year: 2017,
@@ -3913,7 +3913,7 @@ const animeData = [
   },
   {
     id: 386,
-    title: "Girls und Panzer das Finale (Part 4) (OP1)",
+    title: "Girls & Panzer (OP1)",
     altTitles: ["สาวปิ๊ง! ซิ่งแทงค์ ดาส ไฟนาเล่ พาร์ท 4"],
     difficulty: "hard",
     year: 2023,
@@ -3923,7 +3923,7 @@ const animeData = [
   },
   {
     id: 387,
-    title: "Cardfight!! Vanguard: Link Joker (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ลิงก์โจ๊กเกอร์"],
     difficulty: "normal",
     year: 2013,
@@ -3933,7 +3933,7 @@ const animeData = [
   },
   {
     id: 388,
-    title: "Cardfight!! Vanguard: Link Joker (OP2)",
+    title: "Cardfight Vanguard (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ลิงก์โจ๊กเกอร์"],
     difficulty: "normal",
     year: 2013,
@@ -3943,7 +3943,7 @@ const animeData = [
   },
   {
     id: 389,
-    title: "Cardfight!! Vanguard: Link Joker (OP3)",
+    title: "Cardfight Vanguard (OP3)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ลิงก์โจ๊กเกอร์"],
     difficulty: "normal",
     year: 2013,
@@ -3953,7 +3953,7 @@ const animeData = [
   },
   {
     id: 390,
-    title: "Cardfight!! Vanguard: Legion Mate (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ลีเจียนเมต"],
     difficulty: "hard",
     year: 2014,
@@ -3963,7 +3963,7 @@ const animeData = [
   },
   {
     id: 391,
-    title: "Cardfight!! Vanguard: Legion Mate (OP2)",
+    title: "Cardfight Vanguard (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ลีเจียนเมต"],
     difficulty: "hard",
     year: 2014,
@@ -3973,7 +3973,7 @@ const animeData = [
   },
   {
     id: 392,
-    title: "Cardfight!! Vanguard G (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G"],
     difficulty: "normal",
     year: 2014,
@@ -3983,7 +3983,7 @@ const animeData = [
   },
   {
     id: 393,
-    title: "Cardfight!! Vanguard G (OP2)",
+    title: "Cardfight Vanguard (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G"],
     difficulty: "normal",
     year: 2015,
@@ -3993,7 +3993,7 @@ const animeData = [
   },
   {
     id: 394,
-    title: "Cardfight!! Vanguard G: GIRS Crisis (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G กีอัสไครซิส"],
     difficulty: "hard",
     year: 2015,
@@ -4003,7 +4003,7 @@ const animeData = [
   },
   {
     id: 395,
-    title: "Cardfight!! Vanguard G: Stride Gate (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G สไตรด์เกต"],
     difficulty: "hard",
     year: 2016,
@@ -4013,7 +4013,7 @@ const animeData = [
   },
   {
     id: 396,
-    title: "Cardfight!! Vanguard (2018) (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด (2018)"],
     difficulty: "normal",
     year: 2018,
@@ -4023,7 +4023,7 @@ const animeData = [
   },
   {
     id: 397,
-    title: "Cardfight!! Vanguard (2018) (OP2)",
+    title: "Cardfight Vanguard (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด (2018)"],
     difficulty: "normal",
     year: 2018,
@@ -4033,7 +4033,7 @@ const animeData = [
   },
   {
     id: 398,
-    title: "Cardfight!! Vanguard: Shinemon (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ภาคชินเอมอน"],
     difficulty: "hard",
     year: 2019,
@@ -4043,7 +4043,7 @@ const animeData = [
   },
   {
     id: 399,
-    title: "Cardfight!! Vanguard overDress (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด โอเวอร์เดรส"],
     difficulty: "normal",
     year: 2021,
@@ -4053,7 +4053,7 @@ const animeData = [
   },
   {
     id: 400,
-    title: "Cardfight!! Vanguard overDress (OP2)",
+    title: "Cardfight Vanguard (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด โอเวอร์เดรส"],
     difficulty: "normal",
     year: 2021,
@@ -4063,7 +4063,7 @@ const animeData = [
   },
   {
     id: 401,
-    title: "Cardfight!! Vanguard will+Dress (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด วิลเดรส"],
     difficulty: "normal",
     year: 2022,
@@ -4073,7 +4073,7 @@ const animeData = [
   },
   {
     id: 402,
-    title: "Cardfight!! Vanguard will+Dress (OP2)",
+    title: "Cardfight Vanguard (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด วิลเดรส ภาค 2"],
     difficulty: "normal",
     year: 2023,
@@ -4083,13 +4083,333 @@ const animeData = [
   },
   {
     id: 403,
-    title: "Cardfight!! Vanguard Divinez (OP1)",
+    title: "Cardfight Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ดีไวน์ซ"],
     difficulty: "normal",
     year: 2024,
     youtubeVideoId: "https://www.youtube.com/watch?v=U9GBBSI_ssE&list=RDU9GBBSI_ssE&start_radio=1",
     acceptedAnswers: ["cardfight vanguard divinez", "vanguard divinez", "vanguard", "แวนการ์ด", "แวนการ์ด ดีไวน์ซ"],
     note: "Kirisame"
+  },
+  {
+    id: 404,
+    title: "Attack on Titan Season 1 (OP2)",
+    altTitles: ["ผ่าพิภพไททัน"],
+    difficulty: "normal",
+    year: 2013,
+    youtubeVideoId: "https://www.youtube.com/watch?v=PbAIfxZl7qQ",
+    acceptedAnswers: ["attack on titan","shingeki no kyojin","ผ่าพิภพไททัน"],
+    note: "Jiyuu no Tsubasa"
+  },
+  {
+    id: 405,
+    title: "Attack on Titan Season 3 Part 2 (OP1)",
+    altTitles: ["ผ่าพิภพไททัน ภาค 3 พาร์ท 2"],
+    difficulty: "normal",
+    year: 2019,
+    youtubeVideoId: "https://www.youtube.com/watch?v=0w1JqKk7c8U",
+    acceptedAnswers: ["attack on titan","shingeki no kyojin","ผ่าพิภพไททัน"],
+    note: "Shoukei to Shikabane no Michi"
+  },
+  {
+    id: 406,
+    title: "Attack on Titan The Final Season Part 2 (ED1)",
+    altTitles: ["ผ่าพิภพไททัน ไฟนอลซีซั่น พาร์ท 2"],
+    difficulty: "easy",
+    year: 2022,
+    youtubeVideoId: "https://www.youtube.com/watch?v=1OwvauKDzHA",
+    acceptedAnswers: ["attack on titan","shingeki no kyojin","ผ่าพิภพไททัน"],
+    note: "Akuma no Ko (เด็กปีศาจ)"
+  },
+  {
+    id: 407,
+    title: "Sword Art Online (OP2)",
+    altTitles: ["ซอร์ดอาร์ตออนไลน์"],
+    difficulty: "normal",
+    year: 2012,
+    youtubeVideoId: "https://www.youtube.com/watch?v=kL-ELP7E0i4",
+    acceptedAnswers: ["sword art online","sao","ซอร์ดอาร์ตออนไลน์"],
+    note: "Innocence"
+  },
+  {
+    id: 408,
+    title: "Sword Art Online: Alicization - War of Underworld (OP1)",
+    altTitles: ["ซอร์ดอาร์ตออนไลน์ อลิซิเซชั่น วอร์ออฟอันเดอร์เวิลด์"],
+    difficulty: "normal",
+    year: 2019,
+    youtubeVideoId: "https://www.youtube.com/watch?v=LKaEabfB52I",
+    acceptedAnswers: ["sword art online","sao","ซอร์ดอาร์ตออนไลน์"],
+    note: "Resolution"
+  },
+  {
+    id: 409,
+    title: "Demon Slayer: Kimetsu no Yaiba Mugen Train Arc (ED1)",
+    altTitles: ["ดาบพิฆาตอสูร ภาคศึกรถไฟสู่นิรันดร์"],
+    difficulty: "easy",
+    year: 2020,
+    youtubeVideoId: "https://www.youtube.com/watch?v=4DxL6IKm8A0",
+    acceptedAnswers: ["demon slayer","kimetsu no yaiba","ดาบพิฆาตอสูร"],
+    note: "Homura"
+  },
+  {
+    id: 410,
+    title: "Demon Slayer: Kimetsu no Yaiba Hashira Training Arc (OP1)",
+    altTitles: ["ดาบพิฆาตอสูร ภาคการสั่งสอนของเสาหลัก"],
+    difficulty: "easy",
+    year: 2024,
+    youtubeVideoId: "https://www.youtube.com/watch?v=1F2l47-1x8g",
+    acceptedAnswers: ["demon slayer","kimetsu no yaiba","ดาบพิฆาตอสูร"],
+    note: "Mugen"
+  },
+  {
+    id: 411,
+    title: "Jujutsu Kaisen Season 1 (OP2)",
+    altTitles: ["มหาเวทย์ผนึกมาร"],
+    difficulty: "normal",
+    year: 2021,
+    youtubeVideoId: "https://www.youtube.com/watch?v=8nW-IPrzM1g",
+    acceptedAnswers: ["jujutsu kaisen","มหาเวทย์ผนึกมาร"],
+    note: "VIVID VICE"
+  },
+  {
+    id: 412,
+    title: "Jujutsu Kaisen 0 (ED1)",
+    altTitles: ["มหาเวทย์ผนึกมาร 0"],
+    difficulty: "easy",
+    year: 2021,
+    youtubeVideoId: "https://www.youtube.com/watch?v=fKbyFEK74_U",
+    acceptedAnswers: ["jujutsu kaisen 0","jujutsu kaisen","มหาเวทย์ผนึกมาร 0","มหาเวทย์ผนึกมาร"],
+    note: "Ichizu"
+  },
+  {
+    id: 413,
+    title: "Boku no Hero Academia Season 4 (OP1)",
+    altTitles: ["มายฮีโร่ อคาเดเมีย ภาค 4"],
+    difficulty: "normal",
+    year: 2019,
+    youtubeVideoId: "https://www.youtube.com/watch?v=sI9f-2mB0kM",
+    acceptedAnswers: ["my hero academia","boku no hero academia","มายฮีโร่ อคาเดเมีย"],
+    note: "Polaris"
+  },
+  {
+    id: 414,
+    title: "Boku no Hero Academia Season 6 (OP1)",
+    altTitles: ["มายฮีโร่ อคาเดเมีย ภาค 6"],
+    difficulty: "normal",
+    year: 2022,
+    youtubeVideoId: "https://www.youtube.com/watch?v=S21iFvC2X6c",
+    acceptedAnswers: ["my hero academia","boku no hero academia","มายฮีโร่ อคาเดเมีย"],
+    note: "Bokura no"
+  },
+  {
+    id: 415,
+    title: "Tokyo Ghoul:re (OP2)",
+    altTitles: ["โตเกียวกูล:รี"],
+    difficulty: "hard",
+    year: 2018,
+    youtubeVideoId: "https://www.youtube.com/watch?v=M5G8-y4Aozc",
+    acceptedAnswers: ["tokyo ghoul","tokyo ghoul re","โตเกียวกูล","โตเกียวกูล รี"],
+    note: "Katharsis"
+  },
+  {
+    id: 416,
+    title: "Fullmetal Alchemist: Brotherhood (OP2)",
+    altTitles: ["FMA Brotherhood","แขนกลคนแปรธาตุ"],
+    difficulty: "normal",
+    year: 2009,
+    youtubeVideoId: "https://www.youtube.com/watch?v=P22zFqH0iE0",
+    acceptedAnswers: ["fullmetal alchemist brotherhood","fma brotherhood","แขนกลคนแปรธาตุ"],
+    note: "Hologram"
+  },
+  {
+    id: 417,
+    title: "Fullmetal Alchemist: Brotherhood (OP3)",
+    altTitles: ["FMA Brotherhood","แขนกลคนแปรธาตุ"],
+    difficulty: "normal",
+    year: 2009,
+    youtubeVideoId: "https://www.youtube.com/watch?v=ZJ_5hXQWn4c",
+    acceptedAnswers: ["fullmetal alchemist brotherhood","fma brotherhood","แขนกลคนแปรธาตุ"],
+    note: "Golden Time Lover"
+  },
+  {
+    id: 418,
+    title: "JoJo: Battle Tendency (OP1)",
+    altTitles: ["โจโจ้ ภาค 2 กระแสเลือดแห่งการต่อสู้"],
+    difficulty: "easy",
+    year: 2012,
+    youtubeVideoId: "https://www.youtube.com/watch?v=NI9Sa8jvwXA",
+    acceptedAnswers: ["jojo","โจโจ้","battle tendency"],
+    note: "Bloody Stream"
+  },
+  {
+    id: 419,
+    title: "JoJo: Golden Wind (OP2)",
+    altTitles: ["โจโจ้ ภาค 5"],
+    difficulty: "normal",
+    year: 2019,
+    youtubeVideoId: "https://www.youtube.com/watch?v=E_aw2qXJ25M",
+    acceptedAnswers: ["jojo","golden wind","โจโจ้"],
+    note: "Uragirimono no Requiem"
+  },
+  {
+    id: 420,
+    title: "Oshi no Ko Season 2 (ED1)",
+    altTitles: ["เกิดใหม่เป็นลูกโอชิ ภาค 2"],
+    difficulty: "easy",
+    year: 2024,
+    youtubeVideoId: "https://www.youtube.com/watch?v=vVj_n2XhPWA",
+    acceptedAnswers: ["oshi no ko","เกิดใหม่เป็นลูกโอชิ","ลูกโอชิ"],
+    note: "Burning"
+  },
+  {
+    id: 421,
+    title: "Date A Live V (OP1)",
+    altTitles: ["พิชิตรัก พิทักษ์โลก ภาค 5"],
+    difficulty: "normal",
+    year: 2024,
+    youtubeVideoId: "https://www.youtube.com/watch?v=aG3H-B_zI0E",
+    acceptedAnswers: ["date a live","พิชิตรัก พิทักษ์โลก","เดทอะไลฟ์"],
+    note: "Paradoxes"
+  },
+  {
+    id: 422,
+    title: "Naruto Shippuden (OP16)",
+    altTitles: ["นารูโตะ ตำนานวายุสลาตัน"],
+    difficulty: "easy",
+    year: 2014,
+    youtubeVideoId: "https://www.youtube.com/watch?v=Z21XQkS9I5o",
+    acceptedAnswers: ["naruto shippuden","naruto","นารูโตะ"],
+    note: "Silhouette"
+  },
+  {
+    id: 423,
+    title: "Naruto Shippuden (OP6)",
+    altTitles: ["นารูโตะ ตำนานวายุสลาตัน"],
+    difficulty: "easy",
+    year: 2009,
+    youtubeVideoId: "https://www.youtube.com/watch?v=o3ASICWeSLc",
+    acceptedAnswers: ["naruto shippuden","naruto","นารูโตะ"],
+    note: "Sign"
+  },
+  {
+    id: 424,
+    title: "Bleach (OP2)",
+    altTitles: ["บลีช เทพมรณะ"],
+    difficulty: "normal",
+    year: 2005,
+    youtubeVideoId: "https://www.youtube.com/watch?v=d_kX2E2rXoI",
+    acceptedAnswers: ["bleach","บลีช","บลีช เทพมรณะ"],
+    note: "D-tecnoLife"
+  },
+  {
+    id: 425,
+    title: "Bleach (OP13)",
+    altTitles: ["บลีช เทพมรณะ"],
+    difficulty: "easy",
+    year: 2010,
+    youtubeVideoId: "https://www.youtube.com/watch?v=cZ7HntI-Szw",
+    acceptedAnswers: ["bleach","บลีช","บลีช เทพมรณะ"],
+    note: "Ranbu no Melody"
+  },
+  {
+    id: 426,
+    title: "One Piece (OP20)",
+    altTitles: ["วันพีซ"],
+    difficulty: "easy",
+    year: 2017,
+    youtubeVideoId: "https://www.youtube.com/watch?v=n7z5jF4w15U",
+    acceptedAnswers: ["one piece","วันพีซ"],
+    note: "Hope"
+  },
+  {
+    id: 427,
+    title: "One Piece Film: Red (OP1)",
+    altTitles: ["วันพีซ ฟิล์ม เรด"],
+    difficulty: "easy",
+    year: 2022,
+    youtubeVideoId: "https://www.youtube.com/watch?v=1FliVTv8ls1",
+    acceptedAnswers: ["one piece","one piece film red","วันพีซ"],
+    note: "New Genesis"
+  },
+  {
+    id: 428,
+    title: "Gintama (OP13)",
+    altTitles: ["กินทามะ"],
+    difficulty: "normal",
+    year: 2013,
+    youtubeVideoId: "https://www.youtube.com/watch?v=i1x0A6q7P4k",
+    acceptedAnswers: ["gintama","กินทามะ"],
+    note: "Sakura Mitsutsuki"
+  },
+  {
+    id: 429,
+    title: "Gintama (ED17)",
+    altTitles: ["กินทามะ"],
+    difficulty: "easy",
+    year: 2011,
+    youtubeVideoId: "https://www.youtube.com/watch?v=sD2uGv2i7l8",
+    acceptedAnswers: ["gintama","กินทามะ"],
+    note: "Samurai Heart (Some Like It Hot!!)"
+  },
+  {
+    id: 430,
+    title: "Black Clover (OP13)",
+    altTitles: ["แบล็คโคลเวอร์"],
+    difficulty: "normal",
+    year: 2021,
+    youtubeVideoId: "https://www.youtube.com/watch?v=P2f2X-E87Q0",
+    acceptedAnswers: ["black clover","แบล็คโคลเวอร์"],
+    note: "Grandeur"
+  },
+  {
+    id: 431,
+    title: "Tensei shitara slime datta ken Season 2 (OP1)",
+    altTitles: ["เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว ภาค 2"],
+    difficulty: "normal",
+    year: 2021,
+    youtubeVideoId: "https://www.youtube.com/watch?v=wX-y0lE0n48",
+    acceptedAnswers: ["that time i got reincarnated as a slime","tensura","เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว","สไลม์"],
+    note: "Storyteller"
+  },
+  {
+    id: 432,
+    title: "Cardfight Vanguard (OP1)",
+    altTitles: ["การ์ดไฟท์!! แวนการ์ด G NEXT"],
+    difficulty: "normal",
+    year: 2016,
+    youtubeVideoId: "https://www.youtube.com/watch?v=k4KzZ8yMvRE",
+    acceptedAnswers: ["cardfight vanguard","vanguard g next","vanguard","แวนการ์ด","แวนการ์ด g"],
+    note: "Hello, Mr. Wonder land"
+  },
+  {
+    id: 433,
+    title: "Cardfight Vanguard (OP1)",
+    altTitles: ["การ์ดไฟท์!! แวนการ์ด G Z"],
+    difficulty: "hard",
+    year: 2017,
+    youtubeVideoId: "https://www.youtube.com/watch?v=hJ3f-Zt7A8A",
+    acceptedAnswers: ["cardfight vanguard","vanguard g z","vanguard","แวนการ์ด","แวนการ์ด g"],
+    note: "Jonetsu no Auto Score"
+  },
+  {
+    id: 434,
+    title: "Cardfight Vanguard (OP1)",
+    altTitles: ["การ์ดไฟท์!! แวนการ์ด วิลเดรส ภาค 3"],
+    difficulty: "normal",
+    year: 2023,
+    youtubeVideoId: "https://www.youtube.com/watch?v=1F_Ew2K-AHE",
+    acceptedAnswers: ["cardfight vanguard will+dress","vanguard will dress","vanguard","แวนการ์ด","แวนการ์ด วิลเดรส"],
+    note: "The last resort"
+  },
+  {
+    id: 435,
+    title: "Cardfight Vanguard (OP1)",
+    altTitles: ["การ์ดไฟท์!! แวนการ์ด ดีไวน์ซ ภาค 2"],
+    difficulty: "normal",
+    year: 2024,
+    youtubeVideoId: "https://www.youtube.com/watch?v=6hV5m_8xZ2w",
+    acceptedAnswers: ["cardfight vanguard divinez","vanguard divinez","vanguard","แวนการ์ด","แวนการ์ด ดีไวน์ซ"],
+    note: "Shukumei"
   }
 
 ];
