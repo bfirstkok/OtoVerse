@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
+// TEMP_MARKER_REMOVE
 import { motion } from "framer-motion";
 import {
   Search,
@@ -413,7 +414,7 @@ const animeData = [
   },
   {
     id: 36,
-    title: "Pokémon (OP1)",
+    title: "Pok├⌐mon (OP1)",
     altTitles: ["โปเกมอน"],
     difficulty: "easy",
     year: 1997,
@@ -899,7 +900,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=W10RXr9c44Y&list=RDW10RXr9c44Y&start_radio=1",
     acceptedAnswers: ["guilty crown", "ปฏิวัติหัตถ์ราชัน", "กิลตี้คราวน์"],
-    note: "โรคระบาดเหล็ก"
+    note: "My Dearest"
   },
   {
     id: 85,
@@ -1203,7 +1204,7 @@ const animeData = [
   },
   {
     id: 115,
-    title: "Yu☆Gi☆Oh! Duel Monsters (OP1)",
+    title: "YuΓÿåGiΓÿåOh! Duel Monsters (OP1)",
     altTitles: ["ยูกิโอ เกมกลคนอัจฉริยะ"],
     difficulty: "easy",
     year: 2000,
@@ -1263,7 +1264,7 @@ const animeData = [
   },
   {
     id: 121,
-    title: "Lucky☆Star (OP1)",
+    title: "LuckyΓÿåStar (OP1)",
     altTitles: ["ลัคกี้ สตาร์"],
     difficulty: "hard",
     year: 2007,
@@ -1363,7 +1364,7 @@ const animeData = [
   },
   {
     id: 131,
-    title: "Jojo´s Bizarre Adventure Stardust Crusaders (OP1)",
+    title: "Jojo┬┤s Bizarre Adventure Stardust Crusaders (OP1)",
     altTitles: ["โจโจ้ ภาค 3"],
     difficulty: "normal",
     year: 2014,
@@ -1693,7 +1694,7 @@ const animeData = [
   },
   {
     id: 164,
-    title: "Tokyo Ghoul √A (OP1)",
+    title: "Tokyo Ghoul ΓêÜA (OP1)",
     altTitles: ["โตเกียวกูล รูท A"],
     difficulty: "hard",
     year: 2015,
@@ -2283,7 +2284,7 @@ const animeData = [
   },
   {
     id: 223,
-    title: "Macross Δ: Delta Shougekijou (OP1)",
+    title: "Macross ╬ö: Delta Shougekijou (OP1)",
     altTitles: ["มาครอส เดลต้า"],
     difficulty: "normal",
     year: 2016,
@@ -2403,7 +2404,7 @@ const animeData = [
   },
   {
     id: 235,
-    title: "Yu☆Gi☆Oh! 5D's (OP1)",
+    title: "YuΓÿåGiΓÿåOh! 5D's (OP1)",
     altTitles: ["ยูกิโอ 5D's"],
     difficulty: "normal",
     year: 2008,
@@ -2629,7 +2630,7 @@ const animeData = [
     year: 2018,
     youtubeVideoId: "https://www.youtube.com/watch?v=3hdJ8PKNXrc&list=RD3hdJ8PKNXrc&start_radio=1",
     acceptedAnswers: ["sword art online", "sao", "ซอร์ดอาร์ตออนไลน์"],
-    note: "ดาบศิลปะออนไลน์"
+    note: "ADAMAS"
   },
   {
     id: 258,
@@ -2793,7 +2794,7 @@ const animeData = [
   },
   {
     id: 274,
-    title: "Suzumiya Haruhi no Yuuutsu (ED1)",
+    title: "Haruhi Suzumiya (ED1)",
     altTitles: ["เรียกเธอว่าพระเจ้า สึซึมิยะ ฮารุฮิ"],
     difficulty: "hard",
     year: 2006,
@@ -2819,7 +2820,7 @@ const animeData = [
     year: 2008,
     youtubeVideoId: "https://www.youtube.com/watch?v=FKWUJnjmz_0&list=RDFKWUJnjmz_0&start_radio=1",
     acceptedAnswers: ["toradora!", "toradora", "โทระโดระ"],
-    note: "เตี้ยกับสูง"
+    note: "silky heart"
   },
   {
     id: 277,
@@ -2843,7 +2844,7 @@ const animeData = [
   },
   {
     id: 279,
-    title: "Shigatsu wa Kimi no Uso (ED2)",
+    title: "Your Lie in April (ED2)",
     altTitles: ["Shigatsu wa Kimi no Uso", "เพลงรักสองหัวใจ"],
     difficulty: "normal",
     year: 2014,
@@ -2859,7 +2860,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=Hv4znGv6lzg&list=RDHv4znGv6lzg&start_radio=1",
     acceptedAnswers: ["guilty crown", "ปฏิวัติหัตถ์ราชัน", "กิลตี้คราวน์"],
-    note: "โรคระบาดที่ชื่อว่าอัลฟ่า"
+    note: "The Everlasting Guilty Crown"
   },
   {
     id: 281,
@@ -2899,11 +2900,11 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=XLvaHFVwFkg&list=RDXLvaHFVwFkg&start_radio=1",
     acceptedAnswers: ["sword art online", "sao", "ซอร์ดอาร์ตออนไลน์"],
-    note: "คนคอนมีปืน"
+    note: "courage"
   },
   {
     id: 285,
-    title: "ReZero (OP2)",
+    title: "Re:Zero (OP2)",
     altTitles: ["รีเซทชีวิต ฝ่าวิกฤตต่างโลก"],
     difficulty: "normal",
     year: 2016,
@@ -2923,7 +2924,7 @@ const animeData = [
   },
   {
     id: 287,
-    title: "Nanatsu no Taizai (OP2)",
+    title: "Nanatsu no taizai (OP2)",
     altTitles: ["ศึกตำนาน 7 อัศวิน"],
     difficulty: "easy",
     year: 2014,
@@ -2943,7 +2944,7 @@ const animeData = [
   },
   {
     id: 289,
-    title: "Food Wars! Shokugeki no Soma (OP2)",
+    title: "Shokugeki no Soma (OP2)",
     altTitles: ["ยอดนักปรุงโซมะ"],
     difficulty: "normal",
     year: 2015,
@@ -2959,7 +2960,7 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=6kQzRm21N_g&list=RD6kQzRm21N_g&start_radio=1",
     acceptedAnswers: ["no game no life", "โนเกมโนไลฟ์", "โนเกม โนไลฟ์"],
-    note: "เก่งเกมเก่งทุกอย่าง"
+    note: "Oracion (オラシオン)"
   },
   {
     id: 291,
@@ -2973,7 +2974,7 @@ const animeData = [
   },
   {
     id: 292,
-    title: "The Rising of the Shield Hero (OP2)",
+    title: "Tate no yuusha (OP2)",
     altTitles: ["ผู้กล้าโล่ผงาด"],
     difficulty: "normal",
     year: 2019,
@@ -2983,7 +2984,7 @@ const animeData = [
   },
   {
     id: 293,
-    title: "Tensei shitara Slime Datta Ken (OP2)",
+    title: "Tensei shitara slime datta ken (OP2)",
     altTitles: ["เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว"],
     difficulty: "normal",
     year: 2018,
@@ -3019,11 +3020,11 @@ const animeData = [
     year: 2023,
     youtubeVideoId: "https://www.youtube.com/watch?v=QUTShho-5I8&list=RDQUTShho-5I8&start_radio=1",
     acceptedAnswers: ["oshi no ko", "เกิดใหม่เป็นลูกโอชิ", "ลูกโอชิ"],
-    note: "ไอดอล"
+    note: "Mephisto (メフィスト)"
   },
   {
     id: 297,
-    title: "Sousou no Frieren (OP2)",
+    title: "Frieren: Beyond Journey's End (OP2)",
     altTitles: ["คำอธิษฐานในวันที่จากลา"],
     difficulty: "normal",
     year: 2024,
@@ -3059,11 +3060,11 @@ const animeData = [
     year: 2022,
     youtubeVideoId: "https://www.youtube.com/watch?v=HEwAiwttN10&list=RDHEwAiwttN10&start_radio=1",
     acceptedAnswers: ["chainsaw man", "เชนซอว์แมน"],
-    note: "โปจิตะ"
+    note: "Hawatari 2-oku Centi (刃渡り2億センチ)"
   },
   {
     id: 301,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight!! Vanguard (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด"],
     difficulty: "normal",
     year: 2011,
@@ -3073,7 +3074,7 @@ const animeData = [
   },
   {
     id: 302,
-    title: "Cardfight Vanguard (OP2)",
+    title: "Cardfight!! Vanguard (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด"],
     difficulty: "normal",
     year: 2011,
@@ -3139,7 +3140,7 @@ const animeData = [
     year: 2016,
     youtubeVideoId: "https://www.youtube.com/watch?v=lGs1qWdUAr4&list=RDlGs1qWdUAr4&start_radio=1",
     acceptedAnswers: ["qualidea code", "ควอลิเดีย โค้ด"],
-    note: "หลอนทั้งเรื่อง"
+    note: "Brave Freak Out"
   },
   {
     id: 309,
@@ -3159,7 +3160,7 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=hRxZ2qfF1Dg&list=RDhRxZ2qfF1Dg&start_radio=1",
     acceptedAnswers: ["mahouka koukou no rettousei", "mahouka", "the irregular at magic high school", "พี่น้องปริศนาโรงเรียนมหาเวท"],
-    note: "เทพทัต"
+    note: "Rising Hope"
   },
   {
     id: 311,
@@ -3169,7 +3170,7 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=m0XmNdUPhxA&list=RDm0XmNdUPhxA&start_radio=1",
     acceptedAnswers: ["mahouka koukou no rettousei", "mahouka", "the irregular at magic high school", "พี่น้องปริศนาโรงเรียนมหาเวท"],
-    note: "เวทมนตร์ที่ใช้วิทยาศาสตร์อธิบายได้"
+    note: "grilletto"
   },
   {
     id: 312,
@@ -3233,7 +3234,7 @@ const animeData = [
   },
   {
     id: 318,
-    title: "Isekai wa Smartphone to Tomo ni. (OP1)",
+    title: "Isekai wa Smartphone to Tomo ni (OP1)",
     altTitles: ["Isekai wa Smartphone to Tomo ni", "ไปต่างโลกกับสมาร์ทโฟน"],
     difficulty: "normal",
     year: 2017,
@@ -3533,7 +3534,7 @@ const animeData = [
   },
   {
     id: 348,
-    title: "Kami nomi zo Shiru Sekai (OP1)",
+    title: "The World God Only Knows (OP1)",
     altTitles: ["Kami nomi zo Shiru Sekai", "เซียนเกมรักขอเป็นเทพนักจีบ"],
     difficulty: "normal",
     year: 2010,
@@ -3573,7 +3574,7 @@ const animeData = [
   },
   {
     id: 352,
-    title: "GATE Part 2 (OP2)",
+    title: "GATE (OP2)",
     altTitles: ["เกท หน่วยรบตะลุยโลกต่างมิติ ภาค 2"],
     difficulty: "normal",
     year: 2016,
@@ -3643,7 +3644,7 @@ const animeData = [
   },
   {
     id: 359,
-    title: "Owari no Seraph (OP1)",
+    title: "Owari no Serap (OP1)",
     altTitles: ["Owari no Seraph", "เทวทูตแห่งโลกมืด"],
     difficulty: "normal",
     year: 2015,
@@ -3733,7 +3734,7 @@ const animeData = [
   },
   {
     id: 368,
-    title: "Maou Gakuin no Futekigousha: Shijou Saikyou no Maou no Shiso, Tensei shite Shison-tachi no Gakkou e Kayou (OP1)",
+    title: "Maou Gakuin no Futekigousha (OP1)",
     altTitles: ["Maou Gakuin no Futekigousha", "ใครว่าข้าไม่เหมาะเป็นจอมมาร"],
     difficulty: "normal",
     year: 2020,
@@ -3923,7 +3924,7 @@ const animeData = [
   },
   {
     id: 387,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight!! Vanguard: Link Joker (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ลิงก์โจ๊กเกอร์"],
     difficulty: "normal",
     year: 2013,
@@ -3933,7 +3934,7 @@ const animeData = [
   },
   {
     id: 388,
-    title: "Cardfight Vanguard (OP2)",
+    title: "Cardfight!! Vanguard: Link Joker (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ลิงก์โจ๊กเกอร์"],
     difficulty: "normal",
     year: 2013,
@@ -3943,7 +3944,7 @@ const animeData = [
   },
   {
     id: 389,
-    title: "Cardfight Vanguard (OP3)",
+    title: "Cardfight!! Vanguard: Link Joker (OP3)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ลิงก์โจ๊กเกอร์"],
     difficulty: "normal",
     year: 2013,
@@ -3953,7 +3954,7 @@ const animeData = [
   },
   {
     id: 390,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight!! Vanguard: Legion Mate (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ลีเจียนเมต"],
     difficulty: "hard",
     year: 2014,
@@ -3963,7 +3964,7 @@ const animeData = [
   },
   {
     id: 391,
-    title: "Cardfight Vanguard (OP2)",
+    title: "Cardfight!! Vanguard: Legion Mate (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ลีเจียนเมต"],
     difficulty: "hard",
     year: 2014,
@@ -3973,7 +3974,7 @@ const animeData = [
   },
   {
     id: 392,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight!! Vanguard G (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G"],
     difficulty: "normal",
     year: 2014,
@@ -3983,7 +3984,7 @@ const animeData = [
   },
   {
     id: 393,
-    title: "Cardfight Vanguard (OP2)",
+    title: "Cardfight!! Vanguard G (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G"],
     difficulty: "normal",
     year: 2015,
@@ -4013,7 +4014,7 @@ const animeData = [
   },
   {
     id: 396,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight!! Vanguard (2018) (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด (2018)"],
     difficulty: "normal",
     year: 2018,
@@ -4023,7 +4024,7 @@ const animeData = [
   },
   {
     id: 397,
-    title: "Cardfight Vanguard (OP2)",
+    title: "Cardfight!! Vanguard (2018) (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด (2018)"],
     difficulty: "normal",
     year: 2018,
@@ -4043,7 +4044,7 @@ const animeData = [
   },
   {
     id: 399,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight!! Vanguard overDress (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด โอเวอร์เดรส"],
     difficulty: "normal",
     year: 2021,
@@ -4053,7 +4054,7 @@ const animeData = [
   },
   {
     id: 400,
-    title: "Cardfight Vanguard (OP2)",
+    title: "Cardfight!! Vanguard overDress (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด โอเวอร์เดรส"],
     difficulty: "normal",
     year: 2021,
@@ -4063,7 +4064,7 @@ const animeData = [
   },
   {
     id: 401,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight!! Vanguard will+Dress (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด วิลเดรส"],
     difficulty: "normal",
     year: 2022,
@@ -4073,7 +4074,7 @@ const animeData = [
   },
   {
     id: 402,
-    title: "Cardfight Vanguard (OP2)",
+    title: "Cardfight!! Vanguard will+Dress (OP2)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด วิลเดรส ภาค 2"],
     difficulty: "normal",
     year: 2023,
@@ -4097,8 +4098,8 @@ const animeData = [
     altTitles: ["ผ่าพิภพไททัน"],
     difficulty: "normal",
     year: 2013,
-    youtubeVideoId: "https://www.youtube.com/watch?v=PbAIfxZl7qQ",
-    acceptedAnswers: ["attack on titan","shingeki no kyojin","ผ่าพิภพไททัน"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=HsC9Ul1wdF0",
+    acceptedAnswers: ["attack on titan", "shingeki no kyojin", "ผ่าพิภพไททัน"],
     note: "Jiyuu no Tsubasa"
   },
   {
@@ -4107,8 +4108,8 @@ const animeData = [
     altTitles: ["ผ่าพิภพไททัน ภาค 3 พาร์ท 2"],
     difficulty: "normal",
     year: 2019,
-    youtubeVideoId: "https://www.youtube.com/watch?v=0w1JqKk7c8U",
-    acceptedAnswers: ["attack on titan","shingeki no kyojin","ผ่าพิภพไททัน"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=jhYg5NrN-r8&list=RDjhYg5NrN-r8&start_radio=1",
+    acceptedAnswers: ["attack on titan", "shingeki no kyojin", "ผ่าพิภพไททัน"],
     note: "Shoukei to Shikabane no Michi"
   },
   {
@@ -4117,8 +4118,8 @@ const animeData = [
     altTitles: ["ผ่าพิภพไททัน ไฟนอลซีซั่น พาร์ท 2"],
     difficulty: "easy",
     year: 2022,
-    youtubeVideoId: "https://www.youtube.com/watch?v=1OwvauKDzHA",
-    acceptedAnswers: ["attack on titan","shingeki no kyojin","ผ่าพิภพไททัน"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=j_tkN27cYGM&list=RDj_tkN27cYGM&start_radio=1",
+    acceptedAnswers: ["attack on titan", "shingeki no kyojin", "ผ่าพิภพไททัน"],
     note: "Akuma no Ko (เด็กปีศาจ)"
   },
   {
@@ -4127,8 +4128,8 @@ const animeData = [
     altTitles: ["ซอร์ดอาร์ตออนไลน์"],
     difficulty: "normal",
     year: 2012,
-    youtubeVideoId: "https://www.youtube.com/watch?v=kL-ELP7E0i4",
-    acceptedAnswers: ["sword art online","sao","ซอร์ดอาร์ตออนไลน์"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=O8T2u83GIiI&list=RDO8T2u83GIiI&start_radio=1",
+    acceptedAnswers: ["sword art online", "sao", "ซอร์ดอาร์ตออนไลน์"],
     note: "Innocence"
   },
   {
@@ -4137,28 +4138,28 @@ const animeData = [
     altTitles: ["ซอร์ดอาร์ตออนไลน์ อลิซิเซชั่น วอร์ออฟอันเดอร์เวิลด์"],
     difficulty: "normal",
     year: 2019,
-    youtubeVideoId: "https://www.youtube.com/watch?v=LKaEabfB52I",
-    acceptedAnswers: ["sword art online","sao","ซอร์ดอาร์ตออนไลน์"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=CR3O2SFa3Qg&list=RDCR3O2SFa3Qg&start_radio=1",
+    acceptedAnswers: ["sword art online", "sao", "ซอร์ดอาร์ตออนไลน์"],
     note: "Resolution"
   },
   {
     id: 409,
-    title: "Demon Slayer: Kimetsu no Yaiba Mugen Train Arc (ED1)",
+    title: "Demon Slayer: Mugen Train Arc (ED1)",
     altTitles: ["ดาบพิฆาตอสูร ภาคศึกรถไฟสู่นิรันดร์"],
     difficulty: "easy",
     year: 2020,
-    youtubeVideoId: "https://www.youtube.com/watch?v=4DxL6IKm8A0",
-    acceptedAnswers: ["demon slayer","kimetsu no yaiba","ดาบพิฆาตอสูร"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=jwriFosLRww&list=RDjwriFosLRww&start_radio=1",
+    acceptedAnswers: ["demon slayer", "kimetsu no yaiba", "ดาบพิฆาตอสูร"],
     note: "Homura"
   },
   {
     id: 410,
-    title: "Demon Slayer: Kimetsu no Yaiba Hashira Training Arc (OP1)",
+    title: "Demon Slayer: Hashira Training Arc (OP1)",
     altTitles: ["ดาบพิฆาตอสูร ภาคการสั่งสอนของเสาหลัก"],
     difficulty: "easy",
     year: 2024,
-    youtubeVideoId: "https://www.youtube.com/watch?v=1F2l47-1x8g",
-    acceptedAnswers: ["demon slayer","kimetsu no yaiba","ดาบพิฆาตอสูร"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=V3c7dwdQHeY&list=RDV3c7dwdQHeY&start_radio=1",
+    acceptedAnswers: ["demon slayer", "kimetsu no yaiba", "ดาบพิฆาตอสูร"],
     note: "Mugen"
   },
   {
@@ -4168,7 +4169,7 @@ const animeData = [
     difficulty: "normal",
     year: 2021,
     youtubeVideoId: "https://www.youtube.com/watch?v=8nW-IPrzM1g",
-    acceptedAnswers: ["jujutsu kaisen","มหาเวทย์ผนึกมาร"],
+    acceptedAnswers: ["jujutsu kaisen", "มหาเวทย์ผนึกมาร"],
     note: "VIVID VICE"
   },
   {
@@ -4178,27 +4179,27 @@ const animeData = [
     difficulty: "easy",
     year: 2021,
     youtubeVideoId: "https://www.youtube.com/watch?v=fKbyFEK74_U",
-    acceptedAnswers: ["jujutsu kaisen 0","jujutsu kaisen","มหาเวทย์ผนึกมาร 0","มหาเวทย์ผนึกมาร"],
+    acceptedAnswers: ["jujutsu kaisen 0", "jujutsu kaisen", "มหาเวทย์ผนึกมาร 0", "มหาเวทย์ผนึกมาร"],
     note: "Ichizu"
   },
   {
     id: 413,
-    title: "Boku no Hero Academia Season 4 (OP1)",
+    title: "My Hero Academia Season 4 (OP1)",
     altTitles: ["มายฮีโร่ อคาเดเมีย ภาค 4"],
     difficulty: "normal",
     year: 2019,
-    youtubeVideoId: "https://www.youtube.com/watch?v=sI9f-2mB0kM",
-    acceptedAnswers: ["my hero academia","boku no hero academia","มายฮีโร่ อคาเดเมีย"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=VtNgeDxYJzE",
+    acceptedAnswers: ["my hero academia", "boku no hero academia", "มายฮีโร่ อคาเดเมีย"],
     note: "Polaris"
   },
   {
     id: 414,
-    title: "Boku no Hero Academia Season 6 (OP1)",
+    title: "My Hero Academia Season 6 (OP1)",
     altTitles: ["มายฮีโร่ อคาเดเมีย ภาค 6"],
     difficulty: "normal",
     year: 2022,
-    youtubeVideoId: "https://www.youtube.com/watch?v=S21iFvC2X6c",
-    acceptedAnswers: ["my hero academia","boku no hero academia","มายฮีโร่ อคาเดเมีย"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=6BrHcmH3Gyk&list=RD6BrHcmH3Gyk&start_radio=1",
+    acceptedAnswers: ["my hero academia", "boku no hero academia", "มายฮีโร่ อคาเดเมีย"],
     note: "Bokura no"
   },
   {
@@ -4207,38 +4208,38 @@ const animeData = [
     altTitles: ["โตเกียวกูล:รี"],
     difficulty: "hard",
     year: 2018,
-    youtubeVideoId: "https://www.youtube.com/watch?v=M5G8-y4Aozc",
-    acceptedAnswers: ["tokyo ghoul","tokyo ghoul re","โตเกียวกูล","โตเกียวกูล รี"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=K55ktT_rxVg&list=RDK55ktT_rxVg&start_radio=1",
+    acceptedAnswers: ["tokyo ghoul", "tokyo ghoul re", "โตเกียวกูล", "โตเกียวกูล รี"],
     note: "Katharsis"
   },
   {
     id: 416,
     title: "Fullmetal Alchemist: Brotherhood (OP2)",
-    altTitles: ["FMA Brotherhood","แขนกลคนแปรธาตุ"],
+    altTitles: ["FMA Brotherhood", "แขนกลคนแปรธาตุ"],
     difficulty: "normal",
     year: 2009,
-    youtubeVideoId: "https://www.youtube.com/watch?v=P22zFqH0iE0",
-    acceptedAnswers: ["fullmetal alchemist brotherhood","fma brotherhood","แขนกลคนแปรธาตุ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=STacGwRRSz0&list=RDSTacGwRRSz0&start_radio=1",
+    acceptedAnswers: ["fullmetal alchemist brotherhood", "fma brotherhood", "แขนกลคนแปรธาตุ"],
     note: "Hologram"
   },
   {
     id: 417,
     title: "Fullmetal Alchemist: Brotherhood (OP3)",
-    altTitles: ["FMA Brotherhood","แขนกลคนแปรธาตุ"],
+    altTitles: ["FMA Brotherhood", "แขนกลคนแปรธาตุ"],
     difficulty: "normal",
     year: 2009,
     youtubeVideoId: "https://www.youtube.com/watch?v=ZJ_5hXQWn4c",
-    acceptedAnswers: ["fullmetal alchemist brotherhood","fma brotherhood","แขนกลคนแปรธาตุ"],
+    acceptedAnswers: ["fullmetal alchemist brotherhood", "fma brotherhood", "แขนกลคนแปรธาตุ"],
     note: "Golden Time Lover"
   },
   {
     id: 418,
-    title: "JoJo: Battle Tendency (OP1)",
+    title: "Jojo's Bizzare Adventure: Battle Tendency (OP1)",
     altTitles: ["โจโจ้ ภาค 2 กระแสเลือดแห่งการต่อสู้"],
     difficulty: "easy",
     year: 2012,
-    youtubeVideoId: "https://www.youtube.com/watch?v=NI9Sa8jvwXA",
-    acceptedAnswers: ["jojo","โจโจ้","battle tendency"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=SJkCLcnGB-c&list=RDSJkCLcnGB-c&start_radio=1",
+    acceptedAnswers: ["jojo", "โจโจ้", "battle tendency"],
     note: "Bloody Stream"
   },
   {
@@ -4247,8 +4248,8 @@ const animeData = [
     altTitles: ["โจโจ้ ภาค 5"],
     difficulty: "normal",
     year: 2019,
-    youtubeVideoId: "https://www.youtube.com/watch?v=E_aw2qXJ25M",
-    acceptedAnswers: ["jojo","golden wind","โจโจ้"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=kbjr3JIuOtY&list=RDkbjr3JIuOtY&start_radio=1",
+    acceptedAnswers: ["jojo", "golden wind", "โจโจ้"],
     note: "Uragirimono no Requiem"
   },
   {
@@ -4257,38 +4258,38 @@ const animeData = [
     altTitles: ["เกิดใหม่เป็นลูกโอชิ ภาค 2"],
     difficulty: "easy",
     year: 2024,
-    youtubeVideoId: "https://www.youtube.com/watch?v=vVj_n2XhPWA",
-    acceptedAnswers: ["oshi no ko","เกิดใหม่เป็นลูกโอชิ","ลูกโอชิ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=i7TRmojTJT0&list=RDi7TRmojTJT0&start_radio=1",
+    acceptedAnswers: ["oshi no ko", "เกิดใหม่เป็นลูกโอชิ", "ลูกโอชิ"],
     note: "Burning"
   },
   {
     id: 421,
-    title: "Date A Live V (OP1)",
+    title: "Date A Live Season 5  (OP1)",
     altTitles: ["พิชิตรัก พิทักษ์โลก ภาค 5"],
     difficulty: "normal",
     year: 2024,
-    youtubeVideoId: "https://www.youtube.com/watch?v=aG3H-B_zI0E",
-    acceptedAnswers: ["date a live","พิชิตรัก พิทักษ์โลก","เดทอะไลฟ์"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=146v6ZGHOaM&list=RD146v6ZGHOaM&start_radio=1",
+    acceptedAnswers: ["date a live", "พิชิตรัก พิทักษ์โลก", "เดทอะไลฟ์"],
     note: "Paradoxes"
   },
   {
     id: 422,
-    title: "Naruto Shippuden (OP16)",
+    title: "Naruto: Shippuden (OP16)",
     altTitles: ["นารูโตะ ตำนานวายุสลาตัน"],
     difficulty: "easy",
     year: 2014,
-    youtubeVideoId: "https://www.youtube.com/watch?v=Z21XQkS9I5o",
-    acceptedAnswers: ["naruto shippuden","naruto","นารูโตะ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=zVgKnfN9i34&list=RDzVgKnfN9i34&start_radio=1",
+    acceptedAnswers: ["naruto shippuden", "naruto", "นารูโตะ"],
     note: "Silhouette"
   },
   {
     id: 423,
-    title: "Naruto Shippuden (OP6)",
+    title: "Naruto: Shippuden (OP6)",
     altTitles: ["นารูโตะ ตำนานวายุสลาตัน"],
     difficulty: "easy",
     year: 2009,
-    youtubeVideoId: "https://www.youtube.com/watch?v=o3ASICWeSLc",
-    acceptedAnswers: ["naruto shippuden","naruto","นารูโตะ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=97dkzVU4p-M&list=RD97dkzVU4p-M&start_radio=1",
+    acceptedAnswers: ["naruto shippuden", "naruto", "นารูโตะ"],
     note: "Sign"
   },
   {
@@ -4297,8 +4298,8 @@ const animeData = [
     altTitles: ["บลีช เทพมรณะ"],
     difficulty: "normal",
     year: 2005,
-    youtubeVideoId: "https://www.youtube.com/watch?v=d_kX2E2rXoI",
-    acceptedAnswers: ["bleach","บลีช","บลีช เทพมรณะ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=92TEcszkRBw&list=RD92TEcszkRBw&start_radio=1",
+    acceptedAnswers: ["bleach", "บลีช", "บลีช เทพมรณะ"],
     note: "D-tecnoLife"
   },
   {
@@ -4307,8 +4308,8 @@ const animeData = [
     altTitles: ["บลีช เทพมรณะ"],
     difficulty: "easy",
     year: 2010,
-    youtubeVideoId: "https://www.youtube.com/watch?v=cZ7HntI-Szw",
-    acceptedAnswers: ["bleach","บลีช","บลีช เทพมรณะ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=fXuOaxrXYqw&list=RDfXuOaxrXYqw&start_radio=1",
+    acceptedAnswers: ["bleach", "บลีช", "บลีช เทพมรณะ"],
     note: "Ranbu no Melody"
   },
   {
@@ -4317,8 +4318,8 @@ const animeData = [
     altTitles: ["วันพีซ"],
     difficulty: "easy",
     year: 2017,
-    youtubeVideoId: "https://www.youtube.com/watch?v=n7z5jF4w15U",
-    acceptedAnswers: ["one piece","วันพีซ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=Oo52vQyAR6w&list=RDOo52vQyAR6w&start_radio=1",
+    acceptedAnswers: ["one piece", "วันพีซ"],
     note: "Hope"
   },
   {
@@ -4327,8 +4328,8 @@ const animeData = [
     altTitles: ["วันพีซ ฟิล์ม เรด"],
     difficulty: "easy",
     year: 2022,
-    youtubeVideoId: "https://www.youtube.com/watch?v=1FliVTv8ls1",
-    acceptedAnswers: ["one piece","one piece film red","วันพีซ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=rB1c1pjFbWA",
+    acceptedAnswers: ["one piece", "one piece film red", "วันพีซ"],
     note: "New Genesis"
   },
   {
@@ -4337,8 +4338,8 @@ const animeData = [
     altTitles: ["กินทามะ"],
     difficulty: "normal",
     year: 2013,
-    youtubeVideoId: "https://www.youtube.com/watch?v=i1x0A6q7P4k",
-    acceptedAnswers: ["gintama","กินทามะ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=aUjBktJz1ZE&list=RDaUjBktJz1ZE&start_radio=1",
+    acceptedAnswers: ["gintama", "กินทามะ"],
     note: "Sakura Mitsutsuki"
   },
   {
@@ -4347,8 +4348,8 @@ const animeData = [
     altTitles: ["กินทามะ"],
     difficulty: "easy",
     year: 2011,
-    youtubeVideoId: "https://www.youtube.com/watch?v=sD2uGv2i7l8",
-    acceptedAnswers: ["gintama","กินทามะ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=2FNnbxQKgTg&list=RD2FNnbxQKgTg&start_radio=1",
+    acceptedAnswers: ["gintama", "กินทามะ"],
     note: "Samurai Heart (Some Like It Hot!!)"
   },
   {
@@ -4357,8 +4358,8 @@ const animeData = [
     altTitles: ["แบล็คโคลเวอร์"],
     difficulty: "normal",
     year: 2021,
-    youtubeVideoId: "https://www.youtube.com/watch?v=P2f2X-E87Q0",
-    acceptedAnswers: ["black clover","แบล็คโคลเวอร์"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=H0ubZknSVMI&list=RDH0ubZknSVMI&start_radio=1",
+    acceptedAnswers: ["black clover", "แบล็คโคลเวอร์"],
     note: "Grandeur"
   },
   {
@@ -4367,48 +4368,48 @@ const animeData = [
     altTitles: ["เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว ภาค 2"],
     difficulty: "normal",
     year: 2021,
-    youtubeVideoId: "https://www.youtube.com/watch?v=wX-y0lE0n48",
-    acceptedAnswers: ["that time i got reincarnated as a slime","tensura","เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว","สไลม์"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=jknXRLtbWNc&list=RDjknXRLtbWNc&start_radio=1",
+    acceptedAnswers: ["that time i got reincarnated as a slime", "tensura", "เกิดใหม่ทั้งทีก็เป็นสไลม์ไปซะแล้ว", "สไลม์"],
     note: "Storyteller"
   },
   {
     id: 432,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight Vanguard G: NEXT (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G NEXT"],
     difficulty: "normal",
     year: 2016,
-    youtubeVideoId: "https://www.youtube.com/watch?v=k4KzZ8yMvRE",
-    acceptedAnswers: ["cardfight vanguard","vanguard g next","vanguard","แวนการ์ด","แวนการ์ด g"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=niIWLIPopbk&list=RDniIWLIPopbk&start_radio=1",
+    acceptedAnswers: ["cardfight vanguard", "vanguard g next", "vanguard", "แวนการ์ด", "แวนการ์ด g"],
     note: "Hello, Mr. Wonder land"
   },
   {
     id: 433,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight Vanguard G Z (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G Z"],
     difficulty: "hard",
     year: 2017,
     youtubeVideoId: "https://www.youtube.com/watch?v=hJ3f-Zt7A8A",
-    acceptedAnswers: ["cardfight vanguard","vanguard g z","vanguard","แวนการ์ด","แวนการ์ด g"],
+    acceptedAnswers: ["cardfight vanguard", "vanguard g z", "vanguard", "แวนการ์ด", "แวนการ์ด g"],
     note: "Jonetsu no Auto Score"
   },
   {
     id: 434,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight Vanguard will+Dress Season 3 (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด วิลเดรส ภาค 3"],
     difficulty: "normal",
     year: 2023,
-    youtubeVideoId: "https://www.youtube.com/watch?v=1F_Ew2K-AHE",
-    acceptedAnswers: ["cardfight vanguard will+dress","vanguard will dress","vanguard","แวนการ์ด","แวนการ์ด วิลเดรส"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=4BwrHsYmRms&list=RD4BwrHsYmRms&start_radio=1",
+    acceptedAnswers: ["cardfight vanguard will+dress", "vanguard will dress", "vanguard", "แวนการ์ด", "แวนการ์ด วิลเดรส"],
     note: "The last resort"
   },
   {
     id: 435,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight Vanguard Divinez Season 2 (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ดีไวน์ซ ภาค 2"],
     difficulty: "normal",
     year: 2024,
-    youtubeVideoId: "https://www.youtube.com/watch?v=6hV5m_8xZ2w",
-    acceptedAnswers: ["cardfight vanguard divinez","vanguard divinez","vanguard","แวนการ์ด","แวนการ์ด ดีไวน์ซ"],
+    youtubeVideoId: "https://www.youtube.com/watch?v=UzHqDnQvSxQ&list=RDUzHqDnQvSxQ&start_radio=1",
+    acceptedAnswers: ["cardfight vanguard divinez", "vanguard divinez", "vanguard", "แวนการ์ด", "แวนการ์ด ดีไวน์ซ"],
     note: "Shukumei"
   }
 
@@ -6616,12 +6617,13 @@ export default function AnimeOPQuizStarter() {
     const allTitles = animeWithGenre.map((a) => a.title).filter(Boolean);
 
     const songs = [];
-    // Works should be derived from all entries (even when every row is a song entry).
-    const worksSource = allTitles;
     for (const a of animeWithGenre) {
       if (!a?.title) continue;
       if (isSongEntryTitle(a.title)) songs.push(a.title);
     }
+
+    // Works should be derived from all entries (even when every row is a song entry).
+    const worksSource = allTitles;
 
     // Dedup works by base title.
     const byBase = new Map();
@@ -8137,7 +8139,7 @@ export default function AnimeOPQuizStarter() {
                 className="rounded-2xl"
                 onClick={() => setLibraryListMode("all")}
               >
-                ทั้งหมด (403)
+                ทั้งหมด (รวมภาค/ซีซั่น + OP/ED)
               </Button>
 
               {libraryListMode === "songs" ? (
