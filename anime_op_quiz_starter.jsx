@@ -4813,6 +4813,23 @@ function normalizeSynopsisKey(title) {
     .trim();
 }
 
+// Alternative normalization: turn punctuation into spaces (helps when DB keys were
+// created by splitting on punctuation, e.g. "Fate/Zero" -> "fate zero").
+function normalizeSynopsisKeySpaced(title) {
+  return String(title || "")
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function synopsisKeyVariants(title) {
+  const a = normalizeSynopsisKey(title);
+  const b = normalizeSynopsisKeySpaced(title);
+  if (a && b && a !== b) return [a, b];
+  return a ? [a] : b ? [b] : [];
+}
+
 function normalizeAvailabilityKey(text) {
   return String(text ?? "")
     .toLowerCase()
@@ -4879,9 +4896,11 @@ async function loadManualSynopsisDb() {
       for (const entry of Object.values(safeItems)) {
         const t = String(entry?.title || "").trim();
         if (!t) continue;
-        const k = normalizeSynopsisKey(t);
-        if (!k || byTitle[k]) continue;
-        byTitle[k] = entry;
+        const keys = synopsisKeyVariants(t);
+        for (const k of keys) {
+          if (!k || byTitle[k]) continue;
+          byTitle[k] = entry;
+        }
       }
       return {
         items: safeItems,
@@ -4905,15 +4924,14 @@ async function fetchAniListSynopsis(searchTitle) {
   const byTitle = db?.byTitle || {};
   const sourceVersion = Number(db?.version || 0) || 0;
   const sourceGeneratedAt = String(db?.generatedAt || "");
-  const directKey = normalizeSynopsisKey(title);
   const baseTitle = availabilityBaseKeyFromTitle(title) || title;
-  const baseKey = normalizeSynopsisKey(baseTitle);
+  const keysToTry = [...synopsisKeyVariants(title), ...synopsisKeyVariants(baseTitle)];
 
-  const entry = (directKey && items?.[directKey])
-    || (baseKey && items?.[baseKey])
-    || (directKey && byTitle?.[directKey])
-    || (baseKey && byTitle?.[baseKey])
-    || null;
+  let entry = null;
+  for (const k of keysToTry) {
+    entry = items?.[k] || byTitle?.[k] || null;
+    if (entry) break;
+  }
   const text = entry?.text ? truncateSynopsis(entry.text, 320) : "";
   return {
     text,
