@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedAt": "2026-04-02T09:40:00.891Z",
-  "count": 320,
+  "generatedAt": "2026-04-05T11:10:16.351Z",
+  "count": 350,
   "items": {
     "86 eighty six": {
       "id": "001",
@@ -11,11 +11,13 @@
     "a certain magical index": {
       "id": "003",
       "title": "A Certain Magical Index",
+      "aliases": ["Toaru Majutsu no Index"],
       "text": "เป็นเรื่องราวในโลกอนาคตที่วิทยาศาสตร์และเวทมนตร์ดำรงอยู่ร่วมกัน เล่าเรื่องราวของ คามาโจ โทมะ เด็กหนุ่มไร้พลังพิเศษผู้มีมือขวา Imagine Breaker ที่ลบล้างพลังได้ทุกชนิด ซึ่งต้องเข้าไปพัวพันกับความขัดแย้งของสองฝ่ายเมื่อได้พบกับ อินเด็กซ์ แม่ชีผู้จดจำคัมภีร์เวทมนตร์ 103,000 เล่ม"
     },
     "a certain scientific railgun": {
       "id": "004",
       "title": "A Certain Scientific Railgun",
+      "aliases": ["Toaru Kagaku no Railgun"],
       "text": " เป็นภาคแยกของ A Certain Magical Index ที่เน้นเรื่องราวของ มิซากะ มิโคโตะ ผู้ใช้พลังจิตระดับ 5 (Railgun) ในเมืองแห่งการศึกษา เรื่องราวเน้นการไขคดีปริศนา, การต่อสู้กับองค์กรลับ, และเบื้องหลังโปรเจกต์โคลนนิ่ง Sisters ที่มิโคโตะต้องเผชิญกับศัตรูที่แข็งแกร่งที่สุดอย่าง แอคเซลาเรเตอร์ "
     },
     "a silent voice": {
@@ -67,6 +69,7 @@
     "anohana": {
       "id": "012",
       "title": "Anohana",
+      "aliases": ["Meiji x Kokosake & anohana Receipt Oubo Campaign"],
       "text": "กลุ่มเพื่อนสมัยเด็กที่ห่างเหินกันไป ต้องกลับมารวมตัวกันอีกครั้งเพื่อทำคำขอสุดท้ายของวิญญาณเพื่อนสาวให้เป็นจริง"
     },
     "another": {
@@ -87,6 +90,7 @@
     "assassination classroom": {
       "id": "017",
       "title": "Assassination Classroom",
+      "aliases": ["Ansatsu Kyoushitsu", "Ansatsu Kyoshitsu", "Assassination Classroom Staffel 2"],
       "text": "นักเรียนห้องบ๊วยกับภารกิจระดับโลก พวกเขาต้องลอบสังหารอาจารย์ประจำชั้นหน้าตาสุดประหลาด ผู้มีพลังทำลายล้างโลก"
     },
     "assassins pride": {
@@ -154,6 +158,7 @@
     "black butler": {
       "id": "030",
       "title": "Black Butler",
+      "aliases": ["Kuroshitsuji"],
       "text": "นายน้อยตระกูลขุนนางแห่งอังกฤษ ทำสัญญาวิญญาณกับพ่อบ้านปีศาจสุดเพอร์เฟกต์ เพื่อตามสืบคดีลี้ลับและชำระแค้นให้ครอบครัว"
     },
     "black clover": {
@@ -179,11 +184,13 @@
     "blood blockade battlefront": {
       "id": "035",
       "title": "Blood Blockade Battlefront",
+      "aliases": ["Kekkai Sensen"],
       "text": "แอ็กชันสุดไซไฟในนิวยอร์กที่กลายเป็นเมืองเชื่อมต่อกับโลกปีศาจ เมื่อเด็กหนุ่มตาเทพต้องร่วมองค์กรลับเพื่อปกป้องสมดุลโลก"
     },
     "blue exorcist": {
       "id": "036",
       "title": "Blue Exorcist",
+      "aliases": ["Ao no Exorcist"],
       "text": "เมื่อลูกชายสายเลือดตรงของซาตาน ปฏิเสธชะตากรรมแห่งความมืด และหันหน้าเข้าสู่เส้นทางการเป็นเอ็กซอร์ซิสต์เพื่อปราบพ่อตัวเอง"
     },
     "blue lock": {
@@ -209,6 +216,7 @@
     "call of the night": {
       "id": "041",
       "title": "Call of the Night",
+      "aliases": ["Yofukashi no Uta"],
       "text": "เด็กหนุ่มที่นอนไม่หลับและเบื่อหน่ายชีวิตยามสากลโลก ได้พบกับแวมไพร์สาวสวยที่ชวนเขาดื่มด่ำไปกับเสน่ห์แห่งรัตติกาล"
     },
     "captain tsubasa": {
@@ -269,6 +277,7 @@
     "chivalry of a failed knight": {
       "id": "053",
       "title": "Chivalry of a Failed Knight",
+      "aliases": ["Rakudai Kishi no Cavalry"],
       "text": "นักเรียนอัศวินเวทมนตร์ระดับ F ผู้ถูกตราหน้าว่าไร้ค่า พยายามพิสูจน์ฝีมือเพื่อหักปากกาเซียน และคว้าหัวใจเจ้าหญิงอัจฉริยะ"
     },
     "city hunter": {
@@ -294,11 +303,13 @@
     "code geass": {
       "id": "058",
       "title": "Code Geass",
+      "aliases": ["Code Geass: Hangyaku no Lelouch"],
       "text": "องค์ชายพลัดถิ่นผู้ได้รับพลัง 'กีอัส' ในการสั่งการผู้อื่น สวมหน้ากากซีโร่เป็นผู้นำกบฏเพื่อล้างแค้นและทำลายจักรวรรดิอันยิ่งใหญ่"
     },
     "code geass r2": {
       "id": "059",
       "title": "Code Geass R2",
+      "aliases": ["Code Geass: Hangyaku no Lelouch R2"],
       "text": "ศึกตัดสินของเลอลูช เมื่อหมากบนกระดานระดับโลกทวีความซับซ้อน นำไปสู่บทสรุปของแผนการปฏิวัติที่แลกมาด้วยหยาดน้ำตา"
     },
     "coppelion": {
@@ -389,6 +400,7 @@
     "delicious in dungeon": {
       "id": "077",
       "title": "Delicious in Dungeon",
+      "aliases": ["Dungeon Meshi"],
       "text": "ปาร์ตี้ผู้กล้าถังแตกที่ต้องดำดิ่งลงดันเจียนลึก พร้อมภารกิจสุดแปลก: การล่าและทำอาหารจากเนื้อมอนสเตอร์เพื่อเอาชีวิตรอด!"
     },
     "demon slayer": {
@@ -396,6 +408,17 @@
       "title": "Demon Slayer",
       "aliases": ["Kimetsu no Yaiba", "Demon Slayer: Kimetsu no Yaiba"],
       "text": "เด็กหนุ่มขายถ่านผู้จับดาบเข้าร่วมหน่วยพิฆาตอสูร เพื่อล้างแค้นให้ครอบครัวและหาทางรักษาน้องสาวที่กลายสภาพเป็นอสูร"
+    },
+    "demon slayer mugen train arc": {
+      "id": "329",
+      "title": "Demon Slayer: Mugen Train Arc",
+      "aliases": ["Demon Slayer: Kimetsu no Yaiba Mugen Train Arc", "Demon Slayer: Mugen Train Arc"],
+      "text": "ทันจิโร่และผองเพื่อนขึ้นรถไฟมุเก็นเพื่อตามภารกิจของหน่วยพิฆาตอสูร ก่อนต้องเผชิญหน้ากับอสูรข้างขึ้นในศึกชี้เป็นชี้ตายร่วมกับเสาหลักเพลิง"
+    },
+    "demon slayer hashira training arc": {
+      "id": "330",
+      "title": "Demon Slayer: Hashira Training Arc",
+      "text": "การฝึกสุดโหดของเหล่านักล่าอสูรภายใต้การนำของเสาหลัก เพื่อเตรียมพร้อมสู่ศึกใหญ่ตัดสินชะตากรรมกับมุซันและกองทัพอสูร"
     },
     "demon slayer entertainment district arc": {
       "id": "079",
@@ -425,6 +448,7 @@
     "dgrayman": {
       "id": "084",
       "title": "D.Gray-man",
+      "aliases": ["Skull Man"],
       "text": "หนุ่มเอ็กซอร์ซิสต์ผู้มีแขนเป็นอาวุธปราบปีศาจและดวงตาต้องคำสาป เข้าร่วมภาคีเพื่อยับยั้งแผนการล้างโลกของเคานท์พันปี"
     },
     "digimon adventure": {
@@ -500,6 +524,7 @@
     "erased": {
       "id": "099",
       "title": "Erased",
+      "aliases": ["Boku dake ga Inai Machi"],
       "text": "ชายหนุ่มที่มีพลังย้อนเวลากลับไปก่อนเกิดเหตุร้าย ต้องย้อนกลับไปในร่างตัวเองวัยเด็ก เพื่อหยุดยั้งคดีฆาตกรรมต่อเนื่องในอดีต"
     },
     "evangelion 3010 thrice upon a time": {
@@ -530,6 +555,7 @@
     "fatestay night 2006": {
       "id": "105",
       "title": "Fate/stay night (2006)",
+      "aliases": ["Fate - Stay Night", "Fate/Stay Night", "Fate/stay night"],
       "text": "ปฐมบทสงครามจอกศักดิ์สิทธิ์ เมื่อเด็กหนุ่มดวงซวยบังเอิญอัญเชิญ 'เซเบอร์' วีรชนคลาสอัศวิน และถูกดึงเข้าร่วมเกมมรณะของเหล่าจอมเวท"
     },
     "fatestay night heavens feel": {
@@ -550,16 +576,19 @@
     "fire force": {
       "id": "109",
       "title": "Fire Force",
+      "aliases": ["Enen no Shouboutai"],
       "text": "หน่วยดับเพลิงพิเศษสุดล้ำ ผู้ใช้พลังไฟปะทะกับผู้มีพลังไฟที่เสียการควบคุม เพื่อเปิดโปงความลับเบื้องหลังปรากฏการณ์ร่างมนุษย์ลุกไหม้"
     },
     "fist of the north star": {
       "id": "110",
       "title": "Fist of the North Star",
+      "aliases": ["Hokuto no Ken", "Hokuto no Ken: Fist of the North Star"],
       "text": "แกตายแล้ว! ตำนานหมัดอุดรเทวะของเคนชิโร่ ท่ามกลางโลกยุคเถื่อนหลังสงครามนิวเคลียร์ ที่ผู้แข็งแกร่งเท่านั้นที่จะอยู่รอด"
     },
     "food wars": {
       "id": "111",
       "title": "Food Wars!",
+      "aliases": ["Shokugeki no Soma"],
       "text": "สมรภูมิกระทะเหล็กสุดเดือดและแสนเย้ายวน เมื่อลูกเจ้าของร้านอาหารตามสั่งตบเท้าเข้าโรงเรียนสอนทำอาหารระดับหัวกะทิของโลก"
     },
     "free": {
@@ -570,11 +599,13 @@
     "frieren beyond journeys end": {
       "id": "113",
       "title": "Frieren: Beyond Journey's End",
+      "aliases": ["Sousou no Frieren"],
       "text": "หลังจบภารกิจปราบจอมมาร เอลฟ์สาวผู้มีอายุขัยยืนยาวต้องออกเดินทางอีกครั้ง เพื่อเรียนรู้ความหมายของเวลาและสัมผัสความรู้สึกของมนุษย์"
     },
     "fruit basket": {
       "id": "114",
       "title": "Fruit Basket",
+      "aliases": ["Fruits Basket"],
       "text": "เด็กสาวผู้มองโลกในแง่ดี ต้องเข้ามาพัวพันและอาศัยร่วมกับตระกูลปริศนา ที่จะกลายร่างเป็นสัตว์ 12 นักษัตรเมื่อถูกเพศตรงข้ามสวมกอด"
     },
     "fullmetal alchemist brotherhood": {
@@ -585,6 +616,7 @@
     "future diary": {
       "id": "116",
       "title": "Future Diary",
+      "aliases": ["Mirai Nikki"],
       "text": "แบทเทิลรอยัลสุดคลั่งของผู้ถือครอง 'บันทึกอนาคต' ทั้ง 12 คน ที่ต้องฆ่ากันเองเพื่อชิงตำแหน่งพระเจ้าองค์ใหม่ พร้อมนางเอกสายยันเดเระสุดโหด"
     },
     "galaxy express 999": {
@@ -600,6 +632,7 @@
     "ghost in the shell": {
       "id": "119",
       "title": "Ghost in the Shell",
+      "aliases": ["Ghost in the Shell: Arise - Border:1 Ghost Pain"],
       "text": "ปรัชญาไซเบอร์พังก์ระดับตำนาน เมื่อเส้นแบ่งระหว่างมนุษย์วิบากและหุ่นยนต์เริ่มจางหาย ตำรวจไซบอร์กสาวจึงต้องออกล่าแฮกเกอร์อัจฉริยะ"
     },
     "ghost in the shell stand alone complex": {
@@ -620,6 +653,7 @@
     "girls und panzer": {
       "id": "123",
       "title": "Girls und Panzer",
+      "aliases": ["Girls & Panzer"],
       "text": "เมื่อ 'วิชาขับรถถัง' คือคุณสมบัติของกุลสตรี! เหล่าเด็กสาวมัธยมจึงต้องจัดทัพรถถังประจัญบานเพื่อคว้าแชมป์และกอบกู้โรงเรียน"
     },
     "girls und panzer das finale": {
@@ -660,11 +694,13 @@
     "gundam wing": {
       "id": "131",
       "title": "Gundam Wing",
+      "aliases": ["Mobile Suit Gundam Wing"],
       "text": "ปฏิบัติการเมเทโอ! เด็กหนุ่มนักบินกันดั้มทั้ง 5 คนถูกส่งลงมายังโลกเพื่อโค่นล้มองค์กรทรงอิทธิพล ท่ามกลางเกมการเมืองและอุดมการณ์"
     },
     "gurren lagann": {
       "id": "132",
       "title": "Gurren Lagann",
+      "aliases": ["Tengen Toppa Gurren Lagann"],
       "text": "ทะลวงมันให้ทะลุสวรรค์ไปเลย! มหากาพย์ลูกผู้ชายจากหมู่บ้านใต้ดิน สู่การขับหุ่นรบขนาดยักษ์ทะยานขึ้นทะลุจักรวาลเพื่อปลดแอกมนุษยชาติ"
     },
     "gyakkyou burai kaiji ultimate survivor": {
@@ -685,11 +721,13 @@
     "haruhi suzumiya": {
       "id": "136",
       "title": "Haruhi Suzumiya",
+      "aliases": ["The Melancholy of Haruhi Suzumiya"],
       "text": "ชมรมหน่วย SOS สุดป่วนที่ตั้งขึ้นเพื่อตามหามนุษย์ต่างดาว คนมาจากอนาคต และผู้มีพลังจิต โดยที่หัวหน้าชมรมไม่รู้เลยว่าตัวเองคือ 'พระเจ้า'"
     },
     "hells paradise": {
       "id": "139",
       "title": "Hell's Paradise",
+      "aliases": ["Jigokuraku", "Paradise"],
       "text": "นินจานักฆ่าผู้เป็นอมตะ ถูกส่งไปเกาะนรกที่เต็มไปด้วยอสูรกายและดอกไม้สุดสยอง เพื่อตามหายาอายุวัฒนะแลกกับการอภัยโทษ"
     },
     "hellsing": {
@@ -720,6 +758,7 @@
     "high school prodigies have it easy even in another world": {
       "id": "143",
       "title": "High School Prodigies Have It Easy Even In Another World",
+      "aliases": ["Choujin Koukousei-tachi wa Isekai demo Yoyuu de Ikinuku you desu!"],
       "text": "7 นักเรียนมัธยมปลายระดับอัจฉริยะของโลก ประสบอุบัติเหตุตกมาในต่างโลก และใช้ความรู้ระดับเทพปักธงปฏิวัติสังคมใหม่ซะเลย"
     },
     "himouto umaruchan": {
@@ -740,6 +779,7 @@
     "how a realist hero rebuilt the kingdom": {
       "id": "147",
       "title": "How a Realist Hero Rebuilt the Kingdom",
+      "aliases": ["Genjitsu Shugi Yuusha no Oukoku Saikenki"],
       "text": "ผู้กล้าสายบุ๋น! ชายหนุ่มที่ถูกอัญเชิญไปต่างโลก แต่แทนที่จะจับดาบสู้จอมมาร เขาขอใช้หลักเศรษฐศาสตร์และการเมืองมากอบกู้ประเทศแทน"
     },
     "hundred": {
@@ -760,11 +800,13 @@
     "im quitting heroing": {
       "id": "151",
       "title": "I'm Quitting Heroing",
+      "aliases": ["Yuusha, Yamemasu"],
       "text": "อดีตผู้กล้าที่กอบกู้โลกจนสำเร็จ แต่กลับเก่งเกินไปจนมนุษย์หวาดระแวง เลยประชดชีวิตด้วยการไปสมัครงานเป็นเสนาธิการให้กองทัพจอมมารซะเลย"
     },
     "in another world with my smartphone season 2": {
       "id": "152",
       "title": "In Another World With My Smartphone Season 2",
+      "aliases": ["Isekai wa Smartphone to Tomo ni. 2"],
       "text": "เกิดใหม่ในต่างโลกพร้อมสมาร์ตโฟนเครื่องเดียว พระเอกสุดเทพยังคงลุยแก้ปัญหา ชิลล์กับชีวิต และบริหารฮาเร็มสาวๆ ต่อไปอย่างสบายใจ"
     },
     "inazuma eleven": {
@@ -785,6 +827,7 @@
     "is it wrong to try to pick up girls in a dungeon ii": {
       "id": "156",
       "title": "Is It Wrong to Try to Pick Up Girls in a Dungeon? II",
+      "aliases": ["DanMachi 2nd Season", "DanMachi II"],
       "text": "เมื่อเบลล์เริ่มโด่งดัง การเมืองระหว่างแฟมิเลียจึงดุเดือดขึ้น นำไปสู่ศึกวอร์เกมที่ต้องเดิมพันด้วยสมาชิกทั้งหมดของเฮสเทียแฟมิเลีย"
     },
     "jojos bizarre adventure": {
@@ -800,6 +843,7 @@
     "jojo diamond is unbreakable": {
       "id": "157",
       "title": "JoJo: Diamond is Unbreakable",
+      "aliases": ["Unbreakable"],
       "text": "ชีวิตประจำวันที่ไม่ธรรมดาในเมืองโมริโอ โจสุเกะต้องใช้สแตนด์ปกป้องเมืองจากฆาตกรต่อเนื่องสุดวิปริตที่แฝงตัวอยู่อย่างแนบเนียน"
     },
     "jojo golden wind": {
@@ -815,11 +859,13 @@
     "jujutsu kaisen": {
       "id": "162",
       "title": "Jujutsu Kaisen",
+      "aliases": ["Jujutsu Kaisen 0"],
       "text": "มหาเวทย์ผนึกมาร! เด็กหนุ่มใจกล้ากลืนนิ้วต้องคำสาปของราชาผู้กลืนกินวิญญาณ และก้าวเข้าสู่โลกของนักคุณไสยเพื่อปัดเป่าคำสาปสุดโหด"
     },
     "kabaneri of the iron fortress": {
       "id": "163",
       "title": "Kabaneri of the Iron Fortress",
+      "aliases": ["Koutetsujou no Kabaneri"],
       "text": "หนีตายบนรถไฟหุ้มเกราะ! เมื่ออารยธรรมมนุษย์ล่มสลายจากฝูงซอมบี้หัวใจเหล็ก ผู้รอดชีวิตต้องรวมพลังกับมนุษย์ครึ่งซอมบี้เพื่อฝ่าวงล้อม"
     },
     "kaguyasama love is war": {
@@ -845,11 +891,13 @@
     "katekyo hitman reborn": {
       "id": "168",
       "title": "Katekyo Hitman Reborn!",
+      "aliases": ["Katekyou Hitman Reborn!"],
       "text": "เด็กหนุ่มจอมห่วยแตกที่จู่ๆ ก็ถูกทารกนักฆ่าร่างจิ๋วจับฝึกโหด ด้วยกระสุนดับเครื่องชน เพื่อเตรียมตัวรับตำแหน่งบอสมาเฟียแก๊งวองโกเล่รุ่นที่ 10"
     },
     "kids on the slope": {
       "id": "169",
       "title": "Kids on the Slope",
+      "aliases": ["Sakamichi no Apollon"],
       "text": "กลิ่นอายความรัก วัยรุ่น และดนตรีแจ๊ส เรื่องราวของเด็กหนุ่มเรียนเก่งที่ย้ายมาเรียนชนบท และได้พบมิตรภาพผ่านการบรรเลงดนตรีสุดคลาสสิก"
     },
     "kill la kill": {
@@ -880,11 +928,26 @@
     "konosuba": {
       "id": "175",
       "title": "KonoSuba",
+      "aliases": ["KonoSuba: God's Blessing on This Wonderful World!", "Kono Subarashii Sekai ni Shukufuku wo!"],
       "text": "ขอให้โชคดีมีชัยในโลกแฟนตาซี! หนุ่มนีทตายอนาถไปเกิดใหม่ พร้อมตั้งปาร์ตี้กาวๆ ที่มีแต่เทพธิดาไร้ประโยชน์ จอมเวทบ้าประเบิด และครูเสดจอมมาโซคิสม์"
+    },
+    "konosuba season 2": {
+      "id": "321",
+      "title": "KonoSuba Season 2",
+      "aliases": [
+        "KonoSuba: God's Blessing on This Wonderful World! 2",
+        "KonoSuba: God's Blessing on This Wonderful World! Season 2",
+        "KonoSuba 2",
+        "Kono Suba Season 2",
+        "KonoSuba II",
+        "Kono Subarashii Sekai ni Shukufuku wo! 2"
+      ],
+      "text": "ภาคต่อของต่างโลกโคตรปั่น! คาซึมะกับอควา เมกุมิน และดาร์กเนสยังคงออกผจญภัยแบบวุ่นวายไม่หยุด ทั้งงานรับเควสต์สุดเพี้ยน หนี้สิน ความซวย และเหตุการณ์ชวนปวดหัวที่ทำให้ปาร์ตี้นี้ฮาขึ้นไปอีกขั้น"
     },
     "kurokos basketball": {
       "id": "176",
       "title": "Kuroko's Basketball",
+      "aliases": ["Kuroko no Basket"],
       "text": "คุโรโกะ ผู้เล่นล่องหนแห่งรุ่นปาฏิหาริย์ จับคู่กับไทกะ เอซคนใหม่ผู้บ้าดีเดือด เพื่อท้าดวลและโค่นล้มอดีตเพื่อนร่วมทีมระดับเทพให้ราบคาบ"
     },
     "log horizon": {
@@ -915,6 +978,7 @@
     "macross delta": {
       "id": "182",
       "title": "Macross Delta",
+      "aliases": ["Macross Delta: Delta Shougekijou"],
       "text": "ผสานพลังเสียงดนตรีกับการขับยานรบอวกาศ! กลุ่มไอดอลสาว Walküre ร้องเพลงกลางสมรภูมิเพื่อหยุดยั้งไวรัสประหลาดที่ทำให้คนบ้าคลั่ง"
     },
     "macross frontier": {
@@ -945,16 +1009,19 @@
     "maoyu archenemy  hero": {
       "id": "188",
       "title": "Maoyu: Archenemy & Hero",
+      "aliases": ["Maoyuu Maou Yuusha"],
       "text": "เมื่อผู้กล้าบุกไปปราบจอมมาร แต่ดันถูกจอมมารสาวชักชวนให้จับมือกันเปลี่ยนโลกด้วย 'เศรษฐศาสตร์ การค้า และนวัตกรรม' แทนการเสียเลือดเนื้อ"
     },
     "marukochan": {
       "id": "189",
       "title": "Maruko-chan",
+      "aliases": ["Chibi Maruko-chan", "Chibi Maruko Chan"],
       "text": "เรื่องราวแสนอบอุ่น ป่วน ฮา และเรียบง่ายในยุค 70 ของเด็กหญิงหนูมารุโกะจอมซน ครอบครัว และแก๊งเพื่อนในวัยประถม"
     },
     "masamunekuns revenge": {
       "id": "190",
       "title": "Masamune-kun's Revenge",
+      "aliases": ["Masamune-kun no Revenge"],
       "text": "หนุ่มหล่อมาดเท่ที่อดีตเคยอ้วนฉุ วางแผนแก้แค้นหักอกสาวสวยระดับคุณหนูที่เคยปฏิเสธและล้อเลียนเขาเมื่อสมัยเด็กให้จงได้"
     },
     "masamunekuns revenge r": {
@@ -1020,6 +1087,7 @@
     "my hero academia": {
       "id": "203",
       "title": "My Hero Academia",
+      "aliases": ["Boku no Hero Academia"],
       "text": "พลัส อัลตร้า! เด็กหนุ่มผู้ไร้พลังในโลกที่ทุกคนมีพลังพิเศษ ได้รับการสืบทอดพลังจากฮีโร่อันดับหนึ่ง เพื่อก้าวเข้าสู่สถาบันปั้นฮีโร่ชั้นนำ"
     },
     "my teen romantic comedy snafu": {
@@ -1095,6 +1163,7 @@
     "one piece": {
       "id": "218",
       "title": "One Piece",
+      "aliases": ["One Piece Film: Red"],
       "text": "ฉันจะเป็นราชาโจรสลัดให้ได้เลย! ลูฟี่และกลุ่มหมวกฟางออกล่องเรือสู่วายแกรนด์ไลน์ ผจญภัยฝ่ามหาสมุทรสุดอันตรายเพื่อตามหาสมบัติในตำนาน"
     },
     "one punch man": {
@@ -1160,6 +1229,7 @@
     "ranking of kings": {
       "id": "231",
       "title": "Ranking of Kings",
+      "aliases": ["Ousama Ranking"],
       "text": "เจ้าชายองค์น้อยผู้หูหนวกและไร้พลัง ถูกคนทั้งอาณาจักรมองว่าไร้ค่า แต่ด้วยหัวใจที่แข็งแกร่งและมิตรภาพ เขาจะพิสูจน์ตัวเองสู่บัลลังก์ราชา"
     },
     "ranma 12": {
@@ -1180,11 +1250,13 @@
     "redo of healer": {
       "id": "235",
       "title": "Redo of Healer",
+      "aliases": ["Kaifuku Jutsushi no Yarinaoshi"],
       "text": "ผู้กล้าสายฮีลเลอร์ที่โดนปาร์ตี้ผู้กล้าคนอื่นทรมานและใช้งานเยี่ยงทาส ได้ใช้พลังย้อนเวลากลับมาอัปเกรดตัวเอง เพื่อไล่เช็กบิลแก้แค้นทุกคนแบบจัดหนักจัดเต็ม"
     },
     "rentagirlfriend": {
       "id": "236",
       "title": "Rent-a-Girlfriend",
+      "aliases": ["Kanojo, Okarishimasu"],
       "text": "หนุ่มมหาลัยอกหักเลยประชดชีวิตด้วยการเปย์เงินเช่าแฟนสาวมืออาชีพ แต่ความสัมพันธ์จอมปลอมกลับพัวพันยุ่งเหยิงจนยากจะถอนตัว"
     },
     "rezero": {
@@ -1225,6 +1297,7 @@
     "seton academy join the pack": {
       "id": "244",
       "title": "Seton Academy: Join the Pack!",
+      "aliases": ["Murenase! Seton Gakuen"],
       "text": "หนุ่มผู้เกลียดสัตว์เข้าไส้ ดันต้องมาเข้าเรียนในโรงเรียนสัตว์ป่า และถูกยัยหมาป่าจอมตื๊อบังคับให้เข้าร่วมฝูง นำไปสู่ชีวิตชมรมสุดวายป่วงของเหล่ามนุษย์ครึ่งสัตว์"
     },
     "seven knights revolution hero successor": {
@@ -1260,6 +1333,7 @@
     "so im a spider so what": {
       "id": "251",
       "title": "So I'm a Spider, So What?",
+      "aliases": ["Kumo desu ga, Nani ka?"],
       "text": "เกิดใหม่เป็นแมงมุมต๊อกต๋อยในดันเจียนที่อันตรายที่สุดในโลก! เธอต้องใช้ความเจ้าเล่ห์ สกิลกากๆ และการวิวัฒนาการแบบก้าวกระโดด เพื่อรอดตายจากอสูรกายยักษ์"
     },
     "solo leveling": {
@@ -1320,11 +1394,13 @@
     "summer time rendering": {
       "id": "263",
       "title": "Summer Time Rendering",
+      "aliases": ["Summer Time"],
       "text": "ระทึกขวัญสืบสวนบนเกาะบ้านเกิด ชายหนุ่มกลับมาร่วมงานศพเพื่อนสมัยเด็ก ก่อนจะพบกับตำนาน 'โรคเงา' และติดอยู่ในลูปเวลาแห่งความตายที่หนีไม่ได้"
     },
     "suzume": {
       "id": "264",
       "title": "Suzume",
+      "aliases": ["Suzume no Tojimari"],
       "text": "การเดินทางแสนมหัศจรรย์ของเด็กสาวและชายหนุ่ม(ที่โดนสาปเป็นเก้าอี้) เพื่อตะเวนปิด 'ประตู' ปริศนาทั่วญี่ปุ่น ป้องกันไม่ให้แผ่นดินไหวทำลายล้างประเทศ"
     },
     "sword art online": {
@@ -1335,6 +1411,7 @@
     "sword art online alicization": {
       "id": "266",
       "title": "Sword Art Online: Alicization",
+      "aliases": ["Sword Art Online: Alicization - War of Underworld"],
       "text": "คิริโตะฟื้นขึ้นมาในโลก Underworld ที่สร้างจากวิญญาณเทียม AI ระดับสูง และเริ่มต้นการผจญภัยครั้งใหม่เพื่อค้นหาทางกลับโลกจริงพร้อมกฎเกณฑ์ใหม่ทั้งหมด"
     },
     "sword art online ii": {
@@ -1360,26 +1437,31 @@
     "that time i got reincarnated as a slime": {
       "id": "271",
       "title": "That Time I Got Reincarnated as a Slime",
+      "aliases": ["Tensei shitara slime datta ken"],
       "text": "มนุษย์เงินเดือนโดนแทงตาย ไปเกิดใหม่เป็น 'สไลม์' มอนสเตอร์สุดกากในต่างโลก แต่ดันได้สกิลกินทุกอย่างและวิเคราะห์สุดโกง จนกลายเป็นผู้นำสร้างประเทศมอนสเตอร์"
     },
     "the ambition of oda nobuna": {
       "id": "272",
       "title": "The Ambition of Oda Nobuna",
+      "aliases": ["Oda Nobuna no Yabou"],
       "text": "หนุ่มติดเกมข้ามเวลาไปยุคเซ็นโกคุ และพบว่าขุนพลชื่อดังในประวัติศาสตร์ญี่ปุ่น ล้วนกลายเป็นสาวงามสุดโมเอะ เขาจึงต้องช่วยท่านหญิงโนบุนากะรวมแผ่นดินให้จงได้"
     },
     "the apothecary diaries": {
       "id": "273",
       "title": "The Apothecary Diaries",
+      "aliases": ["Kusuriya no Hitorigoto"],
       "text": "สาวปรุงยาจอมอัจฉริยะที่ถูกขายเป็นนางกำนัลในวังหลังของจักรพรรดิ ใช้ความรู้ด้านยาและพิษอันแหลมคม เข้าไปสืบสวนคดีปริศนาซ่อนเงื่อนระดับราชสำนัก"
     },
     "the asterisk war": {
       "id": "274",
       "title": "The Asterisk War",
+      "aliases": ["Gakusen Toshi Asterisk", "The Asterisk War: Gakusen Toshi Asterisk"],
       "text": "มหานครการศึกษาบนน้ำ 'แอสเทอริสค์' ที่เหล่านักเรียนผู้มีพลังพิเศษต้องเข้าแข่งขันในศึกอารีน่าสุดเดือด เพื่อทำให้ความปรารถนาของตนเป็นจริง"
     },
     "the eden of grisaia": {
       "id": "275",
       "title": "The Eden of Grisaia",
+      "aliases": ["Grisaia no Rakuen"],
       "text": "บทสรุปซีรีส์ Grisaia ปลดล็อกอดีตอันแสนโหดร้ายของพระเอก และปฏิบัติการช่วยเหลือเขาจากองค์กรร้าย โดยเหล่าสาวๆ ที่เคยถูกเขาช่วยชีวิตไว้ในอดีต"
     },
     "the eminence in shadow": {
@@ -1390,6 +1472,7 @@
     "the genius princes guide to raising a nation out of debt": {
       "id": "277",
       "title": "The Genius Prince's Guide to Raising a Nation Out of Debt",
+      "aliases": ["Tensai Ouji no Akaji Kokka Saisei Jutsu"],
       "text": "เจ้าชายอัจฉริยะอยากขายประเทศทิ้งแล้วหนีไปใช้ชีวิตชิลล์ๆ แต่ด้วยแผนการบริหารที่โคตรฉลาด ทำให้ประเทศกลับเจริญรุ่งเรืองและชนะสงครามแบบงงๆ ทุกที"
     },
     "the god of high school": {
@@ -1405,11 +1488,13 @@
     "the legend of the legendary heroes": {
       "id": "280",
       "title": "The Legend of the Legendary Heroes",
+      "aliases": ["Densetsu no Yuusha no Densetsu"],
       "text": "ชายหนุ่มจอมขี้เกียจผู้ครอบครองนัยน์ตาปีศาจ ออกเดินทางผจญภัยกับอัศวินสาวดาบยักษ์ เพื่อตามหาของวิเศษแห่งตำนานผู้กล้า ท่ามกลางเพลิงสงครามการเมือง"
     },
     "the promised neverland": {
       "id": "281",
       "title": "The Promised Neverland",
+      "aliases": ["Yakusoku no Neverland"],
       "text": "บ้านเด็กกำพร้าแสนสุขที่ซ่อนความลับสุดสยอง! เมื่อเด็กอัจฉริยะรู้ความจริงว่าพวกเขากำลังถูกเลี้ยงไว้เป็น 'อาหารสัตว์ประหลาด' แผนการหลบหนีสุดระทึกจึงเริ่มขึ้น"
     },
     "the quintessential quintuplets": {
@@ -1420,21 +1505,25 @@
     "the rising of the shield hero": {
       "id": "283",
       "title": "The Rising of the Shield Hero",
+      "aliases": ["Tate no Yuusha"],
       "text": "หนุ่มโอตาคุถูกอัญเชิญไปเป็น 'ผู้กล้าแห่งโล่' แต่ดันโดนเจ้าหญิงทรยศและใส่ร้ายจนกลายเป็นที่รังเกียจ เขาจึงต้องดิ้นรนไต่เต้าจากศูนย์เพื่อปกป้องโลกที่เกลียดชังเขา"
     },
     "the seven deadly sins": {
       "id": "284",
       "title": "The Seven Deadly Sins",
+      "aliases": ["Nanatsu no Taizai", "Nanatsu no taizai"],
       "text": "อัศวินเจ็ดบาปในตำนาน! เจ้าหญิงออกเดินทางตามหาเหล่าอัศวินกบฏที่มีพลังระดับทำลายล้าง เพื่อทวงคืนอาณาจักรจากอัศวินศักดิ์สิทธิ์ที่ถูกความมืดครอบงำ"
     },
     "the strongest sage with the weakest crest": {
       "id": "285",
       "title": "The Strongest Sage with the Weakest Crest",
+      "aliases": ["Shikkakumon no Saikyou Kenja"],
       "text": "ปราชญ์เวทมนตร์ที่เก่งที่สุดในโลกยอมเกิดใหม่เพื่อเปลี่ยน 'ตราสเวทมนตร์' ให้เหมาะกับการต่อสู้ แต่กลับพบว่าในยุคอนาคต วิทยาการเวทมนตร์กลับถดถอยขั้นสุด"
     },
     "the world god only knows goddesses arc": {
       "id": "286",
       "title": "The World God Only Knows: Goddesses Arc",
+      "aliases": ["The World God Only Knows: Goddesses"],
       "text": "ภาคพีคของเทพตกหญิง! เมื่อพี่เทพต้องรื้อฟื้นความทรงจำของสาวๆ ที่เคยจีบติดไปแล้ว เพื่อค้นหา 6 เทพธิดาที่สถิตอยู่ในร่างพวกเธอ และกอบกู้โลกจากแผนร้าย"
     },
     "the world god only knows ii": {
@@ -1445,6 +1534,7 @@
     "the worlds finest assassin gets reincarnated in another world as an aristocrat": {
       "id": "288",
       "title": "The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat",
+      "aliases": ["Sekai Saikou no Ansatsusha"],
       "text": "นักฆ่าอันดับหนึ่งของโลกถูกส่งไปเกิดใหม่ในตระกูลขุนนางนักลอบสังหาร พร้อมภารกิจลับระดับเทพเจ้า: 'จงลอบสังหารผู้กล้าซะ!'"
     },
     "tokyo ghoul": {
@@ -1455,6 +1545,7 @@
     "tokyo ghoul a": {
       "id": "290",
       "title": "Tokyo Ghoul √A",
+      "aliases": ["Tokyo Ghoul Root A"],
       "text": "เมื่อคาเนกิยอมรับด้านมืดของตัวเอง เขาเลือกที่จะเดินหันหลังให้เพื่อนๆ และเข้าร่วมกับกลุ่มก่อการร้ายกูล 'อาโอกิริ' นำไปสู่สงครามเดือดกับมนุษย์"
     },
     "tokyo ghoulre": {
@@ -1480,6 +1571,7 @@
     "tonikawa over the moon for you": {
       "id": "295",
       "title": "TONIKAWA: Over The Moon For You",
+      "aliases": ["Tonikaku Kawaii"],
       "text": "อนิเมะเบาหวานขึ้นตา! หนุ่มหัวกะทิโดนรถชนแต่รอดตายเพราะสาวปริศนาช่วยไว้ เขาเลยขอเธอแต่งงาน และตกลงแต่งกันจริงๆ กลายเป็นชีวิตข้าวใหม่ปลามันสุดฟิน"
     },
     "toradora": {
@@ -1505,11 +1597,13 @@
     "trinity seven": {
       "id": "300",
       "title": "Trinity Seven",
+      "aliases": ["Trinity Seven: The Seven Deadly Sins and The Seven Mages"],
       "text": "พระเอกสายหื่นแต่เก่งกาจ! เขาเข้าเรียนในโรงเรียนเวทมนตร์เพื่อตามหาลูกพี่ลูกน้องที่หายไป พร้อมสร้างฮาเร็มกับจอมเวทสาวสวยระดับท็อป 7 คนที่เรียกตัวเองว่า ทรินิตี้เซเว่น"
     },
     "tsukimichi moonlit fantasy": {
       "id": "301",
       "title": "TSUKIMICHI -Moonlit Fantasy-",
+      "aliases": ["Tsuki ga Michibiku Isekai Douchuu"],
       "text": "เด็กหนุ่มถูกอัญเชิญไปเป็นผู้กล้า แต่พระเจ้าโลกนั้นบอกว่าเขา 'หน้าตาอัปลักษณ์เกินไป' เลยเตะส่งไปอยู่ดินแดนรกร้าง เขาจึงต้องสร้างเมืองมอนสเตอร์ของตัวเองแบบมึนๆ"
     },
     "undead unluck": {
@@ -1520,11 +1614,13 @@
     "undefeated bahamut chronicle": {
       "id": "303",
       "title": "Undefeated Bahamut Chronicle",
+      "aliases": ["Saijaku Muhai no Bahamut"],
       "text": "อดีตเจ้าชายตกอับบังเอิญหล่นทะลุหลังคาโรงอาบน้ำหญิงในโรงเรียนอัศวินเวทมนตร์ นำไปสู่การโชว์เทพขับหุ่นเกราะมังกรดำบาฮามุท และชีวิตฮาเร็มในโรงเรียนหญิงล้วน"
     },
     "uzakichan wants to hang out": {
       "id": "304",
       "title": "Uzaki-chan Wants to Hang Out!",
+      "aliases": ["Uzaki-chan wa Asobitai!"],
       "text": "รุ่นพี่หนุ่มรักสันโดษอยากใช้ชีวิตเงียบๆ แต่ดันโดนรุ่นน้องสาวทรงโตตัวป่วน ตามเกาะติดคอยแหย่และลากเขาออกไปทำกิจกรรมสนุกๆ ไม่เว้นวัน"
     },
     "vinland saga": {
@@ -1545,6 +1641,7 @@
     "weathering with you": {
       "id": "308",
       "title": "Weathering with You",
+      "aliases": ["With You: Mitsumeteitai"],
       "text": "ท่ามกลางโตเกียวที่มีฝนตกตลอดกาล เด็กหนุ่มหนีออกจากบ้านได้พบกับเด็กสาวที่มีพลังอธิษฐานให้ 'ท้องฟ้าแจ่มใส' ได้ นำไปสู่ความรักและทางเลือกที่สั่นคลอนโลกทั้งใบ"
     },
     "wonder egg priority": {
@@ -1555,16 +1652,19 @@
     "world break aria of curse for a holy swordsman": {
       "id": "310",
       "title": "World Break: Aria of Curse for a Holy Swordsman",
+      "aliases": ["Seiken Tsukai no World Break"],
       "text": "พระเอกเทพทรูของจริง! ผู้มีอดีตชาติถึงสองชาติภพ ทั้งในฐานะนักดาบศักดิ์สิทธิ์และจอมเวทความมืด ที่ต้องงัดพลังทั้งสองสายมาใช้ในโรงเรียนฝึกนักรบพิทักษ์โลก"
     },
     "yona of the dawn": {
       "id": "311",
       "title": "Yona of the Dawn",
+      "aliases": ["Akatsuki no Yona"],
       "text": "เจ้าหญิงผมแดงที่ถูกพรากบัลลังก์ไปต่อหน้าต่อตา ต้องละทิ้งความอ่อนแอ จับธนูขึ้นสู้ และออกเดินทางตามหานักรบมังกรทั้งสี่ เพื่อกอบกู้อาณาจักรของตนเอง"
     },
     "your lie in april": {
       "id": "312",
       "title": "Your Lie in April",
+      "aliases": ["Shigatsu wa Kimi no Uso"],
       "text": "อนิเมะทำลายตับแห่งยุค! อดีตอัจฉริยะเปียโนที่ไม่ได้ยินเสียงดนตรีอีกต่อไป ได้รับการเยียวยาหัวใจจากสาวนักไวโอลินจอมแก่น ที่พกพาความลับบางอย่างมาด้วย"
     },
     "your name": {
@@ -1607,6 +1707,173 @@
       "id": "320",
       "title": "Zom 100: Bucket List of the Dead",
       "text": "ซอมบี้บุกโลกเหรอ? ดีเลย จะได้ไม่ต้องไปทำงาน! หนุ่มมนุษย์เงินเดือนผู้ถูกกดขี่ จึงตัดสินใจทำ 100 สิ่งที่อยากทำก่อนตาย ท่ามกลางยุคหายนะซอมบี้สุดป่วง"
+    },
+    "beck": {
+      "id": "322",
+      "title": "Beck",
+      "aliases": ["Beck: Mongolian Chop Squad"],
+      "text": "เรื่องราววัยรุ่นและความฝันในโลกดนตรีร็อก เมื่อเด็กหนุ่มธรรมดาได้พบแรงบันดาลใจและเพื่อนร่วมวง จึงเริ่มต้นเส้นทางสู่การเป็นนักดนตรีอย่างจริงจัง"
+    },
+    "fate grand order": {
+      "id": "323",
+      "title": "Fate/Grand Order",
+      "aliases": ["Fate/Grand Order", "Fate Grand Order"],
+      "text": "ภารกิจกู้ประวัติศาสตร์! องค์กรคาลเดียส่งมาสเตอร์และเซอร์แวนต์ย้อนเวลาไปยังยุคต่างๆ เพื่อแก้ไขจุดบิดเบือนของมนุษยชาติและป้องกันอนาคตล่มสลาย"
+    },
+    "jojos bizarre adventure": {
+      "id": "324",
+      "title": "JoJo's Bizarre Adventure",
+      "aliases": [
+        "JoJo's Bizarre Adventure (OVA)",
+        "JoJo's Bizarre Adventure: Stardust Crusaders",
+        "JoJo's Bizarre Adventure: Golden Wind",
+        "JoJo's Bizarre Adventure: Battle Tendency"
+      ],
+      "text": "มหากาพย์ตระกูลโจสตาร์ที่ต่อสู้กับศัตรูเหนือมนุษย์ข้ามยุคสมัย แต่ละภาคมีตัวเอกและเรื่องราวของตัวเอง ทั้งพลังพิเศษ การผจญภัย และการต่อสู้สไตล์สุดเป็นเอกลักษณ์"
+    },
+    "pokemon": {
+      "id": "325",
+      "title": "Pokemon",
+      "text": "การผจญภัยของแอชและพิคาชู ออกเดินทางไปทั่วภูมิภาคต่างๆ เพื่อเป็นมาสเตอร์โปเกมอน พบเพื่อนใหม่ ต่อสู้ในยิม และเผชิญหน้ากับทีมร้ายสารพัดรูปแบบ"
+    },
+    "pokemon advanced generation": {
+      "id": "326",
+      "title": "Pokemon Advanced Generation",
+      "text": "การเดินทางบทใหม่ในภูมิภาคโฮเอนน์ เมื่อแอชและพิคาชูร่วมทีมกับเพื่อนร่วมทางรุ่นใหม่ ออกท้าชิงยิมและแข่งขันลีก พร้อมพบโปเกมอนและการผจญภัยครั้งใหม่"
+    },
+    "saga of tanya the evil": {
+      "id": "327",
+      "title": "Saga of Tanya the Evil",
+      "aliases": ["Youjo Senki", "Saga of Tanya the Evil (Youjo Senki)"],
+      "text": "มนุษย์เงินเดือนถูกส่งไปเกิดใหม่ในโลกสงครามคล้ายยุโรปยุคต้นศตวรรษที่ 20 ในร่างเด็กหญิงทหารอัจฉริยะ ‘ทันย่า’ ผู้ต้องเอาตัวรอดด้วยกลยุทธ์ ความโหด และพลังเหนือธรรมชาติ"
+    },
+    "mashle": {
+      "id": "328",
+      "title": "Mashle",
+      "text": "โลกที่เวทมนตร์คือทุกสิ่ง แต่เด็กหนุ่มคนหนึ่งไร้พลังเวท กลับใช้กล้ามเนื้อระดับโกงฝ่าด่านโรงเรียนเวทมนตร์ เพื่อปกป้องชีวิตสงบๆ และพิสูจน์คุณค่าของตัวเอง"
+    },
+    "accel world": {
+      "id": "329",
+      "title": "Accel World",
+      "text": "เด็กหนุ่มที่ถูกกลั่นแกล้งได้รับโอกาสเข้าสู่โลกเสมือนความเร็วสูง 'Brain Burst' ที่ทำให้เวลาในความรู้สึกช้าลง เขาต้องต่อสู้เพื่อเอาตัวรอดและค้นหาความหมายของพลังนี้"
+    },
+    "amagami ss": {
+      "id": "330",
+      "title": "Amagami SS",
+      "text": "อนิเมะรักหลายเส้นทางแบบออมนิบัส เล่าเรื่องความสัมพันธ์ของพระเอกกับสาวๆ หลายคน โดยแบ่งเป็นบทๆ เหมือนการเล่นเกมจีบสาว ที่แต่ละเส้นทางมีจุดเริ่มและบทสรุปของตัวเอง"
+    },
+    "cardfight vanguard": {
+      "id": "331",
+      "title": "Cardfight!! Vanguard",
+      "text": "เรื่องราวของเด็กหนุ่มที่ก้าวเข้าสู่วงการการ์ดไฟต์แวนการ์ด และสร้างมิตรภาพกับคู่แข่ง ผ่านการแข่งขันที่ค่อยๆ ขยายจากเกมในร้านการ์ดไปสู่ศึกที่ผูกพันกับโลกแห่งอิมาจิเนอรีกิฟต์"
+    },
+    "cardfight vanguard link joker": {
+      "id": "332",
+      "title": "Cardfight!! Vanguard: Link Joker",
+      "text": "บทสงครามกับแคลนปริศนา 'ลิงค์โจ๊กเกอร์' ที่คอยล็อกยูนิตและบิดเบือนเกมไฟต์ ทำให้เหล่าไฟท์เตอร์ต้องรวมพลังกันเพื่อหยุดการคุกคามและทวงคืนความหมายของการไฟต์"
+    },
+    "cardfight vanguard legion mate": {
+      "id": "333",
+      "title": "Cardfight!! Vanguard: Legion Mate",
+      "text": "เมื่อพลังลีเจียนถูกปลุกขึ้น การไฟท์เข้าสู่ยุคใหม่ที่เดิมพันสูงขึ้น เพื่อนและคู่แข่งต้องเผชิญหน้าความจริงและตัดสินใจว่าจะสู้เพื่ออะไรในโลกของแวนการ์ด"
+    },
+    "cardfight vanguard g": {
+      "id": "334",
+      "title": "Cardfight!! Vanguard G",
+      "text": "เริ่มต้นยุค G กับตัวเอกชุดใหม่ที่ต้องเรียนรู้ระบบสไตรด์และไพ่ G-Unit พร้อมเผชิญคู่แข่งหน้าใหม่และการแข่งขันที่เข้มข้นขึ้นเรื่อยๆ ในโลกของแวนการ์ด"
+    },
+    "cardfight vanguard 2018": {
+      "id": "335",
+      "title": "Cardfight!! Vanguard (2018)",
+      "text": "การเล่าเรื่องใหม่ของแวนการ์ดในเวอร์ชันปี 2018 พาผู้ชมกลับสู่จุดเริ่มต้นของการ์ดไฟต์และตัวละครหลักอีกครั้ง ด้วยโทนและเส้นเรื่องที่ปรับให้ร่วมสมัย"
+    },
+    "cardfight vanguard overdress": {
+      "id": "336",
+      "title": "Cardfight!! Vanguard overDress",
+      "aliases": ["Cardfight!! Vanguard overDress", "Cardfight Vanguard overDress"],
+      "text": "ยุค overDress กับกติกาและฟอร์แมตใหม่ๆ เมื่อเด็กหนุ่มสาวรวมตัวกันในทีมใต้ดินเพื่อฝึกฝนและไต่เต้าจากการแข่งขันเล็กๆ ไปสู่เวทีที่ใหญ่ขึ้น พร้อมการเติบโตของมิตรภาพ"
+    },
+    "cardfight vanguard willdress": {
+      "id": "337",
+      "title": "Cardfight!! Vanguard will+Dress",
+      "aliases": ["Cardfight!! Vanguard will+Dress Season 3", "Cardfight Vanguard will+Dress Season 3"],
+      "text": "ต่อยอดจากยุค overDress เมื่อการแข่งขัน 'เดลักซ์' ยกระดับความเข้มข้นขึ้น และทีมต่างๆ ต้องพิสูจน์ตัวเองทั้งในเกมและนอกเกม ท่ามกลางแรงกดดัน ความฝัน และความหมายของการสู้ร่วมกัน"
+    },
+    "cardfight vanguard g next": {
+      "id": "338",
+      "title": "Cardfight Vanguard G: NEXT",
+      "text": "ภาคต่อของยุค G ที่ยกระดับการแข่งขันและศัตรูให้หนักขึ้น เหล่าไฟท์เตอร์ต้องก้าวข้ามขีดจำกัดของตัวเอง เพื่อปกป้องสิ่งสำคัญและมุ่งสู่จุดสูงสุดของแวนการ์ด"
+    },
+    "cardfight vanguard g z": {
+      "id": "339",
+      "title": "Cardfight Vanguard G Z",
+      "text": "บทสรุปของยุค G เมื่อศึกชี้ชะตาและความลับต่างๆ ค่อยๆ เปิดเผย ตัวเอกและผองเพื่อนต้องเผชิญหน้าการตัดสินใจครั้งใหญ่ในสนามไฟต์ที่เดิมพันด้วยอนาคต"
+    },
+    "danmachi": {
+      "id": "340",
+      "title": "DanMachi",
+      "aliases": [
+        "Is It Wrong to Try to Pick Up Girls in a Dungeon?",
+        "Is It Wrong to Try to Pick Up Girls in a Dungeon",
+        "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka"
+      ],
+      "text": "หนุ่มนักผจญภัยมือใหม่ในเมืองโอราเรีย ใฝ่ฝันจะเก่งขึ้นในดันเจียน แต่ชีวิตเปลี่ยนเมื่อได้รับการช่วยเหลือจากนักผจญภัยสาวระดับท็อป เขาจึงฝึกฝนสุดตัวภายใต้เฮสเทียแฟมิเลีย"
+    },
+    "gate": {
+      "id": "341",
+      "title": "GATE",
+      "aliases": ["Gate: Thus the JSDF Fought There!", "GATE: Jieitai Kanochi nite, Kaku Tatakaeri"],
+      "text": "เมื่อประตูลึกลับเปิดเชื่อมโลกแฟนตาซีกับโลกปัจจุบัน กองกำลังญี่ปุ่นถูกส่งเข้าไปสำรวจและรับมือความขัดแย้งกับอาณาจักรอีกฝั่ง ท่ามกลางการเมือง การทูต และภัยคุกคามใหม่ๆ"
+    },
+    "goblin slayer": {
+      "id": "342",
+      "title": "Goblin Slayer",
+      "text": "นักผจญภัยผู้ทุ่มชีวิตให้การล่าก็อบลินเพียงอย่างเดียว จับทีมกับนักบวชสาวและพรรคพวก เพื่อรับมือภารกิจสุดโหดและค่อยๆ สร้างความไว้ใจในโลกแฟนตาซีที่ไม่ปรานีมือใหม่"
+    },
+    "gundam build fighters": {
+      "id": "343",
+      "title": "Gundam Build Fighters",
+      "text": "การต่อสู้กันด้วยกันพลา! เด็กหนุ่มผู้หลงใหลโมเดลกันดั้มจับคู่กับนักสู้พรสวรรค์ ลงแข่ง Gunpla Battle เพื่อไล่ล่าความฝันและพิสูจน์ฝีมือบนเวทีระดับโลก"
+    },
+    "isekai wa smartphone to tomo ni": {
+      "id": "344",
+      "title": "Isekai wa Smartphone to Tomo ni",
+      "aliases": ["In Another World With My Smartphone"],
+      "text": "เด็กหนุ่มเสียชีวิตแบบไม่คาดคิดแล้วได้ไปเกิดใหม่ในต่างโลก พร้อมสมาร์ตโฟนที่ใช้งานได้ในโลกใหม่นั้น เขาใช้พลังพิเศษและความรู้ช่วยเหลือผู้คน ออกผจญภัย และค่อยๆ สร้างพรรคพวกมากขึ้น"
+    },
+    "owari no seraph": {
+      "id": "345",
+      "title": "Owari no Seraph",
+      "aliases": ["Seraph of the End"],
+      "text": "โลกหลังภัยพิบัติที่ทำให้มนุษย์ล้มตายจำนวนมาก เหล่าแวมไพร์ขึ้นมาครองเมือง เด็กหนุ่มผู้สูญเสียครอบครัวเข้าร่วมกองกำลังมนุษย์เพื่อแก้แค้นและทวงคืนอิสรภาพ"
+    },
+    "strike the blood": {
+      "id": "346",
+      "title": "Strike the Blood",
+      "text": "เด็กหนุ่มผู้กลายเป็นแวมไพร์ระดับตำนานโดยไม่ตั้งใจ ถูกจับตามองโดยองค์กรต่างๆ เขาจึงต้องร่วมมือกับเด็กสาวผู้เฝ้าดูแล เพื่อรับมือเหตุการณ์เหนือธรรมชาติที่คุกคามเมืองและผู้คนรอบตัว"
+    },
+    "the irregular at magic high school": {
+      "id": "347",
+      "title": "The Irregular at Magic High School",
+      "aliases": ["Mahouka Koukou no Rettousei"],
+      "text": "โลกที่เวทมนตร์ถูกอธิบายด้วยวิทยาศาสตร์ สองพี่น้องเข้าเรียนในโรงเรียนเวทมนตร์ โดยพี่ชายถูกจัดเป็นนักเรียนชั้นล่าง แต่ความสามารถที่แท้จริงกลับเหนือชั้น จนดึงเขาเข้าสู่คดีและการเมืองของโลกเวทมนตร์"
+    },
+    "the world god only knows": {
+      "id": "348",
+      "title": "The World God Only Knows",
+      "aliases": ["Kami nomi zo Shiru Sekai"],
+      "text": "เทพแห่งเกมจีบสาวถูกบังคับให้จีบสาวในชีวิตจริง เพื่อปลดปล่อยวิญญาณหลบหนีที่ซ่อนอยู่ในหัวใจของพวกเธอ เขาจึงต้องใช้สกิลจากเกมมารับมืออารมณ์และปมชีวิตของคนจริง"
+    },
+    "toriko": {
+      "id": "349",
+      "title": "Toriko",
+      "text": "โลกที่อาหารหายากคือสมบัติสูงสุด นักล่าอาหารระดับตำนานออกเดินทางตามหาวัตถุดิบสุดอันตราย เพื่อสร้างเมนูในฝัน พร้อมเผชิญสัตว์ประหลาดและคู่แข่งที่ยิ่งใหญ่"
+    },
+    "maou gakuin no futekigousha": {
+      "id": "350",
+      "title": "Maou Gakuin no Futekigousha",
+      "aliases": ["The Misfit of Demon King Academy"],
+      "text": "จอมมารผู้ยิ่งใหญ่เกิดใหม่หลังผ่านไปนับพันปี แต่โลกกลับลืมตำนานของเขา แถมระบบจัดอันดับในโรงเรียนจอมมารยังตีค่าเขาเป็นคนไร้ความสามารถ เขาจึงต้องพิสูจน์ตัวเองและเปิดโปงความจริงของประวัติศาสตร์ที่ถูกบิดเบือน"
     }
   }
 }

@@ -414,7 +414,7 @@ const animeData = [
   },
   {
     id: 36,
-    title: "Pok├⌐mon (OP1)",
+    title: "Pokemon (OP1)",
     altTitles: ["โปเกมอน"],
     difficulty: "easy",
     year: 1997,
@@ -1204,7 +1204,7 @@ const animeData = [
   },
   {
     id: 115,
-    title: "YuΓÿåGiΓÿåOh! Duel Monsters (OP1)",
+    title: "Yu-Gi-Oh! Duel Monsters (OP1)",
     altTitles: ["ยูกิโอ เกมกลคนอัจฉริยะ"],
     difficulty: "easy",
     year: 2000,
@@ -1264,7 +1264,7 @@ const animeData = [
   },
   {
     id: 121,
-    title: "LuckyΓÿåStar (OP1)",
+    title: "Lucky Star (OP1)",
     altTitles: ["ลัคกี้ สตาร์"],
     difficulty: "hard",
     year: 2007,
@@ -1364,7 +1364,7 @@ const animeData = [
   },
   {
     id: 131,
-    title: "Jojo┬┤s Bizarre Adventure Stardust Crusaders (OP1)",
+    title: "JoJo's Bizarre Adventure: Stardust Crusaders (OP1)",
     altTitles: ["โจโจ้ ภาค 3"],
     difficulty: "normal",
     year: 2014,
@@ -1694,7 +1694,7 @@ const animeData = [
   },
   {
     id: 164,
-    title: "Tokyo Ghoul ΓêÜA (OP1)",
+    title: "Tokyo Ghoul Root A (OP1)",
     altTitles: ["โตเกียวกูล รูท A"],
     difficulty: "hard",
     year: 2015,
@@ -1854,7 +1854,7 @@ const animeData = [
   },
   {
     id: 180,
-    title: "Blood+ (OP1)",
+    title: "Kekkai Sensen (OP1)",
     altTitles: ["Kekkai Sensen", "สมรภูมิเขตป้องกันโลหิต"],
     difficulty: "hard",
     year: 2015,
@@ -2284,7 +2284,7 @@ const animeData = [
   },
   {
     id: 223,
-    title: "Macross ╬ö: Delta Shougekijou (OP1)",
+    title: "Macross Delta: Delta Shougekijou (OP1)",
     altTitles: ["มาครอส เดลต้า"],
     difficulty: "normal",
     year: 2016,
@@ -2404,7 +2404,7 @@ const animeData = [
   },
   {
     id: 235,
-    title: "YuΓÿåGiΓÿåOh! 5D's (OP1)",
+    title: "Yu-Gi-Oh! 5D's (OP1)",
     altTitles: ["ยูกิโอ 5D's"],
     difficulty: "normal",
     year: 2008,
@@ -2914,12 +2914,12 @@ const animeData = [
   },
   {
     id: 286,
-    title: "Ace Attorney Season 2 (OP1)",
+    title: "KonoSuba Season 2 (OP1)",
     altTitles: ["ขอให้โชคดีมีชัยในโลกแฟนตาซี! ภาค 2"],
     difficulty: "normal",
     year: 2017,
     youtubeVideoId: "https://www.youtube.com/watch?v=vdcddjV0l5o&list=RDvdcddjV0l5o&start_radio=1",
-    acceptedAnswers: ["konosuba", "ขอให้โชคดีมีชัยในโลกแฟนตาซี!"],
+    acceptedAnswers: ["konosuba", "konosuba season 2", "kono suba season 2", "ขอให้โชคดีมีชัยในโลกแฟนตาซี!", "ขอให้โชคดีมีชัยในโลกแฟนตาซี! ภาค 2"],
     note: "ต่างโลกโคตรปั่น"
   },
   {
@@ -3644,7 +3644,7 @@ const animeData = [
   },
   {
     id: 359,
-    title: "Owari no Serap (OP1)",
+    title: "Owari no Seraph (OP1)",
     altTitles: ["Owari no Seraph", "เทวทูตแห่งโลกมืด"],
     difficulty: "normal",
     year: 2015,
@@ -3804,7 +3804,7 @@ const animeData = [
   },
   {
     id: 375,
-    title: "Fantasy (OP1)",
+    title: "Tsuki ga Michibiku Isekai Douchuu (OP1)",
     altTitles: ["Tsuki ga Michibiku Isekai Douchuu", "จันทรานำพาสู่ต่างโลก"],
     difficulty: "normal",
     year: 2021,
@@ -3814,7 +3814,7 @@ const animeData = [
   },
   {
     id: 376,
-    title: "The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat (OP1)",
+    title: "Sekai Saikou no Ansatsusha (OP1)",
     altTitles: ["Sekai Saikou no Ansatsusha", "สุดยอดมือสังหารอวตารมาต่างโลก"],
     difficulty: "normal",
     year: 2021,
@@ -4234,7 +4234,7 @@ const animeData = [
   },
   {
     id: 418,
-    title: "Jojo's Bizzare Adventure: Battle Tendency (OP1)",
+    title: "JoJo's Bizarre Adventure: Battle Tendency (OP1)",
     altTitles: ["โจโจ้ ภาค 2 กระแสเลือดแห่งการต่อสู้"],
     difficulty: "easy",
     year: 2012,
@@ -4442,6 +4442,12 @@ const genreConfig = {
   slice: { label: "ชีวิตประจำวัน" },
   other: { label: "อื่นๆ" }
 };
+
+function getFallbackGenreLabel(anime) {
+  const key = String(anime?.genre || "").trim();
+  if (key) return genreConfig[key]?.label || key;
+  return genreConfig.other.label;
+}
 
 const genreKeywordRules = [
   { genre: "sports", keywords: ["haikyuu", "slam dunk", "kuroko", "blue lock", "diamond no ace", "yowamushi", "prince of tennis"] },
@@ -4750,6 +4756,7 @@ function ProviderIconButton({ providerKey, term, title, iconSrc }) {
   const openFeatures = providerKey === "bilibili" ? "noopener" : "noopener,noreferrer";
 
   return (
+    
     <button
       type="button"
       onClick={() => window.open(openUrl, "_blank", openFeatures)}
@@ -4803,7 +4810,7 @@ function hashStringToUint(str) {
   return hash >>> 0;
 }
 
-const SYNOPSIS_CACHE_STORAGE_KEY = "animequiz_synopsis_cache_v5";
+const SYNOPSIS_CACHE_STORAGE_KEY = "animequiz_synopsis_cache_v6";
 
 function normalizeSynopsisKey(title) {
   return String(title || "")
@@ -4830,6 +4837,44 @@ function synopsisKeyVariants(title) {
   return a ? [a] : b ? [b] : [];
 }
 
+function findManualSynopsisEntry(db, searchTitle) {
+  const title = String(searchTitle || "").trim();
+  if (!title) return null;
+  const items = db?.items || {};
+  const byTitle = db?.byTitle || {};
+  const baseTitle = availabilityBaseKeyFromTitle(title) || title;
+  const keysToTry = [...synopsisKeyVariants(title), ...synopsisKeyVariants(baseTitle)];
+  for (const k of keysToTry) {
+    const entry = items?.[k] || byTitle?.[k] || null;
+    if (entry) return entry;
+  }
+  return null;
+}
+
+function pickAltTitleLabel(entry, currentTitle) {
+  if (!entry) return "";
+  const cur = String(currentTitle || "").trim();
+  if (!cur) return "";
+
+  const curKeys = new Set(synopsisKeyVariants(cur));
+
+  const aliases = Array.isArray(entry?.aliases) ? entry.aliases : [];
+  for (const a of aliases) {
+    const t = String(a || "").trim();
+    if (!t) continue;
+    const keys = synopsisKeyVariants(t);
+    if (!keys.some((k) => curKeys.has(k))) return t;
+  }
+
+  const primary = String(entry?.title || "").trim();
+  if (primary) {
+    const keys = synopsisKeyVariants(primary);
+    if (!keys.some((k) => curKeys.has(k))) return primary;
+  }
+
+  return "";
+}
+
 function normalizeAvailabilityKey(text) {
   return String(text ?? "")
     .toLowerCase()
@@ -4839,11 +4884,47 @@ function normalizeAvailabilityKey(text) {
     .trim();
 }
 
+// Loose matching for catalog/availability keys: ignore ASCII punctuation differences.
+// Example: "Cardfight Vanguard" should match "Cardfight!! Vanguard".
+function normalizeAvailabilityKeyLoose(text) {
+  return String(text ?? "")
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function buildLooseKeyIndex(map) {
+  const out = {};
+  if (!map || typeof map !== "object") return out;
+  for (const [k, v] of Object.entries(map)) {
+    const lk = normalizeAvailabilityKeyLoose(k);
+    if (lk && !out[lk]) out[lk] = v;
+
+    const t = v && typeof v === "object" ? v.title : "";
+    const lt = normalizeAvailabilityKeyLoose(t);
+    if (lt && !out[lt]) out[lt] = v;
+  }
+  return out;
+}
+
+function withLooseIndexes(data) {
+  if (!data || typeof data !== "object") return data;
+  const byTitle = data.byTitle && typeof data.byTitle === "object" ? data.byTitle : null;
+  const byBase = data.byBase && typeof data.byBase === "object" ? data.byBase : null;
+  return {
+    ...data,
+    byTitleLoose: buildLooseKeyIndex(byTitle),
+    byBaseLoose: buildLooseKeyIndex(byBase)
+  };
+}
+
 function availabilityBaseKeyFromTitle(title) {
   const s = normalizeAvailabilityKey(title);
   return s
-    .replace(/\s*[\-:\/|]\s*(season|s|part|pt|vol|volume|cour|arc|chapter|final season).*$/i, "")
+    .replace(/\s*[\-:\/|]\s*(season|s|part|pt|vol|volume|cour|arc|chapter|final season|2nd|3rd|4th|5th|6th|7th|8th|9th|10th).*$/i, "")
     .replace(/\s+(season|s|part|pt|vol|volume|cour|arc)\s*\d+.*$/i, "")
+    .replace(/\s+(?:the\s+)?(2nd|3rd|4th|5th|6th|7th|8th|9th|10th)\s+season.*$/i, "")
     .replace(/\s+the final season.*$/i, "")
     .replace(/\s+final.*$/i, "")
     .trim();
@@ -4980,6 +5061,7 @@ export default function AnimeOPQuizStarter() {
   const [legalGenreFilter, setLegalGenreFilter] = useState("all");
   const [synopsisCache, setSynopsisCache] = useState(() => loadSynopsisCache());
   const [synopsisLoading, setSynopsisLoading] = useState({});
+  const [manualSynopsisDb, setManualSynopsisDb] = useState(null);
   const [providerIcons, setProviderIcons] = useState(null);
   const [legalAvailability, setLegalAvailability] = useState(null);
   const [legalCatalogTH, setLegalCatalogTH] = useState(null);
@@ -6390,7 +6472,7 @@ export default function AnimeOPQuizStarter() {
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (cancelled) return;
-        if (data && typeof data === "object") setLegalAvailability(data);
+        if (data && typeof data === "object") setLegalAvailability(withLooseIndexes(data));
       })
       .catch(() => {
         // ignore
@@ -6406,7 +6488,7 @@ export default function AnimeOPQuizStarter() {
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (cancelled) return;
-        if (data && typeof data === "object") setLegalCatalogTH(data);
+        if (data && typeof data === "object") setLegalCatalogTH(withLooseIndexes(data));
       })
       .catch(() => {
         // ignore
@@ -6420,6 +6502,22 @@ export default function AnimeOPQuizStarter() {
     setLegalProviderFilter("all");
     setLegalGenreFilter("all");
   }, [libraryListMode]);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadManualSynopsisDb()
+      .then((db) => {
+        if (cancelled) return;
+        setManualSynopsisDb(db || null);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setManualSynopsisDb(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const ensureSynopsis = async ({ cacheKey, searchTitle }) => {
     if (!cacheKey || !searchTitle) return;
@@ -6684,7 +6782,7 @@ export default function AnimeOPQuizStarter() {
 
   const libraryTitleLists = useMemo(() => {
     // Build 3 lists:
-    // - works: deduped anime works (seasons/parts collapsed)
+    // - works: deduped anime works (OP/ED suffix removed; seasons/parts preserved)
     // - songs: OP/ED/Insert track entries
     // - all: every entry in animeData (403)
     const allTitles = animeWithGenre.map((a) => a.title).filter(Boolean);
@@ -6696,22 +6794,23 @@ export default function AnimeOPQuizStarter() {
     }
 
     // Works should be derived from all entries (even when every row is a song entry).
-    const worksSource = allTitles;
+    // IMPORTANT: do NOT collapse seasons/parts here; users want to see every season.
+    // We only strip the (OP/EDn) suffix.
+    const byWorkKey = new Map();
+    for (const anime of animeWithGenre) {
+      if (!anime?.title) continue;
+      const displayTitle = stripOpEdSuffix(anime.title);
+      if (!displayTitle) continue;
+      const workKey = normalizeAvailabilityKey(displayTitle);
+      if (!workKey) continue;
 
-    // Dedup works by base title.
-    const byBase = new Map();
-    for (const title of worksSource) {
-      const base = extractBaseTitle(title);
-      if (!base) continue;
-      const prev = byBase.get(base);
+      const prev = byWorkKey.get(workKey);
       if (!prev) {
-        const sampleAnime = animeWithGenre.find((a) => extractBaseTitle(a.title) === base) || null;
-        byBase.set(base, { base, title, count: 1, sampleAnime });
+        byWorkKey.set(workKey, { key: workKey, title: displayTitle, count: 1, sampleAnime: anime });
       } else {
         prev.count += 1;
         // Prefer shorter / cleaner title as display.
-        const nextBest = title.length < prev.title.length ? title : prev.title;
-        prev.title = nextBest;
+        if (displayTitle.length < prev.title.length) prev.title = displayTitle;
       }
     }
 
@@ -6731,7 +6830,7 @@ export default function AnimeOPQuizStarter() {
       return a.localeCompare(b, "en", { sensitivity: "base", numeric: true });
     };
 
-    const works = Array.from(byBase.values()).sort((a, b) => compareEnglishTitle(a.title, b.title));
+    const works = Array.from(byWorkKey.values()).sort((a, b) => compareEnglishTitle(a.title, b.title));
 
     return {
       all: allTitles
@@ -6763,7 +6862,7 @@ export default function AnimeOPQuizStarter() {
 
     if (libraryListMode === "works") {
       return libraryTitleLists.works.map((x) => ({
-        key: x.base,
+        key: x.key,
         title: x.title,
         count: x.count,
         anime: x.sampleAnime || null
@@ -6799,19 +6898,37 @@ export default function AnimeOPQuizStarter() {
     if (libraryListMode === "songs") return [];
     const byTitle = legalCatalogTH?.byTitle || null;
     const byBase = legalCatalogTH?.byBase || null;
-    if (!byTitle && !byBase) return [];
+    const byTitleLoose = legalCatalogTH?.byTitleLoose || null;
+    const byBaseLoose = legalCatalogTH?.byBaseLoose || null;
+    if (!byTitle && !byBase) {
+      // Still allow filtering by inferred genre tags when the catalog isn't available.
+      const tags = new Set();
+      for (const item of legalRawItems) {
+        tags.add(getFallbackGenreLabel(item?.anime));
+      }
+      return Array.from(tags).sort((a, b) => a.localeCompare(b, "th", { sensitivity: "base" }));
+    }
 
     const tags = new Set();
     for (const item of legalRawItems) {
       const titleKey = normalizeAvailabilityKey(item.title);
+      const titleKeyLoose = normalizeAvailabilityKeyLoose(item.title);
       const baseKey = availabilityBaseKeyFromTitle(item.title);
-      const entry = byTitle?.[titleKey] || byBase?.[baseKey] || null;
+      const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
+      const entry = byTitle?.[titleKey]
+        || byTitleLoose?.[titleKeyLoose]
+        || byBase?.[baseKey]
+        || byBaseLoose?.[baseKeyLoose]
+        || null;
       const genres = entry?.genres;
       if (Array.isArray(genres)) {
         for (const g of genres) {
           const t = String(g || "").trim();
           if (t) tags.add(t);
         }
+      } else {
+        // If an item isn't present in the catalog, fall back to inferred genre.
+        tags.add(getFallbackGenreLabel(item?.anime));
       }
     }
 
@@ -6823,19 +6940,29 @@ export default function AnimeOPQuizStarter() {
 
     const catalogByTitle = legalCatalogTH?.byTitle || null;
     const catalogByBase = legalCatalogTH?.byBase || null;
+    const catalogByTitleLoose = legalCatalogTH?.byTitleLoose || null;
+    const catalogByBaseLoose = legalCatalogTH?.byBaseLoose || null;
     const availabilityByTitle = legalAvailability?.byTitle || null;
     const availabilityByBase = legalAvailability?.byBase || null;
+    const availabilityByTitleLoose = legalAvailability?.byTitleLoose || null;
+    const availabilityByBaseLoose = legalAvailability?.byBaseLoose || null;
 
     let items = legalRawItems;
 
     if (legalProviderFilter !== "all") {
       items = items.filter((item) => {
         const titleKey = normalizeAvailabilityKey(item.title);
+        const titleKeyLoose = normalizeAvailabilityKeyLoose(item.title);
         const baseKey = availabilityBaseKeyFromTitle(item.title);
+        const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
 
         const isSongLike = libraryListMode === "songs" || isSongEntryTitle(item.title);
 
-        const catalogEntry = catalogByTitle?.[titleKey] || catalogByBase?.[baseKey] || null;
+        const catalogEntry = catalogByTitle?.[titleKey]
+          || catalogByTitleLoose?.[titleKeyLoose]
+          || catalogByBase?.[baseKey]
+          || catalogByBaseLoose?.[baseKeyLoose]
+          || null;
         const catalogProviders = catalogEntry?.providers;
         if (Array.isArray(catalogProviders) && catalogProviders.length) {
           return catalogProviders.includes(legalProviderFilter);
@@ -6843,14 +6970,16 @@ export default function AnimeOPQuizStarter() {
 
         // Fallback to older availability dataset only when catalog data is missing.
         if (isSongLike) {
-          const providers = availabilityByTitle?.[titleKey]?.providers;
+          const providers = availabilityByTitle?.[titleKey]?.providers
+            || availabilityByTitleLoose?.[titleKeyLoose]?.providers;
           if (Array.isArray(providers) && providers.length) {
             return providers.includes(legalProviderFilter);
           }
           return false;
         }
 
-        const baseProviders = availabilityByBase?.[baseKey];
+        const baseProviders = availabilityByBase?.[baseKey]
+          || availabilityByBaseLoose?.[baseKeyLoose];
         if (Array.isArray(baseProviders) && baseProviders.length) {
           return baseProviders.includes(legalProviderFilter);
         }
@@ -6861,21 +6990,32 @@ export default function AnimeOPQuizStarter() {
     if (legalGenreFilter !== "all" && libraryListMode !== "songs") {
       items = items.filter((item) => {
         const titleKey = normalizeAvailabilityKey(item.title);
+        const titleKeyLoose = normalizeAvailabilityKeyLoose(item.title);
         const baseKey = availabilityBaseKeyFromTitle(item.title);
-        const entry = catalogByTitle?.[titleKey] || catalogByBase?.[baseKey] || null;
+        const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
+        const entry = catalogByTitle?.[titleKey]
+          || catalogByTitleLoose?.[titleKeyLoose]
+          || catalogByBase?.[baseKey]
+          || catalogByBaseLoose?.[baseKeyLoose]
+          || null;
         const genres = entry?.genres;
         if (Array.isArray(genres) && genres.length) return genres.includes(legalGenreFilter);
 
-        const fallbackLabel = item?.anime?.genre ? (genreConfig[item.anime.genre]?.label || item.anime.genre) : "";
-        return fallbackLabel === legalGenreFilter;
+        return getFallbackGenreLabel(item?.anime) === legalGenreFilter;
       });
     }
 
     if (!q) return items;
     return items.filter((item) => {
       const titleKey = normalizeAvailabilityKey(item.title);
+      const titleKeyLoose = normalizeAvailabilityKeyLoose(item.title);
       const baseKey = availabilityBaseKeyFromTitle(item.title);
-      const entry = catalogByTitle?.[titleKey] || catalogByBase?.[baseKey] || null;
+      const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
+      const entry = catalogByTitle?.[titleKey]
+        || catalogByTitleLoose?.[titleKeyLoose]
+        || catalogByBase?.[baseKey]
+        || catalogByBaseLoose?.[baseKeyLoose]
+        || null;
       const genresText = Array.isArray(entry?.genres) ? entry.genres.join(" ") : "";
 
       const providersText = Array.isArray(entry?.providers)
@@ -8258,8 +8398,8 @@ export default function AnimeOPQuizStarter() {
                 {libraryListMode === "works" && (
                   <div className="text-xs text-slate-600 dark:text-slate-300 mb-2">
                     {legalSearch
-                      ? <>แสดง {legalFilteredItems.length} จาก {libraryTitleLists.works.length} เรื่อง (รวมภาค/ซีซั่นไว้ในชื่อเรื่องเดียว)</>
-                      : <>แสดง {libraryTitleLists.works.length} เรื่อง (รวมภาค/ซีซั่นไว้ในชื่อเรื่องเดียว)</>}
+                      ? <>แสดง {legalFilteredItems.length} จาก {libraryTitleLists.works.length} เรื่อง (แยกภาค/ซีซั่น และซ่อน OP/ED)</>
+                      : <>แสดง {libraryTitleLists.works.length} เรื่อง (แยกภาค/ซีซั่น และซ่อน OP/ED)</>}
                   </div>
                 )}
                 {libraryListMode === "songs" && (
@@ -8306,26 +8446,39 @@ export default function AnimeOPQuizStarter() {
 
                   const availabilityByTitle = legalAvailability?.byTitle || null;
                   const availabilityByBase = legalAvailability?.byBase || null;
+                  const availabilityByTitleLoose = legalAvailability?.byTitleLoose || null;
+                  const availabilityByBaseLoose = legalAvailability?.byBaseLoose || null;
 
                   const catalogByTitle = legalCatalogTH?.byTitle || null;
                   const catalogByBase = legalCatalogTH?.byBase || null;
+                  const catalogByTitleLoose = legalCatalogTH?.byTitleLoose || null;
+                  const catalogByBaseLoose = legalCatalogTH?.byBaseLoose || null;
 
                   const isSongLike = libraryListMode === "songs" || (libraryListMode !== "works" && isSongEntryTitle(item.title));
                   const displayTitle = libraryListMode === "songs" ? item.title : stripOpEdSuffix(item.title);
+                  const manualEntry = !isSongLike && manualSynopsisDb ? findManualSynopsisEntry(manualSynopsisDb, displayTitle) : null;
+                  const altTitle = !isSongLike ? pickAltTitleLabel(manualEntry, displayTitle) : "";
 
                   // In works mode, the representative title can still contain (OP/EDn).
                   // Use the display title (suffix-stripped) for base/title lookups.
                   const titleKey = normalizeAvailabilityKey(isSongLike ? item.title : displayTitle);
+                  const titleKeyLoose = normalizeAvailabilityKeyLoose(isSongLike ? item.title : displayTitle);
                   const baseKey = availabilityBaseKeyFromTitle(displayTitle);
+                  const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
 
-                  const catalogEntryTitle = catalogByTitle?.[titleKey] || null;
-                  const catalogEntryBase = catalogByBase?.[baseKey] || null;
+                  const catalogEntryTitle = catalogByTitle?.[titleKey] || catalogByTitleLoose?.[titleKeyLoose] || null;
+                  const catalogEntryBase = catalogByBase?.[baseKey] || catalogByBaseLoose?.[baseKeyLoose] || null;
                   const catalogProviders = catalogEntryTitle?.providers || catalogEntryBase?.providers || null;
                   const catalogGenres = catalogEntryTitle?.genres || catalogEntryBase?.genres || null;
                   const catalogNote = catalogEntryTitle?.note || catalogEntryBase?.note || "";
                   const availableKeys = isSongLike
-                    ? availabilityByTitle?.[titleKey]?.providers || null
-                    : availabilityByBase?.[baseKey] || null;
+                    ? availabilityByTitle?.[titleKey]?.providers || availabilityByTitleLoose?.[titleKeyLoose]?.providers || null
+                    : availabilityByBase?.[baseKey] || availabilityByBaseLoose?.[baseKeyLoose] || null;
+
+                  const fallbackGenreLabel = getFallbackGenreLabel(item?.anime);
+                  const effectiveGenres = Array.isArray(catalogGenres) && catalogGenres.length
+                    ? catalogGenres
+                    : [fallbackGenreLabel];
 
                   const unsortedEffective = Array.isArray(catalogProviders) && catalogProviders.length
                     ? catalogProviders
@@ -8366,18 +8519,15 @@ export default function AnimeOPQuizStarter() {
                             <div className="min-w-0">
                               <div className="flex flex-wrap items-center gap-2">
                                 <div className="font-extrabold text-slate-900 dark:text-slate-100 text-lg leading-snug break-words">{displayTitle}</div>
-                                {Array.isArray(catalogGenres) && catalogGenres.length ? (
-                                  <Badge className="rounded-full" title={catalogGenres.join(", ")}>
-                                    {catalogGenres[0]}
-                                  </Badge>
-                                ) : item?.anime?.genre ? (
-                                  <Badge className="rounded-full">
-                                    {genreConfig[item.anime.genre]?.label || item.anime.genre}
-                                  </Badge>
-                                ) : null}
+                                <Badge className="rounded-full" title={effectiveGenres.join(", ")}>
+                                  {effectiveGenres[0]}
+                                </Badge>
                               </div>
-                              {libraryListMode !== "songs" && Array.isArray(catalogGenres) && catalogGenres.length ? (
-                                <div className="mt-1 text-xs text-slate-600 dark:text-slate-300">แนว: {catalogGenres.join(", ")}</div>
+                              {!isSongLike && altTitle ? (
+                                <div className="mt-1 text-xs text-slate-600 dark:text-slate-300">โรมันจิ/ชื่ออื่น: {altTitle}</div>
+                              ) : null}
+                              {libraryListMode !== "songs" ? (
+                                <div className="mt-1 text-xs text-slate-600 dark:text-slate-300">แนว: {effectiveGenres.join(", ")}</div>
                               ) : null}
                               {libraryListMode === "works" && item.count > 1 && (
                                 <div className="text-xs text-slate-600 dark:text-slate-300">พบ {item.count} เวอร์ชันในลิสต์</div>
@@ -8405,7 +8555,7 @@ export default function AnimeOPQuizStarter() {
                           )}
 
                           <div className="mt-3 flex flex-wrap items-center gap-2">
-                            {visibleProviderKeys.map((providerKey) => {
+                            {effectiveProviderKeys.map((providerKey) => {
                               const provider = LEGAL_PROVIDER_PRESETS[providerKey];
                               const term = libraryListMode === "songs" ? item.title : displayTitle;
                               return (
