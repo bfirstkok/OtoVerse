@@ -4466,7 +4466,12 @@ function normalize(text) {
 
 function extractBaseTitle(text) {
   const normalized = normalize(text);
-  return normalized
+  const noSongSuffix = normalized
+    .replace(/\s*\(\s*(?:op|ed)\s*\d+\s*\)\s*$/i, "")
+    .replace(/\s+(?:op|ed)\s*\d+\s*$/i, "")
+    .trim();
+
+  return noSongSuffix
     .replace(/\s*[\-:\/|]\s*(?:season|s|part|pt|vol|volume|cour|arc|chapter|final season|2nd|3rd|4th|5th|6th|7th).*/gi, "")
     .replace(/\s+(?:season|s|part|pt|vol|volume|cour|arc)\s*\d+.*/gi, "")
     .replace(/\s+final.*/gi, "")
@@ -6611,17 +6616,18 @@ export default function AnimeOPQuizStarter() {
     const allTitles = animeWithGenre.map((a) => a.title).filter(Boolean);
 
     const songs = [];
-    const worksSource = [];
+    // Works should be derived from all entries (even when every row is a song entry).
+    const worksSource = allTitles;
     for (const a of animeWithGenre) {
       if (!a?.title) continue;
       if (isSongEntryTitle(a.title)) songs.push(a.title);
-      else worksSource.push(a.title);
     }
 
     // Dedup works by base title.
     const byBase = new Map();
     for (const title of worksSource) {
       const base = extractBaseTitle(title);
+      if (!base) continue;
       const prev = byBase.get(base);
       if (!prev) {
         const sampleAnime = animeWithGenre.find((a) => extractBaseTitle(a.title) === base) || null;
