@@ -4604,7 +4604,8 @@ function SynopsisInline({ title, synopsisCache, synopsisLoading, ensureSynopsis 
   React.useEffect(() => {
     if (!cacheKey || !title) return;
     const existing = synopsisCache?.[cacheKey];
-    if (existing && (existing?.text || existing?.url || existing?.error || existing?.fetchedAt)) return;
+    // Allow retries for cached misses so newly-added synopsis can appear.
+    if (existing && (existing?.text || existing?.url || existing?.error)) return;
     if (synopsisLoading?.[cacheKey]) return;
     ensureSynopsis({ cacheKey, searchTitle: title });
   }, [cacheKey, title, synopsisCache, synopsisLoading, ensureSynopsis]);
