@@ -3084,7 +3084,7 @@ const animeData = [
   },
   {
     id: 303,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight Vanguard: Asia Circuit (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด เอเชียเซอร์กิต"],
     difficulty: "normal",
     year: 2012,
@@ -3994,7 +3994,7 @@ const animeData = [
   },
   {
     id: 394,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight Vanguard G: GIRS Crisis (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G กีอัสไครซิส"],
     difficulty: "hard",
     year: 2015,
@@ -4004,7 +4004,7 @@ const animeData = [
   },
   {
     id: 395,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight Vanguard G: Stride Gate (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G สไตรด์เกต"],
     difficulty: "hard",
     year: 2016,
@@ -4034,7 +4034,7 @@ const animeData = [
   },
   {
     id: 398,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight Vanguard: Shinemon Arc (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ภาคชินเอมอน"],
     difficulty: "hard",
     year: 2019,
@@ -4084,7 +4084,7 @@ const animeData = [
   },
   {
     id: 403,
-    title: "Cardfight Vanguard (OP1)",
+    title: "Cardfight Vanguard Divinez (OP1)",
     altTitles: ["การ์ดไฟท์!! แวนการ์ด ดีไวน์ซ"],
     difficulty: "normal",
     year: 2024,
