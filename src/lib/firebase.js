@@ -1,5 +1,5 @@
 import { initializeApp, getApps } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { browserLocalPersistence, browserSessionPersistence, getAuth, setPersistence } from "firebase/auth";
 import { getFirestore, initializeFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -23,6 +23,25 @@ export const firebaseApp = (() => {
 })();
 
 export const firebaseAuth = firebaseApp ? getAuth(firebaseApp) : null;
+
+// Ensure auth survives reloads. Some browsers/privacy settings can cause Auth to
+// fall back to non-persistent storage unless persistence is explicitly set.
+// Best-effort: prefer local; fallback to session.
+export const firebaseAuthPersistenceReady = (() => {
+  if (!firebaseAuth) return Promise.resolve(false);
+  return setPersistence(firebaseAuth, browserLocalPersistence)
+    .then(() => true)
+    .catch(async (e) => {
+      console.warn("Auth persistence(local) failed; falling back to session:", e);
+      try {
+        await setPersistence(firebaseAuth, browserSessionPersistence);
+        return true;
+      } catch (e2) {
+        console.warn("Auth persistence(session) failed:", e2);
+        return false;
+      }
+    });
+})();
 export const firebaseDb = (() => {
   if (!firebaseApp) return null;
 

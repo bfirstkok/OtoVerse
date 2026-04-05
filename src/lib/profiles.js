@@ -171,7 +171,6 @@ export function subscribeProfile(uid, onChange, onError) {
       onChange(snap.exists() ? { id: snap.id, ...snap.data() } : null);
     },
     (err) => {
-      onChange(null);
       if (typeof onError === "function") onError(err);
     }
   );
