@@ -4894,12 +4894,18 @@ async function loadManualSynopsisDb() {
       // `entry.title` so lookups can still succeed.
       const byTitle = {};
       for (const entry of Object.values(safeItems)) {
-        const t = String(entry?.title || "").trim();
-        if (!t) continue;
-        const keys = synopsisKeyVariants(t);
-        for (const k of keys) {
-          if (!k || byTitle[k]) continue;
-          byTitle[k] = entry;
+        const primaryTitle = String(entry?.title || "").trim();
+        const aliases = Array.isArray(entry?.aliases) ? entry.aliases : [];
+        const candidateTitles = [primaryTitle, ...aliases]
+          .map((x) => String(x || "").trim())
+          .filter(Boolean);
+
+        for (const t of candidateTitles) {
+          const keys = synopsisKeyVariants(t);
+          for (const k of keys) {
+            if (!k || byTitle[k]) continue;
+            byTitle[k] = entry;
+          }
         }
       }
       return {

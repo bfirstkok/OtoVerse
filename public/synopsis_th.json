@@ -21,6 +21,7 @@
     "a silent voice": {
       "id": "016",
       "title": "A Silent Voice",
+      "aliases": ["Koe no Katachi"],
       "text": "เป็นเรื่องราวของ โชยะ อิชิดะ เด็กหนุ่มที่เคยกลั่นแกล้ง โชโกะ นิชิมิยะ เพื่อนร่วมชั้นหูหนวกจนเธอต้องย้ายโรงเรียน ทำให้เขาถูกเพื่อนๆ แบนและโดดเดี่ยว ต่อมาเมื่อโตขึ้นเขาสำนึกผิดและพยายามกลับมาแก้ไขความผิดพลาดในอดีต พร้อมเรียนรู้การให้อภัยและการยอมรับตัวเอง"
     },
     "absolute duo": {
@@ -96,11 +97,13 @@
     "attack on titan": {
       "id": "019",
       "title": "Attack on Titan",
+      "aliases": ["Shingeki no Kyojin"],
       "text": "การต่อสู้ดิ้นรนของมนุษยชาติหลังกำแพงยักษ์ เพื่อเอาชีวิตรอดจากฝูงไททันกินคน และจุดเริ่มต้นของการค้นพบความจริงอันโหดร้าย"
     },
     "attack on titan the final season": {
       "id": "020",
       "title": "Attack on Titan The Final Season",
+      "aliases": ["Shingeki no Kyojin The Final Season", "Shingeki no Kyojin: The Final Season"],
       "text": "บทสรุปของมหากาพย์ เมื่อความจริงนอกกำแพงถูกเปิดเผย นำไปสู่สงครามล้างแค้นและเจตจำนงที่แท้จริงของ เอเรน เยเกอร์"
     },
     "baccano": {
@@ -391,6 +394,7 @@
     "demon slayer": {
       "id": "078",
       "title": "Demon Slayer",
+      "aliases": ["Kimetsu no Yaiba", "Demon Slayer: Kimetsu no Yaiba"],
       "text": "เด็กหนุ่มขายถ่านผู้จับดาบเข้าร่วมหน่วยพิฆาตอสูร เพื่อล้างแค้นให้ครอบครัวและหาทางรักษาน้องสาวที่กลายสภาพเป็นอสูร"
     },
     "demon slayer entertainment district arc": {
@@ -1566,6 +1570,7 @@
     "your name": {
       "id": "313",
       "title": "Your Name",
+      "aliases": ["Kimi no Na wa.", "Kimi no Na wa"],
       "text": "ปรากฏการณ์แอนิเมชันระดับโลก หนุ่มโตเกียวและสาวบ้านนอกที่สลับร่างกันในความฝัน นำไปสู่การค้นหาตัวตน ความผูกพัน และปาฏิหาริย์เหนือมิติเวลาและสายดาวหาง"
     },
     "yugioh 5ds": {
