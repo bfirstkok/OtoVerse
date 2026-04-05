@@ -4465,12 +4465,16 @@ function normalize(text) {
     .trim();
 }
 
-function extractBaseTitle(text) {
-  const normalized = normalize(text);
-  const noSongSuffix = normalized
+function stripOpEdSuffix(text) {
+  return String(text || "")
     .replace(/\s*\(\s*(?:op|ed)\s*\d+\s*\)\s*$/i, "")
     .replace(/\s+(?:op|ed)\s*\d+\s*$/i, "")
     .trim();
+}
+
+function extractBaseTitle(text) {
+  const normalized = normalize(text);
+  const noSongSuffix = stripOpEdSuffix(normalized);
 
   return noSongSuffix
     .replace(/\s*[\-:\/|]\s*(?:season|s|part|pt|vol|volume|cour|arc|chapter|final season|2nd|3rd|4th|5th|6th|7th).*/gi, "")
@@ -6672,6 +6676,22 @@ export default function AnimeOPQuizStarter() {
   }, [animeWithGenre]);
 
   const legalRawItems = useMemo(() => {
+    const compareEnglishTitle = (aRaw, bRaw) => {
+      const a = String(aRaw || "");
+      const b = String(bRaw || "");
+      const aTrim = a.trim();
+      const bTrim = b.trim();
+      const rank = (s) => {
+        if (/^[A-Za-z]/.test(s)) return 0;
+        if (/^[0-9]/.test(s)) return 1;
+        return 2;
+      };
+      const ra = rank(aTrim);
+      const rb = rank(bTrim);
+      if (ra !== rb) return ra - rb;
+      return a.localeCompare(b, "en", { sensitivity: "base", numeric: true });
+    };
+
     if (libraryListMode === "works") {
       return libraryTitleLists.works.map((x) => ({
         key: x.base,
@@ -6682,18 +6702,28 @@ export default function AnimeOPQuizStarter() {
     }
 
     if (libraryListMode === "songs") {
-      return libraryTitleLists.songs.map((title) => ({
-        key: title,
-        title,
-        anime: animeWithGenre.find((a) => a.title === title) || null
-      }));
+      // Use ids for stable keys (titles can repeat across different entries).
+      return animeWithGenre
+        .filter((a) => a?.title && isSongEntryTitle(a.title))
+        .slice()
+        .sort((a, b) => compareEnglishTitle(a.title, b.title))
+        .map((a) => ({
+          key: `song:${a.id}`,
+          title: a.title,
+          anime: a
+        }));
     }
 
-    return libraryTitleLists.all.map((title) => ({
-      key: title,
-      title,
-      anime: animeWithGenre.find((a) => a.title === title) || null
-    }));
+    // Use ids for stable keys (titles can repeat across different entries).
+    return animeWithGenre
+      .filter((a) => a?.title)
+      .slice()
+      .sort((a, b) => compareEnglishTitle(a.title, b.title))
+      .map((a) => ({
+        key: `all:${a.id}`,
+        title: a.title,
+        anime: a
+      }));
   }, [animeWithGenre, libraryListMode, libraryTitleLists]);
 
   const legalGenreTagOptions = useMemo(() => {
@@ -8221,6 +8251,7 @@ export default function AnimeOPQuizStarter() {
                   const catalogNote = catalogEntryTitle?.note || catalogEntryBase?.note || "";
 
                   const isSongLike = libraryListMode === "songs" || isSongEntryTitle(item.title);
+                  const displayTitle = libraryListMode === "songs" ? item.title : stripOpEdSuffix(item.title);
                   const availableKeys = isSongLike
                     ? availabilityByTitle?.[titleKey]?.providers || null
                     : availabilityByBase?.[baseKey] || null;
@@ -8241,8 +8272,8 @@ export default function AnimeOPQuizStarter() {
                       : [];
 
                   const baseQuery = libraryListMode === "songs"
-                    ? `${item.title} ฟังถูกลิขสิทธิ์ ไทย`
-                    : `${item.title} ดูถูกลิขสิทธิ์ ไทย`;
+                    ? `${displayTitle} ฟังถูกลิขสิทธิ์ ไทย`
+                    : `${displayTitle} ดูถูกลิขสิทธิ์ ไทย`;
 
                   return (
                     <div
@@ -8254,7 +8285,7 @@ export default function AnimeOPQuizStarter() {
                           <SmartImage
                             src={getAnimeImageUrl(item.anime)}
                             fallbackSrc={getYouTubeThumbUrl(item.anime?.youtubeVideoId)}
-                            alt={item.title}
+                            alt={displayTitle}
                             className="h-[134px] w-[134px] sm:h-[164px] sm:w-[164px] rounded-2xl object-cover border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900"
                           />
                         </div>
@@ -8263,7 +8294,7 @@ export default function AnimeOPQuizStarter() {
                           <div className="flex items-start justify-between gap-3">
                             <div className="min-w-0">
                               <div className="flex flex-wrap items-center gap-2">
-                                <div className="font-extrabold text-slate-900 dark:text-slate-100 text-lg leading-snug break-words">{item.title}</div>
+                                <div className="font-extrabold text-slate-900 dark:text-slate-100 text-lg leading-snug break-words">{displayTitle}</div>
                                 {Array.isArray(catalogGenres) && catalogGenres.length ? (
                                   <Badge className="rounded-full" title={catalogGenres.join(", ")}>
                                     {catalogGenres[0]}
@@ -8294,7 +8325,7 @@ export default function AnimeOPQuizStarter() {
                           {!isSongLike && (
                             <div className="mt-3">
                               <SynopsisInline
-                                title={item.title}
+                                title={displayTitle}
                                 synopsisCache={synopsisCache}
                                 synopsisLoading={synopsisLoading}
                                 ensureSynopsis={ensureSynopsis}
@@ -8305,7 +8336,7 @@ export default function AnimeOPQuizStarter() {
                           <div className="mt-3 flex flex-wrap items-center gap-2">
                             {visibleProviderKeys.map((providerKey) => {
                               const provider = LEGAL_PROVIDER_PRESETS[providerKey];
-                              const term = item.title;
+                              const term = libraryListMode === "songs" ? item.title : displayTitle;
                               return (
                                 <ProviderIconButton
                                   key={providerKey}
