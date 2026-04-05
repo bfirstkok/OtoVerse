@@ -4802,7 +4802,7 @@ function hashStringToUint(str) {
   return hash >>> 0;
 }
 
-const SYNOPSIS_CACHE_STORAGE_KEY = "animequiz_synopsis_cache_v4";
+const SYNOPSIS_CACHE_STORAGE_KEY = "animequiz_synopsis_cache_v5";
 
 function normalizeSynopsisKey(title) {
   return String(title || "")
@@ -4866,33 +4866,43 @@ function truncateSynopsis(text, maxLen = 320) {
 let manualSynopsisDbPromise = null;
 async function loadManualSynopsisDb() {
   if (manualSynopsisDbPromise) return manualSynopsisDbPromise;
-  manualSynopsisDbPromise = fetch("/synopsis_th.json")
+  manualSynopsisDbPromise = fetch("/synopsis_th.json", { cache: "no-store" })
     .then((r) => (r.ok ? r.json() : null))
     .then((json) => {
       const items = json?.items;
-      return items && typeof items === "object" ? items : {};
+      return {
+        items: items && typeof items === "object" ? items : {},
+        version: Number(json?.version || 0) || 0,
+        generatedAt: String(json?.generatedAt || "")
+      };
     })
-    .catch(() => ({}));
+    .catch(() => ({ items: {}, version: 0, generatedAt: "" }));
   return manualSynopsisDbPromise;
 }
 
 async function fetchAniListSynopsis(searchTitle) {
   const title = String(searchTitle || "").trim();
   if (!title) {
-    return { text: "", url: "", fetchedAt: Date.now() };
+    return { text: "", url: "", fetchedAt: Date.now(), miss: true, sourceVersion: 0, sourceGeneratedAt: "" };
   }
 
   const db = await loadManualSynopsisDb();
+  const items = db?.items || {};
+  const sourceVersion = Number(db?.version || 0) || 0;
+  const sourceGeneratedAt = String(db?.generatedAt || "");
   const directKey = normalizeSynopsisKey(title);
   const baseTitle = availabilityBaseKeyFromTitle(title) || title;
   const baseKey = normalizeSynopsisKey(baseTitle);
 
-  const entry = (directKey && db?.[directKey]) || (baseKey && db?.[baseKey]) || null;
+  const entry = (directKey && items?.[directKey]) || (baseKey && items?.[baseKey]) || null;
   const text = entry?.text ? truncateSynopsis(entry.text, 320) : "";
   return {
     text,
     url: "",
-    fetchedAt: Date.now()
+    fetchedAt: Date.now(),
+    miss: !text,
+    sourceVersion,
+    sourceGeneratedAt
   };
 }
 
@@ -6371,7 +6381,20 @@ export default function AnimeOPQuizStarter() {
   const ensureSynopsis = async ({ cacheKey, searchTitle }) => {
     if (!cacheKey || !searchTitle) return;
     const existing = synopsisCache?.[cacheKey];
-    if (existing && (existing?.text || existing?.url || existing?.error || existing?.fetchedAt)) return;
+    if (existing && (existing?.text || existing?.url || existing?.error || existing?.miss)) {
+      // If the synopsis DB has changed since this cache entry was written,
+      // refresh so newly-added synopsis text can appear without clearing localStorage.
+      try {
+        const db = await loadManualSynopsisDb();
+        const currentGeneratedAt = String(db?.generatedAt || "");
+        const currentVersion = Number(db?.version || 0) || 0;
+        const sameSource = (currentGeneratedAt && existing?.sourceGeneratedAt === currentGeneratedAt)
+          || (currentVersion && existing?.sourceVersion === currentVersion);
+        if (sameSource) return;
+      } catch {
+        return;
+      }
+    }
     if (synopsisLoading?.[cacheKey]) return;
 
     setSynopsisLoading((prev) => ({ ...prev, [cacheKey]: true }));
@@ -6388,7 +6411,10 @@ export default function AnimeOPQuizStarter() {
       });
     } catch {
       setSynopsisCache((prev) => {
-        const next = { ...(prev || {}), [cacheKey]: { text: "", url: "", fetchedAt: Date.now(), error: true } };
+        const next = {
+          ...(prev || {}),
+          [cacheKey]: { text: "", url: "", fetchedAt: Date.now(), error: true, miss: false, sourceVersion: 0, sourceGeneratedAt: "" }
+        };
         try {
           localStorage.setItem(SYNOPSIS_CACHE_STORAGE_KEY, JSON.stringify(next));
         } catch {
@@ -7358,7 +7384,7 @@ export default function AnimeOPQuizStarter() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.05 }}>
           <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_20px_40px_rgba(19,34,76,0.14)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
             <CardHeader className="relative">
-              <CardTitle className="text-lg">🏆 อันดับผู้เล่น</CardTitle>
+              <CardTitle className="text-lg"> อันดับผู้เล่น</CardTitle>
               <CardDescription>อิงคะแนนสะสม • เสมอค่อยดูจำนวนการเล่น</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -9019,13 +9045,13 @@ export default function AnimeOPQuizStarter() {
                 [
                   {
                     key: "home",
-                    label: "🏠 หน้าหลัก",
+                    label: " หน้าหลัก",
                     isActive: page === "home",
                     onClick: () => confirmLeaveGame(() => setPage("home"))
                   },
                   {
                     key: "library",
-                    label: "📚 คลังเพลง",
+                    label: " คลังเพลง",
                     isActive: page === "library" && libraryTab === "catalog",
                     onClick: () =>
                       confirmLeaveGame(() => {
