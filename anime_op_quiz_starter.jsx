@@ -8241,17 +8241,19 @@ export default function AnimeOPQuizStarter() {
                   const catalogByTitle = legalCatalogTH?.byTitle || null;
                   const catalogByBase = legalCatalogTH?.byBase || null;
 
-                  const titleKey = normalizeAvailabilityKey(item.title);
-                  const baseKey = availabilityBaseKeyFromTitle(item.title);
+                  const isSongLike = libraryListMode === "songs" || (libraryListMode !== "works" && isSongEntryTitle(item.title));
+                  const displayTitle = libraryListMode === "songs" ? item.title : stripOpEdSuffix(item.title);
+
+                  // In works mode, the representative title can still contain (OP/EDn).
+                  // Use the display title (suffix-stripped) for base/title lookups.
+                  const titleKey = normalizeAvailabilityKey(isSongLike ? item.title : displayTitle);
+                  const baseKey = availabilityBaseKeyFromTitle(displayTitle);
 
                   const catalogEntryTitle = catalogByTitle?.[titleKey] || null;
                   const catalogEntryBase = catalogByBase?.[baseKey] || null;
                   const catalogProviders = catalogEntryTitle?.providers || catalogEntryBase?.providers || null;
                   const catalogGenres = catalogEntryTitle?.genres || catalogEntryBase?.genres || null;
                   const catalogNote = catalogEntryTitle?.note || catalogEntryBase?.note || "";
-
-                  const isSongLike = libraryListMode === "songs" || isSongEntryTitle(item.title);
-                  const displayTitle = libraryListMode === "songs" ? item.title : stripOpEdSuffix(item.title);
                   const availableKeys = isSongLike
                     ? availabilityByTitle?.[titleKey]?.providers || null
                     : availabilityByBase?.[baseKey] || null;
