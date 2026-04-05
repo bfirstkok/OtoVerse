@@ -8040,7 +8040,7 @@ export default function AnimeOPQuizStarter() {
               <CardDescription>
                 {libraryTab === "catalog"
                   ? <>ตอนนี้มีอนิเมะให้ทายทั้งหมด {totalCount} เรื่อง • กำลังดู {selectedGenreLabel}</>
-                  : <>ดูรายชื่อ + ช่องทางรับชม/ฟังถูกลิขสิทธิ์ (โฟกัสประเทศไทย)</>}
+                  : <>ดูรายชื่อ + ช่องทางรับชม/ฟัง</>}
               </CardDescription>
             </div>
             {libraryTab === "catalog" && (
