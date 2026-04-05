@@ -4870,13 +4870,26 @@ async function loadManualSynopsisDb() {
     .then((r) => (r.ok ? r.json() : null))
     .then((json) => {
       const items = json?.items;
+      const safeItems = items && typeof items === "object" ? items : {};
+
+      // Some editors may add new items with a wrong key. Build an index by normalized
+      // `entry.title` so lookups can still succeed.
+      const byTitle = {};
+      for (const entry of Object.values(safeItems)) {
+        const t = String(entry?.title || "").trim();
+        if (!t) continue;
+        const k = normalizeSynopsisKey(t);
+        if (!k || byTitle[k]) continue;
+        byTitle[k] = entry;
+      }
       return {
-        items: items && typeof items === "object" ? items : {},
+        items: safeItems,
+        byTitle,
         version: Number(json?.version || 0) || 0,
         generatedAt: String(json?.generatedAt || "")
       };
     })
-    .catch(() => ({ items: {}, version: 0, generatedAt: "" }));
+    .catch(() => ({ items: {}, byTitle: {}, version: 0, generatedAt: "" }));
   return manualSynopsisDbPromise;
 }
 
@@ -4888,13 +4901,18 @@ async function fetchAniListSynopsis(searchTitle) {
 
   const db = await loadManualSynopsisDb();
   const items = db?.items || {};
+  const byTitle = db?.byTitle || {};
   const sourceVersion = Number(db?.version || 0) || 0;
   const sourceGeneratedAt = String(db?.generatedAt || "");
   const directKey = normalizeSynopsisKey(title);
   const baseTitle = availabilityBaseKeyFromTitle(title) || title;
   const baseKey = normalizeSynopsisKey(baseTitle);
 
-  const entry = (directKey && items?.[directKey]) || (baseKey && items?.[baseKey]) || null;
+  const entry = (directKey && items?.[directKey])
+    || (baseKey && items?.[baseKey])
+    || (directKey && byTitle?.[directKey])
+    || (baseKey && byTitle?.[baseKey])
+    || null;
   const text = entry?.text ? truncateSynopsis(entry.text, 320) : "";
   return {
     text,
