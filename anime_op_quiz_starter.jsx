@@ -9222,7 +9222,7 @@ export default function AnimeOPQuizStarter() {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
             aria-hidden="true"
           >
             <source src="/0406-copy.mp4" type="video/mp4" />
