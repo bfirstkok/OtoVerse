@@ -5567,7 +5567,7 @@ export default function AnimeOPQuizStarter() {
     if (code === "auth/popup-timeout") return "หน้าต่างล็อกอินค้าง/ใช้เวลานานเกินไป — ลองใหม่หรือเปลี่ยนบราวเซอร์ (Safari บางเครื่องอาจต้องใช้ redirect)";
     if (code === "auth/network-request-failed") return "เครือข่ายมีปัญหา/ถูกบล็อก (ลองปิด adblock, เปลี่ยนเครือข่าย, หรือเปิดผ่าน Chrome/Safari ปกติ)";
     if (code === "auth/web-storage-unsupported") return "บราวเซอร์ปิดการใช้งาน storage (โหมดส่วนตัว/ตั้งค่าความเป็นส่วนตัวสูง) ทำให้ล็อกอินไม่ได้";
-    if (code === "auth/argument-error") return "ล็อกอินด้วยหน้าต่าง popup ไม่ได้ในสภาพแวดล้อมนี้ — ลองใหม่อีกครั้ง หรือใช้โหมด redirect/เปลี่ยนบราวเซอร์";
+    if (code === "auth/argument-error") return "ล็อกอิน Google/GitHub ไม่ได้ในสภาพแวดล้อมนี้ (ข้อจำกัดบราวเซอร์/โหมดความเป็นส่วนตัว) — ลองเปิดด้วย Chrome/Safari ปกติ หรือออกจากโหมดส่วนตัว/in-app browser";
     if (code === "auth/invalid-oauth-client-id") return "ตั้งค่า OAuth ไม่ถูกต้อง (Client ID) — ต้องตั้งค่าในผู้ให้บริการ (Google/GitHub) ให้ถูก";
     if (code === "auth/unauthorized-domain") {
       const host = (() => {
@@ -5679,28 +5679,6 @@ export default function AnimeOPQuizStarter() {
       }
     };
 
-    const preferRedirectOAuth = () => {
-      try {
-        const ua = String(window?.navigator?.userAgent || "");
-        const isIOS = /iPad|iPhone|iPod/i.test(ua);
-
-        // iOS browsers share WebKit restrictions; redirect tends to be more reliable than popup.
-        if (isIOS) return true;
-
-        // Installed/PWA mode can have stricter popup behaviors.
-        const isStandalone =
-          (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) ||
-          // iOS legacy
-          Boolean(window.navigator && window.navigator.standalone);
-
-        if (isStandalone) return true;
-
-        return false;
-      } catch {
-        return false;
-      }
-    };
-
     setAuthError("");
     setAuthBusy(true);
     try {
@@ -5714,26 +5692,9 @@ export default function AnimeOPQuizStarter() {
         return;
       }
 
-      // Prefer redirect immediately on iOS/PWA so it stays within the click gesture.
-      if (preferRedirectOAuth()) {
-        await signInWithRedirect(firebaseAuth, provider);
-        return;
-      }
-
-      const POPUP_TIMEOUT_MS = 12000;
-
-      const popupPromise = signInWithPopup(firebaseAuth, provider);
-      const timeoutPromise = new Promise((_, reject) => {
-        const err = new Error("popup_timeout");
-        err.code = "auth/popup-timeout";
-        setTimeout(() => reject(err), POPUP_TIMEOUT_MS);
-      });
-
-      const cred = await Promise.race([popupPromise, timeoutPromise]);
-
-      await consumePendingLinkForUser(cred.user).catch(() => {});
-      setAuthOpen(false);
-      setAuthPassword("");
+      // Redirect-only OAuth: more reliable across browsers (especially iOS/Safari and strict privacy modes).
+      await signInWithRedirect(firebaseAuth, provider);
+      return;
     } catch (e) {
       const code = String(e?.code || "");
       console.warn("[auth] oauth failed", {
@@ -5776,25 +5737,6 @@ export default function AnimeOPQuizStarter() {
           `อีเมลนี้เคยสมัครด้วยวิธีอื่น${methodsText ? ` (${methodsText})` : ""} — ให้ล็อกอินด้วยวิธีเดิมก่อน แล้วค่อยเชื่อม GitHub`
         );
         return;
-      }
-
-      const shouldFallbackToRedirect =
-        code === "auth/popup-blocked" ||
-        code === "auth/operation-not-supported-in-this-environment" ||
-        code === "auth/cancelled-popup-request" ||
-        code === "auth/popup-timeout" ||
-        code === "auth/web-storage-unsupported" ||
-        code === "auth/argument-error";
-
-      if (shouldFallbackToRedirect) {
-        try {
-          const provider = providerKey === "google" ? new GoogleAuthProvider() : new GithubAuthProvider();
-          await signInWithRedirect(firebaseAuth, provider);
-          return;
-        } catch (e2) {
-          setAuthError(firebaseErrorToThai(e2));
-          return;
-        }
       }
 
       setAuthError(firebaseErrorToThai(e));
