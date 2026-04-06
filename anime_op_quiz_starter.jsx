@@ -7499,10 +7499,10 @@ export default function AnimeOPQuizStarter() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-transparent to-purple-50/40 pointer-events-none dark:from-cyan-400/10 dark:to-blue-500/10" />
             <CardHeader className="relative">
               <div className="flex items-center gap-2 mb-4">
-                <Badge className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">OtoVerse</Badge>
+                <Badge className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">KokVerse</Badge>
                 <Badge variant="outline" className="rounded-full">เลือกแนวจากนั้นเด้ง!</Badge>
               </div>
-              <CardTitle className="font-display text-3xl md:text-4xl bg-gradient-to-r from-slate-900 to-slate-700 dark:from-cyan-200 dark:to-slate-100 bg-clip-text text-transparent">OtoVerse</CardTitle>
+              <CardTitle className="font-display text-3xl md:text-4xl bg-gradient-to-r from-slate-900 to-slate-700 dark:from-cyan-200 dark:to-slate-100 bg-clip-text text-transparent">KokVerse</CardTitle>
               <CardDescription className="text-base leading-7 text-slate-600 dark:text-slate-200/80">
                 กดเริ่มเล่น ⟶ เลือกแนว ⟶ ตั้งค่าเกม + เลือกโหมด ⟶ เด้งเข้าเล่นเกม
               </CardDescription>
@@ -8282,9 +8282,9 @@ export default function AnimeOPQuizStarter() {
       {libraryTab === "legal" ? (
         <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
           <CardHeader>
-            <CardTitle className="text-lg">ช่องทางรับชม/ฟังถูกลิขสิทธิ์</CardTitle>
+            <CardTitle className="text-lg">ช่องทางรับชม/ฟัง</CardTitle>
             <CardDescription>
-              รายการในเกมมีทั้งชื่อเรื่อง, ภาค/ซีซั่น และเพลง OP/ED — เลือกหมวด แล้วกดไอคอนเพื่อค้นหาช่องทางถูกลิขสิทธิ์
+              รายการในเกมมีทั้งชื่อเรื่อง, ภาค/ซีซั่น และเพลง OP/ED — เลือกหมวด แล้วกดไอคอนเพื่อค้นหาช่องทาง
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -9216,13 +9216,13 @@ export default function AnimeOPQuizStarter() {
                 >
                   <img
                     src="/iconweb-v2.jpg"
-                    alt="OtoVerse"
+                    alt="KokVerse"
                     className="h-12 w-12 md:h-14 md:w-14 rounded-2xl object-cover border border-white/50 dark:border-slate-700/40"
                     draggable={false}
                   />
                 </motion.div>
                 <div>
-                  <h1 className="font-display text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 dark:from-cyan-300 dark:to-blue-400 bg-clip-text text-transparent leading-snug">OtoVerse</h1>
+                  <h1 className="font-display text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 dark:from-cyan-300 dark:to-blue-400 bg-clip-text text-transparent leading-snug">KokVerse</h1>
                   <p className="text-xs md:text-sm text-slate-600 dark:text-cyan-300/70 hidden sm:block">ทายเพลง anime ยอดนิยม</p>
                 </div>
               </div>

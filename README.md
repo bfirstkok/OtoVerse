@@ -1,4 +1,4 @@
-# OtoVerse
+# KokVerse
 
 เว็บเกมทายเพลงอนิเมะ (OP/ED) สร้างด้วย Vite + React + Tailwind และมีระบบโซเชียลผ่าน Firebase (Auth/Firestore/Storage)
 

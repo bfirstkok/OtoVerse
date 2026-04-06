@@ -1,7 +1,7 @@
 {
-  "name": "OtoVerse",
-  "short_name": "OtoVerse",
-  "description": "OtoVerse web app",
+  "name": "KokVerse",
+  "short_name": "KokVerse",
+  "description": "KokVerse web app",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0b1220",
