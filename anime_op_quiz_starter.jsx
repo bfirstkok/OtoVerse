@@ -70,8 +70,8 @@ import { ensureDirectChat, getDirectChatId, sendDirectMessage, subscribeDirectMe
 const animeData = [
   {
     id: 1,
-    title: "Shingeki no Kyojin (OP1)",
-    altTitles: ["Shingeki no Kyojin", "ผ่าพิภพไททัน"],
+    title: "Shingeki no Kyojin (Attack On Titan) (OP1)",
+    altTitles: ["Shingeki no Kyojin", "Attack On Titan", "ผ่าพิภพไททัน"],
     difficulty: "easy",
     year: 2013,
     youtubeVideoId: "euX_8PYBvr4",
@@ -1680,7 +1680,7 @@ const animeData = [
   },
   {
     id: 162,
-    title: "Attack on Titan Season 2 (OP1)",
+    title: "Shingeki no Kyojin (Attack On Titan) Season 2 (OP1)",
     altTitles: ["ผ่าพิภพไททัน ภาค 2"],
     difficulty: "normal",
     year: 2017,
@@ -2720,7 +2720,7 @@ const animeData = [
   },
   {
     id: 266,
-    title: "Attack on Titan Season 3 (OP1)",
+    title: "Shingeki no Kyojin (Attack On Titan) Season 3 (OP1)",
     altTitles: ["ผ่าพิภพไททัน ภาค 3"],
     difficulty: "easy",
     year: 2018,
@@ -2730,7 +2730,7 @@ const animeData = [
   },
   {
     id: 267,
-    title: "Attack on Titan: Final Season (OP1)",
+    title: "Shingeki no Kyojin (Attack On Titan): Final Season (OP1)",
     altTitles: ["ผ่าพิภพไททัน ไฟนอลซีซั่น"],
     difficulty: "easy",
     year: 2020,
@@ -2740,7 +2740,7 @@ const animeData = [
   },
   {
     id: 268,
-    title: "Attack on Titan: Final Season Part 2 (OP1)",
+    title: "Shingeki no Kyojin (Attack On Titan): Final Season Part 2 (OP1)",
     altTitles: ["ผ่าพิภพไททัน ไฟนอลซีซั่น พาร์ท 2"],
     difficulty: "easy",
     year: 2022,
@@ -3501,21 +3501,21 @@ const animeData = [
   {
     id: 344,
     title: "Strike the Blood (OP1)",
-    altTitles: ["สายเลือดแท้ผู้บุกทะลวง"],
+    altTitles: ["สายเลือดแท้ที่สี่"],
     difficulty: "normal",
     year: 2013,
     youtubeVideoId: "https://www.youtube.com/watch?v=gC68s6hlHwM&list=RDgC68s6hlHwM&start_radio=1",
-    acceptedAnswers: ["strike the blood", "สายเลือดแท้ผู้บุกทะลวง", "สไตรค์เดอะบลัด"],
+    acceptedAnswers: ["strike the blood", "สายเลือดแท้ที่สี่ ", "สไตรค์เดอะบลัด"],
     note: "Strike the Blood"
   },
   {
     id: 345,
     title: "Strike the Blood (OP2)",
-    altTitles: ["สายเลือดแท้ผู้บุกทะลวง"],
+    altTitles: ["สายเลือดแท้ที่สี่"],
     difficulty: "normal",
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=rfZL61nGIOs&list=RDrfZL61nGIOs&start_radio=1",
-    acceptedAnswers: ["strike the blood", "สายเลือดแท้ผู้บุกทะลวง", "สไตรค์เดอะบลัด"],
+    acceptedAnswers: ["strike the blood", "สายเลือดแท้ที่สี่ ", "สไตรค์เดอะบลัด"],
     note: "Fight 4 Real"
   },
   {
@@ -3871,41 +3871,41 @@ const animeData = [
   {
     id: 381,
     title: "Strike the Blood S2 (OP1)",
-    altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาค 2"],
+    altTitles: ["สายเลือดแท้ผู้ที่สี่ ภาค 2"],
     difficulty: "normal",
     year: 2016,
     youtubeVideoId: "https://www.youtube.com/watch?v=gC68s6hlHwM&list=RDgC68s6hlHwM&start_radio=1",
-    acceptedAnswers: ["strike the blood", "strike the blood ii", "strike the blood 2", "สายเลือดแท้ผู้บุกทะลวง", "สไตรค์เดอะบลัด"],
+    acceptedAnswers: ["strike the blood", "strike the blood ii", "strike the blood 2", "สายเลือดแท้ผู้ที่สี่", "สไตรค์เดอะบลัด"],
     note: "Blood on the EDGE"
   },
   {
     id: 382,
     title: "Strike the Blood S3 (OP1)",
-    altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาค 3"],
+    altTitles: ["สายเลือดแท้ผู้ที่สี่ ภาค 3"],
     difficulty: "hard",
     year: 2018,
     youtubeVideoId: "https://www.youtube.com/watch?v=L5-C-GN4JCU&list=RDL5-C-GN4JCU&start_radio=1",
-    acceptedAnswers: ["strike the blood", "strike the blood iii", "strike the blood 3", "สายเลือดแท้ผู้บุกทะลวง", "สไตรค์เดอะบลัด"],
+    acceptedAnswers: ["strike the blood", "strike the blood iii", "strike the blood 3", "สายเลือดแท้ผู้ที่สี่", "สไตรค์เดอะบลัด"],
     note: "Blood and Emotions"
   },
   {
     id: 383,
     title: "Strike the Blood S4 (OP1)",
-    altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาค 4"],
+    altTitles: ["สายเลือดแท้ที่สี่ ภาค 4"],
     difficulty: "hard",
     year: 2020,
     youtubeVideoId: "https://www.youtube.com/watch?v=rjzC2BiY2WM&list=RDrjzC2BiY2WM&start_radio=1",
-    acceptedAnswers: ["strike the blood", "strike the blood iv", "strike the blood 4", "สายเลือดแท้ผู้บุกทะลวง", "สไตรค์เดอะบลัด"],
+    acceptedAnswers: ["strike the blood", "strike the blood iv", "strike the blood 4", "สายเลือดแท้ที่สี่", "สไตรค์เดอะบลัด"],
     note: "Akatsuki no Kaleido Blood"
   },
   {
     id: 384,
     title: "Strike the Blood Final (OP1)",
-    altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาคไฟนอล"],
+    altTitles: ["สายเลือดแท้ที่สี่ ภาคไฟนอล"],
     difficulty: "hard",
     year: 2022,
     youtubeVideoId: "https://www.youtube.com/watch?v=rjzC2BiY2WM&list=RDrjzC2BiY2WM&start_radio=1",
-    acceptedAnswers: ["strike the blood", "strike the blood final", "สายเลือดแท้ผู้บุกทะลวง", "สไตรค์เดอะบลัด"],
+    acceptedAnswers: ["strike the blood", "strike the blood final", "สายเลือดแท้ที่สี่", "สไตรค์เดอะบลัด"],
     note: "Bloodlines"
   },
   {
@@ -4394,7 +4394,7 @@ const animeData = [
     altTitles: ["การ์ดไฟท์!! แวนการ์ด G Z"],
     difficulty: "hard",
     year: 2017,
-    youtubeVideoId: "https://www.youtube.com/watch?v=hJ3f-Zt7A8A",
+    youtubeVideoId: "https://www.youtube.com/watch?v=VDOEvRCvR1U",
     acceptedAnswers: ["cardfight vanguard", "vanguard g z", "vanguard", "แวนการ์ด", "แวนการ์ด g"],
     note: "Jonetsu no Auto Score"
   },
@@ -4417,7 +4417,757 @@ const animeData = [
     youtubeVideoId: "https://www.youtube.com/watch?v=UzHqDnQvSxQ&list=RDUzHqDnQvSxQ&start_radio=1",
     acceptedAnswers: ["cardfight vanguard divinez", "vanguard divinez", "vanguard", "แวนการ์ด", "แวนการ์ด ดีไวน์ซ"],
     note: "Shukumei"
-  }
+  },
+  {
+    id: 436,
+    title: "DAN DA DAN (OP1)",
+    altTitles: ["Dan Da Dan", "ดันดาดัน"],
+    difficulty: "easy",
+    year: 2024,
+    youtubeVideoId: "https://www.youtube.com/watch?v=a4na2opArGY&list=RDa4na2opArGY&start_radio=1",
+    acceptedAnswers: ["dandadan", "dan da dan", "ดันดาดัน"],
+    note: "Otonoke (オトノケ)"
+  },
+  {
+    id: 437,
+    title: "DAN DA DAN Season 2 (OP1)",
+    altTitles: ["Dan Da Dan Season 2", "ดันดาดัน ภาค 2"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=DCCRNzKvWRg&list=RDDCCRNzKvWRg&start_radio=1",
+    acceptedAnswers: ["dandadan", "dan da dan", "dandadan season 2", "ดันดาดัน", "ดันดาดัน ภาค 2"],
+    note: "Kakumei Douchuu (革命道中)"
+  },
+  {
+    id: 438,
+    title: "Sakamoto Days (OP1)",
+    altTitles: ["SAKAMOTO DAYS", "ซากาโมโตะ เดย์ส"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=ZVkcjgTfLHU&list=RDZVkcjgTfLHU&start_radio=1",
+    acceptedAnswers: ["sakamoto days", "ซากาโมโตะ เดย์ส", "ซากาโมโตะ"],
+    note: "Hashire SAKAMOTO (走れSAKAMOTO)"
+  },
+  {
+    id: 439,
+    title: "Re:ZERO -Starting Life in Another World- Season 3 (OP1)",
+    altTitles: ["Re:Zero Season 3", "รีเซทชีวิต ฝ่าวิกฤตต่างโลก ภาค 3"],
+    difficulty: "normal",
+    year: 2024,
+    youtubeVideoId: "https://www.youtube.com/watch?v=hCxZx7uHO1I&list=RDhCxZx7uHO1I&start_radio=1",
+    acceptedAnswers: ["re:zero", "rezero", "re zero season 3", "รีเซโร่", "รีเซทชีวิต ฝ่าวิกฤตต่างโลก"],
+    note: "Reweave"
+  },
+  {
+    id: 440,
+    title: "Kusuriya no Hitorigoto Season 2 (OP1)",
+    altTitles: ["Kusuriya no Hitorigoto Season 2", "สืบคดีปริศนา หมอยาตำรับโคมแดง ภาค 2"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=sYC5BfJy2nw&list=RDsYC5BfJy2nw&start_radio=1",
+    acceptedAnswers: ["the apothecary diaries", "kusuriya no hitorigoto", "the apothecary diaries season 2", "หมอยาตำรับโคมแดง", "สืบคดีปริศนา หมอยาตำรับโคมแดง"],
+    note: "Hana ni Natte (花になって)"
+  },
+  {
+    id: 441,
+    title: "Blue Exorcist: Beyond the Snow Saga (OP1)",
+    altTitles: ["Ao no Exorcist: Yuki no Hate-hen", "เอ็กซอร์ซิสต์พันธุ์ปีศาจ ภาค Beyond the Snow Saga"],
+    difficulty: "normal",
+    year: 2024,
+    youtubeVideoId: "https://www.youtube.com/watch?v=nKTLOdjWBCM&list=RDnKTLOdjWBCM&start_radio=1",
+    acceptedAnswers: ["blue exorcist", "ao no exorcist", "blue exorcist beyond the snow saga", "เอ็กซอร์ซิสต์พันธุ์ปีศาจ", "บลูเอ็กซอร์ซิสต์"],
+    note: "RE RESCUE"
+  },
+  {
+    id: 442,
+    title: "Orb: On the Movements of the Earth (OP1)",
+    altTitles: ["Chi: Chikyuu no Undou ni Tsuite", "ชิ ว่าด้วยการเคลื่อนที่ของโลก"],
+    difficulty: "hard",
+    year: 2024,
+    youtubeVideoId: "https://www.youtube.com/watch?v=QiF2UjzyNSY&list=RDQiF2UjzyNSY&start_radio=1",
+    acceptedAnswers: ["orb", "orb on the movements of the earth", "chi chikyuu no undou ni tsuite", "ชิ ว่าด้วยการเคลื่อนที่ของโลก"],
+    note: "Kaijuu (怪獣)"
+  },
+  {
+    id: 443,
+    title: "Blue Box (OP1)",
+    altTitles: ["Ao no Hako", "กล่องรักวัยใส"],
+    difficulty: "easy",
+    year: 2024,
+    youtubeVideoId: "https://www.youtube.com/watch?v=d0jg9hNHqn8&list=RDd0jg9hNHqn8&start_radio=1",
+    acceptedAnswers: ["blue box", "ao no hako", "กล่องรักวัยใส"],
+    note: "Same Blue"
+  },
+  {
+    id: 444,
+    title: "Blue Box (OP2)",
+    altTitles: ["Ao no Hako", "กล่องรักวัยใส"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=jj7DnKGG148&list=RDjj7DnKGG148&start_radio=1",
+    acceptedAnswers: ["blue box", "ao no hako", "กล่องรักวัยใส"],
+    note: "Saraba (然らば)"
+  },
+  {
+    id: 445,
+    title: "Witch Watch (OP1)",
+    altTitles: ["วิชวอทช์", "แม่มดจอมป่วนกับยักษ์เฝ้าบ้าน"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=a_NB6QkfzAM&list=RDa_NB6QkfzAM&start_radio=1",
+    acceptedAnswers: ["witch watch", "วิชวอทช์", "แม่มดจอมป่วนกับยักษ์เฝ้าบ้าน"],
+    note: "Watch me!"
+  },
+  {
+    id: 446,
+    title: "Lazarus (OP1)",
+    altTitles: ["ลาซารัส"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=XBMrH1ZQs90&list=RDXBMrH1ZQs90&start_radio=1",
+    acceptedAnswers: ["lazarus", "ลาซารัส"],
+    note: "Vortex"
+  },
+  {
+    id: 447,
+    title: "WIND BREAKER Season 2 (OP1)",
+    altTitles: ["วินด์เบรกเกอร์ ภาค 2"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=AWlUVr7Du04&list=RDAWlUVr7Du04&start_radio=1",
+    acceptedAnswers: ["wind breaker", "wind breaker season 2", "วินด์เบรกเกอร์", "วินด์เบรกเกอร์ ภาค 2"],
+    note: "BOYZ"
+  },
+  {
+    id: 448,
+    title: "Enen no Shouboutai Season 3 (OP1)",
+    altTitles: ["Enen no Shouboutai Season 3", "หน่วยผจญคนไฟลุก ภาค 3"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=_Oyq3V_0wqI",
+    acceptedAnswers: ["fire force", "enen no shouboutai", "fire force season 3", "หน่วยผจญคนไฟลุก"],
+    note: "Inferno (インフェルノ)"
+  },
+  {
+    id: 449,
+    title: "My Hero Academia: Vigilantes (OP1)",
+    altTitles: ["Vigilante: Boku no Hero Academia Illegals", "มายฮีโร่ อคาเดเมีย วิจิลันเต"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=amShp0GrLgg",
+    acceptedAnswers: ["my hero academia vigilantes", "vigilantes", "boku no hero academia vigilantes", "มายฮีโร่ อคาเดเมีย วิจิลันเต"],
+    note: "Kekka Alright (けっかおーらい)"
+  },
+  {
+    id: 450,
+    title: "Ameku M.D.: Doctor Detective (OP1)",
+    altTitles: ["Ameku Takao no Suiri Karte", "คุณหมออาเมคุ ไขคดีปริศนา"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=3lfnikn920s&list=RD3lfnikn920s&start_radio=1",
+    acceptedAnswers: ["ameku m.d. doctor detective", "ameku takao no suiri karte", "คุณหมออาเมคุ ไขคดีปริศนา", "ameku"],
+    note: "SCOPE"
+  },
+  {
+    id: 451,
+    title: "Medalist (OP1)",
+    altTitles: ["เมดัลลิสต์"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=H3SUAiwfyp0&list=RDH3SUAiwfyp0&start_radio=1",
+    acceptedAnswers: ["medalist", "เมดัลลิสต์"],
+    note: "BOW AND ARROW"
+  },
+  {
+    id: 452,
+    title: "Zenshu (OP1)",
+    altTitles: ["ZENSHU", "เซ็นชู"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=oygsxvHtU74&list=RDoygsxvHtU74&start_radio=1",
+    acceptedAnswers: ["zenshu", "zenshuu", "เซ็นชู"],
+    note: "Zen"
+  },
+  {
+    id: 453,
+    title: "Tasokare Hotel (OP1)",
+    altTitles: ["Who Saw the Peacock Dance in the Jungle?", "ทาโซคาเระ โฮเทล"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=z6AfOdkIFe8&list=RDz6AfOdkIFe8&start_radio=1",
+    acceptedAnswers: ["tasokare hotel", "ทาโซคาเระ โฮเทล", "tasokare"],
+    note: "Tasokare (たそかれ)"
+  },
+  {
+    id: 454,
+    title: "Ameku M.D.: Doctor Detective (OP1)",
+    altTitles: ["Ameku Takao no Suiri Karte", "คุณหมออาเมคุ ไขคดีปริศนา"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=3lfnikn920s&list=RD3lfnikn920s&start_radio=1",
+    acceptedAnswers: ["ameku m.d. doctor detective", "ameku takao no suiri karte", "ameku", "คุณหมออาเมคุ ไขคดีปริศนา"],
+    note: "SCOPE"
+  },
+  {
+    id: 455,
+    title: "Guild Receptionist (OP1)",
+    altTitles: ["Guild no Uketsukejou desu ga, Zangyou wa Iya nanode Boss wo Solo Toubatsu Shiyou to Omoimasu", "กิลด์รีเซพชั่นนิสต์"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=HTRkYRcRfiA&list=RDHTRkYRcRfiA&start_radio=1",
+    acceptedAnswers: ["guild receptionist", "guild no uketsukejou", "กิลด์รีเซพชั่นนิสต์"],
+    note: "Perfect Day (パーフェクトデイ)"
+  },
+  {
+    id: 456,
+    title: "Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru (OP1)",
+    altTitles: ["Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru", "โอกิตสึระ"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=0XrTdI3l8o4&list=RD0XrTdI3l8o4&start_radio=1",
+    acceptedAnswers: ["okitsura", "okinawa de suki ni natta ko ga hougen sugite tsurasugiru", "โอกิตสึระ"],
+    note: "Dai Dai Daisuki (大大大好き)"
+  },
+  {
+    id: 457,
+    title: "Dr. STONE: SCIENCE FUTURE (OP1)",
+    altTitles: ["Dr. Stone Season 4", "ดร.สโตน ภาค 4"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=fG07I9UlnoI&list=RDfG07I9UlnoI&start_radio=1",
+    acceptedAnswers: ["dr stone", "dr. stone", "dr stone science future", "ดร.สโตน"],
+    note: "CASANOVA POSSE"
+  },
+  {
+    id: 458,
+    title: "Dr. STONE: SCIENCE FUTURE Part 2 (OP1)",
+    altTitles: ["Dr. Stone Science Future Part 2", "ดร.สโตน ภาค 4 พาร์ท 2"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=08bOLUf2Dzs&list=RD08bOLUf2Dzs&start_radio=1",
+    acceptedAnswers: ["dr stone", "dr. stone", "dr stone science future", "dr stone science future part 2", "ดร.สโตน"],
+    note: "SUPERNOVA"
+  },
+  {
+    id: 459,
+    title: "Solo Leveling Season 2: Arise from the Shadow (OP1)",
+    altTitles: ["Ore dake Level Up na Ken Season 2", "โซโลเลเวลลิง ภาค 2"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=C0zMWogztQs&list=RDC0zMWogztQs&start_radio=1",
+    acceptedAnswers: ["solo leveling", "solo leveling season 2", "ore dake level up na ken", "โซโลเลเวลลิง"],
+    note: "ReawakeR (feat. Felix of Stray Kids)"
+  },
+  {
+    id: 460,
+    title: "Watashi no Shiawase na Kekkon 2nd Season (OP1)",
+    altTitles: ["Watashi no Shiawase na Kekkon 2nd Season", "ขอให้รักเรานี้ได้มีความสุข ภาค 2"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=oDoErCB-MCY&list=RDoDoErCB-MCY&start_radio=1",
+    acceptedAnswers: ["my happy marriage", "watashi no shiawase na kekkon", "my happy marriage season 2", "ขอให้รักเรานี้ได้มีความสุข"],
+    note: "Shiawase na Yakusoku. (幸せな約束。)"
+  },
+  {
+    id: 461,
+    title: "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo Season 2 (OP1)",
+    altTitles: ["Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo Season 2", "แฟนสาว 100 คน ภาค 2"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=Itke9o80go0&list=RDItke9o80go0&start_radio=1",
+    acceptedAnswers: ["100 girlfriends", "the 100 girlfriends who really really really really really love you", "แฟนสาว 100 คน", "100 kanojo"],
+    note: "Daidaidaidai Daisuki na Kimi e♡ (大大大大大好きな君へ♡)"
+  },
+  {
+    id: 462,
+    title: "Honey Lemon Soda (OP1)",
+    altTitles: ["ฮันนี่เลมอนโซดา"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=6iRn_EwaCqo&list=RD6iRn_EwaCqo&start_radio=1",
+    acceptedAnswers: ["honey lemon soda", "ฮันนี่เลมอนโซดา"],
+    note: "Magic Hour"
+  },
+  {
+    id: 463,
+    title: "Kono Kaisha ni Suki na Hito ga Imasu (OP1)",
+    altTitles: ["Can You Keep a Secret?", "Kono Kaisha ni Suki na Hito ga Imasu"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=g9FJdmNgGek&list=RDg9FJdmNgGek&start_radio=1",
+    acceptedAnswers: ["i have a crush at work", "can you keep a secret", "kono kaisha ni suki na hito ga imasu"],
+    note: "Ano ne, (あのね、)"
+  },
+  {
+    id: 464,
+    title: "Kisaki Kyouiku kara Nigetai Watashi (OP1)",
+    altTitles: ["Kisaki Kyouiku kara Nigetai Watashi", "ขอหนีจากบทเรียนเจ้าหญิง"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=BHOkQhV9aUQ&list=RDBHOkQhV9aUQ&start_radio=1",
+    acceptedAnswers: ["i want to escape from princess lessons", "kisaki kyouiku kara nigetai watashi", "ขอหนีจากบทเรียนเจ้าหญิง"],
+    note: "Kimi to shika Koishinai (君としか恋しない)"
+  },
+  {
+    id: 465,
+    title: "Flower and Asura (OP1)",
+    altTitles: ["Hana wa Saku, Shura no Gotoku", "ดอกไม้และอสูร"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=On8rbqA_Deo&list=RDOn8rbqA_Deo&start_radio=1",
+    acceptedAnswers: ["flower and asura", "hana wa saku shura no gotoku", "ดอกไม้และอสูร"],
+    note: "Jibun Kakumei (自分革命)"
+  },
+  {
+    id: 466,
+    title: "S Rank Monster no Behemoth dakedo (OP1)",
+    altTitles: ["S Rank Monster no Behemoth dakedo", "เบเฮเนโกะ"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=yJG9B1p2B-4",
+    acceptedAnswers: ["beheneko", "the elf girls cat is secretly an s-ranked monster", "s rank monster no behemoth dakedo", "เบเฮเนโกะ"],
+    note: "Saijoukyuu no Kokoro (最上級の心)"
+  },
+  {
+    id: 467,
+    title: "Guild no Uketsukejou (OP1)",
+    altTitles: ["Guild no Uketsukejou", "กิลด์รีเซพชั่นนิสต์"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=g5yCkyCZ6ZA&list=RDg5yCkyCZ6ZA&start_radio=1",
+    acceptedAnswers: ["i may be a guild receptionist but ill solo any boss to clock out on time", "guild receptionist", "guild no uketsukejou", "กิลด์รีเซพชั่นนิสต์"],
+    note: "Perfect Day (パーフェクトデイ)"
+  },
+  {
+    id: 468,
+    title: "Summer Pockets (OP1)",
+    altTitles: ["ซัมเมอร์พ็อกเก็ตส์"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=REuUOArc0W4&list=RDREuUOArc0W4&start_radio=1",
+    acceptedAnswers: ["summer pockets", "ซัมเมอร์พ็อกเก็ตส์"],
+    note: "Alka Tale (アルカテイル)"
+  },
+  {
+    id: 469,
+    title: "Kowloon Generic Romance (OP1)",
+    altTitles: ["เกาลูน เจเนอริก โรแมนซ์"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=XBByBaC1WbM&list=RDXBByBaC1WbM&start_radio=1",
+    acceptedAnswers: ["kowloon generic romance", "เกาลูน เจเนอริก โรแมนซ์", "kowloon"],
+    note: "Summertime Ghost (サマータイムゴースト)"
+  },
+  {
+    id: 470,
+    title: "The Beginning After the End (OP1)",
+    altTitles: ["Saikyou no Ousama, Nidome no Jinsei wa Nani wo Suru?", "จุดเริ่มต้นและจุดจบ"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=FkgC37ERJCY&list=RDFkgC37ERJCY&start_radio=1",
+    acceptedAnswers: ["the beginning after the end", "saikyou no ousama nidome no jinsei wa nani wo suru", "จุดเริ่มต้นและจุดจบ"],
+    note: "KINGSBLOOD"
+  },
+  {
+    id: 471,
+    title: "Danjo no Yuujou wa Seiritsu suru? (Iya, Shinai!!) (OP1)",
+    altTitles: ["Danjo no Yuujou wa Seiritsu suru? (Iya, Shinai!!)", "เพื่อนชายหญิงแท้จริงไม่มีหรอก?"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=-7h--XTyj8A&list=RD-7h--XTyj8A&start_radio=1",
+    acceptedAnswers: ["can a boy-girl friendship hold up no it cant", "danjo no yuujou wa seiritsu suru", "เพื่อนชายหญิงแท้จริงไม่มีหรอก"],
+    note: "Shitsumon, Koi tte Nan deshou ka? (質問、恋って何でしょうか？)"
+  },
+  {
+    id: 472,
+    title: "Apocalypse Hotel (OP1)",
+    altTitles: ["อพอคาลิปส์ โฮเทล"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=0Pn6FQXbqhw&list=RD0Pn6FQXbqhw&start_radio=1",
+    acceptedAnswers: ["apocalypse hotel", "อพอคาลิปส์ โฮเทล"],
+    note: "skirt"
+  },
+  {
+    id: 473,
+    title: "Catch Me at the Ballpark! (OP1)",
+    altTitles: ["Ballpark de Tsukamaete!", "จับฉันให้ได้ที่สนามเบสบอล!"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=q8m2mO3ykio&list=RDq8m2mO3ykio&start_radio=1",
+    acceptedAnswers: ["catch me at the ballpark", "ballpark de tsukamaete", "จับฉันให้ได้ที่สนามเบสบอล"],
+    note: "Hurray!!"
+  },
+  {
+    id: 474,
+    title: "mono (OP1)",
+    altTitles: ["โมโน"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=fmxKvgDOElk&list=RDfmxKvgDOElk&start_radio=1",
+    acceptedAnswers: ["mono", "โมโน"],
+    note: "Many Merry Memories! (メニメリ・メモリーズ！)"
+  },
+  {
+    id: 475,
+    title: "Zatsu Tabi: That's Journey (OP1)",
+    altTitles: ["Zatsu Tabi", "ซัตสึทาบิ"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=VbXNzRPlRHM&list=RDVbXNzRPlRHM&start_radio=1",
+    acceptedAnswers: ["zatsu tabi", "thats journey", "ซัตสึทาบิ"],
+    note: "Tabi Shiyo! don't you? (旅しよ！don't you？)"
+  },
+  {
+    id: 476,
+    title: "Ninja to Koroshiya no Futarigurashi (OP1)",
+    altTitles: ["A Ninja and an Assassin Under One Roof", "นินจากับนักฆ่าอยู่บ้านเดียวกัน"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=04lt-OgLyH0&list=RD04lt-OgLyH0&start_radio=1",
+    acceptedAnswers: ["ninja to koroshiya no futarigurashi", "a ninja and an assassin under one roof", "นินจากับนักฆ่าอยู่บ้านเดียวกัน"],
+    note: "Yarenno? Endless (やれんの？エンドレス)"
+  },
+  {
+    id: 477,
+    title: "Aharen-san wa Hakarenai Season 2 (OP1)",
+    altTitles: ["Aharen-san wa Hakarenai 2nd Season", "คุณอาฮาเรน ภาค 2"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=a6WTDZQrbeE&list=RDa6WTDZQrbeE&start_radio=1",
+    acceptedAnswers: ["aharen san wa hakarenai", "aharen san wa hakarenai season 2", "คุณอาฮาเรน"],
+    note: "Binetsuma (微熱魔)"
+  },
+  {
+    id: 478,
+    title: "Black Butler: Emerald Witch Arc (OP1)",
+    altTitles: ["Kuroshitsuji: Midori no Majo-hen", "คนลึกไขปริศนาลับ ภาคแม่มดมรกต"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=KmAT3soCBFQ&list=RDKmAT3soCBFQ&start_radio=1",
+    acceptedAnswers: ["black butler", "kuroshitsuji", "black butler emerald witch arc", "คนลึกไขปริศนาลับ"],
+    note: "MAISIE"
+  },
+  {
+    id: 479,
+    title: "Rock Is a Lady's Modesty (OP1)",
+    altTitles: ["Rock wa Lady no Tashinami deshite", "ร็อกคือความสง่างามของคุณหนู"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=X7slC9FW1pQ&list=RDX7slC9FW1pQ&start_radio=1",
+    acceptedAnswers: ["rock is a ladys modesty", "rock wa lady no tashinami deshite", "ร็อกคือความสง่างามของคุณหนู"],
+    note: "Ready to Rock"
+  },
+  {
+    id: 480,
+    title: "Anne Shirley (OP1)",
+    altTitles: ["แอน เชอร์ลีย์"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=35zmW9MlQWs&list=RD35zmW9MlQWs&start_radio=1",
+    acceptedAnswers: ["anne shirley", "แอน เชอร์ลีย์"],
+    note: "Yokan (予感)"
+  },
+  {
+    id: 481,
+    title: "YAIBA: Samurai Legend (OP1)",
+    altTitles: ["Shin Samurai-den YAIBA", "ไยบะ"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=aWGC4AvH7Sw&list=RDaWGC4AvH7Sw&start_radio=1",
+    acceptedAnswers: ["yaiba", "yaiba samurai legend", "shin samurai den yaiba", "ไยบะ"],
+    note: "BLADE"
+  },
+  {
+    id: 482,
+    title: "DAN DA DAN Season 2 (OP1)",
+    altTitles: ["Dan Da Dan Season 2", "ดันดาดัน ภาค 2"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=DCCRNzKvWRg&list=RDDCCRNzKvWRg&start_radio=1",
+    acceptedAnswers: ["dandadan", "dan da dan", "dandadan season 2", "ดันดาดัน", "ดันดาดัน ภาค 2"],
+    note: "Kakumei Douchuu (革命道中)"
+  },
+  {
+    id: 483,
+    title: "The Fragrant Flower Blooms with Dignity (OP1)",
+    altTitles: ["Kaoru Hana wa Rin to Saku", "ดอกรักผลิบานที่กลางใจ"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=KRLTEifai74&list=RDKRLTEifai74&start_radio=1",
+    acceptedAnswers: ["the fragrant flower blooms with dignity", "kaoru hana wa rin to saku", "ดอกรักผลิบานที่กลางใจ"],
+    note: "Manazashi wa Hikari (まなざしは光)"
+  },
+  {
+    id: 484,
+    title: "Rascal Does Not Dream of Santa Claus (OP1)",
+    altTitles: ["Seishun Buta Yarou wa Santa Claus no Yume wo Minai", "เรื่องฝันปั่นป่วยของผมกับซานตาคลอส"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=768epU6Wz34&list=RD768epU6Wz34&start_radio=1",
+    acceptedAnswers: ["rascal does not dream of santa claus", "seishun buta yarou wa santa claus no yume wo minai", "บันนี่เกิร์ล", "เรื่องฝันปั่นป่วยของผมกับซานตาคลอส"],
+    note: "Snowdrop (スノウドロップ)"
+  },
+  {
+    id: 485,
+    title: "Gachiakuta (OP1)",
+    altTitles: ["กาจิอาคุตะ"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=9f89PWhv8YE&list=RD9f89PWhv8YE&start_radio=1",
+    acceptedAnswers: ["gachiakuta", "กาจิอาคุตะ"],
+    note: "HUGs"
+  },
+  {
+    id: 486,
+    title: "Clevatess (OP1)",
+    altTitles: ["Clevatess: Majuu no Ou to Akago to Shikabane no Yuusha", "เคลวาเทส"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=jQnIPTsWyC4&list=RDjQnIPTsWyC4&start_radio=1",
+    acceptedAnswers: ["clevatess", "clevatess majuu no ou to akago to shikabane no yuusha", "เคลวาเทส"],
+    note: "Ruler"
+  },
+  {
+    id: 487,
+    title: "Tougen Anki (OP1)",
+    altTitles: ["โทเก็นอันคิ"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=bCjTTzgefSs&list=RDbCjTTzgefSs&start_radio=1",
+    acceptedAnswers: ["tougen anki", "โทเก็นอันคิ"],
+    note: "OVERNIGHT"
+  },
+  {
+    id: 488,
+    title: "Kaiju No. 8 Season 2 (OP1)",
+    altTitles: ["ไคจูหมายเลข 8 ภาค 2"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=rH8FCwzOdpI&list=RDrH8FCwzOdpI&start_radio=1",
+    acceptedAnswers: ["kaiju no 8", "kaiju no. 8", "kaiju no 8 season 2", "ไคจูหมายเลข 8"],
+    note: "You Can't Run From Yourself"
+  },
+  {
+    id: 489,
+    title: "Yofukashi no Uta Season 2 (OP1)",
+    altTitles: ["Yofukashi no Uta Season 2", "เพลงรักมนุษย์ค้างคาว ภาค 2"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=qA6ttnGzSUM&list=RDqA6ttnGzSUM&start_radio=1",
+    acceptedAnswers: ["call of the night", "yofukashi no uta", "call of the night season 2", "เพลงรักมนุษย์ค้างคาว"],
+    note: "Mirage"
+  },
+  {
+    id: 490,
+    title: "Sono Bisque Doll wa Koi wo Suru Season 2 (OP1)",
+    altTitles: ["Sono Bisque Doll wa Koi wo Suru Season 2", "หนุ่มเย็บผ้ากับสาวนักคอสเพลย์ ภาค 2"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=ie5GcVid_8k&list=RDie5GcVid_8k&start_radio=1",
+    acceptedAnswers: ["my dress up darling", "sono bisque doll wa koi wo suru", "my dress up darling season 2", "หนุ่มเย็บผ้ากับสาวนักคอสเพลย์"],
+    note: "Ao to Kirameki (アオとキラメキ)"
+  },
+  {
+    id: 491,
+    title: "Kanojo, Okarishimasu 4th Season (OP1)",
+    altTitles: ["Kanojo, Okarishimasu 4th Season", "สะดุดรักยัยแฟนเช่า ภาค 4"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=PEKJKhLY4Qw&list=RDPEKJKhLY4Qw&start_radio=1",
+    acceptedAnswers: ["rent a girlfriend", "kanojo okarishimasu", "rent a girlfriend season 4", "สะดุดรักยัยแฟนเช่า"],
+    note: "Umitsuki"
+  },
+  {
+    id: 492,
+    title: "Silent Witch: Chinmoku no Majo no Kakushigoto (OP1)",
+    altTitles: ["Silent Witch: Chinmoku no Majo no Kakushigoto", "ความลับของแม่มดเงียบ"],
+    difficulty: "hard",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=DWNiF9QdQ_E&list=RDDWNiF9QdQ_E&start_radio=1",
+    acceptedAnswers: ["secrets of the silent witch", "silent witch", "silent witch chinmoku no majo no kakushigoto", "ความลับของแม่มดเงียบ"],
+    note: "Feel"
+  },
+  {
+    id: 493,
+    title: "City The Animation (OP1)",
+    altTitles: ["CITY THE ANIMATION", "ซิตี้ ดิ แอนิเมชัน"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=10eZAXGuVT4&list=RD10eZAXGuVT4&start_radio=1",
+    acceptedAnswers: ["city the animation", "city", "ซิตี้ ดิ แอนิเมชัน"],
+    note: "Hello"
+  },
+  {
+    id: 494,
+    title: "Witch Watch (OP2)",
+    altTitles: ["วิชวอทช์"],
+    difficulty: "normal",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=bNebhCcS_2g&list=RDbNebhCcS_2g&start_radio=1",
+    acceptedAnswers: ["witch watch", "วิชวอทช์"],
+    note: "Tokihanate! (ときはなて！)"
+  },
+  {
+    id: 495,
+    title: "One-Punch Man Season 3 (OP1)",
+    altTitles: ["วันพั้นช์แมน ภาค 3"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=6qI-a3YXEPc&list=RD6qI-a3YXEPc&start_radio=1",
+    acceptedAnswers: ["one punch man", "one-punch man", "one punch man season 3", "วันพั้นช์แมน"],
+    note: "Get No Satisfied !"
+  },
+  {
+    id: 496,
+    title: "Spy x Family Season 3 (OP1)",
+    altTitles: ["สปาย x แฟมิลี ภาค 3"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=PcmmU4aEQu0&list=RDPcmmU4aEQu0&start_radio=1",
+    acceptedAnswers: ["spy x family", "spy family", "spy x family season 3", "สปาย x แฟมิลี"],
+    note: "Hi wo Mamoru (灯を護る)"
+  },
+  {
+    id: 497,
+    title: "Chainsaw Man – The Movie: Reze Arc (op movie)",
+    altTitles: ["Chainsaw Man Movie", "เชนซอว์แมน เดอะมูฟวี่ เรเซ่อาร์ค"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=ux3QETpLcPs&list=RDux3QETpLcPs&start_radio=1",
+    acceptedAnswers: ["chainsaw man", "chainsaw man reze arc", "chainsaw man movie", "เชนซอว์แมน"],
+    note: "IRIS OUT"
+  },
+  {
+    id: 498,
+    title: "Blue Box Season 2 (OP1)",
+    altTitles: ["Ao no Hako Season 2", "กล่องรักวัยใส ภาค 2"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=d0jg9hNHqn8&list=RDd0jg9hNHqn8&start_radio=1",
+    acceptedAnswers: ["blue box", "ao no hako", "blue box season 2", "กล่องรักวัยใส"],
+    note: ""
+  },
+  {
+    id: 499,
+    title: "My Hero Academia: FINAL SEASON (OP1)",
+    altTitles: ["Boku no Hero Academia Final Season", "มายฮีโร่ อคาเดเมีย ไฟนอลซีซัน"],
+    difficulty: "easy",
+    year: 2025,
+    youtubeVideoId: "https://www.youtube.com/watch?v=K0v0lTbZnvM&list=RDK0v0lTbZnvM&start_radio=1",
+    acceptedAnswers: ["my hero academia", "boku no hero academia", "my hero academia final season", "มายฮีโร่ อคาเดเมีย"],
+    note: "THE REVO"
+  },
+  {
+    id: 500,
+    title: "Sousou no Frieren Season 2 (OP1)",
+    altTitles: ["Sousou no Frieren Season 2", "คำอธิษฐานในวันที่จากลา ภาค 2"],
+    difficulty: "easy",
+    year: 2026,
+    youtubeVideoId: "https://www.youtube.com/watch?v=C0BG3B7aksU&list=RDC0BG3B7aksU&start_radio=1",
+    acceptedAnswers: ["frieren", "sousou no frieren", "frieren beyond journeys end season 2", "ฟรีเรน", "คำอธิษฐานในวันที่จากลา"],
+    note: "lulu."
+  },
+  {
+    id: 501,
+    title: "High School DxD New (OP1)",
+    altTitles: ["ไฮสคูล DxD New", "High School DxD Season 2"],
+    difficulty: "normal",
+    year: 2013,
+    youtubeVideoId: "https://www.youtube.com/watch?v=51IqO09zGdc&list=RD51IqO09zGdc&start_radio=1",
+    acceptedAnswers: ["high school dxd", "high school dxd new", "ไฮสคูล dxd", "ไฮสคูล dxd new"],
+    note: "Sympathy"
+  },
+  {
+    id: 502,
+    title: "High School DxD New (OP2)",
+    altTitles: ["ไฮสคูล DxD New", "High School DxD Season 2"],
+    difficulty: "hard",
+    year: 2013,
+    youtubeVideoId: "https://www.youtube.com/watch?v=ffTjlMgHYck&list=RDffTjlMgHYck&start_radio=1",
+    acceptedAnswers: ["high school dxd", "high school dxd new", "ไฮสคูล dxd", "ไฮสคูล dxd new"],
+    note: "Gekijouron (激情論)"
+  },
+  {
+    id: 503,
+    title: "High School DxD BorN (OP1)",
+    altTitles: ["ไฮสคูล DxD BorN", "High School DxD Season 3"],
+    difficulty: "normal",
+    year: 2015,
+    youtubeVideoId: "https://www.youtube.com/watch?v=SycL40fnUlw&list=RDSycL40fnUlw&start_radio=1",
+    acceptedAnswers: ["high school dxd", "high school dxd born", "ไฮสคูล dxd", "ไฮสคูล dxd born"],
+    note: "BLESS YoUr NAME"
+  },
+  {
+    id: 504,
+    title: "High School DxD Hero (OP1)",
+    altTitles: ["ไฮสคูล DxD Hero", "High School DxD Season 4"],
+    difficulty: "normal",
+    year: 2018,
+    youtubeVideoId: "https://www.youtube.com/watch?v=wrNvWEEHzTk&list=RDwrNvWEEHzTk&start_radio=1",
+    acceptedAnswers: ["high school dxd", "high school dxd hero", "ไฮสคูล dxd", "ไฮสคูล dxd hero"],
+    note: "SWITCH"
+  },
+  {
+    id: 505,
+    title: "umamusume s1  (OP1)",
+    altTitles: ["สาวม้าโมเอะ", "umamusume s1"],
+    difficulty: "normal",
+    year: 2018,
+    youtubeVideoId: "https://www.youtube.com/watch?v=nuuq0Ul_-_c&list=PL_y7yIiv8j3GPkNaoSpZafmoAl0F-nXeQ",
+    acceptedAnswers: ["สาวม้า", "umamusume", "สาวม้าโมเอะ", "umamusume s1"],
+    note: "Kokoro e"
+  },
+  {
+    id: 506,
+    title: "umamusume s1  (ED2)",
+    altTitles: ["สาวม้าโมเอะ", "umamusume s1"],
+    difficulty: "normal",
+    year: 2018,
+    youtubeVideoId: "https://www.youtube.com/watch?v=IKcH4Bxm9bU&list=PL_y7yIiv8j3GPkNaoSpZafmoAl0F-nXeQ&index=2",
+    acceptedAnswers: ["สาวม้า", "umamusume", "สาวม้าโมเอะ", "umamusume s1"],
+    note: "Faraway"
+  },
+  {
+    id: 507,
+    title: "shingeki no kyojin (Attack On Titan) season 1  (ED2)",
+    altTitles: ["shingeki no kyojin", "attack on titan", "ผ่าภิภพไททัน "],
+    difficulty: "normal",
+    year: 2013,
+    youtubeVideoId: "https://www.youtube.com/watch?v=sFdzNhJAdco&list=PLYplBcwXEFYuwwXJOsRscA33x6KMGO6Ch&index=31",
+    acceptedAnswers: ["attack on titan", "shingeki no kyojin", "ผ่าพิภพไททัน"],
+    note: "great escape",
+  },
+  {
+    id: 508, 
+    title: "shingeki no kyojin (Attack On Titan) season 2  (ED1)",
+    altTitles: ["shingeki no kyojin", "attack on titan", "ผ่าภิภพไททัน "],
+    difficulty: "normal",
+    year: 2017,
+    youtubeVideoId: "https://www.youtube.com/watch?v=rbfHY8mkhT8&list=PLYplBcwXEFYuwwXJOsRscA33x6KMGO6Ch&index=33",
+    acceptedAnswers: ["attack on titan", "shingeki no kyojin", "ผ่าพิภพไททัน"],
+    note: "Utsukushiki Zankoku na Sekai (美しき残酷な世界)"
+  },
+  {
+    id: 509,
+    title: "Rokudenashi Majutsu Koushi to Akashic Records  (OP1)",
+    altTitles: ["Rokudenashi Majutsu Koushi to Akashic Records", "อาจารย์จอมเวทกับบันทึกพิศวง"],  
+    difficulty: "normal",
+    year: 2017,
+    youtubeVideoId: "https://www.youtube.com/watch?v=TYCIdFby_90&list=PLYplBcwXEFYuwwXJOsRscA33x6KMGO6Ch&index=115",
+    acceptedAnswers: ["rokudenashi majutsu koushi to akashic records", "rokudenashi majutsu koushi", "อาจารย์จอมเวทกับบันทึกพิศวง"],
+    note: "Blow out"
+  },
+  {
+    id: 510,
+    title: "Ajin: Demi-Human (OP1)",
+    altTitles: ["Ajin: Demi-Human", "อาจิน มนุษย์กึ่งอมตะ"],  
+    difficulty: "normal",
+    year: 2016,
+    youtubeVideoId: "https://www.youtube.com/watch?v=7BmxmRnKnZg&list=RD7BmxmRnKnZg&start_radio=1",
+    acceptedAnswers: ["ajin: demi-human", "อาจิน","มนุษย์กึ่งอมตะ"],
+    note: "Yoru wa Nemureru kai? (夜は眠れるかい？)"
+  },        
 
 ];
 

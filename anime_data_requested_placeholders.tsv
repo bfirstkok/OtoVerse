@@ -1,47 +1,76 @@
 id	title	note	flags
-83	Mirai Nikki	โรคจิตผมชมพู	placeholder
-84	Guilty Crown	โรคระบาดเหล็ก	placeholder
-280	Guilty Crown (OP2)	โรคระบาดที่ชื่อว่าอัลฟ่า	placeholder
-86	Fate/Grand Order - Absolute Demonic Front: Babylonia	น้องโล่่ผมชมพู	placeholder
-88	Soul Eater	พระเอกกินวิญญาณ	placeholder
-89	Blue Exorcist	ไฟสีฟ้าซาตาน	placeholder
-283	Blue Exorcist (OP2)	ซาตานไฟสีฟ้า	placeholder
-90	Noragami	เทพยาจก	
-282	Noragami Aragoto	เทพขาจร	
-96	Bocchi the Rock!	สาวผมชมพูเล่นกีต้าร์	placeholder
-98	No Game No Life: Zero	ไม่มีภาค2	placeholder
-99	Black Butler	พ่อบ้านเก	placeholder
-191	Solo Leveling	จักรพรรดเงา	placeholder
-257	Sword Art Online: Alicization	ดาบศิลปะออนไลน์	placeholder
-258	Tokyo Ghoul:re	ซอยจุ๊แซ่บๆ	placeholder
-276	Toradora! (OP2)	เตี้ยกับสูง	placeholder
-277	Angel Beats! (ED1)	ตัวละครในเรื่องนี้ตายกันหมดเลยนะ	placeholder
-281	Psycho-Pass (ED1)	พระเอกในเรื่องนี้เป็นตำรวจที่มีความสุข	placeholder
-282	Noragami Aragoto	เทพขาจร	
-283	Blue Exorcist (OP2)	ซาตานไฟสีฟ้า	placeholder
-284	Sword Art Online II (OP2)	คนคอนมีปืน	placeholder
-286	KonoSuba Season 2	ต่างโลกโคตรปั่น	placeholder
-289	Shokugeki no Soma (OP2)	ทำอาหารที่มากกว่าแค่การทำอาหาร	placeholder
-290	No Game No Life (ED)	เก่งเกมเก่งทุกอย่าง	placeholder,ed_or_insert
-291	Overlord III	กระดูกโคตรเท่	placeholder
-292	The Rising of the Shield Hero (OP2)	กูมีโล่	
-294	Mushoku Tensei Season 2	รูเดียส	
-295	Spy x Family Season 2	พ่อสปายแม่นักฆ่า	placeholder
-296	Oshi no Ko (ED)	ไอดอล	ed_or_insert
-297	Frieren: Beyond Journey's End (OP2)	เอลฟ์ลืมผัวเก่าไม่ได้	placeholder
-298	The Apothecary Diaries (OP2)	ตำยาโคมแดง	placeholder
-299	Mashle Season 1	เวทย์มนตร์ที่ใช้กล้ามเนื้อ	placeholder
-300	Chainsaw Man (ED3)	โปจิตะ	
-304	Coppelion	โลกนิวเคลียร์	placeholder
-305	Madan no Ou to Vanadis	สงครามที่มีแต่ผู้หญิงกับพระเอกใช้ธนู	placeholder
-306	Girls und Panzer	รถถัง	
-385	Girls und Panzer das Finale	Grand symphony	
-386	Girls und Panzer das Finale (Part 4)	Never Say Goodbye	
-307	Drifters	ตัวละครในประวัติศาสตร์ที่ถูกส่งไปต่างโลกเพื่อสู้กันเอง	placeholder
-308	Qualidea Code	หลอนทั้งเรื่อง	placeholder
-310	Mahouka Koukou no Rettousei (OP1)	เทพทัต	
-311	Mahouka Koukou no Rettousei (OP2)	เวทมนตร์ที่ใช้วิทยาศาสตร์อธิบายได้	placeholder
-312	Mahouka Koukou no Rettousei: Visitor Arc	มีเวทย์มนต์ภาคที่มีผมเหลือง	placeholder
-316	Absolute Duo	นางเอกผมขาวน่ารักสัส	placeholder
-317	Seiken Tsukai no World Break	ผู้กล้าผมดำกับนางเอกผมขาวที่มีพลังเวทย์มนต์ที่ใช้ดาบเป็นอาวุธ	placeholder
-318	Isekai wa Smartphone to Tomo ni (OP1)	สมาร์ทโฟนที่ใช้ได้ทุกอย่าง	placeholder
+436	DAN DA DAN (OP1)	Otonoke	
+437	DAN DA DAN Season 2 (OP1)	On The Way	
+438	Sakamoto Days (OP1)	Hashire SAKAMOTO	
+439	Re:ZERO -Starting Life in Another World- Season 3 (OP1)	Reweave	
+440	Kusuriya no Hitorigoto Season 2 (OP1)	Hyakka Ryouran	
+441	Blue Exorcist: Beyond the Snow Saga (OP1)	Re Rescue	
+442	Orb: On the Movements of the Earth (OP1)	Kaijuu	
+443	Blue Box (OP1)	Same Blue	
+444	Blue Box (OP2)	Saraba	
+445	Witch Watch (OP1)	Watch me!	
+446	Lazarus (OP1)	Vortex	
+447	WIND BREAKER Season 2 (OP1)	BOYZ	
+448	Enen no Shouboutai Season 3 (OP1)	High Flame	
+449	My Hero Academia: Vigilantes (OP1)	Kekka Orai	
+450	Ameku M.D.: Doctor Detective (OP1)	SCOPE	
+451	Medalist (OP1)	BOW AND ARROW	
+452	Zenshu (OP1)	Zen	
+453	Tasokare Hotel (OP1)	Tasokare	
+454	Ameku M.D.: Doctor Detective (OP1)	SCOPE	
+455	Guild Receptionist (OP1)	Perfect Day	
+456	Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru (OP1)	Dai Dai Daisuki	
+457	Dr. STONE: SCIENCE FUTURE (OP1)	CASANOVA POSSE	
+458	Dr. STONE: SCIENCE FUTURE Part 2 (OP1)	SUPERNOVA	
+459	Solo Leveling Season 2: Arise from the Shadow (OP1)	ReawakeR	
+460	Watashi no Shiawase na Kekkon 2nd Season (OP1)	Shiawase na Yakusoku.	
+461	Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo Season 2 (OP1)		
+462	Honey Lemon Soda (OP1)		
+463	Kono Kaisha ni Suki na Hito ga Imasu (OP1)		
+464	Kisaki Kyouiku kara Nigetai Watashi (OP1)		
+465	Flower and Asura (OP1)		
+466	S Rank Monster no Behemoth dakedo (OP1)		
+467	Guild no Uketsukejou (OP1)	Perfect Day	
+468	Summer Pockets (OP1)	Alka Tale	
+469	Kowloon Generic Romance (OP1)	Summertime Ghost	
+470	The Beginning After the End (OP1)	KINGSBLOOD	
+471	Danjo no Yuujou wa Seiritsu suru? (Iya, Shinai!!) (OP1)		
+472	Apocalypse Hotel (OP1)		
+473	Catch Me at the Ballpark! (OP1)		
+474	mono (OP1)		
+475	Zatsu Tabi: That's Journey (OP1)		
+476	Ninja to Koroshiya no Futarigurashi (OP1)		
+477	Aharen-san wa Hakarenai Season 2 (OP1)		
+478	Black Butler: Emerald Witch Arc (OP1)		
+479	Rock Is a Lady's Modesty (OP1)		
+480	Anne Shirley (OP1)		
+481	YAIBA: Samurai Legend (OP1)		
+482	DAN DA DAN Season 2 (OP1)	Kakumei Douchuu	
+483	The Fragrant Flower Blooms with Dignity (OP1)	Manazashi wa Hikari	
+484	Rascal Does Not Dream of Santa Claus (OP1)	Snowdrop	
+485	Gachiakuta (OP1)		
+486	Clevatess (OP1)		
+487	Tougen Anki (OP1)		
+488	Kaiju No. 8 Season 2 (OP1)		
+489	Yofukashi no Uta Season 2 (OP1)	Mirage	
+490	Sono Bisque Doll wa Koi wo Suru Season 2 (OP1)		
+491	Kanojo, Okarishimasu 4th Season (OP1)		
+492	Silent Witch: Chinmoku no Majo no Kakushigoto (OP1)		
+493	City The Animation (OP1)		
+494	Witch Watch (OP2)	Tokihanate!	
+495	One-Punch Man Season 3 (OP1)		
+496	Spy x Family Season 3 (OP1)		
+497	Chainsaw Man – The Movie: Reze Arc (op movie)		
+498	Blue Box Season 2 (OP1)		
+499	My Hero Academia: FINAL SEASON (OP1)		
+500	Sousou no Frieren Season 2 (OP1)		
+501	High School DxD New (OP1)	Sympathy	
+502	High School DxD New (OP2)	Passionate Argument	
+503	High School DxD BorN (OP1)	Bless Your Name	
+504	High School DxD Hero (OP1)	Switch	
+505	umamusume s1  (OP1)	Uma to Shika	
+506	umamusume s1  (ED2)	Grow Up Shine!	
+507	shingeki no kyojin (Attack On Titan) season 1  (ED2)	great escape	
+508	shingeki no kyojin (Attack On Titan) season 2  (ED1)	Yuugure no Tori	
+509	Rokudenashi Majutsu Koushi to Akashic Records  (OP1)	blow out	
+510	Ajin: Demi-Human (OP1)	Yoru wa Nemureru kai?	
