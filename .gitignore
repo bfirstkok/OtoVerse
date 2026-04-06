@@ -22,5 +22,7 @@ pnpm-debug.log*
 # Firebase CLI local state
 .firebase/
 
-# local media (keep the deployed copy in /public)
+# local media (large assets; keep copies locally for deploy)
 /backg.gif
+/0406-copy.mp4
+/public/0406-copy.mp4

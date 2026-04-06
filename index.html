@@ -22,23 +22,8 @@
     <script>
       (function () {
         try {
-          var s = window.history && window.history.state;
-          var page = s && s.__app === "anime-op-quiz" && typeof s.page === "string" ? s.page : "home";
-
-          if (page === "home") {
-            // Start fetching ASAP (mobile-friendly) and apply CSS variable early.
-            var link = document.createElement("link");
-            link.rel = "preload";
-            link.as = "image";
-            link.href = "/backg.gif";
-            link.type = "image/gif";
-            link.setAttribute("fetchpriority", "high");
-            document.head.appendChild(link);
-
-            document.documentElement.style.setProperty("--bg-gif", 'url("/backg.gif")');
-          } else {
-            document.documentElement.style.setProperty("--bg-gif", "none");
-          }
+          // Background is handled in-app; keep legacy var disabled.
+          document.documentElement.style.setProperty("--bg-gif", "none");
         } catch (e) {
           // ignore
         }

@@ -3864,7 +3864,7 @@ const animeData = [
   },
   {
     id: 381,
-    title: "Strike the Blood (OP1)",
+    title: "Strike the Blood S2 (OP1)",
     altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาค 2"],
     difficulty: "normal",
     year: 2016,
@@ -3874,7 +3874,7 @@ const animeData = [
   },
   {
     id: 382,
-    title: "Strike the Blood (OP1)",
+    title: "Strike the Blood S3 (OP1)",
     altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาค 3"],
     difficulty: "hard",
     year: 2018,
@@ -3884,7 +3884,7 @@ const animeData = [
   },
   {
     id: 383,
-    title: "Strike the Blood (OP1)",
+    title: "Strike the Blood S4 (OP1)",
     altTitles: ["สายเลือดแท้ผู้บุกทะลวง ภาค 4"],
     difficulty: "hard",
     year: 2020,
@@ -3904,7 +3904,7 @@ const animeData = [
   },
   {
     id: 385,
-    title: "Girls & Panzer (OP1)",
+    title: "Girls & Panzer dasfinal (OP1)",
     altTitles: ["สาวปิ๊ง! ซิ่งแทงค์ ดาส ไฟนาเล่"],
     difficulty: "hard",
     year: 2017,
@@ -3914,7 +3914,7 @@ const animeData = [
   },
   {
     id: 386,
-    title: "Girls & Panzer (OP1)",
+    title: "Girls & Panzer dasfinal part 4 (OP1)",
     altTitles: ["สาวปิ๊ง! ซิ่งแทงค์ ดาส ไฟนาเล่ พาร์ท 4"],
     difficulty: "hard",
     year: 2023,
@@ -6648,13 +6648,10 @@ export default function AnimeOPQuizStarter() {
 
   useEffect(() => {
     try {
-      if (page === "home") {
-        document.documentElement.style.setProperty("--bg-gif", 'url("/backg.gif")');
-        document.body.classList.add("with-gif");
-      } else {
-        document.documentElement.style.setProperty("--bg-gif", "none");
-        document.body.classList.remove("with-gif");
-      }
+      // Background is handled via a video element (home) or CSS gradients.
+      // Keep the legacy CSS var disabled to avoid loading the GIF.
+      document.documentElement.style.setProperty("--bg-gif", "none");
+      document.body.classList.remove("with-gif");
     } catch {
       // ignore
     }
@@ -9217,6 +9214,21 @@ export default function AnimeOPQuizStarter() {
 
   return (
     <div className="relative min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
+      {page === "home" ? (
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <video
+            className="h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          >
+            <source src="/0406-copy.mp4" type="video/mp4" />
+          </video>
+        </div>
+      ) : null}
       <div className="pointer-events-none absolute inset-0 opacity-80">
         <div className="absolute -top-24 -left-10 h-72 w-72 rounded-full bg-rose-300/35 dark:bg-cyan-500/15 blur-3xl" />
         <div className="absolute top-24 -right-10 h-72 w-72 rounded-full bg-blue-300/30 dark:bg-sky-500/15 blur-3xl" />
