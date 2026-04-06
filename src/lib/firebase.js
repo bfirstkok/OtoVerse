@@ -1,5 +1,6 @@
 import { initializeApp, getApps } from "firebase/app";
 import {
+  browserPopupRedirectResolver,
   browserLocalPersistence,
   browserSessionPersistence,
   getAuth,
@@ -35,7 +36,8 @@ const authInit = (() => {
   // across reloads (e.g. after a Hosting deploy) in some browsers/privacy modes.
   try {
     const auth = initializeAuth(firebaseApp, {
-      persistence: [browserLocalPersistence, browserSessionPersistence]
+      persistence: [browserLocalPersistence, browserSessionPersistence],
+      popupRedirectResolver: browserPopupRedirectResolver
     });
     return { auth, persistenceReady: Promise.resolve(true) };
   } catch (e) {
