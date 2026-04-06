@@ -7499,10 +7499,10 @@ export default function AnimeOPQuizStarter() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-transparent to-purple-50/40 pointer-events-none dark:from-cyan-400/10 dark:to-blue-500/10" />
             <CardHeader className="relative">
               <div className="flex items-center gap-2 mb-4">
-                <Badge className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">KokVerse</Badge>
+                <Badge className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">OtoVerse</Badge>
                 <Badge variant="outline" className="rounded-full">เลือกแนวจากนั้นเด้ง!</Badge>
               </div>
-              <CardTitle className="font-display text-3xl md:text-4xl bg-gradient-to-r from-slate-900 to-slate-700 dark:from-cyan-200 dark:to-slate-100 bg-clip-text text-transparent">KokVerse</CardTitle>
+              <CardTitle className="font-display text-3xl md:text-4xl bg-gradient-to-r from-slate-900 to-slate-700 dark:from-cyan-200 dark:to-slate-100 bg-clip-text text-transparent">OtoVerse</CardTitle>
               <CardDescription className="text-base leading-7 text-slate-600 dark:text-slate-200/80">
                 กดเริ่มเล่น ⟶ เลือกแนว ⟶ ตั้งค่าเกม + เลือกโหมด ⟶ เด้งเข้าเล่นเกม
               </CardDescription>
@@ -9216,13 +9216,13 @@ export default function AnimeOPQuizStarter() {
                 >
                   <img
                     src="/iconweb-v2.jpg"
-                    alt="KokVerse"
+                    alt="OtoVerse"
                     className="h-12 w-12 md:h-14 md:w-14 rounded-2xl object-cover border border-white/50 dark:border-slate-700/40"
                     draggable={false}
                   />
                 </motion.div>
                 <div>
-                  <h1 className="font-display text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 dark:from-cyan-300 dark:to-blue-400 bg-clip-text text-transparent leading-snug">KokVerse</h1>
+                  <h1 className="font-display text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 dark:from-cyan-300 dark:to-blue-400 bg-clip-text text-transparent leading-snug">OtoVerse</h1>
                   <p className="text-xs md:text-sm text-slate-600 dark:text-cyan-300/70 hidden sm:block">ทายเพลง anime ยอดนิยม</p>
                 </div>
               </div>
