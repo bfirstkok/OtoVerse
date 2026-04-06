@@ -40,7 +40,7 @@ import {
   updateProfile
 } from "firebase/auth";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { firebaseAuth, firebaseDb, firebaseReady } from "@/lib/firebase";
+import { firebaseAuth, firebaseAuthPersistenceReady, firebaseDb, firebaseProjectId, firebaseReady } from "@/lib/firebase";
 import {
   bumpPlayCount,
   bumpTotalScore,
@@ -5304,38 +5304,65 @@ export default function AnimeOPQuizStarter() {
 
   useEffect(() => {
     if (!firebaseReady || !firebaseAuth) return;
-    const unsub = onAuthStateChanged(firebaseAuth, async (nextUser) => {
-      setUser(nextUser || null);
-      setAuthChecked(true);
-      setProfileNotice("");
-      if (nextUser) {
-        const accountCreatedAt = (() => {
-          try {
-            const raw = nextUser?.metadata?.creationTime;
-            if (!raw) return null;
-            const d = new Date(raw);
-            return Number.isFinite(d.getTime()) ? d : null;
-          } catch {
-            return null;
-          }
-        })();
+    let unsub = () => {};
+    let cancelled = false;
 
-        await consumePendingLinkForUser(nextUser).catch(() => {});
-        await ensureProfile(nextUser.uid, {
-          email: nextUser.email || "",
-          displayName: nextUser.displayName || "",
-          photoURL: nextUser.photoURL || undefined,
-          accountCreatedAt
-        }).catch(() => {});
-      } else {
-        setProfile(null);
-        setProfileOpen(false);
-        setPublicProfileOpen(false);
-        setChatOpen(false);
-        setPage("home");
+    (async () => {
+      try {
+        await firebaseAuthPersistenceReady;
+      } catch {
+        // ignore
       }
-    });
-    return () => unsub();
+
+      if (cancelled) return;
+
+      console.info("[firebase] init", {
+        host: typeof window !== "undefined" ? window.location.host : "",
+        projectId: firebaseProjectId || firebaseAuth?.app?.options?.projectId || ""
+      });
+
+      unsub = onAuthStateChanged(firebaseAuth, async (nextUser) => {
+        console.info("[auth] state", {
+          uid: nextUser?.uid || null,
+          projectId: firebaseProjectId || firebaseAuth?.app?.options?.projectId || ""
+        });
+
+        setUser(nextUser || null);
+        setAuthChecked(true);
+        setProfileNotice("");
+        if (nextUser) {
+          const accountCreatedAt = (() => {
+            try {
+              const raw = nextUser?.metadata?.creationTime;
+              if (!raw) return null;
+              const d = new Date(raw);
+              return Number.isFinite(d.getTime()) ? d : null;
+            } catch {
+              return null;
+            }
+          })();
+
+          await consumePendingLinkForUser(nextUser).catch(() => {});
+          await ensureProfile(nextUser.uid, {
+            email: nextUser.email || "",
+            displayName: nextUser.displayName || "",
+            photoURL: nextUser.photoURL || undefined,
+            accountCreatedAt
+          }).catch(() => {});
+        } else {
+          setProfile(null);
+          setProfileOpen(false);
+          setPublicProfileOpen(false);
+          setChatOpen(false);
+          setPage("home");
+        }
+      });
+    })();
+
+    return () => {
+      cancelled = true;
+      unsub();
+    };
   }, []);
 
   useEffect(() => {
@@ -7556,7 +7583,7 @@ export default function AnimeOPQuizStarter() {
                     }}
                   >
                     <Eye className="w-4 h-4 mr-2" />
-                    ช่องทาง/ฟังถูกลิขสิทธิ์
+                    ช่องทาง/ฟัง
                   </Button>
                 </motion.div>
               </div>
@@ -8405,8 +8432,8 @@ export default function AnimeOPQuizStarter() {
                 {libraryListMode === "songs" && (
                   <div className="text-xs text-slate-600 dark:text-slate-300 mb-2">
                     {legalSearch
-                      ? <>แสดง {legalFilteredItems.length} จาก {libraryTitleLists.songs.length} เพลง (ค้นหาในแพลตฟอร์มเพลงถูกลิขสิทธิ์)</>
-                      : <>แสดง {libraryTitleLists.songs.length} เพลง (ค้นหาในแพลตฟอร์มเพลงถูกลิขสิทธิ์)</>}
+                      ? <>แสดง {legalFilteredItems.length} จาก {libraryTitleLists.songs.length} เพลง (ค้นหาในแพลตฟอร์มเพลง)</>
+                      : <>แสดง {libraryTitleLists.songs.length} เพลง (ค้นหาในแพลตฟอร์มเพลง)</>}
                   </div>
                 )}
                 {libraryListMode === "all" && (
@@ -8496,8 +8523,8 @@ export default function AnimeOPQuizStarter() {
                       : [];
 
                   const baseQuery = libraryListMode === "songs"
-                    ? `${displayTitle} ฟังถูกลิขสิทธิ์ ไทย`
-                    : `${displayTitle} ดูถูกลิขสิทธิ์ ไทย`;
+                    ? `${displayTitle} ฟัง ไทย`
+                    : `${displayTitle} ดู ไทย`;
 
                   return (
                     <div
@@ -9254,7 +9281,7 @@ export default function AnimeOPQuizStarter() {
                   },
                   {
                     key: "library-music",
-                    label: "ช่องทางดู/ฟังถูกลิขสิทธิ์",
+                    label: "ช่องทางดู/ฟัง",
                     isActive: page === "library" && libraryTab === "legal",
                     onClick: () =>
                       confirmLeaveGame(() => {
