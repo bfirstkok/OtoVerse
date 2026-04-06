@@ -8814,6 +8814,7 @@ export default function AnimeOPQuizStarter() {
                     whileTap={{ scale: 0.96 }}
                   >
                     <Button
+                      variant="outline"
                       className="group rounded-2xl h-auto py-4 whitespace-normal w-full bg-white hover:bg-gradient-to-br hover:from-sky-50 hover:to-indigo-50 border-2 border-slate-200 hover:border-sky-300 text-slate-900 font-semibold transition-all duration-200 shadow-sm hover:shadow-md dark:bg-slate-950/35 dark:hover:bg-gradient-to-br dark:hover:from-cyan-400/10 dark:hover:to-blue-500/10 dark:border-slate-700 dark:hover:border-cyan-400/60 dark:text-slate-100"
                       disabled={!!feedback}
                       onClick={() => {
