@@ -5567,6 +5567,7 @@ export default function AnimeOPQuizStarter() {
     if (code === "auth/popup-timeout") return "หน้าต่างล็อกอินค้าง/ใช้เวลานานเกินไป — ลองใหม่หรือเปลี่ยนบราวเซอร์ (Safari บางเครื่องอาจต้องใช้ redirect)";
     if (code === "auth/network-request-failed") return "เครือข่ายมีปัญหา/ถูกบล็อก (ลองปิด adblock, เปลี่ยนเครือข่าย, หรือเปิดผ่าน Chrome/Safari ปกติ)";
     if (code === "auth/web-storage-unsupported") return "บราวเซอร์ปิดการใช้งาน storage (โหมดส่วนตัว/ตั้งค่าความเป็นส่วนตัวสูง) ทำให้ล็อกอินไม่ได้";
+    if (code === "auth/argument-error") return "ล็อกอินด้วยหน้าต่าง popup ไม่ได้ในสภาพแวดล้อมนี้ — ลองใหม่อีกครั้ง หรือใช้โหมด redirect/เปลี่ยนบราวเซอร์";
     if (code === "auth/invalid-oauth-client-id") return "ตั้งค่า OAuth ไม่ถูกต้อง (Client ID) — ต้องตั้งค่าในผู้ให้บริการ (Google/GitHub) ให้ถูก";
     if (code === "auth/unauthorized-domain") {
       const host = (() => {
@@ -5733,7 +5734,8 @@ export default function AnimeOPQuizStarter() {
         code === "auth/operation-not-supported-in-this-environment" ||
         code === "auth/cancelled-popup-request" ||
         code === "auth/popup-timeout" ||
-        code === "auth/web-storage-unsupported";
+        code === "auth/web-storage-unsupported" ||
+        code === "auth/argument-error";
 
       if (shouldFallbackToRedirect) {
         try {
