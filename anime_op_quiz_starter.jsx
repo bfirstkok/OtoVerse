@@ -896,7 +896,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=LLDA9cfRLlg&list=RDLLDA9cfRLlg&start_radio=1",
     acceptedAnswers: ["future diary", "mirai nikki", "บันทึกมรณะ เกมล่าท้าอนาคต", "บันทึกมรณะ"],
-    note: "โรคจิตผมชมพู"
+    note: "Kuusou Mesorogiwi"
   },
   {
     id: 84,
@@ -906,7 +906,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=W10RXr9c44Y&list=RDW10RXr9c44Y&start_radio=1",
     acceptedAnswers: ["guilty crown", "ปฏิวัติหัตถ์ราชัน", "กิลตี้คราวน์"],
-    note: "My Dearest"
+    note: "Euterpe"
   },
   {
     id: 85,
@@ -926,7 +926,7 @@ const animeData = [
     year: 2019,
     youtubeVideoId: "https://www.youtube.com/watch?v=62hOiNH0K44&list=RD62hOiNH0K44&start_radio=1",
     acceptedAnswers: ["fate grand order", "fgo", "fate/grand order", "เฟทแกรนด์ออเดอร์"],
-    note: "น้องโล่่ผมชมพู"
+    note: "Phantom Joke"
   },
   {
     id: 87,
@@ -946,7 +946,7 @@ const animeData = [
     year: 2008,
     youtubeVideoId: "https://www.youtube.com/watch?v=zzJ8U8OtEsE&list=RDzzJ8U8OtEsE&start_radio=1",
     acceptedAnswers: ["soul eater", "โซลอีทเตอร์"],
-    note: "พระเอกกินวิญญาณ"
+    note: "Counter Identity"
   },
   {
     id: 89,
@@ -956,7 +956,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=s99s4VCtCP8&list=RDs99s4VCtCP8&start_radio=1",
     acceptedAnswers: ["blue exorcist", "ao no exorcist", "เอ็กซอร์ซิสต์พันธุ์ปีศาจ", "บลูเอ็กซอร์ซิสต์"],
-    note: "ไฟสีฟ้าซาตาน"
+    note: "CORE PRIDE"
   },
   {
     id: 90,
@@ -966,7 +966,7 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=gWCnKoEgfP0&list=RDgWCnKoEgfP0&start_radio=1",
     acceptedAnswers: ["noragami", "โนรางามิ เทวดาขาจร", "โนรางามิ"],
-    note: "เทพยาจก"
+    note: "Goya no Machiawase (午夜の待ち合わせ)"
   },
   {
     id: 91,
@@ -1026,7 +1026,7 @@ const animeData = [
     year: 2022,
     youtubeVideoId: "https://www.youtube.com/watch?v=Yd8kUoB72xU&list=RDYd8kUoB72xU&start_radio=1",
     acceptedAnswers: ["bocchi the rock!", "bocchi the rock", "บจจิเดอะร็อก!", "บจจิเดอะร็อก"],
-    note: "สาวผมชมพูเล่นกีต้าร์"
+    note: "Seishun Complex (青春コンプレックス)"
   },
   {
     id: 97,
@@ -1046,7 +1046,7 @@ const animeData = [
     year: 2017,
     youtubeVideoId: "https://www.youtube.com/watch?v=EOVQh5xyrKg&list=RDEOVQh5xyrKg&start_radio=1",
     acceptedAnswers: ["no game no life zero", "โนเกม โนไลฟ์ ซีโร่", "โนเกมโนไลฟ์ ซีโร่"],
-    note: "ไม่มีภาค2"
+    note: "THERE IS A REASON"
   },
   {
     id: 99,
@@ -1056,7 +1056,7 @@ const animeData = [
     year: 2008,
     youtubeVideoId: "https://www.youtube.com/watch?v=7q0lNz_5vLo&list=RD7q0lNz_5vLo&start_radio=1",
     acceptedAnswers: ["black butler", "kuroshitsuji", "คนลึกไขปริศนาลับ", "พ่อบ้านดำ"],
-    note: "พ่อบ้านเก"
+    note: "Monochrome no Kiss (モノクロのキス)"
   },
   {
     id: 100,
@@ -1976,7 +1976,7 @@ const animeData = [
     year: 2024,
     youtubeVideoId: "https://www.youtube.com/watch?v=XqD0oCHLIF8&list=RDXqD0oCHLIF8&start_radio=1",
     acceptedAnswers: ["solo leveling", "โซโล่เลเวลลิ่ง"],
-    note: "จักรพรรดเงา"
+    note: "LEveL"
   },
   {
     id: 192,
@@ -2646,7 +2646,7 @@ const animeData = [
     year: 2018,
     youtubeVideoId: "https://www.youtube.com/watch?v=kXyRLrPWU_E&list=RDkXyRLrPWU_E&start_radio=1",
     acceptedAnswers: ["tokyo ghoul", "tokyo ghoul re", "โตเกียวกูล", "โตเกียวกูล รี"],
-    note: "ซอยจุ๊แซ่บๆ"
+    note: "asphyxia"
   },
   {
     id: 259,
@@ -2836,7 +2836,7 @@ const animeData = [
     year: 2010,
     youtubeVideoId: "https://www.youtube.com/watch?v=_d8lv6YLuGc&list=RD_d8lv6YLuGc&start_radio=1",
     acceptedAnswers: ["angel beats!", "angel beats", "แองเจิลบีทส์"],
-    note: "ตัวละครในเรื่องนี้ตายกันหมดเลยนะ"
+    note: "Brave Song"
   },
   {
     id: 278,
@@ -2866,7 +2866,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=Hv4znGv6lzg&list=RDHv4znGv6lzg&start_radio=1",
     acceptedAnswers: ["guilty crown", "ปฏิวัติหัตถ์ราชัน", "กิลตี้คราวน์"],
-    note: "The Everlasting Guilty Crown"
+    note: "My Dearest"
   },
   {
     id: 281,
@@ -2876,7 +2876,7 @@ const animeData = [
     year: 2012,
     youtubeVideoId: "https://www.youtube.com/watch?v=6m_NwZYVefo&list=RD6m_NwZYVefo&start_radio=1",
     acceptedAnswers: ["psycho-pass", "psycho pass", "ไซโคพาส"],
-    note: "พระเอกในเรื่องนี้เป็นตำรวจที่มีความสุข"
+    note: "Namae no nai Kaibutsu (名前のない怪物)"
   },
   {
     id: 282,
@@ -2886,7 +2886,7 @@ const animeData = [
     year: 2015,
     youtubeVideoId: "https://www.youtube.com/watch?v=aZenmeRytEM&list=RDaZenmeRytEM&start_radio=1",
     acceptedAnswers: ["noragami aragoto", "noragami", "โนรางามิ"],
-    note: "เทพขาจร"
+    note: "Kyouran Hey Kids!! (狂乱Hey Kids!!)"
   },
   {
     id: 283,
@@ -2896,7 +2896,7 @@ const animeData = [
     year: 2011,
     youtubeVideoId: "https://www.youtube.com/watch?v=vSUsiPvJv2Q&list=RDvSUsiPvJv2Q&start_radio=1",
     acceptedAnswers: ["blue exorcist", "ao no exorcist", "บลูเอ็กซอร์ซิสต์"],
-    note: "ซาตานไฟสีฟ้า"
+    note: "IN MY WORLD"
   },
   {
     id: 284,
@@ -2926,7 +2926,7 @@ const animeData = [
     year: 2017,
     youtubeVideoId: "https://www.youtube.com/watch?v=vdcddjV0l5o&list=RDvdcddjV0l5o&start_radio=1",
     acceptedAnswers: ["konosuba", "konosuba season 2", "kono suba season 2", "ขอให้โชคดีมีชัยในโลกแฟนตาซี!", "ขอให้โชคดีมีชัยในโลกแฟนตาซี! ภาค 2"],
-    note: "ต่างโลกโคตรปั่น"
+    note: "TOMORROW"
   },
   {
     id: 287,
@@ -2956,7 +2956,7 @@ const animeData = [
     year: 2015,
     youtubeVideoId: "https://www.youtube.com/watch?v=CqF0aOPT2XQ&list=RDCqF0aOPT2XQ&start_radio=1",
     acceptedAnswers: ["food wars!", "food wars", "shokugeki no soma", "ยอดนักปรุงโซมะ"],
-    note: "ทำอาหารที่มากกว่าแค่การทำอาหาร"
+    note: "Rising Rainbow (ライジングレインボウ)"
   },
   {
     id: 290,
@@ -2966,7 +2966,7 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=6kQzRm21N_g&list=RD6kQzRm21N_g&start_radio=1",
     acceptedAnswers: ["no game no life", "โนเกมโนไลฟ์", "โนเกม โนไลฟ์"],
-    note: "Oracion (オラシオン)"
+    note: "This game"
   },
   {
     id: 291,
@@ -2976,7 +2976,7 @@ const animeData = [
     year: 2018,
     youtubeVideoId: "https://www.youtube.com/watch?v=yxptP0CXMVo&list=RDyxptP0CXMVo&start_radio=1",
     acceptedAnswers: ["overlord", "โอเวอร์ลอร์ด"],
-    note: "กระดูกโคตรเท่"
+    note: "VORACITY"
   },
   {
     id: 292,
@@ -2986,7 +2986,7 @@ const animeData = [
     year: 2019,
     youtubeVideoId: "https://www.youtube.com/watch?v=OzKLiHJGZbw&list=RDOzKLiHJGZbw&start_radio=1",
     acceptedAnswers: ["the rising of the shield hero", "tate no yuusha", "shield hero", "ผู้กล้าโล่ผงาด"],
-    note: "กูมีโล่"
+    note: "FAITH"
   },
   {
     id: 293,
@@ -3006,7 +3006,7 @@ const animeData = [
     year: 2023,
     youtubeVideoId: "https://www.youtube.com/watch?v=hkcdLR_tdtA&list=RDhkcdLR_tdtA&start_radio=1",
     acceptedAnswers: ["mushoku tensei", "jobless reincarnation", "เกิดชาตินี้พี่ต้องเทพ"],
-    note: "รูเดียส"
+    note: "Mezame no Uta (目覚めの唄)"
   },
   {
     id: 295,
@@ -3016,7 +3016,7 @@ const animeData = [
     year: 2022,
     youtubeVideoId: "https://www.youtube.com/watch?v=Hlw8dTz_iq0&list=RDHlw8dTz_iq0&start_radio=1",
     acceptedAnswers: ["spy x family", "spy family", "สปายแฟมิลี", "สปาย x แฟมิลี"],
-    note: "พ่อสปายแม่นักฆ่า"
+    note: "Kura Kura (クラクラ)"
   },
   {
     id: 296,
@@ -3026,7 +3026,7 @@ const animeData = [
     year: 2023,
     youtubeVideoId: "https://www.youtube.com/watch?v=QUTShho-5I8&list=RDQUTShho-5I8&start_radio=1",
     acceptedAnswers: ["oshi no ko", "เกิดใหม่เป็นลูกโอชิ", "ลูกโอชิ"],
-    note: "Mephisto (メフィスト)"
+    note: "Idol (アイドル)"
   },
   {
     id: 297,
@@ -3036,7 +3036,7 @@ const animeData = [
     year: 2024,
     youtubeVideoId: "https://www.youtube.com/watch?v=wfmYSuPiYEQ&list=RDwfmYSuPiYEQ&start_radio=1",
     acceptedAnswers: ["frieren", "sousou no frieren", "คำอธิษฐานในวันที่จากลา", "ฟรีเรน"],
-    note: "เอลฟ์ลืมผัวเก่าไม่ได้"
+    note: "Haru (晴る)"
   },
   {
     id: 298,
@@ -3046,7 +3046,7 @@ const animeData = [
     year: 2024,
     youtubeVideoId: "https://www.youtube.com/watch?v=z-UPUXGYYqo&list=RDz-UPUXGYYqo&start_radio=1",
     acceptedAnswers: ["the apothecary diaries", "kusuriya no hitorigoto", "สืบคดีปริศนา หมอยาตำรับโคมแดง", "หมอยาตำรับโคมแดง"],
-    note: "ตำยาโคมแดง"
+    note: "Ambivalent (アンビバレント)"
   },
   {
     id: 299,
@@ -3106,7 +3106,7 @@ const animeData = [
     year: 2013,
     youtubeVideoId: "https://www.youtube.com/watch?v=bO5r5YJrgJY&list=RDbO5r5YJrgJY&start_radio=1",
     acceptedAnswers: ["coppelion", "สามนางฟ้าผ่าโลกนิวเคลียร์"],
-    note: "โลกนิวเคลียร์"
+    note: "ANGEL"
   },
   {
     id: 305,
@@ -3116,7 +3116,7 @@ const animeData = [
     year: 2014,
     youtubeVideoId: "https://www.youtube.com/watch?v=R9KhHVcRb7c&list=RDR9KhHVcRb7c&start_radio=1",
     acceptedAnswers: ["madan no ou to vanadis", "vanadis", "วานาดีสกับราชันกระสุนมนตรา", "วานาดีส"],
-    note: "สงครามที่มีแต่ผู้หญิงกับพระเอกใช้ธนู"
+    note: "Ginsen no Kaze (銀閃の風)"
   },
   {
     id: 306,
@@ -3126,7 +3126,7 @@ const animeData = [
     year: 2012,
     youtubeVideoId: "https://www.youtube.com/watch?v=ES06Fkkl8ac&list=RDES06Fkkl8ac&start_radio=1",
     acceptedAnswers: ["girls und panzer", "สาวปิ๊ง! ซิ่งแทงค์"],
-    note: "รถถัง"
+    note: "DreamRiser"
   },
   {
     id: 307,
@@ -3136,7 +3136,7 @@ const animeData = [
     year: 2016,
     youtubeVideoId: "https://www.youtube.com/watch?v=cXabZ_-QPb0&list=RDcXabZ_-QPb0&start_radio=1",
     acceptedAnswers: ["drifters", "สงครามผ่ามิติ", "ดริฟเตอร์ส"],
-    note: "ตัวละครในประวัติศาสตร์ที่ถูกส่งไปต่างโลกเพื่อสู้กันเอง"
+    note: "Gospel Of The Throttle 狂奔REMIX ver."
   },
   {
     id: 308,
@@ -3186,7 +3186,7 @@ const animeData = [
     year: 2020,
     youtubeVideoId: "https://www.youtube.com/watch?v=OLa9O1Rja28&list=RDOLa9O1Rja28&start_radio=1",
     acceptedAnswers: ["mahouka koukou no rettousei", "mahouka", "the irregular at magic high school", "พี่น้องปริศนาโรงเรียนมหาเวท"],
-    note: "มีเวทย์มนต์ภาคที่มีผมเหลือง"
+    note: "Rising Hope"
   },
   {
     id: 313,
@@ -3226,7 +3226,7 @@ const animeData = [
     year: 2015,
     youtubeVideoId: "https://www.youtube.com/watch?v=lKanVTWDH90&list=RDlKanVTWDH90&start_radio=1",
     acceptedAnswers: ["absolute duo", "ศึกศาสตรา วิญญาณแฝด"],
-    note: "นางเอกผมขาวน่ารักสัส"
+    note: "Absolute Soul"
   },
   {
     id: 317,
@@ -3236,7 +3236,7 @@ const animeData = [
     year: 2015,
     youtubeVideoId: "https://www.youtube.com/watch?v=6mCS9uL_YxU&list=RD6mCS9uL_YxU&start_radio=1",
     acceptedAnswers: ["seiken tsukai no world break", "world break", "ดาบศักดิ์สิทธิ์และบทสวดต้องห้าม"],
-    note: "ผู้กล้าผมดำกับนางเอกผมขาวที่มีพลังเวทย์มนต์ที่ใช้ดาบเป็นอาวุธ"
+    note: "Hi no Ito Rinne no Gemini (緋ノ糸輪廻ノGEMINI)"
   },
   {
     id: 318,
@@ -3246,7 +3246,7 @@ const animeData = [
     year: 2017,
     youtubeVideoId: "https://www.youtube.com/watch?v=LNfxVXR6U4o&list=RDLNfxVXR6U4o&start_radio=1",
     acceptedAnswers: ["isekai wa smartphone", "isekai wa smartphone to tomo ni", "in another world with my smartphone", "ไปต่างโลกกับสมาร์ทโฟน"],
-    note: "สมาร์ทโฟนที่ใช้ได้ทุกอย่าง"
+    note: "Another World"
   },
   {
     id: 319,
@@ -3916,7 +3916,7 @@ const animeData = [
     year: 2017,
     youtubeVideoId: "https://www.youtube.com/watch?v=XpIKBdEnnFw&list=RDXpIKBdEnnFw&start_radio=1",
     acceptedAnswers: ["girls und panzer", "girls und panzer das finale", "สาวปิ๊ง! ซิ่งแทงค์"],
-    note: "Grand symphony"
+    note: "DreamRiser"
   },
   {
     id: 386,
