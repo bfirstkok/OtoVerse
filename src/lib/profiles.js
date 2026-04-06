@@ -151,13 +151,23 @@ export async function getFollowersCount(targetUid) {
 }
 
 export async function updateProfilePhotoURL(uid, photoURL) {
-  if (!firebaseReady || !firebaseDb) return;
+  if (!firebaseReady || !firebaseDb) throw new Error("firebase_not_ready");
   const ref = profileDocRef(uid);
-  if (!ref) return;
+  if (!ref) throw new Error("no_ref");
 
-  await updateDoc(ref, { photoURL: photoURL || "" }).catch(async () => {
-    await setDoc(ref, { photoURL: photoURL || "" }, { merge: true }).catch(() => {});
-  });
+  try {
+    await updateDoc(ref, { photoURL: photoURL || "" });
+    return { ok: true };
+  } catch (e) {
+    try {
+      await setDoc(ref, { photoURL: photoURL || "" }, { merge: true });
+      return { ok: true };
+    } catch (e2) {
+      const msg = String(e2?.code || e?.code || e2?.message || e?.message || "firestore_write_failed");
+      console.warn("updateProfilePhotoURL failed:", e2 || e);
+      throw new Error(msg);
+    }
+  }
 }
 
 export function subscribeProfile(uid, onChange, onError) {

@@ -61,7 +61,8 @@ export async function uploadPostImage(uid, file, { onProgress, signal } = {}) {
 
   if (signal && typeof signal === "object" && signal.aborted) throw new Error("upload_canceled");
 
-  const isImage = String(file?.type || "").startsWith("image/");
+  const fileType = String(file?.type || "").trim();
+  const isImage = !fileType || fileType.startsWith("image/");
   if (!isImage) throw new Error("not_image");
 
   const blobToDataUrl = async (blob) => {
@@ -119,14 +120,17 @@ export async function uploadPostImage(uid, file, { onProgress, signal } = {}) {
       ctx.drawImage(bitmap, 0, 0, dimW, dimH);
 
       const blob = await new Promise((resolve) => {
-        canvas.toBlob(
-          (b) => resolve(b),
-          "image/webp",
-          quality
-        );
+        canvas.toBlob((b) => resolve(b), "image/webp", quality);
       });
 
-      if (blob && blob.size <= maxBytes) return await blobToDataUrl(blob);
+      const fallbackBlob =
+        blob ||
+        (await new Promise((resolve) => {
+          canvas.toBlob((b) => resolve(b), "image/jpeg", quality);
+        }));
+
+      if (!fallbackBlob) throw new Error("encode_failed");
+      if (fallbackBlob.size <= maxBytes) return await blobToDataUrl(fallbackBlob);
 
       quality = Math.max(0.55, quality * 0.78);
       if (attempt >= 4) {

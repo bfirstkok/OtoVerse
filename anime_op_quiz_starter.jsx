@@ -12,6 +12,11 @@ import {
   SkipForward,
   RotateCcw,
   Info,
+  ArrowLeft,
+  Users,
+  Megaphone,
+  Shield,
+  Palette,
   Moon,
   Sun,
   Youtube,
@@ -5053,7 +5058,9 @@ export default function AnimeOPQuizStarter() {
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState(null);
   const [showHint, setShowHint] = useState(false);
-  const [useVideo, setUseVideo] = useState(true);
+  const [playStartedAtMs, setPlayStartedAtMs] = useState(null);
+  const [playElapsedMs, setPlayElapsedMs] = useState(0);
+  const [aboutSection, setAboutSection] = useState(null);
   const isDark = true;
   const [libraryTab, setLibraryTab] = useState("catalog");
   const [libraryListMode, setLibraryListMode] = useState("works");
@@ -5078,6 +5085,39 @@ export default function AnimeOPQuizStarter() {
   const isNormalPlay = playMode === "normal";
   const isSoloChallenge = playMode === "solo_challenge";
   const isGroupMode = playMode === "group";
+
+  const formatPlayElapsed = (ms) => {
+    const totalSeconds = Math.max(0, Math.floor((Number(ms) || 0) / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  };
+
+  const formatPlayElapsedThai = (ms) => {
+    const totalSeconds = Math.max(0, Math.floor((Number(ms) || 0) / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes} นาที ${seconds} วิ`;
+  };
+
+  useEffect(() => {
+    if (page !== "play") return;
+
+    const startedAt = typeof playStartedAtMs === "number" ? playStartedAtMs : 0;
+    if (!startedAt) return;
+
+    const tick = () => {
+      setPlayElapsedMs(Math.max(0, Date.now() - startedAt));
+    };
+
+    tick();
+    const id = window.setInterval(tick, 1000);
+
+    return () => {
+      window.clearInterval(id);
+      tick();
+    };
+  }, [page, playStartedAtMs]);
 
   const scrollPlayFocusToFit = (behavior) => {
     try {
@@ -5432,7 +5472,7 @@ export default function AnimeOPQuizStarter() {
 
   const loginGateState = !firebaseReady ? "firebase" : !authChecked ? "checking" : !user ? "login" : "ok";
 
-  const headerAvatarUrl = user?.photoURL || profile?.photoURL || "";
+  const headerAvatarUrl = profile?.photoURL || user?.photoURL || "";
 
   useEffect(() => {
     if (!profileOpen) {
@@ -5620,6 +5660,10 @@ export default function AnimeOPQuizStarter() {
     if (raw === "firebase_not_ready") return "ยังไม่ได้ตั้งค่า Firebase";
     if (raw === "missing_uid") return "ยังไม่ได้ล็อกอิน";
     if (raw === "missing_file") return "กรุณาเลือกไฟล์ก่อน";
+    if (raw === "decode_failed") return "อ่านไฟล์รูปไม่สำเร็จ (ลองเปลี่ยนรูป/เปลี่ยนเบราว์เซอร์)";
+    if (raw === "read_failed") return "อ่านไฟล์ไม่สำเร็จ (ลองใหม่อีกครั้ง)";
+    if (raw === "canvas_failed") return "เบราว์เซอร์นี้ไม่รองรับการแปลงรูป";
+    if (raw === "encode_failed") return "บีบอัด/แปลงรูปไม่สำเร็จ (ลองอัปเดต/เปลี่ยนเบราว์เซอร์)";
     if (raw === "upload_canceled") return "ยกเลิกการอัปโหลดแล้ว";
     if (raw === "upload_timeout") return "อัปโหลดนานเกินไป ลองใหม่อีกครั้ง";
     if (raw === "image_too_large") return "รูปใหญ่เกินไป ลองใช้รูปที่เล็กลง/ครอปก่อน";
@@ -6496,7 +6540,10 @@ export default function AnimeOPQuizStarter() {
   }, [communityProfiles, communitySearch]);
 
   const handleAvatarFile = async (file) => {
-    if (!user?.uid) return;
+    if (!user?.uid) {
+      setAvatarError("ยังไม่ได้ล็อกอิน");
+      return;
+    }
     if (!file) return;
 
     setAvatarError("");
@@ -6504,12 +6551,29 @@ export default function AnimeOPQuizStarter() {
     try {
       const url = await uploadUserAvatar(user.uid, file);
       if (firebaseAuth?.currentUser) {
-        await updateProfile(firebaseAuth.currentUser, { photoURL: url }).catch(() => {});
+        // Best-effort: if this fails, we still update Firestore profile.photoURL
+        // so UI can render the new avatar consistently.
+        await updateProfile(firebaseAuth.currentUser, { photoURL: url }).catch((e) => {
+          console.warn("updateProfile(photoURL) failed:", e);
+        });
       }
       await updateProfilePhotoURL(user.uid, url);
+      // Ensure UI updates immediately even if snapshot timing is delayed.
+      setProfile((prev) => (prev ? { ...prev, photoURL: url } : prev));
       setProfileNotice("อัปเดตรูปโปรไฟล์แล้ว");
     } catch (e) {
-      setAvatarError(storageErrorToThai(e));
+      const raw = String(e?.code || e?.message || e || "");
+      const lower = raw.toLowerCase();
+      const isAuth = String(e?.code || "").startsWith("auth/") || lower.includes("auth/");
+      const looksLikeFirestore = lower.includes("permission-denied") || lower.includes("missing or insufficient permissions") || lower.includes("unauthenticated") || lower.includes("firestore");
+
+      const msg = looksLikeFirestore
+        ? firestoreErrorToThai(raw)
+        : isAuth
+          ? firebaseErrorToThai(e)
+          : storageErrorToThai(e);
+
+      setAvatarError(raw ? `${msg} (${raw})` : msg);
     } finally {
       setAvatarBusy(false);
       setAvatarInputKey((k) => k + 1);
@@ -7269,6 +7333,8 @@ export default function AnimeOPQuizStarter() {
       usedAnimeIdsRef.current = new Set((picked || []).map((a) => a?.id).filter((x) => x != null));
       resetCommon();
       setGroupPlayers([]);
+      setPlayStartedAtMs(Date.now());
+      setPlayElapsedMs(0);
       setPage("play");
       if (user?.uid) {
         bumpPlayCount(user.uid).then((r) => {
@@ -7288,6 +7354,8 @@ export default function AnimeOPQuizStarter() {
       setGameList([first]);
       resetCommon();
       setGroupPlayers([]);
+      setPlayStartedAtMs(Date.now());
+      setPlayElapsedMs(0);
       setPage("play");
       if (user?.uid) {
         bumpPlayCount(user.uid).then((r) => {
@@ -7316,6 +7384,8 @@ export default function AnimeOPQuizStarter() {
     );
     setGroupTurnIndex(0);
     setGroupWrongPickId("");
+    setPlayStartedAtMs(Date.now());
+    setPlayElapsedMs(0);
     setPage("play");
   };
 
@@ -7527,6 +7597,8 @@ export default function AnimeOPQuizStarter() {
   const resetAll = () => {
     confirmLeaveGame(() => {
       setPage("home");
+      setPlayStartedAtMs(null);
+      setPlayElapsedMs(0);
       setGameList([]);
       usedAnimeIdsRef.current = new Set();
       setCurrentIndex(0);
@@ -7547,6 +7619,10 @@ export default function AnimeOPQuizStarter() {
     if (page !== "play") {
       setFeedback(null);
     }
+  }, [page]);
+
+  useEffect(() => {
+    if (page !== "about") setAboutSection(null);
   }, [page]);
 
   const renderHome = () => (
@@ -7913,6 +7989,181 @@ export default function AnimeOPQuizStarter() {
     </div>
   );
 
+  const renderAbout = () => {
+    const sections = [
+      {
+        key: "team",
+        title: "Our Team",
+        desc: "รวมรายชื่อและทีมงานของ OtoVerse ทั้งผู้พัฒนาและผู้ดูแล",
+        icon: Users
+      },
+      {
+        key: "ads",
+        title: "Advertise with Us",
+        desc: "ติดต่อโฆษณากับ OtoVerse",
+        icon: Megaphone
+      },
+      {
+        key: "contact",
+        title: "Contact Us",
+        desc: "ช่องทางติดต่อ/ข้อเสนอแนะ/ปัญหาการใช้งาน",
+        icon: MessageCircle
+      },
+      {
+        key: "privacy",
+        title: "Privacy Policy",
+        desc: "นโยบายคุ้มครองข้อมูลส่วนบุคคล",
+        icon: Shield
+      },
+      {
+        key: "support",
+        title: "Support Us",
+        desc: "สนับสนุนโปรเจกต์ให้พัฒนาไปต่อ",
+        icon: Heart
+      },
+      {
+        key: "branding",
+        title: "Branding",
+        desc: "ทรัพยากรโลโก้/ภาพปก และแนวทางการใช้งาน",
+        icon: Palette
+      }
+    ];
+
+    const selected = aboutSection ? sections.find((s) => s.key === aboutSection) : null;
+
+    const detailContent = (key) => {
+      switch (key) {
+        case "team":
+          return (
+            <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+              <p>หน้านี้ไว้สำหรับแนะนำทีมงาน/ผู้พัฒนา/ผู้ดูแลโปรเจกต์ OtoVerse</p>
+              <p>ถ้าคุณอยากใส่ชื่อทีม/เครดิต/ลิงก์โซเชียล บอกข้อมูลมาได้เลย เดี๋ยวผมจัดรูปแบบให้เข้ากับดีไซน์ชุดนี้ครับ</p>
+            </div>
+          );
+        case "ads":
+          return (
+            <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+              <p>สำหรับติดต่อโฆษณาหรือพาร์ทเนอร์กับ OtoVerse</p>
+              <p>ใส่รายละเอียดแพ็กเกจ/เรทราคา/ช่องทางติดต่อได้ตามต้องการ</p>
+            </div>
+          );
+        case "contact":
+          return (
+            <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+              <p>ช่องทางติดต่อ/แจ้งปัญหา/ส่งข้อเสนอแนะเกี่ยวกับเว็บ</p>
+              <p>คุณสามารถระบุอีเมล, แบบฟอร์ม, หรือโซเชียลที่ต้องการให้คนติดต่อได้</p>
+            </div>
+          );
+        case "privacy":
+          return (
+            <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+              <p>หน้านโยบายความเป็นส่วนตัว (Privacy Policy)</p>
+              <p>ถ้าต้องการให้ผมร่างฉบับสั้นๆ (เก็บข้อมูลอะไรบ้าง/ใช้ทำอะไร/ลบข้อมูลยังไง) บอกได้ครับ</p>
+            </div>
+          );
+        case "support":
+          return (
+            <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+              <p>ไว้สำหรับวิธีสนับสนุนโปรเจกต์ เช่น โดเนท/ซัพพอร์ตเซิร์ฟเวอร์/แชร์เว็บ</p>
+              <p>ถ้ามีลิงก์สำหรับสนับสนุน ส่งมาได้เลย เดี๋ยวผมใส่เป็นปุ่มให้</p>
+            </div>
+          );
+        case "branding":
+          return (
+            <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+              <p>ทรัพยากรแบรนด์ (โลโก้/ไอคอน/ภาพปก) และแนวทางการใช้งาน</p>
+              <p>ถ้ามีไฟล์โลโก้ในโปรเจกต์หรืออยากให้ทำปุ่มดาวน์โหลด/ลิงก์ไดรฟ์ บอกได้ครับ</p>
+            </div>
+          );
+        default:
+          return null;
+      }
+    };
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45 }}
+      >
+        <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_28px_56px_rgba(19,34,76,0.18)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_28px_56px_rgba(0,0,0,0.35)]">
+          <CardHeader className="space-y-2">
+            <CardTitle className="font-display text-3xl">เกี่ยวกับ OtoVerse</CardTitle>
+            <CardDescription className="text-slate-700 dark:text-slate-200/80">
+              เว็บทายเพลงอนิเมะจาก OP/ED พร้อมคลังเพลงและข้อมูลช่องทางดู/ฟัง
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {selected ? (
+              <>
+                <div className="flex items-center justify-between gap-3 flex-wrap">
+                  <div className="flex items-center gap-3">
+                    <div className="inline-flex items-center justify-center h-10 w-10 rounded-2xl bg-slate-900/5 dark:bg-slate-50/10">
+                      <selected.icon className="h-5 w-5 text-slate-900 dark:text-slate-100" />
+                    </div>
+                    <div>
+                      <div className="text-base font-extrabold text-pink-500">{selected.title}</div>
+                      <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">{selected.desc}</div>
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    className="rounded-2xl border-2 border-slate-200 dark:border-slate-700 font-semibold"
+                    onClick={() => setAboutSection(null)}
+                  >
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    ย้อนกลับ
+                  </Button>
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-white/70 p-5 dark:border-slate-700 dark:bg-slate-950/35">
+                  {detailContent(selected.key)}
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+                  <p>
+                    OtoVerse คือเว็บเกมทายเพลงอนิเมะจากเพลง OP/ED ที่ออกแบบให้เล่นง่าย เลือกแนว เลือกโหมด แล้วเด้งเข้าเล่นได้ทันที
+                    เหมาะทั้งเล่นคนเดียว เล่นท้าทาย หรือเล่นแบบกลุ่มกับเพื่อน
+                  </p>
+                  <p>
+                    เรามีคลังเพลงให้ค้นหา และหน้าช่องทางดู/ฟังเพื่อช่วยตามหาแหล่งรับชมที่เหมาะกับคุณ (ข้อมูลอาจมีการเปลี่ยนแปลงตามผู้ให้บริการ)
+                  </p>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                  {sections.map((s) => {
+                    const Icon = s.icon;
+                    return (
+                      <button
+                        type="button"
+                        key={s.key}
+                        onClick={() => setAboutSection(s.key)}
+                        className="text-left rounded-2xl border border-slate-200 bg-white/70 p-5 hover:border-slate-300 hover:bg-white transition-colors dark:border-slate-700 dark:bg-slate-950/35 dark:hover:border-slate-600 dark:hover:bg-slate-950/50"
+                        title={s.title}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="shrink-0 inline-flex items-center justify-center h-10 w-10 rounded-2xl bg-slate-900/5 dark:bg-slate-50/10">
+                            <Icon className="h-5 w-5 text-slate-900 dark:text-slate-100" />
+                          </div>
+                          <div>
+                            <div className="text-base font-bold text-pink-500">{s.title}</div>
+                            <div className="mt-1 text-xs font-semibold text-slate-600 dark:text-slate-300">{s.desc}</div>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </CardContent>
+        </Card>
+      </motion.div>
+    );
+  };
+
   const renderCommunity = () => (
     <div className="space-y-6">
       <div className="grid gap-6 lg:grid-cols-3 items-start">
@@ -8258,7 +8509,22 @@ export default function AnimeOPQuizStarter() {
                       type="file"
                       accept="image/*"
                       className="absolute inset-0 opacity-0 cursor-pointer"
-                      onChange={(e) => handlePickPostImage(e.target.files?.[0] || null)}
+                      onClick={(e) => {
+                        try {
+                          e.currentTarget.value = "";
+                        } catch {
+                          // ignore
+                        }
+                      }}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0] || null;
+                        try {
+                          e.currentTarget.value = "";
+                        } catch {
+                          // ignore
+                        }
+                        handlePickPostImage(file);
+                      }}
                     />
                     <Button type="button" variant="outline" className="rounded-2xl font-semibold">
                       <ImagePlus className="w-4 h-4 mr-2" />
@@ -8728,7 +8994,7 @@ export default function AnimeOPQuizStarter() {
                       </CardDescription>
                   </div>
                   <div className="flex gap-2 flex-wrap">
-                    <Badge className="rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 text-white border-0">{useVideo ? "📹 Video" : "🎧 Audio"}</Badge>
+                    <Badge className="rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 text-white border-0">⏱️ เล่นมา {formatPlayElapsedThai(playElapsedMs)}</Badge>
                       <Badge variant="outline" className="rounded-full border-2 border-slate-200 bg-white/50 dark:border-slate-700 dark:bg-slate-950/45">{genreConfig[currentAnime.genre]?.label || currentAnime.genre}</Badge>
                   </div>
                 </div>
@@ -8817,24 +9083,6 @@ export default function AnimeOPQuizStarter() {
                   </Button>
                 </div>
               </div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.3 }}
-              className="flex gap-2 flex-wrap"
-            >
-              <Button className="rounded-2xl bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-700 hover:to-cyan-700 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow">
-                {useVideo ? <Eye className="w-4 h-4 mr-2" /> : <Headphones className="w-4 h-4 mr-2" />}
-                {useVideo ? "📹 ดูวิดีโอ" : "🎧 ฟังเพลง"}
-              </Button>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="outline" className="rounded-2xl border-2 border-slate-300 hover:border-slate-400 hover:bg-slate-50 font-semibold dark:border-slate-700 dark:hover:bg-slate-900/60 dark:hover:border-cyan-400/40" onClick={() => setUseVideo((prev) => !prev)}>
-                  <Shuffle className="w-4 h-4 mr-2" />
-                  สลับ
-                </Button>
-              </motion.div>
-            </motion.div>
 
             {answerModeConfig[answerMode].choices ? (
               <motion.div
@@ -9152,21 +9400,21 @@ export default function AnimeOPQuizStarter() {
                   <StatCard label="🎮 โหมด" value="เล่นกลุ่ม" />
                   <StatCard label="🏁 ผู้ชนะ" value={groupWinner?.name || "-"} />
                   <StatCard label="🧩 เล่นไป" value={`${gameList.length}`} />
-                  <StatCard label="🎬 Media" value={useVideo ? "📹 Video" : "🎧 Audio"} />
+                  <StatCard label="⏱️ เวลาเล่น" value={formatPlayElapsedThai(playElapsedMs)} />
                 </>
               ) : isSoloChallenge ? (
                 <>
                   <StatCard label="✅ ตอบถูก" value={`${score}`} />
                   <StatCard label="❤️ HP" value={`${soloHp}`} />
                   <StatCard label="🧩 เล่นไป" value={`${gameList.length}`} />
-                  <StatCard label="🎬 Media" value={useVideo ? "📹 Video" : "🎧 Audio"} />
+                  <StatCard label="⏱️ เวลาเล่น" value={formatPlayElapsedThai(playElapsedMs)} />
                 </>
               ) : (
                 <>
                   <StatCard label="📊 คะแนน" value={`${score}/${gameList.length}`} />
                   <StatCard label="🎯 % ถูก" value={`${percentage}%`} />
                   <StatCard label="✅ ตอบถูก" value={`${score}`} />
-                  <StatCard label="🎬 Media" value={useVideo ? "📹 Video" : "🎧 Audio"} />
+                  <StatCard label="⏱️ เวลาเล่น" value={formatPlayElapsedThai(playElapsedMs)} />
                 </>
               )}
             </motion.div>
@@ -9416,6 +9664,22 @@ export default function AnimeOPQuizStarter() {
                 </motion.div>
               )}
 
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  variant={page === "about" ? "default" : "outline"}
+                  className={`rounded-2xl font-semibold ${
+                    page === "about"
+                      ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg hover:shadow-xl"
+                      : "border-2 border-slate-200 dark:border-slate-700"
+                  }`}
+                  onClick={() => confirmLeaveGame(() => setPage("about"))}
+                  title="เกี่ยวกับเรา"
+                >
+                  <Info className="w-4 h-4 mr-2" />
+                  เกี่ยวกับเรา
+                </Button>
+              </motion.div>
+
               {/* (removed) GIF background upload UI */}
             </motion.div>
           </div>
@@ -9423,7 +9687,7 @@ export default function AnimeOPQuizStarter() {
       </div>
 
       <div className="relative max-w-7xl mx-auto space-y-6">
-        {loginGateState !== "ok" ? (
+        {loginGateState !== "ok" && page !== "about" ? (
           <Card className="rounded-3xl border-2 border-slate-200 bg-white/80 backdrop-blur shadow-xl dark:border-slate-700 dark:bg-slate-950/40">
             <CardContent className="p-8">
               {loginGateState === "firebase" ? (
@@ -9462,6 +9726,7 @@ export default function AnimeOPQuizStarter() {
             {page === "community" && renderCommunity()}
             {page === "play" && renderPlay()}
             {page === "result" && renderResult()}
+            {page === "about" && renderAbout()}
           </>
         )}
       </div>
@@ -9639,9 +9904,10 @@ export default function AnimeOPQuizStarter() {
                 <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-900/40 dark:text-slate-50">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="h-16 w-16 rounded-2xl border border-slate-200 bg-white/70 overflow-hidden flex items-center justify-center dark:border-slate-700 dark:bg-slate-950/30">
-                      {(user.photoURL || profile?.photoURL) ? (
+                      {headerAvatarUrl ? (
                         <img
-                          src={user.photoURL || profile?.photoURL}
+                          key={headerAvatarUrl}
+                          src={headerAvatarUrl}
                           alt="รูปโปรไฟล์"
                           className="h-full w-full object-cover"
                           draggable={false}
@@ -9672,7 +9938,22 @@ export default function AnimeOPQuizStarter() {
                           accept="image/*"
                           className="sr-only"
                           disabled={avatarBusy}
-                          onChange={(e) => handleAvatarFile(e.target.files?.[0])}
+                          onClick={(e) => {
+                            try {
+                              e.currentTarget.value = "";
+                            } catch {
+                              // ignore
+                            }
+                          }}
+                          onChange={(e) => {
+                            const file = e.target.files?.[0] || null;
+                            try {
+                              e.currentTarget.value = "";
+                            } catch {
+                              // ignore
+                            }
+                            handleAvatarFile(file);
+                          }}
                         />
                         <Button
                           type="button"

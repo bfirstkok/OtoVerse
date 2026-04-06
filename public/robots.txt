@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://otoverse.web.app/sitemap.xml
+Sitemap: https://otoverse.games/sitemap.xml

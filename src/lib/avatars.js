@@ -10,7 +10,8 @@ async function blobToDataUrl(blob) {
 }
 
 async function fileToCompressedImageDataUrl(file, { maxDim = 512, maxBytes = 350_000 } = {}) {
-  const isImage = String(file?.type || "").startsWith("image/");
+  const fileType = String(file?.type || "").trim();
+  const isImage = !fileType || fileType.startsWith("image/");
   if (!isImage) throw new Error("not_image");
 
   let bitmap;
@@ -60,14 +61,17 @@ async function fileToCompressedImageDataUrl(file, { maxDim = 512, maxBytes = 350
     ctx.drawImage(bitmap, 0, 0, dimW, dimH);
 
     const blob = await new Promise((resolve) => {
-      canvas.toBlob(
-        (b) => resolve(b),
-        "image/webp",
-        quality
-      );
+      canvas.toBlob((b) => resolve(b), "image/webp", quality);
     });
 
-    if (blob && blob.size <= maxBytes) return await blobToDataUrl(blob);
+    const fallbackBlob =
+      blob ||
+      (await new Promise((resolve) => {
+        canvas.toBlob((b) => resolve(b), "image/jpeg", quality);
+      }));
+
+    if (!fallbackBlob) throw new Error("encode_failed");
+    if (fallbackBlob.size <= maxBytes) return await blobToDataUrl(fallbackBlob);
 
     // Try lower quality first, then reduce dimensions.
     quality = Math.max(0.5, quality * 0.75);
@@ -85,7 +89,7 @@ export async function uploadUserAvatar(uid, file) {
   if (!firebaseReady) throw new Error("firebase_not_ready");
   if (!uid) throw new Error("missing_uid");
   if (!file) throw new Error("missing_file");
-  if (typeof file.type === "string" && !file.type.startsWith("image/")) throw new Error("invalid_file_type");
+  if (typeof file.type === "string" && file.type && !file.type.startsWith("image/")) throw new Error("invalid_file_type");
 
   // Free-tier friendly: store as compressed data URL (no Firebase Storage required).
   return await fileToCompressedImageDataUrl(file, { maxDim: 512, maxBytes: 350_000 });
