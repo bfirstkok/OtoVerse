@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Add your sitemap URL after you have a real domain, e.g.
-# Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://otoverse.web.app/sitemap.xml
