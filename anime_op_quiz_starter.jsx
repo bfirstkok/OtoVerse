@@ -5563,6 +5563,11 @@ export default function AnimeOPQuizStarter() {
     if (code === "auth/invalid-credential" || code === "auth/wrong-password" || code === "auth/user-not-found") return "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
     if (code === "auth/popup-closed-by-user") return "ปิดหน้าต่างล็อกอินก่อนเสร็จ";
     if (code === "auth/popup-blocked") return "บราวเซอร์บล็อกหน้าต่างล็อกอิน (popup) — ลองอนุญาต popup หรือระบบจะพาไปล็อกอินแบบ redirect";
+    if (code === "auth/cancelled-popup-request") return "มีการร้องขอ popup ซ้อนกัน (ลองกดใหม่อีกครั้ง)";
+    if (code === "auth/popup-timeout") return "หน้าต่างล็อกอินค้าง/ใช้เวลานานเกินไป — ลองใหม่หรือเปลี่ยนบราวเซอร์ (Safari บางเครื่องอาจต้องใช้ redirect)";
+    if (code === "auth/network-request-failed") return "เครือข่ายมีปัญหา/ถูกบล็อก (ลองปิด adblock, เปลี่ยนเครือข่าย, หรือเปิดผ่าน Chrome/Safari ปกติ)";
+    if (code === "auth/web-storage-unsupported") return "บราวเซอร์ปิดการใช้งาน storage (โหมดส่วนตัว/ตั้งค่าความเป็นส่วนตัวสูง) ทำให้ล็อกอินไม่ได้";
+    if (code === "auth/invalid-oauth-client-id") return "ตั้งค่า OAuth ไม่ถูกต้อง (Client ID) — ต้องตั้งค่าในผู้ให้บริการ (Google/GitHub) ให้ถูก";
     if (code === "auth/unauthorized-domain") {
       const host = (() => {
         try {
@@ -5575,7 +5580,15 @@ export default function AnimeOPQuizStarter() {
     }
     if (code === "auth/operation-not-allowed") return "ยังไม่ได้เปิดใช้งานผู้ให้บริการล็อกอินนี้ใน Firebase Authentication";
     if (code === "auth/account-exists-with-different-credential") return "บัญชีนี้เคยสมัครด้วยวิธีอื่น (ลองใช้อีเมล/ผู้ให้บริการเดิม)";
-    return "เกิดข้อผิดพลาดในการล็อกอิน";
+
+    const extra = (() => {
+      const c = String(err?.code || "").trim();
+      if (c) return ` (${c})`;
+      const m = String(err?.message || "").trim();
+      if (m) return ` (${m})`;
+      return "";
+    })();
+    return `เกิดข้อผิดพลาดในการล็อกอิน${extra}`;
   };
 
   const firestoreErrorToThai = (codeOrMessage) => {
@@ -5673,6 +5686,11 @@ export default function AnimeOPQuizStarter() {
       setAuthPassword("");
     } catch (e) {
       const code = String(e?.code || "");
+      console.warn("[auth] oauth failed", {
+        providerKey,
+        code,
+        message: String(e?.message || "")
+      });
 
       if (code === "auth/account-exists-with-different-credential") {
         const email = String(e?.customData?.email || "").trim();
