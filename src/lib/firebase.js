@@ -9,9 +9,31 @@ import {
 import { getFirestore, initializeFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+const pickAuthDomain = () => {
+  const envDomain = String(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "").trim();
+  const host = (() => {
+    try {
+      return typeof window !== "undefined" && window?.location?.hostname ? String(window.location.hostname) : "";
+    } catch {
+      return "";
+    }
+  })();
+
+  // Prefer first-party auth domain when hosted on Firebase Hosting or a connected custom domain.
+  // This reduces popup/redirect OAuth issues in Safari/iOS privacy modes.
+  if (host && host !== "localhost" && host !== "127.0.0.1") {
+    const lower = host.toLowerCase();
+    if (lower.endsWith(".web.app") || lower.endsWith(".firebaseapp.com") || lower.endsWith(".games")) {
+      return host;
+    }
+  }
+
+  return envDomain;
+};
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  authDomain: pickAuthDomain(),
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
