@@ -5667,10 +5667,59 @@ export default function AnimeOPQuizStarter() {
       setAuthError("ยังไม่ได้ตั้งค่า Firebase");
       return;
     }
+
+    const canUseSessionStorage = () => {
+      try {
+        const k = "__otoverse_auth_ss_test";
+        window.sessionStorage.setItem(k, "1");
+        window.sessionStorage.removeItem(k);
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
+    const preferRedirectOAuth = () => {
+      try {
+        const ua = String(window?.navigator?.userAgent || "");
+        const isIOS = /iPad|iPhone|iPod/i.test(ua);
+
+        // iOS browsers share WebKit restrictions; redirect tends to be more reliable than popup.
+        if (isIOS) return true;
+
+        // Installed/PWA mode can have stricter popup behaviors.
+        const isStandalone =
+          (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) ||
+          // iOS legacy
+          Boolean(window.navigator && window.navigator.standalone);
+
+        if (isStandalone) return true;
+
+        return false;
+      } catch {
+        return false;
+      }
+    };
+
     setAuthError("");
     setAuthBusy(true);
     try {
       const provider = providerKey === "google" ? new GoogleAuthProvider() : new GithubAuthProvider();
+
+      // Redirect flow requires sessionStorage to keep state across navigation.
+      // If storage is blocked (common in some in-app browsers / strict privacy modes),
+      // Google/GitHub OAuth cannot complete reliably.
+      if (!canUseSessionStorage()) {
+        setAuthError("บราวเซอร์บล็อก sessionStorage ทำให้ล็อกอิน Google/GitHub ไม่ได้ — ลองเปิดด้วย Chrome/Safari ปกติ (ไม่ใช่โหมดส่วนตัว/ไม่ใช่ in-app browser) หรือใช้ล็อกอินด้วยอีเมล/รหัสผ่านแทน");
+        return;
+      }
+
+      // Prefer redirect immediately on iOS/PWA so it stays within the click gesture.
+      if (preferRedirectOAuth()) {
+        await signInWithRedirect(firebaseAuth, provider);
+        return;
+      }
+
       const POPUP_TIMEOUT_MS = 12000;
 
       const popupPromise = signInWithPopup(firebaseAuth, provider);
