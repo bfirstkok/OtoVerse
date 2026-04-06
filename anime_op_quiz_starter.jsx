@@ -30,6 +30,7 @@ import {
   GithubAuthProvider,
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
+  getRedirectResult,
   linkWithCredential,
   OAuthProvider,
   onAuthStateChanged,
@@ -5321,6 +5322,21 @@ export default function AnimeOPQuizStarter() {
         projectId: firebaseProjectId || firebaseAuth?.app?.options?.projectId || ""
       });
 
+      // If we previously fell back to redirect-based OAuth sign-in,
+      // we must resolve the redirect result on app load.
+      getRedirectResult(firebaseAuth)
+        .then(async (result) => {
+          if (!result?.user) return;
+          await consumePendingLinkForUser(result.user).catch(() => {});
+          setAuthOpen(false);
+          setAuthPassword("");
+          setAuthError("");
+        })
+        .catch((e) => {
+          // Surface redirect errors in the auth modal.
+          setAuthError(firebaseErrorToThai(e));
+        });
+
       unsub = onAuthStateChanged(firebaseAuth, async (nextUser) => {
         console.info("[auth] state", {
           uid: nextUser?.uid || null,
@@ -5641,7 +5657,16 @@ export default function AnimeOPQuizStarter() {
     setAuthBusy(true);
     try {
       const provider = providerKey === "google" ? new GoogleAuthProvider() : new GithubAuthProvider();
-      const cred = await signInWithPopup(firebaseAuth, provider);
+      const POPUP_TIMEOUT_MS = 12000;
+
+      const popupPromise = signInWithPopup(firebaseAuth, provider);
+      const timeoutPromise = new Promise((_, reject) => {
+        const err = new Error("popup_timeout");
+        err.code = "auth/popup-timeout";
+        setTimeout(() => reject(err), POPUP_TIMEOUT_MS);
+      });
+
+      const cred = await Promise.race([popupPromise, timeoutPromise]);
 
       await consumePendingLinkForUser(cred.user).catch(() => {});
       setAuthOpen(false);
@@ -5687,7 +5712,10 @@ export default function AnimeOPQuizStarter() {
 
       const shouldFallbackToRedirect =
         code === "auth/popup-blocked" ||
-        code === "auth/operation-not-supported-in-this-environment";
+        code === "auth/operation-not-supported-in-this-environment" ||
+        code === "auth/cancelled-popup-request" ||
+        code === "auth/popup-timeout" ||
+        code === "auth/web-storage-unsupported";
 
       if (shouldFallbackToRedirect) {
         try {
