@@ -10,9 +10,25 @@ import {
 import { getFirestore, initializeFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+const firstPartyAuthDomain = () => {
+  const envDomain = String(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "").trim();
+  const host = (() => {
+    try {
+      return typeof window !== "undefined" && window?.location?.hostname ? String(window.location.hostname) : "";
+    } catch {
+      return "";
+    }
+  })();
+
+  // When running on a real domain (Firebase Hosting/custom domain), prefer using
+  // the same domain as authDomain to avoid cross-site storage partition issues.
+  if (host && host !== "localhost" && host !== "127.0.0.1") return host;
+  return envDomain;
+};
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  authDomain: firstPartyAuthDomain(),
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
