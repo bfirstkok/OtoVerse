@@ -9979,7 +9979,10 @@ export default function AnimeOPQuizStarter() {
             </CardContent>
           </Card>
 
-          <div className="fixed bottom-5 right-5 z-[70]" aria-hidden={page === "library" && libraryTab === "legal" ? undefined : true}>
+          <div
+            className={`fixed bottom-4 ${user ? "right-28" : "right-4"} z-[70]`}
+            aria-hidden={page === "library" && libraryTab === "legal" ? undefined : true}
+          >
           <div className="relative">
             {legalBotOpen ? (
               <div className="absolute bottom-0 right-16 w-[340px] max-w-[calc(100vw-6rem)]">
