@@ -9979,13 +9979,11 @@ export default function AnimeOPQuizStarter() {
             </CardContent>
           </Card>
 
-          <div
-            className={`fixed bottom-4 ${user ? "right-28" : "right-4"} z-[70]`}
-            aria-hidden={page === "library" && libraryTab === "legal" ? undefined : true}
-          >
-          <div className="relative">
-            {legalBotOpen ? (
-              <div className="absolute bottom-0 right-16 w-[340px] max-w-[calc(100vw-6rem)]">
+          {page === "library" && libraryTab === "legal" ? (
+            <div className="fixed bottom-4 right-4 z-[139]">
+              <div className="relative">
+                {legalBotOpen ? (
+                  <div className="absolute bottom-0 right-full mr-3 w-[340px] max-w-[calc(100vw-6.5rem)]">
                 <Card className="rounded-3xl border border-white/70 bg-white/90 shadow-[0_16px_28px_rgba(15,23,42,0.16)] dark:border-slate-700/40 dark:bg-slate-950/70 dark:shadow-[0_16px_28px_rgba(0,0,0,0.45)]">
                   <CardHeader className="py-4">
                     <div className="flex items-start justify-between gap-3">
@@ -10031,19 +10029,20 @@ export default function AnimeOPQuizStarter() {
                     </form>
                   </CardContent>
                 </Card>
-              </div>
-            ) : null}
+                  </div>
+                ) : null}
 
-            <Button
-              type="button"
-              className="rounded-full h-12 w-12 p-0 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white shadow-lg"
-              onClick={() => setLegalBotOpen((v) => !v)}
-              title="แชทบอท"
-            >
-              <MessageCircle className="h-5 w-5" />
-            </Button>
-          </div>
-          </div>
+                <Button
+                  type="button"
+                  className="rounded-2xl font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg hover:shadow-xl relative"
+                  onClick={() => setLegalBotOpen((v) => !v)}
+                  title="แชทบอทช่องทางรับชม/ฟัง"
+                >
+                  💬 ข้อความ
+                </Button>
+              </div>
+            </div>
+          ) : null}
         </>
       ) : (
         <>
@@ -11594,7 +11593,7 @@ export default function AnimeOPQuizStarter() {
         </div>
       )}
 
-      {user && chatNotif ? (
+      {user && chatNotif && !(page === "library" && libraryTab === "legal") ? (
         <div className="fixed bottom-20 right-4 z-[140] w-[min(420px,calc(100vw-2rem))]">
           <div className="rounded-3xl border-2 border-slate-200 bg-white/90 backdrop-blur shadow-2xl overflow-hidden dark:border-slate-700 dark:bg-slate-950/85">
             <div className="p-3 flex items-start gap-3">
@@ -11628,7 +11627,7 @@ export default function AnimeOPQuizStarter() {
         </div>
       ) : null}
 
-      {user ? (
+      {user && !(page === "library" && libraryTab === "legal") ? (
         <div className="fixed bottom-4 right-4 z-[139]">
           <Button
             type="button"
