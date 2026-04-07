@@ -10270,6 +10270,24 @@ export default function AnimeOPQuizStarter() {
     return true;
   }, []);
 
+  const shouldShowLibraryGifBg = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      const connection =
+        navigator.connection ||
+        navigator.mozConnection ||
+        navigator.webkitConnection;
+
+      if (connection?.saveData) return false;
+
+      const effectiveType = connection?.effectiveType;
+      if (effectiveType === "slow-2g" || effectiveType === "2g") return false;
+    } catch {
+      // ignore
+    }
+    return true;
+  }, []);
+
   return (
     <div className="relative min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
       {page === "home" && shouldShowHomeVideoBg ? (
@@ -10287,13 +10305,12 @@ export default function AnimeOPQuizStarter() {
           </video>
         </div>
       ) : null}
-      {page === "library" && shouldShowHomeVideoBg ? (
+      {page === "library" && shouldShowLibraryGifBg ? (
         <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
           <img
             src={libraryTab === "legal" ? "/libarry2.gif" : "/libarry1.gif"}
             alt=""
             className="h-full w-full object-cover"
-            loading="lazy"
             decoding="async"
             aria-hidden="true"
           />
