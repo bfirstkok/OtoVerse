@@ -5864,7 +5864,7 @@ export default function AnimeOPQuizStarter() {
   const [selectedGenre, setSelectedGenre] = useState("all");
   const [answerMode, setAnswerMode] = useState("choice6");
   const [questionCount, setQuestionCount] = useState(5);
-  const [playMode, setPlayMode] = useState("normal"); // normal | solo_challenge | group
+  const [playMode, setPlayMode] = useState("normal"); // normal | solo_challenge | group | time_attack_3m
   const [soloHp, setSoloHp] = useState(10);
   const [soloWrongMultiplier, setSoloWrongMultiplier] = useState(1);
 
@@ -5964,9 +5964,12 @@ export default function AnimeOPQuizStarter() {
   const appliedProfileSettingsRef = useRef(null);
   const legalBotScrollRef = useRef(null);
 
+  const TIME_ATTACK_MS = 3 * 60 * 1000;
+
   const isNormalPlay = playMode === "normal";
   const isSoloChallenge = playMode === "solo_challenge";
   const isGroupMode = playMode === "group";
+  const isTimeAttack = playMode === "time_attack_3m";
 
   const formatPlayElapsed = (ms) => {
     const totalSeconds = Math.max(0, Math.floor((Number(ms) || 0) / 1000));
@@ -5977,6 +5980,13 @@ export default function AnimeOPQuizStarter() {
 
   const formatPlayElapsedThai = (ms) => {
     const totalSeconds = Math.max(0, Math.floor((Number(ms) || 0) / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes} นาที ${seconds} วิ`;
+  };
+
+  const formatRemainingThai = (ms) => {
+    const totalSeconds = Math.max(0, Math.ceil((Number(ms) || 0) / 1000));
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     return `${minutes} นาที ${seconds} วิ`;
@@ -6000,6 +6010,13 @@ export default function AnimeOPQuizStarter() {
       tick();
     };
   }, [page, playStartedAtMs]);
+
+  useEffect(() => {
+    if (page !== "play") return;
+    if (!isTimeAttack) return;
+    if (playElapsedMs < TIME_ATTACK_MS) return;
+    setPage("result");
+  }, [TIME_ATTACK_MS, isTimeAttack, page, playElapsedMs]);
 
   const makeLegalBotId = () => {
     try {
@@ -9088,6 +9105,11 @@ export default function AnimeOPQuizStarter() {
       return;
     }
 
+    if (isTimeAttack) {
+      startGameFromList([first], { mode: "normal" });
+      return;
+    }
+
     // Group mode
     const setup = Array.isArray(groupSetupPlayers) ? groupSetupPlayers.slice(0, 10) : [];
     if (!setup.length) return;
@@ -9704,6 +9726,8 @@ export default function AnimeOPQuizStarter() {
                   ? "Group"
                   : isSoloChallenge
                     ? "Solo Challenge"
+                    : isTimeAttack
+                      ? "Time Attack (3m)"
                     : "Normal";
 
       const title = "OtoVerse";
@@ -10246,7 +10270,8 @@ export default function AnimeOPQuizStarter() {
                       {[
                         { key: "normal", title: "ปกติ", desc: "เล่นตามจำนวนข้อที่เลือก" },
                         { key: "solo_challenge", title: "เล่นเดี่ยวชาเล้นจ์", desc: "HP 10 • ผิดติดกันโดนหนักขึ้น" },
-                        { key: "group", title: "เล่นกลุ่ม", desc: "จอเดียว • ตอบผิดเลือกคนผิดเพื่อลดคะแนน • ตอบต่อจนถูกค่อยไปข้อถัดไป" }
+                        { key: "group", title: "เล่นกลุ่ม", desc: "จอเดียว • ตอบผิดเลือกคนผิดเพื่อลดคะแนน • ตอบต่อจนถูกค่อยไปข้อถัดไป" },
+                        { key: "time_attack_3m", title: "จับเวลา 3 นาที", desc: "เล่นไม่จำกัดข้อ • หมดเวลาแล้วสรุปผล" }
                       ].map((m) => (
                         <motion.button
                           key={m.key}
@@ -10318,7 +10343,6 @@ export default function AnimeOPQuizStarter() {
 
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-amber-600 to-orange-600 text-white font-semibold text-sm">4</div>
                       <div className="text-base font-semibold text-slate-900 dark:text-slate-100">โหมดพิเศษ</div>
                     </div>
 
@@ -10355,7 +10379,9 @@ export default function AnimeOPQuizStarter() {
                           ? `เริ่มเล่น (${answerModeConfig[answerMode].label})`
                           : isSoloChallenge
                             ? "เริ่มชาเล้นจ์เดี่ยว"
-                            : "เริ่มเล่นกลุ่ม"}
+                            : isTimeAttack
+                              ? "เริ่มจับเวลา 3 นาที"
+                              : "เริ่มเล่นกลุ่ม"}
                       </Button>
                     </motion.div>
                   </div>
@@ -11486,6 +11512,7 @@ export default function AnimeOPQuizStarter() {
 
     const groupTurnSafe = Math.max(0, Math.min((groupPlayers || []).length - 1, Number(groupTurnIndex) || 0));
     const groupTurnPlayer = isGroupMode ? (groupPlayers || [])[groupTurnSafe] : null;
+    const remainingMs = isTimeAttack ? Math.max(0, TIME_ATTACK_MS - playElapsedMs) : 0;
 
     return (
       <>
@@ -11513,13 +11540,16 @@ export default function AnimeOPQuizStarter() {
                         ) : (
                           <> • {answerModeConfig[answerMode].label} • <span className="text-emerald-600 dark:text-emerald-300 font-semibold">คะแนน: {score}</span></>
                         )}
+                        {isTimeAttack ? <> • จับเวลา 3 นาที</> : null}
                         {isSoloChallenge ? (
                           <> • <span className="font-semibold text-rose-600 dark:text-rose-300">HP: {soloHp}</span> • <span className="font-semibold text-amber-600 dark:text-amber-300">x{soloWrongMultiplier}</span></>
                         ) : null}
                       </CardDescription>
                   </div>
                   <div className="flex gap-2 flex-wrap">
-                    <Badge className="rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 text-white border-0">⏱️ เล่นมา {formatPlayElapsedThai(playElapsedMs)}</Badge>
+                    <Badge className="rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 text-white border-0">
+                      {isTimeAttack ? `⏳ เหลือ ${formatRemainingThai(remainingMs)}` : `⏱️ เล่นมา ${formatPlayElapsedThai(playElapsedMs)}`}
+                    </Badge>
                       <Badge variant="outline" className="rounded-full border-2 border-slate-200 bg-white/50 dark:border-slate-700 dark:bg-slate-950/45">{genreConfig[currentAnime.genre]?.label || currentAnime.genre}</Badge>
                   </div>
                 </div>
@@ -11937,6 +11967,8 @@ export default function AnimeOPQuizStarter() {
                   ? "โหมดเล่นกลุ่ม"
                   : isSoloChallenge
                     ? "Solo Challenge"
+                    : isTimeAttack
+                      ? "จับเวลา 3 นาที"
                     : "โหมดปกติ"}
             </CardDescription>
           </CardHeader>
@@ -11960,6 +11992,13 @@ export default function AnimeOPQuizStarter() {
                   <StatCard label="❤️ HP" value={`${soloHp}`} />
                   <StatCard label="🧩 เล่นไป" value={`${gameList.length}`} />
                   <StatCard label="⏱️ เวลาเล่น" value={formatPlayElapsedThai(playElapsedMs)} />
+                </>
+              ) : isTimeAttack ? (
+                <>
+                  <StatCard label="✅ ตอบถูก" value={`${score}`} />
+                  <StatCard label="🧩 เล่นไป" value={`${gameList.length}`} />
+                  <StatCard label="⏱️ เวลาเล่น" value={formatPlayElapsedThai(playElapsedMs)} />
+                  <StatCard label="⏳ จำกัดเวลา" value="3 นาที" />
                 </>
               ) : (
                 <>
