@@ -37,6 +37,24 @@
         ]
       },
       {
+        "source": "/libarry1.gif",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public,max-age=604800"
+          }
+        ]
+      },
+      {
+        "source": "/libarry2.gif",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public,max-age=604800"
+          }
+        ]
+      },
+      {
         "source": "/provider_icons.json",
         "headers": [
           {

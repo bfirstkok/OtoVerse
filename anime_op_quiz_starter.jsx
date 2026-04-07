@@ -10287,6 +10287,18 @@ export default function AnimeOPQuizStarter() {
           </video>
         </div>
       ) : null}
+      {page === "library" && shouldShowHomeVideoBg ? (
+        <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
+          <img
+            src={libraryTab === "legal" ? "/libarry2.gif" : "/libarry1.gif"}
+            alt=""
+            className="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+          />
+        </div>
+      ) : null}
       <div className="pointer-events-none absolute inset-0 opacity-80">
         <div className="absolute -top-24 -left-10 h-72 w-72 rounded-full bg-rose-300/35 dark:bg-cyan-500/15 blur-3xl" />
         <div className="absolute top-24 -right-10 h-72 w-72 rounded-full bg-blue-300/30 dark:bg-sky-500/15 blur-3xl" />
