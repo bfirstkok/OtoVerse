@@ -10316,13 +10316,19 @@ export default function AnimeOPQuizStarter() {
           />
         </div>
       ) : null}
-      <div
-        className={`pointer-events-none absolute inset-0 ${page === "library" ? "-z-20 opacity-55" : "-z-10 opacity-80"}`}
-      >
-        <div className="absolute -top-24 -left-10 h-72 w-72 rounded-full bg-rose-300/35 dark:bg-cyan-500/15 blur-3xl" />
-        <div className="absolute top-24 -right-10 h-72 w-72 rounded-full bg-blue-300/30 dark:bg-sky-500/15 blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-amber-200/30 dark:bg-blue-500/10 blur-3xl" />
-      </div>
+      {page === "library" ? (
+        <div className="pointer-events-none absolute inset-0 -z-20 opacity-55">
+          <div className="absolute -top-24 -left-10 h-72 w-72 rounded-full bg-rose-300/35 dark:bg-cyan-500/15 blur-3xl" />
+          <div className="absolute top-24 -right-10 h-72 w-72 rounded-full bg-blue-300/30 dark:bg-sky-500/15 blur-3xl" />
+          <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-amber-200/30 dark:bg-blue-500/10 blur-3xl" />
+        </div>
+      ) : (
+        <div className="pointer-events-none absolute inset-0 -z-10 opacity-80">
+          <div className="absolute -top-24 -left-10 h-72 w-72 rounded-full bg-rose-300/35 dark:bg-cyan-500/15 blur-3xl" />
+          <div className="absolute top-24 -right-10 h-72 w-72 rounded-full bg-blue-300/30 dark:bg-sky-500/15 blur-3xl" />
+          <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-amber-200/30 dark:bg-blue-500/10 blur-3xl" />
+        </div>
+      )}
 
       <div className="sticky top-0 z-50 -mx-4 md:-mx-8 mb-6">
         <motion.div
