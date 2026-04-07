@@ -7676,6 +7676,17 @@ export default function AnimeOPQuizStarter() {
     }, {});
   }, [animeWithGenre]);
 
+  const genreBucketsAll = useMemo(() => {
+    const buckets = {};
+    for (const anime of animeWithGenre || []) {
+      const g = String(anime?.genre || "");
+      if (!g) continue;
+      if (!buckets[g]) buckets[g] = [];
+      buckets[g].push(anime);
+    }
+    return buckets;
+  }, [animeWithGenre]);
+
   const genreOptions = useMemo(() => {
     const sortedGenres = Object.entries(genreCounts).sort((a, b) => b[1] - a[1]);
     return [
@@ -7692,6 +7703,27 @@ export default function AnimeOPQuizStarter() {
     if (selectedGenre === "all") return animeWithGenre;
     return animeWithGenre.filter((anime) => anime.genre === selectedGenre);
   }, [animeWithGenre, selectedGenre]);
+
+  const pickBalancedUnusedFromAllGenres = (usedSet) => {
+    const used = usedSet instanceof Set ? usedSet : new Set();
+    const genres = Object.keys(genreBucketsAll || {});
+    if (!genres.length) return null;
+
+    const availableGenres = [];
+    for (const g of genres) {
+      const bucket = genreBucketsAll?.[g] || [];
+      const hasRemaining = bucket.some((a) => a && a.id != null && !used.has(a.id));
+      if (hasRemaining) availableGenres.push(g);
+    }
+    if (!availableGenres.length) return null;
+
+    const chosenGenre = availableGenres[Math.floor(Math.random() * availableGenres.length)] || "";
+    const bucket = (genreBucketsAll?.[chosenGenre] || []).filter((a) => a && a.id != null && !used.has(a.id));
+    if (!bucket.length) return null;
+    const picked = bucket[Math.floor(Math.random() * bucket.length)] || null;
+    if (picked?.id != null) used.add(picked.id);
+    return picked;
+  };
 
   const filteredAnime = useMemo(() => {
     const q = normalize(search);
@@ -8374,19 +8406,31 @@ export default function AnimeOPQuizStarter() {
     };
 
     if (isNormalPlay) {
-      const shuffled = shuffleArray(pool);
-      const uniquePicked = [];
-      const seen = new Set();
-      const limit = Math.min(questionCount, shuffled.length);
-      for (const item of shuffled) {
-        const id = item?.id;
-        if (id == null) continue;
-        if (seen.has(id)) continue;
-        seen.add(id);
-        uniquePicked.push(item);
-        if (uniquePicked.length >= limit) break;
+      const limit = Math.min(questionCount, pool.length);
+      let picked;
+      if (selectedGenre === "all") {
+        const uniquePicked = [];
+        const seen = new Set();
+        while (uniquePicked.length < limit) {
+          const next = pickBalancedUnusedFromAllGenres(seen);
+          if (!next) break;
+          uniquePicked.push(next);
+        }
+        picked = uniquePicked;
+      } else {
+        const shuffled = shuffleArray(pool);
+        const uniquePicked = [];
+        const seen = new Set();
+        for (const item of shuffled) {
+          const id = item?.id;
+          if (id == null) continue;
+          if (seen.has(id)) continue;
+          seen.add(id);
+          uniquePicked.push(item);
+          if (uniquePicked.length >= limit) break;
+        }
+        picked = uniquePicked.length ? uniquePicked : shuffled.slice(0, limit);
       }
-      const picked = uniquePicked.length ? uniquePicked : shuffled.slice(0, limit);
       setGameList(picked);
       usedAnimeIdsRef.current = new Set((picked || []).map((a) => a?.id).filter((x) => x != null));
       resetCommon();
@@ -8404,7 +8448,9 @@ export default function AnimeOPQuizStarter() {
       return;
     }
 
-    const first = pool[Math.floor(Math.random() * pool.length)] || null;
+    const first = selectedGenre === "all"
+      ? pickBalancedUnusedFromAllGenres(usedAnimeIdsRef.current)
+      : (pool[Math.floor(Math.random() * pool.length)] || null);
     if (!first) return;
     if (first?.id != null && usedAnimeIdsRef.current instanceof Set) usedAnimeIdsRef.current.add(first.id);
 
@@ -8464,6 +8510,11 @@ export default function AnimeOPQuizStarter() {
       const id = x?.id;
       if (id != null) used.add(id);
     }
+
+    if (selectedGenre === "all") {
+      return pickBalancedUnusedFromAllGenres(used);
+    }
+
     const remaining = pool.filter((a) => a && a.id != null && !used.has(a.id));
     if (!remaining.length) return null;
     const next = remaining[Math.floor(Math.random() * remaining.length)] || null;
