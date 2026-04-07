@@ -5872,8 +5872,8 @@ export default function AnimeOPQuizStarter() {
   const LS_LOCAL_STATS = "otoverse:localstats:v1";
   const LS_DAILY = "otoverse:daily:v1";
 
-  const [ruleAvoidSameGenre, setRuleAvoidSameGenre] = useState(false);
-  const [ruleNoRepeatSeriesWindow, setRuleNoRepeatSeriesWindow] = useState(0); // 0 = ปิด
+  const [ruleAvoidSameGenre, setRuleAvoidSameGenre] = useState(true);
+  const [ruleNoRepeatSeriesWindow, setRuleNoRepeatSeriesWindow] = useState(3); // 0 = ปิด
 
   const [sessionMode, setSessionMode] = useState("normal"); // normal | daily | favorites | anime | popular | room
   const [sessionDailyKey, setSessionDailyKey] = useState("");
@@ -5926,6 +5926,7 @@ export default function AnimeOPQuizStarter() {
   const [groupTurnIndex, setGroupTurnIndex] = useState(0);
   const [groupWrongPickId, setGroupWrongPickId] = useState("");
   const [homeSetupOpen, setHomeSetupOpen] = useState(false);
+  const [specialModesOpen, setSpecialModesOpen] = useState(false);
   const [gameList, setGameList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answer, setAnswer] = useState("");
@@ -8715,8 +8716,7 @@ export default function AnimeOPQuizStarter() {
 
       if (!next) {
         let candidates = remaining.filter((a) => isOkByRules(a));
-        if (!candidates.length) candidates = remaining.filter((a) => isOkByRules(a, { relaxSeries: true }));
-        if (!candidates.length) candidates = remaining.filter((a) => isOkByRules(a, { relaxGenre: true, relaxSeries: true }));
+        if (!candidates.length) candidates = remaining.filter((a) => isOkByRules(a, { relaxGenre: true, relaxSeries: false }));
         next = pickCandidate(candidates);
       }
 
@@ -8834,7 +8834,7 @@ export default function AnimeOPQuizStarter() {
     const limit = Math.min(10, shuffled.length);
     const seriesWindow = Math.max(0, Number(ruleNoRepeatSeriesWindow) || 0);
 
-    const pickSequential = ({ relaxGenre, relaxSeries }) => {
+    const pickSequential = ({ relaxGenre }) => {
       const used = new Set();
       const picked = [];
       let lastG = "";
@@ -8844,7 +8844,7 @@ export default function AnimeOPQuizStarter() {
         if (used.has(a.id)) continue;
         const g = String(a?.genre || "");
         if (!relaxGenre && ruleAvoidSameGenre && lastG && g && g === lastG) continue;
-        if (!relaxSeries && seriesWindow > 0) {
+        if (seriesWindow > 0) {
           const k = baseSeriesKeyFromTitle(a?.title);
           if (k && recentSeries.includes(k)) continue;
         }
@@ -8863,9 +8863,8 @@ export default function AnimeOPQuizStarter() {
       return picked;
     };
 
-    let picked = pickSequential({ relaxGenre: false, relaxSeries: false });
-    if (picked.length < limit) picked = pickSequential({ relaxGenre: false, relaxSeries: true });
-    if (picked.length < limit) picked = pickSequential({ relaxGenre: true, relaxSeries: true });
+    let picked = pickSequential({ relaxGenre: false });
+    if (picked.length < limit) picked = pickSequential({ relaxGenre: true });
 
     startGameFromList(picked.slice(0, limit), { mode: "daily", dailyKey: key });
   };
@@ -9122,11 +9121,26 @@ export default function AnimeOPQuizStarter() {
   useEffect(() => {
     if (!homeSetupOpen) return;
     const onKeyDown = (e) => {
-      if (e.key === "Escape") setHomeSetupOpen(false);
+      if (e.key === "Escape") {
+        if (specialModesOpen) return;
+        setHomeSetupOpen(false);
+      }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [homeSetupOpen]);
+  }, [homeSetupOpen, specialModesOpen]);
+
+  useEffect(() => {
+    if (!specialModesOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key !== "Escape") return;
+      e.preventDefault();
+      e.stopPropagation();
+      setSpecialModesOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [specialModesOpen]);
 
   const pickRandomUnusedFromPool = (pool) => {
     if (!Array.isArray(pool) || !pool.length) return null;
@@ -9183,8 +9197,7 @@ export default function AnimeOPQuizStarter() {
 
       if (!next) {
         let candidates = remaining.filter((a) => isOk(a));
-        if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxSeries: true }));
-        if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxGenre: true, relaxSeries: true }));
+        if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxGenre: true, relaxSeries: false }));
         next = pickAny(candidates);
       }
 
@@ -9193,12 +9206,193 @@ export default function AnimeOPQuizStarter() {
     }
 
     let candidates = remaining.filter((a) => isOk(a));
-    if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxSeries: true }));
-    if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxGenre: true, relaxSeries: true }));
+    if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxGenre: true, relaxSeries: false }));
     const next = pickAny(candidates) || null;
     if (next?.id != null) used.add(next.id);
     return next;
   };
+
+  const renderSpecialModesPanel = () => (
+    <div
+      className="fixed inset-0 z-[70]"
+      role="dialog"
+      aria-modal="true"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) setSpecialModesOpen(false);
+      }}
+    >
+      <div className="absolute inset-0 bg-slate-950/35 backdrop-blur-sm" />
+      <div className="absolute inset-y-0 right-0 w-full max-w-xl overflow-y-auto p-4 md:p-6">
+        <Card className="rounded-3xl border border-white/70 bg-white/90 shadow-[0_28px_56px_rgba(19,34,76,0.25)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/75 dark:shadow-[0_28px_56px_rgba(0,0,0,0.5)]">
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/20 via-transparent to-purple-50/20 pointer-events-none dark:from-cyan-400/10 dark:to-blue-500/10" />
+          <CardHeader className="relative">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <CardTitle className="text-xl">โหมดพิเศษ</CardTitle>
+                <CardDescription>Daily / Favorites / ยอดนิยม / เล่นจากเรื่อง / Room Code</CardDescription>
+              </div>
+              <Button
+                variant="ghost"
+                className="rounded-2xl"
+                onClick={() => setSpecialModesOpen(false)}
+                title="ปิด"
+              >
+                ✕
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="relative space-y-4">
+            <div className="grid md:grid-cols-3 gap-3">
+              <motion.button
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => {
+                  setSpecialModesOpen(false);
+                  setHomeSetupOpen(false);
+                  startDailyChallenge();
+                }}
+                className="text-left rounded-2xl border p-4 transition duration-300 text-slate-900 dark:text-slate-100 border-slate-200 bg-white/60 hover:bg-white/80 hover:border-amber-400 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:bg-slate-900/45 dark:hover:border-cyan-400/40"
+              >
+                <div className="font-semibold text-lg">📅 Daily Challenge</div>
+                <div className="text-sm mt-1 text-slate-600 dark:text-slate-300">ชุดประจำวัน (10 ข้อ)</div>
+              </motion.button>
+
+              <motion.button
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => {
+                  setSpecialModesOpen(false);
+                  setHomeSetupOpen(false);
+                  startFavoritesMode();
+                }}
+                className="text-left rounded-2xl border p-4 transition duration-300 text-slate-900 dark:text-slate-100 border-slate-200 bg-white/60 hover:bg-white/80 hover:border-amber-400 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:bg-slate-900/45 dark:hover:border-cyan-400/40"
+              >
+                <div className="font-semibold text-lg">⭐ Favorites</div>
+                <div className="text-sm mt-1 text-slate-600 dark:text-slate-300">เล่นจากเพลงที่กดดาว ({favoriteIds.length})</div>
+              </motion.button>
+
+              <motion.button
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => {
+                  setSpecialModesOpen(false);
+                  setHomeSetupOpen(false);
+                  startPopularMode();
+                }}
+                className="text-left rounded-2xl border p-4 transition duration-300 text-slate-900 dark:text-slate-100 border-slate-200 bg-white/60 hover:bg-white/80 hover:border-amber-400 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:bg-slate-900/45 dark:hover:border-cyan-400/40"
+              >
+                <div className="font-semibold text-lg">🔥 ยอดนิยมของคุณ</div>
+                <div className="text-sm mt-1 text-slate-600 dark:text-slate-300">อิงจากสถิติในเครื่อง ({popularPool.length})</div>
+              </motion.button>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+              <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">🎬 เล่นจากเรื่อง (เลือกอนิเมะ)</div>
+
+              <Input
+                value={animeSeriesQuery}
+                onChange={(e) => setAnimeSeriesQuery(e.target.value)}
+                placeholder="พิมพ์ค้นหาชื่อเรื่อง..."
+                className="rounded-2xl h-11"
+              />
+
+              <select
+                value={selectedSeriesKey}
+                onChange={(e) => setSelectedSeriesKey(e.target.value)}
+                className="h-11 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
+              >
+                <option value="">เลือกเรื่อง...</option>
+                {Object.values(seriesBuckets || {})
+                  .filter((s) => {
+                    const q = normalize(animeSeriesQuery);
+                    if (!q) return true;
+                    const hay = normalize(`${s?.label || ""} ${s?.key || ""}`);
+                    return hay.includes(q);
+                  })
+                  .slice()
+                  .sort((a, b) => (b?.items?.length || 0) - (a?.items?.length || 0))
+                  .slice(0, 50)
+                  .map((s) => (
+                    <option key={s.key} value={s.key}>
+                      {s.label} ({(s.items || []).length})
+                    </option>
+                  ))}
+              </select>
+
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  className="rounded-2xl font-semibold"
+                  disabled={!selectedSeriesKey}
+                  onClick={() => {
+                    setSpecialModesOpen(false);
+                    setHomeSetupOpen(false);
+                    startSeriesMode();
+                  }}
+                >
+                  เริ่มเล่นจากเรื่องนี้
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="rounded-2xl"
+                  onClick={() => {
+                    setSelectedSeriesKey("");
+                    setAnimeSeriesQuery("");
+                  }}
+                >
+                  ล้าง
+                </Button>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+              <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">🎟️ Room Code (เล่นชุดเดียวกับเพื่อน)</div>
+              <div className="text-xs text-slate-600 dark:text-slate-300">สร้างโค้ดเพื่อแชร์ “ชุดคำถาม” ให้เพื่อนเล่นเหมือนกัน (ไม่ใช่ห้องออนไลน์)</div>
+
+              <Input
+                value={roomCodeDraft}
+                onChange={(e) => setRoomCodeDraft(e.target.value)}
+                placeholder="วางโค้ดห้องที่นี่..."
+                className="rounded-2xl h-11"
+              />
+
+              <div className="flex flex-wrap gap-2">
+                <Button type="button" className="rounded-2xl font-semibold" onClick={generateRoomCode}>
+                  สร้างโค้ดจากการตั้งค่านี้
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="rounded-2xl"
+                  onClick={() => {
+                    setSpecialModesOpen(false);
+                    startFromRoomCode();
+                  }}
+                  disabled={!String(roomCodeDraft || "").trim()}
+                >
+                  เริ่มจากโค้ด
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="rounded-2xl"
+                  onClick={() => {
+                    setRoomCodeDraft("");
+                    setRoomNotice("");
+                  }}
+                >
+                  ล้าง
+                </Button>
+              </div>
+
+              {roomNotice ? <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">{roomNotice}</div> : null}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
 
   const advanceQuestion = () => {
     if (sessionMode === "room" && Array.isArray(gameList) && gameList.length) {
@@ -10151,10 +10345,6 @@ export default function AnimeOPQuizStarter() {
                           <option value={8}>8</option>
                         </select>
                       </div>
-
-                      <div className="text-xs text-slate-600 dark:text-slate-300">
-                        หมายเหตุ: ถ้าหาเพลงไม่พอ ระบบจะผ่อนกติกาให้อัตโนมัติ
-                      </div>
                     </div>
                   </div>
 
@@ -10164,146 +10354,21 @@ export default function AnimeOPQuizStarter() {
                       <div className="text-base font-semibold text-slate-900 dark:text-slate-100">โหมดพิเศษ</div>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-3">
-                      <motion.button
-                        whileHover={{ y: -4, scale: 1.02 }}
-                        whileTap={{ scale: 0.96 }}
-                        onClick={() => {
-                          setHomeSetupOpen(false);
-                          startDailyChallenge();
-                        }}
-                        className="text-left rounded-2xl border p-4 transition duration-300 text-slate-900 dark:text-slate-100 border-slate-200 bg-white/60 hover:bg-white/80 hover:border-amber-400 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:bg-slate-900/45 dark:hover:border-cyan-400/40"
-                      >
-                        <div className="font-semibold text-lg">📅 Daily Challenge</div>
-                        <div className="text-sm mt-1 text-slate-600 dark:text-slate-300">ชุดประจำวัน (10 ข้อ)</div>
-                      </motion.button>
-
-                      <motion.button
-                        whileHover={{ y: -4, scale: 1.02 }}
-                        whileTap={{ scale: 0.96 }}
-                        onClick={() => {
-                          setHomeSetupOpen(false);
-                          startFavoritesMode();
-                        }}
-                        className="text-left rounded-2xl border p-4 transition duration-300 text-slate-900 dark:text-slate-100 border-slate-200 bg-white/60 hover:bg-white/80 hover:border-amber-400 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:bg-slate-900/45 dark:hover:border-cyan-400/40"
-                      >
-                        <div className="font-semibold text-lg">⭐ Favorites</div>
-                        <div className="text-sm mt-1 text-slate-600 dark:text-slate-300">เล่นจากเพลงที่กดดาว ({favoriteIds.length})</div>
-                      </motion.button>
-
-                      <motion.button
-                        whileHover={{ y: -4, scale: 1.02 }}
-                        whileTap={{ scale: 0.96 }}
-                        onClick={() => {
-                          setHomeSetupOpen(false);
-                          startPopularMode();
-                        }}
-                        className="text-left rounded-2xl border p-4 transition duration-300 text-slate-900 dark:text-slate-100 border-slate-200 bg-white/60 hover:bg-white/80 hover:border-amber-400 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:bg-slate-900/45 dark:hover:border-cyan-400/40"
-                      >
-                        <div className="font-semibold text-lg">🔥 ยอดนิยมของคุณ</div>
-                        <div className="text-sm mt-1 text-slate-600 dark:text-slate-300">อิงจากสถิติในเครื่อง ({popularPool.length})</div>
-                      </motion.button>
-                    </div>
-
                     <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
-                      <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">🎬 เล่นจากเรื่อง (เลือกอนิเมะ)</div>
-
-                      <Input
-                        value={animeSeriesQuery}
-                        onChange={(e) => setAnimeSeriesQuery(e.target.value)}
-                        placeholder="พิมพ์ค้นหาชื่อเรื่อง..."
-                        className="rounded-2xl h-11"
-                      />
-
-                      <select
-                        value={selectedSeriesKey}
-                        onChange={(e) => setSelectedSeriesKey(e.target.value)}
-                        className="h-11 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
-                      >
-                        <option value="">เลือกเรื่อง...</option>
-                        {Object.values(seriesBuckets || {})
-                          .filter((s) => {
-                            const q = normalize(animeSeriesQuery);
-                            if (!q) return true;
-                            const hay = normalize(`${s?.label || ""} ${s?.key || ""}`);
-                            return hay.includes(q);
-                          })
-                          .slice()
-                          .sort((a, b) => (b?.items?.length || 0) - (a?.items?.length || 0))
-                          .slice(0, 50)
-                          .map((s) => (
-                            <option key={s.key} value={s.key}>
-                              {s.label} ({(s.items || []).length})
-                            </option>
-                          ))}
-                      </select>
-
-                      <div className="flex flex-wrap gap-2">
-                        <Button
-                          type="button"
-                          className="rounded-2xl font-semibold"
-                          disabled={!selectedSeriesKey}
-                          onClick={() => {
-                            setHomeSetupOpen(false);
-                            startSeriesMode();
-                          }}
-                        >
-                          เริ่มเล่นจากเรื่องนี้
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="rounded-2xl"
-                          onClick={() => {
-                            setSelectedSeriesKey("");
-                            setAnimeSeriesQuery("");
-                          }}
-                        >
-                          ล้าง
-                        </Button>
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">เปิดโหมดพิเศษ</div>
+                        <Badge variant="outline" className="rounded-full">แผงด้านขวา</Badge>
                       </div>
-                    </div>
-
-                    <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
-                      <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">🎟️ Room Code (เล่นชุดเดียวกับเพื่อน)</div>
                       <div className="text-xs text-slate-600 dark:text-slate-300">
-                        สร้างโค้ดเพื่อแชร์ “ชุดคำถาม” ให้เพื่อนเล่นเหมือนกัน (ไม่ใช่ห้องออนไลน์)
+                        Daily / Favorites / ยอดนิยม / เล่นจากเรื่อง / Room Code
                       </div>
-
-                      <Input
-                        value={roomCodeDraft}
-                        onChange={(e) => setRoomCodeDraft(e.target.value)}
-                        placeholder="วางโค้ดห้องที่นี่..."
-                        className="rounded-2xl h-11"
-                      />
-
-                      <div className="flex flex-wrap gap-2">
-                        <Button type="button" className="rounded-2xl font-semibold" onClick={generateRoomCode}>
-                          สร้างโค้ดจากการตั้งค่านี้
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="rounded-2xl"
-                          onClick={() => startFromRoomCode()}
-                          disabled={!String(roomCodeDraft || "").trim()}
-                        >
-                          เริ่มจากโค้ด
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="rounded-2xl"
-                          onClick={() => {
-                            setRoomCodeDraft("");
-                            setRoomNotice("");
-                          }}
-                        >
-                          ล้าง
-                        </Button>
-                      </div>
-
-                      {roomNotice ? <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">{roomNotice}</div> : null}
+                      <Button
+                        type="button"
+                        className="rounded-2xl font-semibold"
+                        onClick={() => setSpecialModesOpen(true)}
+                      >
+                        เปิดโหมดพิเศษ
+                      </Button>
                     </div>
                   </div>
 
@@ -10332,6 +10397,8 @@ export default function AnimeOPQuizStarter() {
           </div>
         </div>
       )}
+
+      {specialModesOpen ? renderSpecialModesPanel() : null}
     </div>
   );
 
