@@ -5255,6 +5255,78 @@ function shuffleArray(array) {
   return arr;
 }
 
+function safeJsonParse(text) {
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+
+function readLocalJson(key, fallback) {
+  if (typeof window === "undefined") return fallback;
+  try {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return fallback;
+    const parsed = safeJsonParse(raw);
+    return parsed == null ? fallback : parsed;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeLocalJson(key, value) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // ignore
+  }
+}
+
+function baseSeriesKeyFromTitle(title) {
+  const t = String(title || "").trim();
+  if (!t) return "";
+  const withoutSongMarker = t.replace(/\s*\(\s*(?:op|ed|insert|ost)\s*\d*\s*\)\s*$/i, "").trim();
+  return normalize(withoutSongMarker);
+}
+
+function mulberry32(seed) {
+  let t = seed >>> 0;
+  return () => {
+    t += 0x6d2b79f5;
+    let x = Math.imul(t ^ (t >>> 15), 1 | t);
+    x ^= x + Math.imul(x ^ (x >>> 7), 61 | x);
+    return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function makeRoomCode(payload) {
+  try {
+    const json = JSON.stringify(payload || {});
+    const b64 = btoa(unescape(encodeURIComponent(json)))
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/g, "");
+    return `R1.${b64}`;
+  } catch {
+    return "";
+  }
+}
+
+function parseRoomCode(code) {
+  const raw = String(code || "").trim();
+  if (!raw.startsWith("R1.")) return null;
+  const b64url = raw.slice(3).replace(/-/g, "+").replace(/_/g, "/");
+  const pad = b64url.length % 4 ? "=".repeat(4 - (b64url.length % 4)) : "";
+  try {
+    const json = decodeURIComponent(escape(atob(b64url + pad)));
+    return safeJsonParse(json);
+  } catch {
+    return null;
+  }
+}
+
 function inferGenre(anime) {
   const haystack = normalize([anime.title, ...(anime.altTitles || []), anime.note || ""].join(" "));
   const matched = genreKeywordRules.find((rule) =>
@@ -5795,6 +5867,58 @@ export default function AnimeOPQuizStarter() {
   const [playMode, setPlayMode] = useState("normal"); // normal | solo_challenge | group
   const [soloHp, setSoloHp] = useState(10);
   const [soloWrongMultiplier, setSoloWrongMultiplier] = useState(1);
+
+  const LS_FAVORITES = "otoverse:favorites:v1";
+  const LS_LOCAL_STATS = "otoverse:localstats:v1";
+  const LS_DAILY = "otoverse:daily:v1";
+
+  const [ruleAvoidSameGenre, setRuleAvoidSameGenre] = useState(false);
+  const [ruleNoRepeatSeriesWindow, setRuleNoRepeatSeriesWindow] = useState(0); // 0 = ปิด
+
+  const [sessionMode, setSessionMode] = useState("normal"); // normal | daily | favorites | anime | popular | room
+  const [sessionDailyKey, setSessionDailyKey] = useState("");
+  const [sessionRoomCode, setSessionRoomCode] = useState("");
+  const [dailyLastResult, setDailyLastResult] = useState(() => readLocalJson(LS_DAILY, {}));
+
+  const [favoriteIds, setFavoriteIds] = useState(() => {
+    const arr = readLocalJson(LS_FAVORITES, []);
+    return Array.isArray(arr) ? arr.map((x) => Number(x)).filter((n) => Number.isFinite(n)) : [];
+  });
+  const favoriteSet = useMemo(() => new Set((favoriteIds || []).filter((x) => x != null)), [favoriteIds]);
+
+  const toggleFavoriteId = (animeId) => {
+    const id = Number(animeId);
+    if (!Number.isFinite(id)) return;
+    setFavoriteIds((prev) => {
+      const list = Array.isArray(prev) ? prev.slice() : [];
+      const idx = list.indexOf(id);
+      if (idx >= 0) {
+        list.splice(idx, 1);
+        return list;
+      }
+      list.unshift(id);
+      return list.slice(0, 500);
+    });
+  };
+
+  const [localStats, setLocalStats] = useState(() => {
+    const raw = readLocalJson(LS_LOCAL_STATS, { byId: {} });
+    const byId = raw && typeof raw === "object" && raw.byId && typeof raw.byId === "object" ? raw.byId : {};
+    return { byId };
+  });
+
+  const [runQuestionStats, setRunQuestionStats] = useState([]); // [{id, genre, seriesKey, correct, ms}]
+  const [runMaxStreak, setRunMaxStreak] = useState(0);
+  const [runCurrStreak, setRunCurrStreak] = useState(0);
+  const questionStartedAtRef = useRef(0);
+  const questionRecordedRef = useRef(false);
+  const lastGenreRef = useRef("");
+  const recentSeriesRef = useRef([]); // queue of seriesKey
+
+  const [animeSeriesQuery, setAnimeSeriesQuery] = useState("");
+  const [selectedSeriesKey, setSelectedSeriesKey] = useState("");
+  const [roomCodeDraft, setRoomCodeDraft] = useState("");
+  const [roomNotice, setRoomNotice] = useState("");
   const [groupSetupPlayers, setGroupSetupPlayers] = useState([]); // [{id,name}]
   const [groupPlayerName, setGroupPlayerName] = useState("");
   const [groupPlayers, setGroupPlayers] = useState([]); // [{id,name,hp,mult,score,eliminated}]
@@ -5811,6 +5935,9 @@ export default function AnimeOPQuizStarter() {
   const [playStartedAtMs, setPlayStartedAtMs] = useState(null);
   const [playElapsedMs, setPlayElapsedMs] = useState(0);
   const [aboutSection, setAboutSection] = useState(null);
+  const [reportText, setReportText] = useState("");
+  const [reportBusy, setReportBusy] = useState(false);
+  const [reportNotice, setReportNotice] = useState("");
   const isDark = true;
   const [libraryTab, setLibraryTab] = useState("catalog");
   const [libraryListMode, setLibraryListMode] = useState("works");
@@ -7687,6 +7814,56 @@ export default function AnimeOPQuizStarter() {
     return buckets;
   }, [animeWithGenre]);
 
+  useEffect(() => {
+    writeLocalJson(LS_FAVORITES, (favoriteIds || []).slice(0, 500));
+  }, [LS_FAVORITES, favoriteIds]);
+
+  useEffect(() => {
+    writeLocalJson(LS_LOCAL_STATS, localStats || { byId: {} });
+  }, [LS_LOCAL_STATS, localStats]);
+
+  useEffect(() => {
+    writeLocalJson(LS_DAILY, dailyLastResult || {});
+  }, [LS_DAILY, dailyLastResult]);
+
+  const favoritesPool = useMemo(() => {
+    if (!favoriteSet.size) return [];
+    return (animeWithGenre || []).filter((a) => a && a.id != null && favoriteSet.has(Number(a.id)));
+  }, [animeWithGenre, favoriteSet]);
+
+  const seriesBuckets = useMemo(() => {
+    const buckets = {};
+    for (const a of animeWithGenre || []) {
+      const key = baseSeriesKeyFromTitle(a?.title);
+      if (!key) continue;
+      const label = String(a?.title || "")
+        .replace(/\s*\(\s*(?:op|ed|insert|ost)\s*\d*\s*\)\s*$/i, "")
+        .trim();
+      if (!buckets[key]) buckets[key] = { key, label: label || key, items: [] };
+      buckets[key].items.push(a);
+    }
+    return buckets;
+  }, [animeWithGenre]);
+
+  const popularPool = useMemo(() => {
+    const byId = localStats?.byId && typeof localStats.byId === "object" ? localStats.byId : {};
+    const scored = (animeWithGenre || [])
+      .filter((a) => a && a.id != null)
+      .map((a) => {
+        const s = byId[String(a.id)] || {};
+        const plays = Number(s?.plays || 0) || 0;
+        const correct = Number(s?.correct || 0) || 0;
+        return { anime: a, plays, correct };
+      })
+      .filter((x) => x.plays > 0 || x.correct > 0)
+      .sort((a, b) => {
+        if (b.correct !== a.correct) return b.correct - a.correct;
+        return b.plays - a.plays;
+      });
+
+    return scored.slice(0, 60).map((x) => x.anime);
+  }, [animeWithGenre, localStats]);
+
   const genreOptions = useMemo(() => {
     const sortedGenres = Object.entries(genreCounts).sort((a, b) => b[1] - a[1]);
     return [
@@ -8385,12 +8562,201 @@ export default function AnimeOPQuizStarter() {
     return () => window.removeEventListener("beforeunload", onBeforeUnload);
   }, [isGameInProgress]);
 
-  const startGame = () => {
-    const pool = activeGenrePool;
+  const getDailyKeyFromDate = (d) => {
+    try {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    } catch {
+      return "";
+    }
+  };
 
-    if (!Array.isArray(pool) || !pool.length) return;
+  const hashStringToSeed = (str) => {
+    // Small deterministic string hash (32-bit)
+    let h = 1779033703 ^ str.length;
+    for (let i = 0; i < str.length; i += 1) {
+      h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+      h = (h << 13) | (h >>> 19);
+    }
+    return () => {
+      h = Math.imul(h ^ (h >>> 16), 2246822507);
+      h = Math.imul(h ^ (h >>> 13), 3266489909);
+      h ^= h >>> 16;
+      return h >>> 0;
+    };
+  };
 
-    usedAnimeIdsRef.current = new Set();
+  const mulberry32 = (seed) => {
+    let a = seed >>> 0;
+    return () => {
+      a |= 0;
+      a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  };
+
+  const deterministicShuffle = (arr, seedStr) => {
+    const list = Array.isArray(arr) ? arr.slice() : [];
+    const seedFn = hashStringToSeed(String(seedStr || ""));
+    const rnd = mulberry32(seedFn());
+    for (let i = list.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(rnd() * (i + 1));
+      const tmp = list[i];
+      list[i] = list[j];
+      list[j] = tmp;
+    }
+    return list;
+  };
+
+  const base64UrlEncode = (str) => {
+    try {
+      const b64 = btoa(unescape(encodeURIComponent(String(str || ""))));
+      return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+    } catch {
+      return "";
+    }
+  };
+
+  const base64UrlDecode = (b64url) => {
+    try {
+      const s = String(b64url || "").replace(/-/g, "+").replace(/_/g, "/");
+      const pad = s.length % 4 ? "=".repeat(4 - (s.length % 4)) : "";
+      return decodeURIComponent(escape(atob(s + pad)));
+    } catch {
+      return "";
+    }
+  };
+
+  const buildQuestionListFromPool = ({
+    pool,
+    limit,
+    balanceAcrossGenres
+  }) => {
+    const source = Array.isArray(pool) ? pool : [];
+    const max = Math.max(1, Math.min(Number(limit) || 1, source.length));
+    const used = new Set();
+    const picked = [];
+
+    let tempLastGenre = "";
+    const recentSeries = [];
+    const seriesWindow = Math.max(0, Number(ruleNoRepeatSeriesWindow) || 0);
+
+    const pickCandidate = (candidates) => {
+      if (!candidates.length) return null;
+      return candidates[Math.floor(Math.random() * candidates.length)] || null;
+    };
+
+    const isOkByRules = (a, { relaxGenre, relaxSeries } = {}) => {
+      if (!a || a.id == null) return false;
+      if (used.has(a.id)) return false;
+      const g = String(a?.genre || "");
+      if (!relaxGenre && ruleAvoidSameGenre && tempLastGenre && g && g === tempLastGenre) return false;
+
+      if (!relaxSeries && seriesWindow > 0) {
+        const key = baseSeriesKeyFromTitle(a?.title);
+        if (key && recentSeries.includes(key)) return false;
+      }
+      return true;
+    };
+
+    const commitPick = (a) => {
+      if (!a || a.id == null) return;
+      used.add(a.id);
+      picked.push(a);
+      tempLastGenre = String(a?.genre || "");
+      if (seriesWindow > 0) {
+        const key = baseSeriesKeyFromTitle(a?.title);
+        if (key) {
+          recentSeries.push(key);
+          while (recentSeries.length > seriesWindow) recentSeries.shift();
+        }
+      }
+    };
+
+    for (let i = 0; i < max; i += 1) {
+      let next = null;
+      const remaining = source.filter((a) => a && a.id != null && !used.has(a.id));
+      if (!remaining.length) break;
+
+      if (balanceAcrossGenres) {
+        const genreMap = {};
+        for (const a of remaining) {
+          const g = String(a?.genre || "");
+          if (!g) continue;
+          if (!genreMap[g]) genreMap[g] = [];
+          genreMap[g].push(a);
+        }
+
+        let genreKeys = Object.keys(genreMap);
+        // Apply rule filters at the genre level when possible.
+        if (ruleAvoidSameGenre && tempLastGenre) {
+          const filteredGenreKeys = genreKeys.filter((g) => g !== tempLastGenre);
+          if (filteredGenreKeys.length) genreKeys = filteredGenreKeys;
+        }
+
+        // Prefer genres that still have at least one item passing the series rule.
+        const seriesWindowActive = seriesWindow > 0;
+        if (seriesWindowActive) {
+          const okGenres = genreKeys.filter((g) => {
+            const bucket = genreMap[g] || [];
+            return bucket.some((a) => isOkByRules(a, { relaxGenre: true, relaxSeries: false }));
+          });
+          if (okGenres.length) genreKeys = okGenres;
+        }
+
+        const chosenGenre = genreKeys[Math.floor(Math.random() * genreKeys.length)] || "";
+        const bucket = (genreMap[chosenGenre] || []).filter((a) => isOkByRules(a));
+        if (bucket.length) next = pickCandidate(bucket);
+      }
+
+      if (!next) {
+        let candidates = remaining.filter((a) => isOkByRules(a));
+        if (!candidates.length) candidates = remaining.filter((a) => isOkByRules(a, { relaxSeries: true }));
+        if (!candidates.length) candidates = remaining.filter((a) => isOkByRules(a, { relaxGenre: true, relaxSeries: true }));
+        next = pickCandidate(candidates);
+      }
+
+      if (!next) break;
+      commitPick(next);
+    }
+
+    return picked;
+  };
+
+  const resetRunTracking = () => {
+    setRunQuestionStats([]);
+    setRunMaxStreak(0);
+    setRunCurrStreak(0);
+    questionStartedAtRef.current = Date.now();
+    questionRecordedRef.current = false;
+    lastGenreRef.current = "";
+    recentSeriesRef.current = [];
+  };
+
+  const startGameFromList = (list, { mode, dailyKey, playModeOverride, groupSetup, roomCode } = {}) => {
+    const picked = Array.isArray(list) ? list.filter(Boolean) : [];
+    if (!picked.length) return;
+
+    usedAnimeIdsRef.current = new Set((picked || []).map((a) => a?.id).filter((x) => x != null));
+
+    const effectivePlayMode = String(playModeOverride || playMode || "normal");
+    if (playModeOverride) setPlayMode(effectivePlayMode);
+    const wantsGroup = effectivePlayMode === "group";
+
+    setSessionMode(String(mode || "normal"));
+    setSessionDailyKey(dailyKey || "");
+    setSessionRoomCode(String(roomCode || ""));
+    setDailyLastResult((prev) => {
+      if (String(mode) !== "daily") return prev;
+      const key = String(dailyKey || "");
+      if (!key) return prev;
+      const listIds = picked.map((a) => a?.id).filter((x) => x != null);
+      return { ...(prev || {}), key, listIds };
+    });
 
     const resetCommon = () => {
       setCurrentIndex(0);
@@ -8405,77 +8771,337 @@ export default function AnimeOPQuizStarter() {
       setGroupWrongPickId("");
     };
 
+    resetRunTracking();
+    setGameList(picked);
+    resetCommon();
+
+    if (wantsGroup) {
+      const setup = Array.isArray(groupSetup)
+        ? groupSetup.slice(0, 10)
+        : Array.isArray(groupSetupPlayers)
+          ? groupSetupPlayers.slice(0, 10)
+          : [];
+      setGroupPlayers(
+        setup.map((p, idx) => {
+          const name = typeof p === "string" ? p : String(p?.name || "");
+          const safeName = name.trim() || `ผู้เล่น ${idx + 1}`;
+          const id = typeof p === "object" && p?.id ? String(p.id) : `p-room-${Date.now()}-${idx}`;
+          return {
+            id,
+            name: safeName,
+            hp: 10,
+            mult: 1,
+            score: 0,
+            eliminated: false
+          };
+        })
+      );
+      setGroupTurnIndex(0);
+      setGroupWrongPickId("");
+      setGroupCorrectPickId("");
+    } else {
+      setGroupPlayers([]);
+    }
+
+    setPlayStartedAtMs(Date.now());
+    setPlayElapsedMs(0);
+    setPage("play");
+
+    if (user?.uid && String(mode || "") !== "daily" && String(mode || "") !== "room") {
+      bumpPlayCount(user.uid).then((r) => {
+        if (r && r.ok === false) {
+          setProfileNotice(`อัปเดตจำนวนการเล่นไม่สำเร็จ (${r.error || "unknown"})`);
+        }
+      });
+    }
+  };
+
+  const startDailyChallenge = () => {
+    setPlayMode("normal");
+    const key = getDailyKeyFromDate(new Date());
+    if (!key) return;
+
+    const already = String(dailyLastResult?.key || "") === key && Boolean(dailyLastResult?.completedAt);
+    if (already) {
+      const ok = window.confirm("วันนี้เล่น Daily Challenge ไปแล้ว\nต้องการเล่นซ้ำชุดเดิมอีกครั้งไหม?");
+      if (!ok) return;
+    }
+
+    const pool = Array.isArray(animeWithGenre) ? animeWithGenre : [];
+    const seed = `daily:${key}`;
+    const shuffled = deterministicShuffle(pool.filter((a) => a && a.id != null), seed);
+
+    const limit = Math.min(10, shuffled.length);
+    const seriesWindow = Math.max(0, Number(ruleNoRepeatSeriesWindow) || 0);
+
+    const pickSequential = ({ relaxGenre, relaxSeries }) => {
+      const used = new Set();
+      const picked = [];
+      let lastG = "";
+      const recentSeries = [];
+      for (const a of shuffled) {
+        if (!a || a.id == null) continue;
+        if (used.has(a.id)) continue;
+        const g = String(a?.genre || "");
+        if (!relaxGenre && ruleAvoidSameGenre && lastG && g && g === lastG) continue;
+        if (!relaxSeries && seriesWindow > 0) {
+          const k = baseSeriesKeyFromTitle(a?.title);
+          if (k && recentSeries.includes(k)) continue;
+        }
+        used.add(a.id);
+        picked.push(a);
+        lastG = g;
+        if (seriesWindow > 0) {
+          const k = baseSeriesKeyFromTitle(a?.title);
+          if (k) {
+            recentSeries.push(k);
+            while (recentSeries.length > seriesWindow) recentSeries.shift();
+          }
+        }
+        if (picked.length >= limit) break;
+      }
+      return picked;
+    };
+
+    let picked = pickSequential({ relaxGenre: false, relaxSeries: false });
+    if (picked.length < limit) picked = pickSequential({ relaxGenre: false, relaxSeries: true });
+    if (picked.length < limit) picked = pickSequential({ relaxGenre: true, relaxSeries: true });
+
+    startGameFromList(picked.slice(0, limit), { mode: "daily", dailyKey: key });
+  };
+
+  const startFavoritesMode = () => {
+    setPlayMode("normal");
+    const pool = favoritesPool;
+    if (!pool.length) {
+      window.alert("ยังไม่มี Favorites\nไปกด ⭐ ในคลังก่อนนะ");
+      return;
+    }
+    const limit = Math.min(questionCount, pool.length);
+    const picked = buildQuestionListFromPool({ pool, limit, balanceAcrossGenres: selectedGenre === "all" });
+    startGameFromList(picked, { mode: "favorites" });
+  };
+
+  const startPopularMode = () => {
+    setPlayMode("normal");
+    const pool = popularPool;
+    if (!pool.length) {
+      window.alert("ยังไม่มีข้อมูลเพลงยอดนิยมของคุณ\nลองเล่นสักพักก่อนนะ");
+      return;
+    }
+    const limit = Math.min(questionCount, pool.length);
+    const picked = buildQuestionListFromPool({ pool, limit, balanceAcrossGenres: true });
+    startGameFromList(picked, { mode: "popular" });
+  };
+
+  const startSeriesMode = () => {
+    setPlayMode("normal");
+    const key = String(selectedSeriesKey || "");
+    const bucket = key ? seriesBuckets?.[key] : null;
+    const pool = Array.isArray(bucket?.items) ? bucket.items : [];
+    if (!pool.length) {
+      window.alert("เลือกเรื่องก่อน แล้วค่อยเริ่มเล่น");
+      return;
+    }
+    const limit = Math.min(questionCount, pool.length);
+    const picked = buildQuestionListFromPool({ pool, limit, balanceAcrossGenres: false });
+    startGameFromList(picked, { mode: "series" });
+  };
+
+  const generateRoomCode = async () => {
+    try {
+      const pool = activeGenrePool;
+      if (!Array.isArray(pool) || !pool.length) return;
+      const limit = Math.min(Math.max(1, Number(questionCount) || 5), pool.length);
+      const picked = buildQuestionListFromPool({ pool, limit, balanceAcrossGenres: selectedGenre === "all" });
+      const ids = (picked || []).map((a) => a?.id).filter((x) => x != null);
+      if (!ids.length) return;
+
+      const playModeToEncode = String(playMode || "normal");
+      const playersToEncode = playModeToEncode === "group"
+        ? (groupSetupPlayers || [])
+            .slice(0, 10)
+            .map((p) => String(p?.name || "").trim())
+            .filter(Boolean)
+            .map((name) => name.slice(0, 24))
+        : [];
+
+      if (playModeToEncode === "group" && !playersToEncode.length) {
+        setRoomNotice("โหมดกลุ่ม: เพิ่มรายชื่อผู้เล่นก่อน แล้วค่อยสร้างโค้ด");
+        return;
+      }
+
+      const payload = {
+        v: 1,
+        t: "room",
+        ids,
+        playMode: playModeToEncode,
+        players: playersToEncode,
+        questionCount: limit,
+        selectedGenre,
+        answerMode,
+        ruleAvoidSameGenre,
+        ruleNoRepeatSeriesWindow,
+        createdAt: Date.now()
+      };
+
+      const code = base64UrlEncode(JSON.stringify(payload));
+      if (!code) return;
+      setRoomCodeDraft(code);
+      setRoomNotice("สร้างโค้ดแล้ว");
+
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(code);
+        setRoomNotice("คัดลอกโค้ดแล้ว");
+      }
+    } catch {
+      setRoomNotice("สร้างโค้ดไม่สำเร็จ");
+    }
+  };
+
+  const startFromRoomCode = (codeOverride) => {
+    const raw = String(codeOverride != null ? codeOverride : roomCodeDraft || "").trim();
+    if (!raw) return;
+    const decoded = base64UrlDecode(raw);
+    if (!decoded) {
+      setRoomNotice("โค้ดไม่ถูกต้อง");
+      return;
+    }
+
+    let data = null;
+    try {
+      data = JSON.parse(decoded);
+    } catch {
+      setRoomNotice("โค้ดไม่ถูกต้อง");
+      return;
+    }
+
+    if (!data || data.v !== 1 || data.t !== "room") {
+      setRoomNotice("โค้ดไม่รองรับ");
+      return;
+    }
+
+    const ids = Array.isArray(data.ids) ? data.ids.slice(0, 30) : [];
+    if (!ids.length) {
+      setRoomNotice("โค้ดไม่มีรายการเพลง");
+      return;
+    }
+
+    const playModeFromCode = typeof data.playMode === "string" ? data.playMode : "normal";
+
+    if (typeof data.selectedGenre === "string") setSelectedGenre(data.selectedGenre);
+
+    // In group mode, force typing (choices are disabled by UI rules)
+    if (typeof data.answerMode === "string") {
+      const desired = data.answerMode;
+      const isChoice = Boolean(answerModeConfig?.[desired]?.choices);
+      setAnswerMode(playModeFromCode === "group" && isChoice ? "typing" : desired);
+    }
+
+    setRuleAvoidSameGenre(Boolean(data.ruleAvoidSameGenre));
+    setRuleNoRepeatSeriesWindow(Math.max(0, Number(data.ruleNoRepeatSeriesWindow) || 0));
+
+    let setupPlayers = [];
+    if (playModeFromCode === "group") {
+      const names = Array.isArray(data.players) ? data.players : [];
+      setupPlayers = names
+        .slice(0, 10)
+        .map((n) => String(n || "").trim())
+        .filter(Boolean)
+        .map((name, idx) => ({
+          id: `p-room-${Date.now()}-${idx}`,
+          name: name.slice(0, 24)
+        }));
+
+      if (!setupPlayers.length) {
+        setRoomNotice("โหมดกลุ่มต้องมีรายชื่อผู้เล่นในโค้ด");
+        return;
+      }
+      setGroupSetupPlayers(setupPlayers);
+    }
+
+    const mapById = new Map((animeWithGenre || []).filter((a) => a && a.id != null).map((a) => [Number(a.id), a]));
+    const list = ids.map((id) => mapById.get(Number(id)) || null).filter(Boolean);
+    if (!list.length) {
+      setRoomNotice("ไม่พบเพลงตามโค้ดนี้ในฐานข้อมูล");
+      return;
+    }
+
+    setHomeSetupOpen(false);
+    startGameFromList(list, {
+      mode: "room",
+      playModeOverride: playModeFromCode,
+      groupSetup: setupPlayers,
+      roomCode: raw
+    });
+  };
+
+  const restartSession = () => {
+    if (sessionMode === "daily") {
+      startDailyChallenge();
+      return;
+    }
+    if (sessionMode === "favorites") {
+      startFavoritesMode();
+      return;
+    }
+    if (sessionMode === "popular") {
+      startPopularMode();
+      return;
+    }
+    if (sessionMode === "series") {
+      startSeriesMode();
+      return;
+    }
+    if (sessionMode === "room" && String(sessionRoomCode || "").trim()) {
+      startFromRoomCode(String(sessionRoomCode || "").trim());
+      return;
+    }
+    startGame();
+  };
+
+  const startGame = () => {
+    const pool = activeGenrePool;
+
+    if (!Array.isArray(pool) || !pool.length) return;
+
+    usedAnimeIdsRef.current = new Set();
+
     if (isNormalPlay) {
       const limit = Math.min(questionCount, pool.length);
-      let picked;
-      if (selectedGenre === "all") {
-        const uniquePicked = [];
-        const seen = new Set();
-        while (uniquePicked.length < limit) {
-          const next = pickBalancedUnusedFromAllGenres(seen);
-          if (!next) break;
-          uniquePicked.push(next);
-        }
-        picked = uniquePicked;
-      } else {
-        const shuffled = shuffleArray(pool);
-        const uniquePicked = [];
-        const seen = new Set();
-        for (const item of shuffled) {
-          const id = item?.id;
-          if (id == null) continue;
-          if (seen.has(id)) continue;
-          seen.add(id);
-          uniquePicked.push(item);
-          if (uniquePicked.length >= limit) break;
-        }
-        picked = uniquePicked.length ? uniquePicked : shuffled.slice(0, limit);
-      }
-      setGameList(picked);
-      usedAnimeIdsRef.current = new Set((picked || []).map((a) => a?.id).filter((x) => x != null));
-      resetCommon();
-      setGroupPlayers([]);
-      setPlayStartedAtMs(Date.now());
-      setPlayElapsedMs(0);
-      setPage("play");
-      if (user?.uid) {
-        bumpPlayCount(user.uid).then((r) => {
-          if (r && r.ok === false) {
-            setProfileNotice(`อัปเดตจำนวนการเล่นไม่สำเร็จ (${r.error || "unknown"})`);
-          }
-        });
-      }
+      const picked = buildQuestionListFromPool({
+        pool,
+        limit,
+        balanceAcrossGenres: selectedGenre === "all"
+      });
+      startGameFromList(picked, { mode: "normal" });
       return;
     }
 
     const first = selectedGenre === "all"
-      ? pickBalancedUnusedFromAllGenres(usedAnimeIdsRef.current)
+      ? buildQuestionListFromPool({ pool, limit: 1, balanceAcrossGenres: true })[0] || null
       : (pool[Math.floor(Math.random() * pool.length)] || null);
     if (!first) return;
     if (first?.id != null && usedAnimeIdsRef.current instanceof Set) usedAnimeIdsRef.current.add(first.id);
 
     if (isSoloChallenge) {
-      setGameList([first]);
-      resetCommon();
-      setGroupPlayers([]);
-      setPlayStartedAtMs(Date.now());
-      setPlayElapsedMs(0);
-      setPage("play");
-      if (user?.uid) {
-        bumpPlayCount(user.uid).then((r) => {
-          if (r && r.ok === false) {
-            setProfileNotice(`อัปเดตจำนวนการเล่นไม่สำเร็จ (${r.error || "unknown"})`);
-          }
-        });
-      }
+      startGameFromList([first], { mode: "solo_challenge" });
       return;
     }
 
     // Group mode
     const setup = Array.isArray(groupSetupPlayers) ? groupSetupPlayers.slice(0, 10) : [];
     if (!setup.length) return;
+    resetRunTracking();
     setGameList([first]);
-    resetCommon();
+    setCurrentIndex(0);
+    setAnswer("");
+    setScore(0);
+    setFeedback(null);
+    setShowHint(false);
+    setSoloHp(10);
+    setSoloWrongMultiplier(1);
+    setGroupCorrectPickId("");
     setGroupPlayers(
       setup.map((p) => ({
         id: p.id,
@@ -8511,18 +9137,82 @@ export default function AnimeOPQuizStarter() {
       if (id != null) used.add(id);
     }
 
-    if (selectedGenre === "all") {
-      return pickBalancedUnusedFromAllGenres(used);
-    }
+    const seriesWindow = Math.max(0, Number(ruleNoRepeatSeriesWindow) || 0);
+    const lastGenre = String(lastGenreRef.current || "");
+    const recentSeries = Array.isArray(recentSeriesRef.current) ? recentSeriesRef.current : [];
+
+    const isOk = (a, { relaxGenre, relaxSeries } = {}) => {
+      if (!a || a.id == null) return false;
+      if (used.has(a.id)) return false;
+      const g = String(a?.genre || "");
+      if (!relaxGenre && ruleAvoidSameGenre && lastGenre && g && g === lastGenre) return false;
+      if (!relaxSeries && seriesWindow > 0) {
+        const key = baseSeriesKeyFromTitle(a?.title);
+        if (key && recentSeries.includes(key)) return false;
+      }
+      return true;
+    };
 
     const remaining = pool.filter((a) => a && a.id != null && !used.has(a.id));
     if (!remaining.length) return null;
-    const next = remaining[Math.floor(Math.random() * remaining.length)] || null;
+
+    const pickAny = (list) => (list.length ? list[Math.floor(Math.random() * list.length)] : null);
+
+    if (selectedGenre === "all") {
+      const genreMap = {};
+      for (const a of remaining) {
+        if (!isOk(a, { relaxGenre: true, relaxSeries: false })) continue;
+        const g = String(a?.genre || "");
+        if (!g) continue;
+        if (!genreMap[g]) genreMap[g] = [];
+        genreMap[g].push(a);
+      }
+
+      let genres = Object.keys(genreMap);
+      if (ruleAvoidSameGenre && lastGenre) {
+        const filtered = genres.filter((g) => g !== lastGenre);
+        if (filtered.length) genres = filtered;
+      }
+
+      let next = null;
+      if (genres.length) {
+        const chosen = genres[Math.floor(Math.random() * genres.length)] || "";
+        const bucket = (genreMap[chosen] || []).filter((a) => isOk(a));
+        next = pickAny(bucket);
+      }
+
+      if (!next) {
+        let candidates = remaining.filter((a) => isOk(a));
+        if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxSeries: true }));
+        if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxGenre: true, relaxSeries: true }));
+        next = pickAny(candidates);
+      }
+
+      if (next?.id != null) used.add(next.id);
+      return next || null;
+    }
+
+    let candidates = remaining.filter((a) => isOk(a));
+    if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxSeries: true }));
+    if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxGenre: true, relaxSeries: true }));
+    const next = pickAny(candidates) || null;
     if (next?.id != null) used.add(next.id);
     return next;
   };
 
   const advanceQuestion = () => {
+    if (sessionMode === "room" && Array.isArray(gameList) && gameList.length) {
+      if (currentIndex + 1 < gameList.length) {
+        setCurrentIndex((prev) => prev + 1);
+        setAnswer("");
+        setFeedback(null);
+        setShowHint(false);
+      } else {
+        setPage("result");
+      }
+      return;
+    }
+
     if (isNormalPlay) {
       if (currentIndex + 1 < gameList.length) {
         setCurrentIndex((prev) => prev + 1);
@@ -8616,6 +9306,77 @@ export default function AnimeOPQuizStarter() {
     return fallback?.id ? String(fallback.id) : "";
   };
 
+  useEffect(() => {
+    if (page !== "play") return;
+    if (!currentAnime) return;
+    questionStartedAtRef.current = Date.now();
+    questionRecordedRef.current = false;
+  }, [page, currentIndex, currentAnime?.id]);
+
+  const recordCurrentQuestionResult = ({ outcome, answeredText } = {}) => {
+    if (!currentAnime) return;
+    if (questionRecordedRef.current) return;
+
+    const startedAt = typeof questionStartedAtRef.current === "number" ? questionStartedAtRef.current : Date.now();
+    const ms = Math.max(0, Date.now() - startedAt);
+    questionRecordedRef.current = true;
+
+    const id = currentAnime?.id;
+    const idKey = id == null ? "" : String(id);
+    const genre = String(currentAnime?.genre || "");
+    const title = String(currentAnime?.title || "");
+
+    setRunQuestionStats((prev) => {
+      const next = Array.isArray(prev) ? prev.slice() : [];
+      next.push({ id, title, genre, ms, outcome: String(outcome || ""), answeredText: answeredText ? String(answeredText) : "" });
+      return next.slice(-300);
+    });
+
+    setRunCurrStreak((prev) => {
+      const p = typeof prev === "number" ? prev : 0;
+      const next = outcome === "correct" ? p + 1 : 0;
+      setRunMaxStreak((m) => Math.max(typeof m === "number" ? m : 0, next));
+      return next;
+    });
+
+    lastGenreRef.current = genre || lastGenreRef.current || "";
+    if (ruleNoRepeatSeriesWindow > 0) {
+      const key = baseSeriesKeyFromTitle(title);
+      if (key) {
+        const arr = Array.isArray(recentSeriesRef.current) ? recentSeriesRef.current : [];
+        arr.push(key);
+        while (arr.length > ruleNoRepeatSeriesWindow) arr.shift();
+        recentSeriesRef.current = arr;
+      }
+    }
+
+    if (idKey) {
+      setLocalStats((prev) => {
+        const safePrev = prev && typeof prev === "object" ? prev : { byId: {} };
+        const byId = safePrev.byId && typeof safePrev.byId === "object" ? safePrev.byId : {};
+        const curr = byId[idKey] && typeof byId[idKey] === "object" ? byId[idKey] : {};
+        const plays = (Number(curr.plays || 0) || 0) + 1;
+        const correct = (Number(curr.correct || 0) || 0) + (outcome === "correct" ? 1 : 0);
+        const wrong = (Number(curr.wrong || 0) || 0) + (outcome === "wrong" || outcome === "skip" ? 1 : 0);
+        const timeMs = (Number(curr.timeMs || 0) || 0) + ms;
+        return {
+          ...safePrev,
+          byId: {
+            ...byId,
+            [idKey]: {
+              ...curr,
+              plays,
+              correct,
+              wrong,
+              timeMs,
+              lastAt: Date.now()
+            }
+          }
+        };
+      });
+    }
+  };
+
   const checkAnswer = (value) => {
     if (!currentAnime) return;
 
@@ -8630,6 +9391,7 @@ export default function AnimeOPQuizStarter() {
 
     // ถ้าเป็น choice และ id ตรงกัน ถือว่าถูกทันที
     if (targetAnime && targetAnime.id === currentAnime.id) {
+      recordCurrentQuestionResult({ outcome: "correct", answeredText: answerText });
       if (!isGroupMode) {
         setScore((prev) => prev + 1);
         if (user?.uid) {
@@ -8658,6 +9420,7 @@ export default function AnimeOPQuizStarter() {
     }
 
     if (isCorrect) {
+      recordCurrentQuestionResult({ outcome: "correct", answeredText: answerText });
       if (!isGroupMode) {
         setScore((prev) => prev + 1);
         if (user?.uid) {
@@ -8684,6 +9447,7 @@ export default function AnimeOPQuizStarter() {
         setFeedback({ type: "wrong", message: "ยังไม่ถูก เลือกคนที่ตอบผิด แล้วให้คนถัดไปลองตอบต่อ" });
         return;
       }
+      recordCurrentQuestionResult({ outcome: "wrong", answeredText: answerText });
       setFeedback({ type: "wrong", message: `ยังไม่ถูก คำตอบคือ ${currentAnime.title}` });
     }
   };
@@ -8700,6 +9464,7 @@ export default function AnimeOPQuizStarter() {
       const curr = (groupPlayers || [])[turn] || null;
       setGroupWrongPickId(String(curr?.id || ""));
     }
+    recordCurrentQuestionResult({ outcome: "skip", answeredText: "" });
     setFeedback({ type: "skip", message: `ข้อนี้คือ ${currentAnime?.title}` });
   };
 
@@ -8724,11 +9489,298 @@ export default function AnimeOPQuizStarter() {
     });
   };
 
+  const shareResultAsImage = async () => {
+    try {
+      const total = Array.isArray(gameList) ? gameList.length : 0;
+      if (!total) return;
+
+      const isNormal = isNormalPlay;
+      const percentage = isNormal ? Math.round((score / total) * 100) : 0;
+      const modeLabel = sessionMode === "daily"
+        ? "Daily Challenge"
+        : sessionMode === "favorites"
+          ? "Favorites"
+          : sessionMode === "popular"
+            ? "Popular"
+            : sessionMode === "series"
+              ? "Anime"
+              : sessionMode === "room"
+                ? "Room"
+                : isGroupMode
+                  ? "Group"
+                  : isSoloChallenge
+                    ? "Solo Challenge"
+                    : "Normal";
+
+      const title = "OtoVerse";
+      const host = typeof window !== "undefined" ? window.location.host : "";
+
+      const primaryLine = isGroupMode
+        ? `Questions: ${total} • Time: ${formatPlayElapsedThai(playElapsedMs)}`
+        : isSoloChallenge
+          ? `Correct: ${score} • HP: ${soloHp} • Questions: ${total} • Time: ${formatPlayElapsedThai(playElapsedMs)}`
+          : `Score: ${score}/${total} (${percentage}%) • Time: ${formatPlayElapsedThai(playElapsedMs)}`;
+
+      const qStats = Array.isArray(runQuestionStats) ? runQuestionStats : [];
+      const correctQs = qStats.filter((x) => x?.outcome === "correct").length;
+      const wrongQs = qStats.filter((x) => x?.outcome === "wrong").length;
+      const skipQs = qStats.filter((x) => x?.outcome === "skip").length;
+      const totalRecorded = qStats.length || total;
+
+      const topTitles = (() => {
+        const seen = new Set();
+        const out = [];
+
+        const fastestCorrect = qStats
+          .filter((x) => x?.outcome === "correct")
+          .slice()
+          .sort((a, b) => (Number(a?.ms || 0) || 0) - (Number(b?.ms || 0) || 0));
+
+        for (const x of fastestCorrect) {
+          const t = String(x?.title || "").trim();
+          if (!t) continue;
+          if (seen.has(t)) continue;
+          seen.add(t);
+          out.push(t);
+          if (out.length >= 3) break;
+        }
+
+        if (out.length < 3) {
+          for (const a of Array.isArray(gameList) ? gameList : []) {
+            const t = String(a?.title || "").trim();
+            if (!t) continue;
+            if (seen.has(t)) continue;
+            seen.add(t);
+            out.push(t);
+            if (out.length >= 3) break;
+          }
+        }
+
+        return out;
+      })();
+
+      const headerLine = sessionMode === "daily" && sessionDailyKey
+        ? `Daily • ${sessionDailyKey}`
+        : modeLabel;
+
+      const subLines = [headerLine, primaryLine, `Max streak: ${runMaxStreak}`, host].filter(Boolean);
+
+      const loadImage = (src) =>
+        new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = () => resolve(null);
+          img.src = src;
+        });
+
+      const size = 1080;
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      const roundRectPath = (x, y, w, h, r) => {
+        const rr = Math.max(0, Math.min(r, Math.min(w, h) / 2));
+        ctx.beginPath();
+        ctx.moveTo(x + rr, y);
+        ctx.arcTo(x + w, y, x + w, y + h, rr);
+        ctx.arcTo(x + w, y + h, x, y + h, rr);
+        ctx.arcTo(x, y + h, x, y, rr);
+        ctx.arcTo(x, y, x + w, y, rr);
+        ctx.closePath();
+      };
+
+      const wrapText = ({ text, x, y, maxWidth, lineHeight }) => {
+        const words = String(text || "").split(/\s+/).filter(Boolean);
+        let line = "";
+        let cy = y;
+        for (const w of words) {
+          const test = line ? `${line} ${w}` : w;
+          if (ctx.measureText(test).width <= maxWidth) {
+            line = test;
+          } else {
+            if (line) ctx.fillText(line, x, cy);
+            line = w;
+            cy += lineHeight;
+          }
+        }
+        if (line) ctx.fillText(line, x, cy);
+        return cy;
+      };
+
+      // Background gradient
+      const bg = ctx.createLinearGradient(0, 0, size, size);
+      bg.addColorStop(0, "#0ea5e9");
+      bg.addColorStop(0.55, "#2563eb");
+      bg.addColorStop(1, "#9333ea");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, size, size);
+
+      // Card
+      const cardX = 64;
+      const cardY = 88;
+      const cardW = size - cardX * 2;
+      const cardH = size - cardY * 2;
+      ctx.save();
+      roundRectPath(cardX, cardY, cardW, cardH, 48);
+      ctx.fillStyle = "rgba(255,255,255,0.88)";
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgba(255,255,255,0.75)";
+      ctx.stroke();
+      ctx.restore();
+
+      const logo = await loadImage("/pwa-192.png");
+      if (logo) {
+        const logoSize = 108;
+        ctx.save();
+        roundRectPath(cardX + 48, cardY + 40, logoSize, logoSize, 28);
+        ctx.clip();
+        ctx.drawImage(logo, cardX + 48, cardY + 40, logoSize, logoSize);
+        ctx.restore();
+      }
+
+      // Title
+      ctx.fillStyle = "#0f172a";
+      ctx.font = "800 64px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+      const titleX = cardX + 48 + (logo ? 128 : 0);
+      ctx.fillText(title, titleX, cardY + 110);
+
+      ctx.fillStyle = "#334155";
+      ctx.font = "700 34px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+      ctx.fillText("Quiz Result", titleX, cardY + 160);
+
+      // Body
+      const bodyX = cardX + 48;
+      const bodyTop = cardY + 240;
+      const bodyMaxW = cardW - 96;
+
+      ctx.fillStyle = "#0f172a";
+      ctx.font = "700 44px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+      wrapText({ text: subLines[0] || "", x: bodyX, y: bodyTop, maxWidth: bodyMaxW, lineHeight: 58 });
+
+      ctx.fillStyle = "#0f172a";
+      ctx.font = "600 38px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+      let y = bodyTop + 90;
+      for (const line of subLines.slice(1, 3)) {
+        y = wrapText({ text: line, x: bodyX, y, maxWidth: bodyMaxW, lineHeight: 52 }) + 22;
+      }
+
+      // Mini chart: correct / wrong / skip
+      const barW = bodyMaxW;
+      const barH = 22;
+      const barY = y + 18;
+      const barX = bodyX;
+      const safeTotal = Math.max(1, Number(totalRecorded) || 1);
+      const wCorrect = Math.round((barW * correctQs) / safeTotal);
+      const wWrong = Math.round((barW * wrongQs) / safeTotal);
+      const wSkip = Math.max(0, barW - wCorrect - wWrong);
+
+      ctx.save();
+      roundRectPath(barX, barY, barW, barH, 12);
+      ctx.clip();
+      ctx.fillStyle = "rgba(15,23,42,0.10)";
+      ctx.fillRect(barX, barY, barW, barH);
+      let cx = barX;
+      if (wCorrect > 0) {
+        ctx.fillStyle = "#10b981";
+        ctx.fillRect(cx, barY, wCorrect, barH);
+        cx += wCorrect;
+      }
+      if (wWrong > 0) {
+        ctx.fillStyle = "#ef4444";
+        ctx.fillRect(cx, barY, wWrong, barH);
+        cx += wWrong;
+      }
+      if (wSkip > 0) {
+        ctx.fillStyle = "#f59e0b";
+        ctx.fillRect(cx, barY, wSkip, barH);
+      }
+      ctx.restore();
+
+      ctx.fillStyle = "#334155";
+      ctx.font = "700 28px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+      ctx.fillText(`✅ ${correctQs}   ❌ ${wrongQs}   ⏭️ ${skipQs}`, barX, barY + 54);
+
+      let y2 = barY + 92;
+      if (topTitles.length) {
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "800 30px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+        ctx.fillText("Top 3 in this run", barX, y2);
+        y2 += 44;
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "600 30px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+        for (let i = 0; i < topTitles.length; i += 1) {
+          const t = topTitles[i];
+          y2 = wrapText({ text: `${i + 1}. ${t}`, x: barX, y: y2, maxWidth: bodyMaxW, lineHeight: 40 }) + 14;
+          if (y2 > cardY + cardH - 160) break;
+        }
+      }
+
+      ctx.fillStyle = "#334155";
+      ctx.font = "600 34px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+      wrapText({ text: subLines[3] || "", x: bodyX, y: cardY + cardH - 110, maxWidth: bodyMaxW, lineHeight: 48 });
+
+      // Footer
+      ctx.fillStyle = "#475569";
+      ctx.font = "600 28px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+      const footer = host ? `Play at ${host}` : "";
+      if (footer) ctx.fillText(footer, bodyX, cardY + cardH - 56);
+
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+      if (!blob) return;
+
+      const filename = `otoverse-${String(sessionMode || "result")}-${Date.now()}.png`;
+      const file = new File([blob], filename, { type: "image/png" });
+
+      const shareText = `${title} — ${modeLabel}${sessionMode === "daily" && sessionDailyKey ? ` (${sessionDailyKey})` : ""}`;
+
+      if (navigator?.share && navigator?.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text: shareText });
+        return;
+      }
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      // ignore
+    }
+  };
+
   useEffect(() => {
     if (page !== "play") {
       setFeedback(null);
     }
   }, [page]);
+
+  useEffect(() => {
+    if (page !== "result") return;
+    if (sessionMode !== "daily") return;
+    const key = String(sessionDailyKey || "").trim();
+    if (!key) return;
+
+    setDailyLastResult((prev) => {
+      const listIds = (gameList || []).map((a) => a?.id).filter((x) => x != null);
+      return {
+        ...(prev || {}),
+        key,
+        listIds,
+        completedAt: Date.now(),
+        score: Number(score) || 0,
+        total: listIds.length,
+        elapsedMs: Number(playElapsedMs) || 0,
+        maxStreak: Number(runMaxStreak) || 0
+      };
+    });
+  }, [page, sessionMode, sessionDailyKey, gameList, score, playElapsedMs, runMaxStreak]);
 
   useEffect(() => {
     if (page !== "about") setAboutSection(null);
@@ -9070,6 +10122,191 @@ export default function AnimeOPQuizStarter() {
                     ) : null}
                   </div>
 
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 text-white font-semibold text-sm">4</div>
+                      <div className="text-base font-semibold text-slate-900 dark:text-slate-100">กติกากันซ้ำ (เสริม)</div>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+                      <label className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
+                        <input
+                          type="checkbox"
+                          checked={ruleAvoidSameGenre}
+                          onChange={(e) => setRuleAvoidSameGenre(Boolean(e.target.checked))}
+                        />
+                        ห้ามแนวซ้ำติดกัน (พยายามหลีกเลี่ยง)
+                      </label>
+
+                      <div className="grid sm:grid-cols-2 gap-3 items-center">
+                        <div className="text-sm font-semibold text-slate-700 dark:text-slate-200">ห้ามซ้ำเรื่องภายใน X ข้อ</div>
+                        <select
+                          value={ruleNoRepeatSeriesWindow}
+                          onChange={(e) => setRuleNoRepeatSeriesWindow(Number(e.target.value) || 0)}
+                          className="h-10 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
+                        >
+                          <option value={0}>ปิด</option>
+                          <option value={3}>3</option>
+                          <option value={5}>5</option>
+                          <option value={8}>8</option>
+                        </select>
+                      </div>
+
+                      <div className="text-xs text-slate-600 dark:text-slate-300">
+                        หมายเหตุ: ถ้าหาเพลงไม่พอ ระบบจะผ่อนกติกาให้อัตโนมัติ
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-amber-600 to-orange-600 text-white font-semibold text-sm">5</div>
+                      <div className="text-base font-semibold text-slate-900 dark:text-slate-100">โหมดพิเศษ</div>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-3">
+                      <motion.button
+                        whileHover={{ y: -4, scale: 1.02 }}
+                        whileTap={{ scale: 0.96 }}
+                        onClick={() => {
+                          setHomeSetupOpen(false);
+                          startDailyChallenge();
+                        }}
+                        className="text-left rounded-2xl border p-4 transition duration-300 text-slate-900 dark:text-slate-100 border-slate-200 bg-white/60 hover:bg-white/80 hover:border-amber-400 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:bg-slate-900/45 dark:hover:border-cyan-400/40"
+                      >
+                        <div className="font-semibold text-lg">📅 Daily Challenge</div>
+                        <div className="text-sm mt-1 text-slate-600 dark:text-slate-300">ชุดประจำวัน (10 ข้อ)</div>
+                      </motion.button>
+
+                      <motion.button
+                        whileHover={{ y: -4, scale: 1.02 }}
+                        whileTap={{ scale: 0.96 }}
+                        onClick={() => {
+                          setHomeSetupOpen(false);
+                          startFavoritesMode();
+                        }}
+                        className="text-left rounded-2xl border p-4 transition duration-300 text-slate-900 dark:text-slate-100 border-slate-200 bg-white/60 hover:bg-white/80 hover:border-amber-400 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:bg-slate-900/45 dark:hover:border-cyan-400/40"
+                      >
+                        <div className="font-semibold text-lg">⭐ Favorites</div>
+                        <div className="text-sm mt-1 text-slate-600 dark:text-slate-300">เล่นจากเพลงที่กดดาว ({favoriteIds.length})</div>
+                      </motion.button>
+
+                      <motion.button
+                        whileHover={{ y: -4, scale: 1.02 }}
+                        whileTap={{ scale: 0.96 }}
+                        onClick={() => {
+                          setHomeSetupOpen(false);
+                          startPopularMode();
+                        }}
+                        className="text-left rounded-2xl border p-4 transition duration-300 text-slate-900 dark:text-slate-100 border-slate-200 bg-white/60 hover:bg-white/80 hover:border-amber-400 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:bg-slate-900/45 dark:hover:border-cyan-400/40"
+                      >
+                        <div className="font-semibold text-lg">🔥 ยอดนิยมของคุณ</div>
+                        <div className="text-sm mt-1 text-slate-600 dark:text-slate-300">อิงจากสถิติในเครื่อง ({popularPool.length})</div>
+                      </motion.button>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+                      <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">🎬 เล่นจากเรื่อง (เลือกอนิเมะ)</div>
+
+                      <Input
+                        value={animeSeriesQuery}
+                        onChange={(e) => setAnimeSeriesQuery(e.target.value)}
+                        placeholder="พิมพ์ค้นหาชื่อเรื่อง..."
+                        className="rounded-2xl h-11"
+                      />
+
+                      <select
+                        value={selectedSeriesKey}
+                        onChange={(e) => setSelectedSeriesKey(e.target.value)}
+                        className="h-11 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
+                      >
+                        <option value="">เลือกเรื่อง...</option>
+                        {Object.values(seriesBuckets || {})
+                          .filter((s) => {
+                            const q = normalize(animeSeriesQuery);
+                            if (!q) return true;
+                            const hay = normalize(`${s?.label || ""} ${s?.key || ""}`);
+                            return hay.includes(q);
+                          })
+                          .slice()
+                          .sort((a, b) => (b?.items?.length || 0) - (a?.items?.length || 0))
+                          .slice(0, 50)
+                          .map((s) => (
+                            <option key={s.key} value={s.key}>
+                              {s.label} ({(s.items || []).length})
+                            </option>
+                          ))}
+                      </select>
+
+                      <div className="flex flex-wrap gap-2">
+                        <Button
+                          type="button"
+                          className="rounded-2xl font-semibold"
+                          disabled={!selectedSeriesKey}
+                          onClick={() => {
+                            setHomeSetupOpen(false);
+                            startSeriesMode();
+                          }}
+                        >
+                          เริ่มเล่นจากเรื่องนี้
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="rounded-2xl"
+                          onClick={() => {
+                            setSelectedSeriesKey("");
+                            setAnimeSeriesQuery("");
+                          }}
+                        >
+                          ล้าง
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+                      <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">🎟️ Room Code (เล่นชุดเดียวกับเพื่อน)</div>
+                      <div className="text-xs text-slate-600 dark:text-slate-300">
+                        สร้างโค้ดเพื่อแชร์ “ชุดคำถาม” ให้เพื่อนเล่นเหมือนกัน (ไม่ใช่ห้องออนไลน์)
+                      </div>
+
+                      <Input
+                        value={roomCodeDraft}
+                        onChange={(e) => setRoomCodeDraft(e.target.value)}
+                        placeholder="วางโค้ดห้องที่นี่..."
+                        className="rounded-2xl h-11"
+                      />
+
+                      <div className="flex flex-wrap gap-2">
+                        <Button type="button" className="rounded-2xl font-semibold" onClick={generateRoomCode}>
+                          สร้างโค้ดจากการตั้งค่านี้
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="rounded-2xl"
+                          onClick={() => startFromRoomCode()}
+                          disabled={!String(roomCodeDraft || "").trim()}
+                        >
+                          เริ่มจากโค้ด
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="rounded-2xl"
+                          onClick={() => {
+                            setRoomCodeDraft("");
+                            setRoomNotice("");
+                          }}
+                        >
+                          ล้าง
+                        </Button>
+                      </div>
+
+                      {roomNotice ? <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">{roomNotice}</div> : null}
+                    </div>
+                  </div>
+
                   <div className="flex flex-wrap items-center gap-3 pt-2">
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Button
@@ -9097,6 +10334,37 @@ export default function AnimeOPQuizStarter() {
       )}
     </div>
   );
+
+  const submitReport = async () => {
+    if (reportBusy) return;
+    const text = String(reportText || "").trim();
+    if (!text) {
+      setReportNotice("พิมพ์รายละเอียดก่อนส่งนะ");
+      return;
+    }
+
+    setReportBusy(true);
+    setReportNotice("");
+    try {
+      await addDoc(collection(firebaseDb, "reports"), {
+        text,
+        uid: user?.uid || null,
+        email: user?.email || null,
+        page: String(page || ""),
+        sessionMode: String(sessionMode || ""),
+        createdAt: serverTimestamp(),
+        projectId: firebaseProjectId || null,
+        userAgent: typeof navigator !== "undefined" ? navigator.userAgent : ""
+      });
+      setReportText("");
+      setReportNotice("ส่งแล้ว ขอบคุณครับ");
+    } catch (e) {
+      const msg = String(e?.message || e?.code || "error");
+      setReportNotice(`ส่งไม่สำเร็จ (${msg})`);
+    } finally {
+      setReportBusy(false);
+    }
+  };
 
   const renderAbout = () => {
     const sections = [
@@ -9159,8 +10427,32 @@ export default function AnimeOPQuizStarter() {
         case "contact":
           return (
             <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
-              <p>ช่องทางติดต่อ/แจ้งปัญหา/ส่งข้อเสนอแนะเกี่ยวกับเว็บ</p>
-              <p>คุณสามารถระบุอีเมล, แบบฟอร์ม, หรือโซเชียลที่ต้องการให้คนติดต่อได้</p>
+              <p>แจ้งปัญหา/ส่งข้อเสนอแนะเกี่ยวกับเว็บได้ตรงนี้</p>
+
+              <div className="space-y-2">
+                <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">รายละเอียด</div>
+                <textarea
+                  value={reportText}
+                  onChange={(e) => setReportText(e.target.value)}
+                  rows={5}
+                  placeholder="พิมพ์สิ่งที่เจอ เช่น ลิงก์/ชื่อเพลง/อุปกรณ์/ขั้นตอนที่ทำ แล้วเกิดอะไรขึ้น"
+                  className="w-full rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
+                />
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    type="button"
+                    className="rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl"
+                    onClick={submitReport}
+                    disabled={reportBusy}
+                  >
+                    {reportBusy ? "กำลังส่ง…" : "ส่งรายงาน"}
+                  </Button>
+                  {reportNotice ? <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">{reportNotice}</div> : null}
+                </div>
+                <div className="text-xs text-slate-600 dark:text-slate-300">
+                  หมายเหตุ: ระบบจะบันทึกข้อความ + เวลา + ข้อมูลพื้นฐานของเบราว์เซอร์เพื่อช่วยตรวจปัญหา
+                </div>
+              </div>
             </div>
           );
         case "privacy":
@@ -9961,6 +11253,16 @@ export default function AnimeOPQuizStarter() {
                                 <Badge className="rounded-full" title={effectiveGenres.join(", ")}>
                                   {effectiveGenres[0]}
                                 </Badge>
+                                {item?.anime?.id != null ? (
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleFavoriteId(item.anime.id)}
+                                    title={favoriteSet.has(Number(item.anime.id)) ? "ลบออกจาก Favorites" : "เพิ่มเข้า Favorites"}
+                                    className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
+                                  >
+                                    {favoriteSet.has(Number(item.anime.id)) ? "⭐" : "☆"}
+                                  </button>
+                                ) : null}
                               </div>
                               {!isSongLike && altTitle ? (
                                 <div className="mt-1 text-xs text-slate-600 dark:text-slate-300">โรมันจิ/ชื่ออื่น: {altTitle}</div>
@@ -10106,7 +11408,19 @@ export default function AnimeOPQuizStarter() {
                       <CardTitle className="text-lg leading-6">{anime.title}</CardTitle>
                       <CardDescription className="mt-1">{anime.altTitles.join(" • ") || "-"}</CardDescription>
                     </div>
-                    <Badge className="rounded-full">{genreConfig[anime.genre]?.label || anime.genre}</Badge>
+                    <div className="flex items-center gap-2">
+                      {anime?.id != null ? (
+                        <button
+                          type="button"
+                          onClick={() => toggleFavoriteId(anime.id)}
+                          title={favoriteSet.has(Number(anime.id)) ? "ลบออกจาก Favorites" : "เพิ่มเข้า Favorites"}
+                          className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
+                        >
+                          {favoriteSet.has(Number(anime.id)) ? "⭐" : "☆"}
+                        </button>
+                      ) : null}
+                      <Badge className="rounded-full">{genreConfig[anime.genre]?.label || anime.genre}</Badge>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-3 text-sm text-zinc-600 dark:text-slate-200/80">
@@ -10531,6 +11845,27 @@ export default function AnimeOPQuizStarter() {
     const isNormal = isNormalPlay;
     const percentage = isNormal ? Math.round((score / gameList.length) * 100) : 0;
 
+    const qStats = Array.isArray(runQuestionStats) ? runQuestionStats : [];
+    const totalQs = qStats.length;
+    const correctQs = qStats.filter((x) => x?.outcome === "correct").length;
+    const wrongQs = qStats.filter((x) => x?.outcome === "wrong").length;
+    const skipQs = qStats.filter((x) => x?.outcome === "skip").length;
+    const avgMs = totalQs
+      ? Math.round(qStats.reduce((sum, x) => sum + (Number(x?.ms || 0) || 0), 0) / totalQs)
+      : 0;
+
+    const topGenres = (() => {
+      const map = {};
+      for (const x of qStats) {
+        const g = String(x?.genre || "");
+        if (!g) continue;
+        map[g] = (Number(map[g] || 0) || 0) + 1;
+      }
+      return Object.entries(map)
+        .sort((a, b) => (b[1] || 0) - (a[1] || 0))
+        .slice(0, 5);
+    })();
+
     const groupSorted = isGroupMode
       ? (groupPlayers || [])
           .slice()
@@ -10561,7 +11896,13 @@ export default function AnimeOPQuizStarter() {
           <CardHeader className="space-y-2">
             <CardTitle className="font-display text-3xl">🏁 สรุปผล</CardTitle>
             <CardDescription>
-              {isGroupMode ? "โหมดเล่นกลุ่ม" : isSoloChallenge ? "Solo Challenge" : "โหมดปกติ"}
+              {sessionMode === "daily" && sessionDailyKey
+                ? `Daily Challenge • ${sessionDailyKey}`
+                : isGroupMode
+                  ? "โหมดเล่นกลุ่ม"
+                  : isSoloChallenge
+                    ? "Solo Challenge"
+                    : "โหมดปกติ"}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-5">
@@ -10630,6 +11971,28 @@ export default function AnimeOPQuizStarter() {
               </motion.div>
             ) : null}
 
+            {!isGroupMode ? (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.38 }}
+                className="rounded-2xl border-2 border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 p-5 dark:border-slate-700 dark:bg-none dark:bg-slate-950/40"
+              >
+                <div className="font-semibold mb-3 text-slate-900 dark:text-slate-100">📈 สถิติรอบนี้</div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  <StatCard label="🔥 Max streak" value={`${runMaxStreak}`} />
+                  <StatCard label="⏱️ เฉลี่ย/ข้อ" value={avgMs ? `${Math.max(1, Math.round(avgMs / 100)) / 10} วิ` : "-"} />
+                  <StatCard label="✅ ถูก" value={`${correctQs}`} />
+                  <StatCard label="❌ ผิด/ข้าม" value={`${wrongQs + skipQs}`} />
+                </div>
+                {topGenres.length ? (
+                  <div className="mt-3 text-xs text-slate-600 dark:text-slate-300">
+                    แนวที่เจอบ่อย: {topGenres.map(([g, c]) => `${genreConfig[g]?.label || g} (${c})`).join(" • ")}
+                  </div>
+                ) : null}
+              </motion.div>
+            ) : null}
+
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -10660,8 +12023,20 @@ export default function AnimeOPQuizStarter() {
               className="flex gap-3 flex-wrap justify-center"
             >
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button className="rounded-2xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white font-semibold shadow-lg hover:shadow-xl px-6" onClick={startGame}>🔄 เล่นใหม่</Button>
+                <Button className="rounded-2xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white font-semibold shadow-lg hover:shadow-xl px-6" onClick={restartSession}>🔄 เล่นใหม่</Button>
               </motion.div>
+              {!isGroupMode ? (
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button
+                    variant="outline"
+                    className="rounded-2xl border-2 border-slate-300 hover:border-slate-400 hover:bg-slate-50 font-semibold dark:border-slate-700 dark:hover:bg-slate-900/60 dark:hover:border-cyan-400/40"
+                    onClick={shareResultAsImage}
+                    disabled={!gameList.length}
+                  >
+                    📸 แชร์เป็นรูป
+                  </Button>
+                </motion.div>
+              ) : null}
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button variant="outline" className="rounded-2xl border-2 border-slate-300 hover:border-slate-400 hover:bg-slate-50 font-semibold dark:border-slate-700 dark:hover:bg-slate-900/60 dark:hover:border-cyan-400/40" onClick={() => setPage("library")}>📚 ดูรายชื่อทั้งหมด</Button>
               </motion.div>
