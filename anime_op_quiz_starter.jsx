@@ -5823,6 +5823,8 @@ export default function AnimeOPQuizStarter() {
   const [providerIcons, setProviderIcons] = useState(null);
   const [legalAvailability, setLegalAvailability] = useState(null);
   const [legalCatalogTH, setLegalCatalogTH] = useState(null);
+  const [legalBotMessages, setLegalBotMessages] = useState([]); // [{id, role:'user'|'bot', text, ts}]
+  const [legalBotInput, setLegalBotInput] = useState("");
   const [songRequestBusy, setSongRequestBusy] = useState(false);
   const iframeRef = useRef(null);
   const playFocusRef = useRef(null);
@@ -5831,6 +5833,7 @@ export default function AnimeOPQuizStarter() {
   const libraryLazyRef = useRef(new Set());
   const historyReadyRef = useRef(false);
   const appliedProfileSettingsRef = useRef(null);
+  const legalBotScrollRef = useRef(null);
 
   const isNormalPlay = playMode === "normal";
   const isSoloChallenge = playMode === "solo_challenge";
@@ -5868,6 +5871,48 @@ export default function AnimeOPQuizStarter() {
       tick();
     };
   }, [page, playStartedAtMs]);
+
+  const makeLegalBotId = () => {
+    try {
+      if (typeof crypto !== "undefined" && crypto.randomUUID) return crypto.randomUUID();
+    } catch {
+      // ignore
+    }
+    return `m_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  };
+
+  const appendLegalBotMessage = (role, text) => {
+    const msg = {
+      id: makeLegalBotId(),
+      role,
+      text: String(text || "").trim(),
+      ts: Date.now()
+    };
+    if (!msg.text) return;
+    setLegalBotMessages((prev) => [...(prev || []), msg]);
+  };
+
+  useEffect(() => {
+    if (page !== "library" || libraryTab !== "legal") return;
+    if (Array.isArray(legalBotMessages) && legalBotMessages.length) return;
+
+    appendLegalBotMessage(
+      "bot",
+      "สวัสดี! ถามได้เลย เช่น “Jujutsu Kaisen ดูที่ไหน” หรือ “เพลง OP ของ Demon Slayer ฟังที่ไหน”"
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, libraryTab]);
+
+  useEffect(() => {
+    if (page !== "library" || libraryTab !== "legal") return;
+    const el = legalBotScrollRef.current;
+    if (!el) return;
+    try {
+      el.scrollTop = el.scrollHeight;
+    } catch {
+      // ignore
+    }
+  }, [page, libraryTab, legalBotMessages]);
 
   const scrollPlayFocusToFit = (behavior) => {
     try {
@@ -7939,6 +7984,177 @@ export default function AnimeOPQuizStarter() {
     });
   }, [legalRawItems, legalSearch, legalGenreFilter, legalProviderFilter, legalCatalogTH, legalAvailability, libraryListMode, page, libraryTab]);
 
+  const buildProviderLabelList = (keys) => {
+    const list = Array.isArray(keys) ? keys : [];
+    const labels = list
+      .map((k) => {
+        const preset = LEGAL_PROVIDER_PRESETS?.[k];
+        return String(preset?.label || k || "").trim();
+      })
+      .filter(Boolean);
+    return labels.length ? labels.join(", ") : "";
+  };
+
+  const detectProviderKeyFromText = (raw) => {
+    const q = normalize(raw);
+    if (!q) return "";
+
+    const aliases = {
+      netflix: ["netflix", "เน็ตฟลิกซ์"],
+      prime: ["prime", "primevideo", "prime video", "อเมซอน", "amazon"],
+      disney: ["disney", "disney+", "ดิสนีย์"],
+      crunchyroll: ["crunchyroll", "ครันชี่โรล"],
+      iqiyi: ["iqiyi", "อ้ายฉีอี้"],
+      bilibili: ["bilibili", "บิลิบิลิ"],
+      trueid: ["trueid", "ทรูไอดี", "true id"],
+      viu: ["viu"],
+      muse: ["muse"],
+      anione: ["ani-one", "anione"],
+      youtube: ["youtube", "ยูทูบ"],
+      spotify: ["spotify", "สปอติฟาย"],
+      applemusic: ["apple music", "applemusic"],
+      ytmusic: ["youtube music", "ytmusic"]
+    };
+
+    for (const [key, list] of Object.entries(aliases)) {
+      for (const a of list) {
+        if (!a) continue;
+        if (q.includes(normalize(a))) return key;
+      }
+    }
+
+    // Fallback: match by preset labels
+    for (const [key, preset] of Object.entries(LEGAL_PROVIDER_PRESETS || {})) {
+      const label = String(preset?.label || "").trim();
+      if (!label) continue;
+      if (q.includes(normalize(label)) || q.includes(normalize(key))) return key;
+    }
+
+    return "";
+  };
+
+  const guessTitleFromText = (raw) => {
+    const q = normalize(raw);
+    if (!q) return "";
+
+    const candidates = [];
+    for (const w of libraryTitleLists?.works || []) {
+      const t = String(w?.title || "").trim();
+      if (t) candidates.push(t);
+    }
+    for (const t of libraryTitleLists?.all || []) {
+      const s = String(t || "").trim();
+      if (s) candidates.push(s);
+    }
+
+    let best = "";
+    let bestScore = Infinity;
+    const unique = Array.from(new Set(candidates));
+    for (const title of unique) {
+      const nt = normalize(title);
+      if (!nt) continue;
+
+      const hit = nt.includes(q) || q.includes(nt);
+      if (!hit) continue;
+
+      const score = Math.abs(nt.length - q.length);
+      if (score < bestScore) {
+        bestScore = score;
+        best = title;
+      }
+    }
+
+    return best;
+  };
+
+  const buildLegalBotReply = (rawText) => {
+    const text = String(rawText || "").trim();
+    const q = normalize(text);
+    if (!q) return "พิมพ์คำถามได้เลยครับ";
+
+    const isListen = q.includes("ฟัง") || q.includes("spotify") || q.includes("apple") || q.includes("ytmusic") || q.includes("youtube music");
+    const isWatch = q.includes("ดู") || q.includes("รับชม") || q.includes("netflix") || q.includes("disney") || q.includes("prime") || q.includes("crunchyroll");
+    const isSongLikeQuery = isListen || q.includes("เพลง") || q.includes("op") || q.includes("ed");
+
+    if (q.includes("ช่วย") && (q.includes("ใช้") || q.includes("ทำไง") || q.includes("วิธี"))) {
+      return "ทิป: พิมพ์ ‘ชื่อเรื่อง + ดูที่ไหน’ หรือ ‘ชื่อเพลง OP/ED + ฟังที่ไหน’ แล้วฉันจะบอกแพลตฟอร์มที่ฐานข้อมูลในเว็บมีให้";
+    }
+
+    if (!legalCatalogTH && !legalAvailability) {
+      return "กำลังโหลดข้อมูลช่องทางรับชม/ฟังอยู่ ลองถามใหม่อีกครั้งในอีกสักครู่ครับ";
+    }
+
+    const providerKey = detectProviderKeyFromText(text);
+    const guessedTitle = guessTitleFromText(text);
+
+    if (providerKey && !guessedTitle) {
+      const label = LEGAL_PROVIDER_PRESETS?.[providerKey]?.label || providerKey;
+      return `ถ้าต้องการหาเฉพาะ ${label}: เลือก “ทุกแพลตฟอร์ม” เป็น ${label} แล้วพิมพ์ชื่อเรื่อง/เพลงในช่องค้นหาด้านบน หรือพิมพ์ชื่อเรื่องมาพร้อมชื่อแพลตฟอร์มก็ได้`;
+    }
+
+    const titleToLookup = guessedTitle || text;
+    const displayTitle = isSongLikeQuery ? titleToLookup : stripOpEdSuffix(titleToLookup);
+
+    const availabilityByTitle = legalAvailability?.byTitle || null;
+    const availabilityByBase = legalAvailability?.byBase || null;
+    const availabilityByTitleLoose = legalAvailability?.byTitleLoose || null;
+    const availabilityByBaseLoose = legalAvailability?.byBaseLoose || null;
+
+    const catalogByTitle = legalCatalogTH?.byTitle || null;
+    const catalogByBase = legalCatalogTH?.byBase || null;
+    const catalogByTitleLoose = legalCatalogTH?.byTitleLoose || null;
+    const catalogByBaseLoose = legalCatalogTH?.byBaseLoose || null;
+
+    const titleKey = normalizeAvailabilityKey(displayTitle);
+    const titleKeyLoose = normalizeAvailabilityKeyLoose(displayTitle);
+    const baseKey = availabilityBaseKeyFromTitle(displayTitle);
+    const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
+
+    const catalogEntry = (catalogByTitle?.[titleKey] || catalogByTitleLoose?.[titleKeyLoose])
+      || (catalogByBase?.[baseKey] || catalogByBaseLoose?.[baseKeyLoose])
+      || null;
+
+    const catalogProviders = Array.isArray(catalogEntry?.providers) ? catalogEntry.providers : null;
+    const availabilityProviders = isSongLikeQuery
+      ? (availabilityByTitle?.[titleKey]?.providers || availabilityByTitleLoose?.[titleKeyLoose]?.providers || null)
+      : (availabilityByBase?.[baseKey] || availabilityByBaseLoose?.[baseKeyLoose] || null);
+
+    const providers = (Array.isArray(catalogProviders) && catalogProviders.length)
+      ? catalogProviders
+      : (Array.isArray(availabilityProviders) && availabilityProviders.length)
+        ? availabilityProviders
+        : null;
+
+    const providersText = buildProviderLabelList(providers);
+    if (providersText) {
+      const modeHint = isSongLikeQuery
+        ? "ทิป: ถ้าอยากฟัง ให้ลอง Spotify / Apple Music / YouTube Music"
+        : "ทิป: กดไอคอนแพลตฟอร์มบนการ์ดเพื่อค้นหาได้เลย";
+      const watchListen = isListen && !isWatch ? "ฟัง" : isWatch && !isListen ? "ดู" : "ดู/ฟัง";
+      return `สำหรับ “${displayTitle}” ในไทย แนะนำลอง ${watchListen}ที่: ${providersText} (สิทธิ์อาจเปลี่ยนได้) • ${modeHint}`;
+    }
+
+    if (guessedTitle) {
+      return `ยังไม่พบข้อมูลสิทธิ์ในไทยสำหรับ “${displayTitle}” ในฐานข้อมูลที่เว็บมีตอนนี้ ลองกดปุ่ม “เพิ่มเติม” ในการ์ด หรือพิมพ์ชื่อให้ใกล้เคียงขึ้นครับ`;
+    }
+
+    return "ยังจับชื่อเรื่อง/เพลงไม่เจอ ลองพิมพ์ชื่อให้ชัดขึ้น เช่น ‘Attack on Titan ดูที่ไหน’ หรือ ‘OP1 Oshi no Ko ฟังที่ไหน’";
+  };
+
+  const handleLegalBotSend = (e) => {
+    e?.preventDefault?.();
+    if (page !== "library" || libraryTab !== "legal") return;
+
+    const text = String(legalBotInput || "").trim();
+    if (!text) return;
+
+    appendLegalBotMessage("user", text);
+    setLegalBotInput("");
+
+    const reply = buildLegalBotReply(text);
+    appendLegalBotMessage("bot", reply);
+  };
+
   const currentAnime = gameList[currentIndex] || null;
   const currentChoices = useMemo(() => {
     if (!currentAnime || !answerModeConfig[answerMode].choices) return [];
@@ -9501,6 +9717,44 @@ export default function AnimeOPQuizStarter() {
                   {songRequestBusy ? "กำลังส่ง…" : "ขอเพลงเพิ่ม"}
                 </Button>
               ) : null}
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/45">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="font-semibold text-slate-900 dark:text-slate-100">แชทบอทช่วยค้นหาช่องทางรับชม/ฟัง</div>
+                <div className="text-xs text-slate-600 dark:text-slate-300">
+                  ตัวอย่าง: “Jujutsu Kaisen ดูที่ไหน”, “เพลง OP Demon Slayer ฟังที่ไหน”, “Netflix มีเรื่องอะไรบ้าง?”
+                </div>
+              </div>
+
+              <div
+                ref={legalBotScrollRef}
+                className="mt-3 h-56 overflow-auto rounded-2xl border border-slate-200 bg-white/60 p-3 space-y-2 dark:border-slate-700 dark:bg-slate-950/35"
+              >
+                {(legalBotMessages || []).map((m) => (
+                  <div key={m.id} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
+                    <div
+                      className={
+                        m.role === "user"
+                          ? "max-w-[85%] rounded-2xl bg-slate-900 text-white px-3 py-2 text-sm dark:bg-slate-200 dark:text-slate-900"
+                          : "max-w-[85%] rounded-2xl bg-slate-100 text-slate-900 px-3 py-2 text-sm dark:bg-slate-900/60 dark:text-slate-100"
+                      }
+                    >
+                      {m.text}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <form onSubmit={handleLegalBotSend} className="mt-3 flex gap-2">
+                <Input
+                  value={legalBotInput}
+                  onChange={(e) => setLegalBotInput(e.target.value)}
+                  placeholder="พิมพ์คำถาม..."
+                  className="rounded-2xl"
+                />
+                <Button type="submit" className="rounded-2xl">ส่ง</Button>
+              </form>
             </div>
 
             <div className="space-y-3">
