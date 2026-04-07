@@ -10318,39 +10318,7 @@ export default function AnimeOPQuizStarter() {
 
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 text-white font-semibold text-sm">4</div>
-                      <div className="text-base font-semibold text-slate-900 dark:text-slate-100">กติกากันซ้ำ (เสริม)</div>
-                    </div>
-
-                    <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
-                      <label className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
-                        <input
-                          type="checkbox"
-                          checked={ruleAvoidSameGenre}
-                          onChange={(e) => setRuleAvoidSameGenre(Boolean(e.target.checked))}
-                        />
-                        ห้ามแนวซ้ำติดกัน (พยายามหลีกเลี่ยง)
-                      </label>
-
-                      <div className="grid sm:grid-cols-2 gap-3 items-center">
-                        <div className="text-sm font-semibold text-slate-700 dark:text-slate-200">ห้ามซ้ำเรื่องภายใน X ข้อ</div>
-                        <select
-                          value={ruleNoRepeatSeriesWindow}
-                          onChange={(e) => setRuleNoRepeatSeriesWindow(Number(e.target.value) || 0)}
-                          className="h-10 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
-                        >
-                          <option value={0}>ปิด</option>
-                          <option value={3}>3</option>
-                          <option value={5}>5</option>
-                          <option value={8}>8</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-amber-600 to-orange-600 text-white font-semibold text-sm">5</div>
+                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-amber-600 to-orange-600 text-white font-semibold text-sm">4</div>
                       <div className="text-base font-semibold text-slate-900 dark:text-slate-100">โหมดพิเศษ</div>
                     </div>
 
