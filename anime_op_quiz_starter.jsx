@@ -10269,15 +10269,15 @@ export default function AnimeOPQuizStarter() {
     return true;
   }, []);
 
-  const libraryBgUrl = page === "library"
-    ? (libraryTab === "legal" ? "/libarry2.gif" : "/libarry1.gif")
-    : "";
-
   return (
-    <div
-      className="relative isolate min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8 bg-cover bg-center bg-no-repeat"
-      style={page === "library" ? { backgroundImage: `url(${libraryBgUrl})` } : undefined}
-    >
+    <div className="relative isolate min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
+      {page === "library" ? (
+        <div
+          className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${libraryTab === "legal" ? "/libarry2.gif" : "/libarry1.gif"})` }}
+          aria-hidden="true"
+        />
+      ) : null}
       {page === "home" && shouldShowHomeVideoBg ? (
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           <video
