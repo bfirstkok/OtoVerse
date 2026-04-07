@@ -7330,52 +7330,73 @@ export default function AnimeOPQuizStarter() {
   };
 
   useEffect(() => {
-    let cancelled = false;
-    fetch("/provider_icons.json")
+    if (page !== "library" || libraryTab !== "legal") return;
+    if (providerIcons) return;
+
+    const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+    fetch("/provider_icons.json", controller ? { signal: controller.signal } : undefined)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
-        if (cancelled) return;
         if (data && typeof data === "object") setProviderIcons(data);
       })
-      .catch(() => {
+      .catch((e) => {
+        if (e?.name === "AbortError") return;
         // ignore
       });
     return () => {
-      cancelled = true;
+      try {
+        controller?.abort();
+      } catch {
+        // ignore
+      }
     };
-  }, []);
+  }, [page, libraryTab, providerIcons]);
 
   useEffect(() => {
-    let cancelled = false;
-    fetch("/legal_availability_th.json")
+    if (page !== "library" || libraryTab !== "legal") return;
+    if (legalAvailability) return;
+
+    const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+    fetch("/legal_availability_th.json", controller ? { signal: controller.signal } : undefined)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
-        if (cancelled) return;
         if (data && typeof data === "object") setLegalAvailability(withLooseIndexes(data));
       })
-      .catch(() => {
+      .catch((e) => {
+        if (e?.name === "AbortError") return;
         // ignore
       });
     return () => {
-      cancelled = true;
+      try {
+        controller?.abort();
+      } catch {
+        // ignore
+      }
     };
-  }, []);
+  }, [page, libraryTab, legalAvailability]);
 
   useEffect(() => {
-    let cancelled = false;
-    fetch("/legal_catalog_th.json")
+    if (page !== "library" || libraryTab !== "legal") return;
+    if (legalCatalogTH) return;
+
+    const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+    fetch("/legal_catalog_th.json", controller ? { signal: controller.signal } : undefined)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
-        if (cancelled) return;
         if (data && typeof data === "object") setLegalCatalogTH(withLooseIndexes(data));
       })
-      .catch(() => {
+      .catch((e) => {
+        if (e?.name === "AbortError") return;
         // ignore
       });
     return () => {
-      cancelled = true;
+      try {
+        controller?.abort();
+      } catch {
+        // ignore
+      }
     };
-  }, []);
+  }, [page, libraryTab, legalCatalogTH]);
 
   useEffect(() => {
     setLegalProviderFilter("all");
@@ -7657,6 +7678,13 @@ export default function AnimeOPQuizStarter() {
   }, [animeWithGenre, search, selectedGenre]);
 
   const libraryTitleLists = useMemo(() => {
+    if (page !== "library") {
+      return {
+        all: [],
+        songs: [],
+        works: []
+      };
+    }
     // Build 3 lists:
     // - works: deduped anime works (OP/ED suffix removed; seasons/parts preserved)
     // - songs: OP/ED/Insert track entries
@@ -7717,9 +7745,10 @@ export default function AnimeOPQuizStarter() {
         .sort((a, b) => compareEnglishTitle(a, b)),
       works
     };
-  }, [animeWithGenre]);
+  }, [animeWithGenre, page]);
 
   const legalRawItems = useMemo(() => {
+    if (page !== "library" || libraryTab !== "legal") return [];
     const compareEnglishTitle = (aRaw, bRaw) => {
       const a = String(aRaw || "");
       const b = String(bRaw || "");
@@ -7768,9 +7797,10 @@ export default function AnimeOPQuizStarter() {
         title: a.title,
         anime: a
       }));
-  }, [animeWithGenre, libraryListMode, libraryTitleLists]);
+  }, [animeWithGenre, libraryListMode, libraryTitleLists, page, libraryTab]);
 
   const legalGenreTagOptions = useMemo(() => {
+    if (page !== "library" || libraryTab !== "legal") return [];
     if (libraryListMode === "songs") return [];
     const byTitle = legalCatalogTH?.byTitle || null;
     const byBase = legalCatalogTH?.byBase || null;
@@ -7809,9 +7839,10 @@ export default function AnimeOPQuizStarter() {
     }
 
     return Array.from(tags).sort((a, b) => a.localeCompare(b, "th", { sensitivity: "base" }));
-  }, [legalCatalogTH, legalRawItems, libraryListMode]);
+  }, [legalCatalogTH, legalRawItems, libraryListMode, page, libraryTab]);
 
   const legalFilteredItems = useMemo(() => {
+    if (page !== "library" || libraryTab !== "legal") return [];
     const q = normalize(legalSearch);
 
     const catalogByTitle = legalCatalogTH?.byTitle || null;
@@ -7906,7 +7937,7 @@ export default function AnimeOPQuizStarter() {
       const haystack = [item.title, genresText, providersText, genreKey, genreLabel].filter(Boolean).join(" ");
       return normalize(haystack).includes(q);
     });
-  }, [legalRawItems, legalSearch, legalGenreFilter, legalProviderFilter, legalCatalogTH, legalAvailability, libraryListMode]);
+  }, [legalRawItems, legalSearch, legalGenreFilter, legalProviderFilter, legalCatalogTH, legalAvailability, libraryListMode, page, libraryTab]);
 
   const currentAnime = gameList[currentIndex] || null;
   const currentChoices = useMemo(() => {
@@ -10269,9 +10300,30 @@ export default function AnimeOPQuizStarter() {
     return true;
   }, []);
 
+  const shouldShowLibraryGifBg = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+      if (reduceMotion) return false;
+
+      const connection =
+        navigator.connection ||
+        navigator.mozConnection ||
+        navigator.webkitConnection;
+
+      if (connection?.saveData) return false;
+
+      const effectiveType = connection?.effectiveType;
+      if (effectiveType === "slow-2g" || effectiveType === "2g") return false;
+    } catch {
+      // If the browser blocks these APIs, fall back to showing the GIF.
+    }
+    return true;
+  }, []);
+
   return (
     <div className="relative isolate min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
-      {page === "library" ? (
+      {page === "library" && shouldShowLibraryGifBg ? (
         <div
           className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${libraryTab === "legal" ? "/libarry2.gif" : "/libarry1.gif"})` }}
