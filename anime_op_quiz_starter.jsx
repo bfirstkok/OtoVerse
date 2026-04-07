@@ -10702,11 +10702,7 @@ export default function AnimeOPQuizStarter() {
             </video>
           </div>
         ) : (
-          <div
-            className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${libraryTab === "legal" ? "/libarry2.gif" : "/libarry1.gif"})` }}
-            aria-hidden="true"
-          />
+          <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true" />
         )
       ) : null}
       {page === "home" && shouldShowHomeVideoBg ? (
