@@ -10321,14 +10321,48 @@ export default function AnimeOPQuizStarter() {
     return true;
   }, []);
 
+  const canPlayLibraryMp4Bg = useMemo(() => {
+    if (typeof document === "undefined") return false;
+    try {
+      const v = document.createElement("video");
+      if (!v?.canPlayType) return false;
+      return Boolean(v.canPlayType("video/mp4"));
+    } catch {
+      return false;
+    }
+  }, []);
+
+  const [libraryBgVideoFailed, setLibraryBgVideoFailed] = useState(false);
+  useEffect(() => {
+    if (page !== "library") return;
+    setLibraryBgVideoFailed(false);
+  }, [page, libraryTab]);
+
   return (
     <div className="relative isolate min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
       {page === "library" && shouldShowLibraryGifBg ? (
-        <div
-          className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${libraryTab === "legal" ? "/libarry2.gif" : "/libarry1.gif"})` }}
-          aria-hidden="true"
-        />
+        canPlayLibraryMp4Bg && !libraryBgVideoFailed ? (
+          <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+            <video
+              key={`librarybg:${libraryTab}`}
+              className="h-full w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              onError={() => setLibraryBgVideoFailed(true)}
+            >
+              <source src={libraryTab === "legal" ? "/libarry2.mp4" : "/libarry1.mp4"} type="video/mp4" />
+            </video>
+          </div>
+        ) : (
+          <div
+            className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${libraryTab === "legal" ? "/libarry2.gif" : "/libarry1.gif"})` }}
+            aria-hidden="true"
+          />
+        )
       ) : null}
       {page === "home" && shouldShowHomeVideoBg ? (
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
