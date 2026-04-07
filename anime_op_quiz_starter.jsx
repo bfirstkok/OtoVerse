@@ -9980,10 +9980,10 @@ export default function AnimeOPQuizStarter() {
           </Card>
 
           {page === "library" && libraryTab === "legal" ? (
-            <div className="fixed bottom-4 right-4 z-[139]">
+            <div className="fixed bottom-4 right-4 z-[139] flex flex-col items-end gap-3">
               <div className="relative">
                 {legalBotOpen ? (
-                  <div className="absolute bottom-0 right-full mr-3 w-[340px] max-w-[calc(100vw-6.5rem)]">
+                  <div className="absolute bottom-0 right-full mr-3 w-[340px] max-w-[calc(100vw-7.5rem)]">
                 <Card className="rounded-3xl border border-white/70 bg-white/90 shadow-[0_16px_28px_rgba(15,23,42,0.16)] dark:border-slate-700/40 dark:bg-slate-950/70 dark:shadow-[0_16px_28px_rgba(0,0,0,0.45)]">
                   <CardHeader className="py-4">
                     <div className="flex items-start justify-between gap-3">
@@ -10038,7 +10038,7 @@ export default function AnimeOPQuizStarter() {
                   onClick={() => setLegalBotOpen((v) => !v)}
                   title="แชทบอทช่องทางรับชม/ฟัง"
                 >
-                  💬 ข้อความ
+                  🤖 แชทบอท
                 </Button>
               </div>
             </div>
@@ -11593,7 +11593,7 @@ export default function AnimeOPQuizStarter() {
         </div>
       )}
 
-      {user && chatNotif && !(page === "library" && libraryTab === "legal") ? (
+      {user && chatNotif ? (
         <div className="fixed bottom-20 right-4 z-[140] w-[min(420px,calc(100vw-2rem))]">
           <div className="rounded-3xl border-2 border-slate-200 bg-white/90 backdrop-blur shadow-2xl overflow-hidden dark:border-slate-700 dark:bg-slate-950/85">
             <div className="p-3 flex items-start gap-3">
@@ -11627,7 +11627,7 @@ export default function AnimeOPQuizStarter() {
         </div>
       ) : null}
 
-      {user && !(page === "library" && libraryTab === "legal") ? (
+      {user ? (
         <div className="fixed bottom-4 right-4 z-[139]">
           <Button
             type="button"
