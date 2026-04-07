@@ -10291,7 +10291,7 @@ export default function AnimeOPQuizStarter() {
   return (
     <div className="relative isolate min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
       {page === "home" && shouldShowHomeVideoBg ? (
-        <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           <video
             className="h-full w-full object-cover"
             autoPlay
@@ -10306,7 +10306,7 @@ export default function AnimeOPQuizStarter() {
         </div>
       ) : null}
       {page === "library" && shouldShowLibraryGifBg ? (
-        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           <img
             src={libraryTab === "legal" ? "/libarry2.gif" : "/libarry1.gif"}
             alt=""
@@ -10317,18 +10317,20 @@ export default function AnimeOPQuizStarter() {
         </div>
       ) : null}
       {page === "library" ? (
-        <div className="pointer-events-none absolute inset-0 -z-20 opacity-55">
+        <div className="pointer-events-none absolute inset-0 z-10 opacity-35">
           <div className="absolute -top-24 -left-10 h-72 w-72 rounded-full bg-rose-300/35 dark:bg-cyan-500/15 blur-3xl" />
           <div className="absolute top-24 -right-10 h-72 w-72 rounded-full bg-blue-300/30 dark:bg-sky-500/15 blur-3xl" />
           <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-amber-200/30 dark:bg-blue-500/10 blur-3xl" />
         </div>
       ) : (
-        <div className="pointer-events-none absolute inset-0 -z-10 opacity-80">
+        <div className="pointer-events-none absolute inset-0 z-10 opacity-80">
           <div className="absolute -top-24 -left-10 h-72 w-72 rounded-full bg-rose-300/35 dark:bg-cyan-500/15 blur-3xl" />
           <div className="absolute top-24 -right-10 h-72 w-72 rounded-full bg-blue-300/30 dark:bg-sky-500/15 blur-3xl" />
           <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-amber-200/30 dark:bg-blue-500/10 blur-3xl" />
         </div>
       )}
+
+      <div className="relative z-20">
 
       <div className="sticky top-0 z-50 -mx-4 md:-mx-8 mb-6">
         <motion.div
@@ -11234,6 +11236,8 @@ export default function AnimeOPQuizStarter() {
           </Button>
         </div>
       ) : null}
+
+      </div>
     </div>
   );
 }
