@@ -10678,6 +10678,8 @@ export default function AnimeOPQuizStarter() {
   }, []);
 
   const [libraryBgVideoFailed, setLibraryBgVideoFailed] = useState(false);
+  const libraryGifUrl1 = String(import.meta?.env?.VITE_LIBRARY_BG_GIF1 || "").trim();
+  const libraryGifUrl2 = String(import.meta?.env?.VITE_LIBRARY_BG_GIF2 || "").trim();
   useEffect(() => {
     if (page !== "library") return;
     setLibraryBgVideoFailed(false);
@@ -10702,7 +10704,16 @@ export default function AnimeOPQuizStarter() {
             </video>
           </div>
         ) : (
-          <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true" />
+          <div
+            className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: (() => {
+                const url = libraryTab === "legal" ? libraryGifUrl2 : libraryGifUrl1;
+                return url ? `url(${url})` : "";
+              })()
+            }}
+            aria-hidden="true"
+          />
         )
       ) : null}
       {page === "home" && shouldShowHomeVideoBg ? (

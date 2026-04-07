@@ -45,6 +45,13 @@ copy .env.example .env
 - `VITE_FIREBASE_MESSAGING_SENDER_ID`
 - `VITE_FIREBASE_APP_ID`
 
+ตัวแปรเสริม (ถ้าต้องการใช้ GIF พื้นหลังแบบไม่ต้อง deploy ไฟล์ GIF ขึ้น Firebase Hosting):
+
+- `VITE_LIBRARY_BG_GIF1`
+- `VITE_LIBRARY_BG_GIF2`
+
+> หมายเหตุ: การใช้ GIF ผ่าน URL ภายนอกจะ “ย้าย” แบนด์วิธไปที่โฮสต์ปลายทาง ไม่ได้ทำให้ผู้ใช้โหลดน้อยลง (ไฟล์ยังใหญ่เท่าเดิม)
+
 หมายเหตุ: ห้าม commit ไฟล์ `.env` ขึ้น repo (โปรเจกต์นี้ใส่ไว้ใน `.gitignore` แล้ว)
 
 ### 3) ตั้งค่า Firebase (ขั้นต่ำที่ควรทำ)
