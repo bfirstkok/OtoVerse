@@ -10691,7 +10691,7 @@ export default function AnimeOPQuizStarter() {
         canPlayLibraryMp4Bg && !libraryBgVideoFailed ? (
           <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
             <video
-              key={`librarybg:${libraryTab}`}
+              key="librarybg"
               className="h-full w-full object-cover"
               autoPlay
               muted
@@ -10700,7 +10700,7 @@ export default function AnimeOPQuizStarter() {
               preload="metadata"
               onError={() => setLibraryBgVideoFailed(true)}
             >
-              <source src={libraryTab === "legal" ? "/libarry2.mp4" : "/libarry1.mp4"} type="video/mp4" />
+              <source src="/libarry2.mp4" type="video/mp4" />
             </video>
           </div>
         ) : (
