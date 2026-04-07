@@ -5721,7 +5721,7 @@ function truncateSynopsis(text, maxLen = 320) {
 let manualSynopsisDbPromise = null;
 async function loadManualSynopsisDb() {
   if (manualSynopsisDbPromise) return manualSynopsisDbPromise;
-  manualSynopsisDbPromise = fetch("/synopsis_th.json", { cache: "no-store" })
+  manualSynopsisDbPromise = fetch("/synopsis_th.json")
     .then((r) => (r.ok ? r.json() : null))
     .then((json) => {
       const items = json?.items;
