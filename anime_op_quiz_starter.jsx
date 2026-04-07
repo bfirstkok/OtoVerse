@@ -10289,7 +10289,7 @@ export default function AnimeOPQuizStarter() {
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
+    <div className="relative isolate min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
       {page === "home" && shouldShowHomeVideoBg ? (
         <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
           <video
