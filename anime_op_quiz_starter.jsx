@@ -9980,7 +9980,7 @@ export default function AnimeOPQuizStarter() {
           </Card>
 
           {page === "library" && libraryTab === "legal" ? (
-            <div className="fixed bottom-4 right-4 z-[139] flex flex-col items-end gap-3">
+            <div className="fixed bottom-20 right-4 z-[139]">
               <div className="relative">
                 {legalBotOpen ? (
                   <div className="absolute bottom-0 right-full mr-3 w-[340px] max-w-[calc(100vw-7.5rem)]">
@@ -11594,7 +11594,7 @@ export default function AnimeOPQuizStarter() {
       )}
 
       {user && chatNotif ? (
-        <div className="fixed bottom-20 right-4 z-[140] w-[min(420px,calc(100vw-2rem))]">
+        <div className={`fixed ${page === "library" && libraryTab === "legal" ? "bottom-36" : "bottom-20"} right-4 z-[140] w-[min(420px,calc(100vw-2rem))]`}>
           <div className="rounded-3xl border-2 border-slate-200 bg-white/90 backdrop-blur shadow-2xl overflow-hidden dark:border-slate-700 dark:bg-slate-950/85">
             <div className="p-3 flex items-start gap-3">
               <div className="h-12 w-12 rounded-2xl border border-slate-200 bg-white/80 overflow-hidden flex items-center justify-center flex-shrink-0 dark:border-slate-700 dark:bg-slate-950/30">
