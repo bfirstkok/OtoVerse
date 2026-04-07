@@ -14,7 +14,7 @@
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "no-store"
+            "value": "public,max-age=0,must-revalidate"
           }
         ]
       },
@@ -28,11 +28,38 @@
         ]
       },
       {
-        "source": "/backg.gif",
+        "source": "/bg.mp4",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "public,max-age=604800"
+            "value": "public,max-age=31536000,immutable"
+          }
+        ]
+      },
+      {
+        "source": "/provider_icons.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public,max-age=86400"
+          }
+        ]
+      },
+      {
+        "source": "/legal_availability_th.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public,max-age=86400"
+          }
+        ]
+      },
+      {
+        "source": "/legal_catalog_th.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public,max-age=86400"
           }
         ]
       },

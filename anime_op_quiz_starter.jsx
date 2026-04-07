@@ -10249,20 +10249,41 @@ export default function AnimeOPQuizStarter() {
     );
   };
 
+  const shouldShowHomeVideoBg = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+      if (reduceMotion) return false;
+
+      const connection =
+        navigator.connection ||
+        navigator.mozConnection ||
+        navigator.webkitConnection;
+
+      if (connection?.saveData) return false;
+
+      const effectiveType = connection?.effectiveType;
+      if (effectiveType === "slow-2g" || effectiveType === "2g") return false;
+    } catch {
+      // If the browser blocks these APIs, fall back to showing the video.
+    }
+    return true;
+  }, []);
+
   return (
     <div className="relative min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
-      {page === "home" ? (
-        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      {page === "home" && shouldShowHomeVideoBg ? (
+        <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
           <video
             className="h-full w-full object-cover"
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             aria-hidden="true"
           >
-            <source src="/0406-copy.mp4" type="video/mp4" />
+            <source src="/bg.mp4" type="video/mp4" />
           </video>
         </div>
       ) : null}
