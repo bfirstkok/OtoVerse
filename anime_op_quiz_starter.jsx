@@ -6160,7 +6160,6 @@ export default function AnimeOPQuizStarter() {
           setProfileOpen(false);
           setPublicProfileOpen(false);
           setChatOpen(false);
-          setPage("home");
         }
       });
     })();
