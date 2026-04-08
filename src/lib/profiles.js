@@ -10,6 +10,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  runTransaction,
   serverTimestamp,
   setDoc,
   updateDoc,
@@ -60,6 +61,7 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
       if (nick) updates.nickname = nick;
     }
     if (!Array.isArray(data.following)) updates.following = [];
+    if (typeof data.bestStreak !== "number") updates.bestStreak = 0;
 
     await updateDoc(ref, updates).catch(() => {});
     return;
@@ -78,6 +80,7 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
       nickname,
       playCount: 0,
       totalScore: 0,
+      bestStreak: 0,
       following: [],
       settings: {
         theme: "dark",
@@ -87,6 +90,49 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
     },
     { merge: true }
   );
+}
+
+export async function updateProfileBestStreak(uid, bestStreak) {
+  if (!firebaseReady || !firebaseDb) return { ok: false, error: "firebase_not_ready" };
+  const ref = profileDocRef(uid);
+  if (!ref) return { ok: false, error: "no_ref" };
+
+  const next = Math.max(0, Math.floor(Number(bestStreak) || 0));
+  if (!next) return { ok: true };
+
+  try {
+    await runTransaction(firebaseDb, async (tx) => {
+      const snap = await tx.get(ref);
+      const curr = snap.exists() ? Math.max(0, Math.floor(Number(snap.data()?.bestStreak) || 0)) : 0;
+      if (next <= curr) return;
+      tx.set(
+        ref,
+        {
+          bestStreak: next,
+          bestStreakUpdatedAt: serverTimestamp()
+        },
+        { merge: true }
+      );
+    });
+    return { ok: true };
+  } catch (e) {
+    // Fallback: non-transactional set (caller should only call when increasing).
+    try {
+      await setDoc(
+        ref,
+        {
+          bestStreak: next,
+          bestStreakUpdatedAt: serverTimestamp()
+        },
+        { merge: true }
+      );
+      return { ok: true };
+    } catch (e2) {
+      const msg = String(e2?.code || e?.code || e2?.message || e?.message || "firestore_write_failed");
+      console.warn("updateProfileBestStreak failed:", e2 || e);
+      return { ok: false, error: msg };
+    }
+  }
 }
 
 export async function updateProfileNickname(uid, nickname) {

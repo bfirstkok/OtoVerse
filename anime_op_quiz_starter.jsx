@@ -59,6 +59,7 @@ import {
   subscribeProfile,
   touchUserPresence,
   unfollowUser,
+  updateProfileBestStreak,
   updateProfileNickname,
   updateProfilePhotoURL,
   updateProfilePublicFavorites,
@@ -6289,6 +6290,8 @@ export default function AnimeOPQuizStarter() {
   const favoritesSyncTimerRef = useRef(null);
   const statsSyncTimerRef = useRef(null);
   const publicFavoritesSyncTimerRef = useRef(null);
+  const bestStreakSyncTimerRef = useRef(null);
+  const bestStreakSentRef = useRef(0);
 
   const [favoritesPopupOpen, setFavoritesPopupOpen] = useState(false);
   const [favoritesPopupLabel, setFavoritesPopupLabel] = useState("เรื่องโปรด");
@@ -6451,6 +6454,9 @@ export default function AnimeOPQuizStarter() {
       setUserPrivate(null);
       setUserPrivateError("");
       appliedUserPrivateRef.current = null;
+
+      bestStreakSentRef.current = 0;
+      if (bestStreakSyncTimerRef.current) clearTimeout(bestStreakSyncTimerRef.current);
       return;
     }
 
@@ -6467,6 +6473,30 @@ export default function AnimeOPQuizStarter() {
       }
     );
   }, [user?.uid]);
+
+  // Persist best consecutive-correct streak (bestStreak) to profile (debounced).
+  useEffect(() => {
+    if (!user?.uid) return;
+    if (isGroupMode) return;
+
+    const uid = user.uid;
+    const localBest = typeof profile?.bestStreak === "number" ? profile.bestStreak : 0;
+    const next = Math.max(0, Math.floor(Number(runMaxStreak) || 0));
+    if (next <= localBest) return;
+    if (bestStreakSentRef.current >= next) return;
+
+    bestStreakSentRef.current = next;
+    if (bestStreakSyncTimerRef.current) clearTimeout(bestStreakSyncTimerRef.current);
+    bestStreakSyncTimerRef.current = setTimeout(() => {
+      updateProfileBestStreak(uid, next).then((r) => {
+        if (r && r.ok === false) console.warn("updateProfileBestStreak failed:", r.error);
+      });
+    }, 1500);
+
+    return () => {
+      if (bestStreakSyncTimerRef.current) clearTimeout(bestStreakSyncTimerRef.current);
+    };
+  }, [runMaxStreak, user?.uid, profile?.bestStreak, isGroupMode]);
 
   // Initial reconcile: pull cloud favorites/localStats (private) or push local up.
   useEffect(() => {
@@ -6732,7 +6762,8 @@ export default function AnimeOPQuizStarter() {
         const normalized = (rows || []).map((r) => ({
           ...r,
           playCount: typeof r?.playCount === "number" ? r.playCount : 0,
-          totalScore: typeof r?.totalScore === "number" ? r.totalScore : 0
+          totalScore: typeof r?.totalScore === "number" ? r.totalScore : 0,
+          bestStreak: typeof r?.bestStreak === "number" ? r.bestStreak : 0
         }));
 
         normalized.sort((a, b) => {
@@ -10365,6 +10396,7 @@ export default function AnimeOPQuizStarter() {
                   const photo = String(p?.photoURL || "").trim();
                   const plays = typeof p?.playCount === "number" ? p.playCount : 0;
                   const total = typeof p?.totalScore === "number" ? p.totalScore : 0;
+                  const best = typeof p?.bestStreak === "number" ? p.bestStreak : 0;
 
                   return (
                     <button
@@ -10387,6 +10419,7 @@ export default function AnimeOPQuizStarter() {
 
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <Badge variant="outline" className="rounded-full">🎮 {plays}</Badge>
+                        <Badge variant="outline" className="rounded-full">🔥 {best}</Badge>
                         <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0">⭐ {total}</Badge>
                       </div>
                     </button>
@@ -11791,9 +11824,9 @@ export default function AnimeOPQuizStarter() {
                       <CardDescription className="text-sm">
                         แนว <span className="font-semibold">{selectedGenreLabel}</span>
                         {isGroupMode ? (
-                            <> • เล่นกลุ่ม • <span className="text-emerald-600 dark:text-emerald-300 font-semibold">ตาคนตอบ: {String(groupTurnPlayer?.name || "ผู้เล่น")}</span></>
+                            <> • เล่นกลุ่ม • <span className="text-emerald-600 dark:text-emerald-300 font-semibold">ตาคนตอบ: {String(groupTurnPlayer?.name || "ผู้เล่น")}</span> • <span className="font-semibold">🔥 streak: {runCurrStreak}</span></>
                         ) : (
-                          <> • {answerModeConfig[answerMode].label} • <span className="text-emerald-600 dark:text-emerald-300 font-semibold">คะแนน: {score}</span></>
+                          <> • {answerModeConfig[answerMode].label} • <span className="text-emerald-600 dark:text-emerald-300 font-semibold">คะแนน: {score}</span> • <span className="font-semibold">🔥 streak: {runCurrStreak}</span></>
                         )}
                         {isTimeAttack ? <> • จับเวลา 3 นาที</> : null}
                         {isSoloChallenge ? (
@@ -11805,6 +11838,7 @@ export default function AnimeOPQuizStarter() {
                     <Badge className="rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 text-white border-0">
                       {isTimeAttack ? `⏳ เหลือ ${formatRemainingThai(remainingMs)}` : `⏱️ เล่นมา ${formatPlayElapsedThai(playElapsedMs)}`}
                     </Badge>
+                    <Badge variant="outline" className="rounded-full border-2 border-slate-200 bg-white/50 dark:border-slate-700 dark:bg-slate-950/45">🔥 {runCurrStreak}</Badge>
                       <Badge variant="outline" className="rounded-full border-2 border-slate-200 bg-white/50 dark:border-slate-700 dark:bg-slate-950/45">{genreConfig[currentAnime.genre]?.label || currentAnime.genre}</Badge>
                   </div>
                 </div>
