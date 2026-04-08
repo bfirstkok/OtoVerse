@@ -2,8 +2,8 @@
 
 เว็บเกมทายเพลงอนิเมะ (OP/ED) + คลังข้อมูล + ฟีเจอร์โซเชียล สร้างด้วย Vite + React + Tailwind และเชื่อม Firebase (Auth/Firestore/Storage)
 
-Live (Firebase Hosting): https://otoverse.web.app
-
+Live : https://otoverse.games/ 
+มีการจดโดเมน สามารถค้นหาได้เลย search otoverse
 ---
 
 ## TL;DR (ทำอะไรได้)
