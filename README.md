@@ -1,42 +1,114 @@
 # OtoVerse
 
-เว็บเกมทายเพลงอนิเมะ (OP/ED) สร้างด้วย Vite + React + Tailwind และมีระบบโซเชียลผ่าน Firebase (Auth/Firestore/Storage)
+เว็บเกมทายเพลงอนิเมะ (OP/ED) + คลังข้อมูล + ฟีเจอร์โซเชียล สร้างด้วย Vite + React + Tailwind และเชื่อม Firebase (Auth/Firestore/Storage)
 
-## ฟีเจอร์หลัก
+Live (Firebase Hosting): https://otoverse.web.app
 
-- โหมดเล่นเดี่ยว (Normal)
-- โหมด Solo Challenge (มี HP และตัวคูณตอนตอบผิด)
-- โหมดเล่นกลุ่ม (Turn-based)
-  - ตอบผิด: เลือก “คนที่ตอบผิด” เพื่อหักคะแนน แล้วให้คนถัดไปตอบต่อจนกว่าจะถูก
-  - ตอบถูก: เลือก “คนที่ตอบถูก” เพื่อรับคะแนน แล้วไปข้อถัดไป
-- Community
-  - โพสต์/คอมเมนต์/ไลก์
-  - เจ้าของโพสต์สามารถแก้ไข/ลบโพสต์ของตัวเองได้
-  - อัปโหลดรูปโพสต์แบบ resumable พร้อม progress
+---
+
+## TL;DR (ทำอะไรได้)
+
+**เกมทายเพลง**
+
+- เล่นแบบปกติ (กำหนดจำนวนข้อ)
+- Solo Challenge (มี HP / ผิดติดกันโดนหนักขึ้น)
+- เล่นกลุ่ม (จอเดียว ผลัดกันตอบ)
+- จับเวลา 3 นาที (เล่นไม่จำกัดข้อ หมดเวลาแล้วสรุปผล)
+
+**โหมดพิเศษ (อยู่ในแผงด้านขวา)**
+
+- Daily Challenge (ชุดประจำวัน 10 ข้อ)
+- Favorites (เล่นจากเพลงที่กด ⭐)
+- ยอดนิยมของคุณ (อิงสถิติในเครื่อง)
+- เล่นจากเรื่อง (เลือกอนิเมะ)
+- Room Code (แชร์ “ชุดคำถาม + การตั้งค่า” ให้เพื่อนเล่นเหมือนกัน / ไม่ใช่ห้องออนไลน์)
+
+**อื่น ๆ**
+
+- คลังเพลง + ช่องทางรับชม/ฟัง (ข้อมูลไทย + ไอคอน provider)
+- แชร์ผลเป็นรูป (PNG) ธีมเดียวกับเว็บ + โลโก้ + สรุปผล + mini chart + Top 3 ข้อที่ตอบถูกเร็วที่สุดในรอบนั้น
+- Community โพสต์/คอมเมนต์/ไลก์
+- โปรไฟล์/ติดตาม/อันดับผู้เล่น (leaderboard)
+- แชท 1:1
+- ฟอร์มรายงานปัญหา (`reports`) + ขอเพิ่มเพลง (`song_requests`)
+
+---
 
 ## Tech Stack
 
-- Frontend: React 18, Vite, Tailwind
+- Frontend: React 18, Vite 6
+- Styling: TailwindCSS 4
 - UI/Animation: lucide-react, framer-motion
-- Backend-as-a-service: Firebase (Authentication, Firestore, Storage)
+- Backend: Firebase
+  - Authentication
+  - Firestore
+  - Storage
 
-## เริ่มต้นใช้งาน (Local)
+---
 
-### 1) ติดตั้ง dependencies
+## โหมดเกม (Game Modes)
 
-```bash
-npm install
-```
+### 1) ปกติ (normal)
 
-### 2) ตั้งค่า Environment variables
+- เล่นตามจำนวนข้อที่เลือก (เช่น 5/10/15)
+- มีคะแนนรวมของรอบ
 
-คัดลอกไฟล์ตัวอย่างแล้วกรอกค่าจริงจาก Firebase Console
+### 2) Solo Challenge (solo_challenge)
+
+- HP เริ่ม 10
+- ตอบผิด/ข้าม: HP ลด (และตัวคูณความผิดเพิ่ม)
+- เกมจบเมื่อ HP หมด
+
+### 3) เล่นกลุ่ม (group)
+
+- จอเดียว เล่นผลัดกัน
+- ตอบผิด: เลือก “คนที่ตอบผิด” เพื่อให้ระบบหัก/จัดการคะแนน แล้วสลับให้คนถัดไปตอบต่อจนกว่าจะถูก
+- ตอบถูก: ไปข้อถัดไป
+
+### 4) จับเวลา 3 นาที (time_attack_3m)
+
+- เล่นไม่จำกัดข้อ
+- UI แสดงเวลา “เหลือ …”
+- ครบ 3 นาที ระบบพาไปหน้าสรุปผลอัตโนมัติ
+
+---
+
+## โหมดพิเศษ (Special Modes)
+
+โหมดพิเศษถูกย้ายไปอยู่ใน “แผงป็อปอัปด้านขวา” เพื่อไม่ทำให้ผู้เล่นเข้าใจผิดว่าต้องตั้งค่าก่อนเล่นโหมดปกติ
+
+- **Daily Challenge**: สุ่มแบบ deterministic ตามวันที่ (เล่นซ้ำวันเดิมจะได้ชุดเดิม)
+- **Favorites**: เล่นจากรายการที่ผู้ใช้กด ⭐ ในคลัง
+- **ยอดนิยมของคุณ**: สร้าง pool จากสถิติในเครื่อง (local)
+- **เล่นจากเรื่อง (เลือกอนิเมะ)**: เลือก series แล้วเล่นจาก bucket ของเรื่องนั้น
+- **Room Code**:
+  - เป็น “โค้ดแชร์ชุดคำถาม” (ไม่ใช่ realtime room / ไม่ sync การเล่น)
+  - payload เป็น JSON แล้ว encode แบบ base64url
+  - รองรับโหมดกลุ่มและรายชื่อผู้เล่นในโค้ด
+
+---
+
+## แชร์ผลเป็นรูป (PNG)
+
+- เรนเดอร์ด้วย `<canvas>` (1080×1080)
+- ใส่โลโก้จาก `public/pwa-192.png`
+- มี mini chart (ถูก/ผิด/ข้าม)
+- “Top 3 in this run” อิงข้อที่ **ตอบถูกเร็วที่สุด** ในรอบนั้น
+- ถ้าเครื่องรองรับ Web Share API จะ share เป็นไฟล์ภาพได้เลย ไม่งั้นจะดาวน์โหลด PNG แทน
+
+---
+
+## Firebase (Auth/Firestore/Storage)
+
+### Environment Variables
+
+คัดลอกไฟล์ตัวอย่างแล้วกรอกค่าจริงจาก Firebase Console:
 
 ```bash
 copy .env.example .env
 ```
 
-ตัวแปรที่ใช้ (ดูได้ใน `.env.example`):
+คีย์ที่ต้องมี (ดูรายละเอียดใน `.env.example`):
 
 - `VITE_FIREBASE_API_KEY`
 - `VITE_FIREBASE_AUTH_DOMAIN`
@@ -45,113 +117,128 @@ copy .env.example .env
 - `VITE_FIREBASE_MESSAGING_SENDER_ID`
 - `VITE_FIREBASE_APP_ID`
 
-ตัวแปรเสริม (ถ้าต้องการใช้ GIF พื้นหลังแบบไม่ต้อง deploy ไฟล์ GIF ขึ้น Firebase Hosting):
+คีย์เสริม:
 
 - `VITE_LIBRARY_BG_GIF1`
 - `VITE_LIBRARY_BG_GIF2`
 
-> หมายเหตุ: การใช้ GIF ผ่าน URL ภายนอกจะ “ย้าย” แบนด์วิธไปที่โฮสต์ปลายทาง ไม่ได้ทำให้ผู้ใช้โหลดน้อยลง (ไฟล์ยังใหญ่เท่าเดิม)
+> หมายเหตุ: `.env` เป็น client config (ไม่ใช่ secret) แต่ก็ไม่ควร commit ไฟล์ `.env` ขึ้น repo อยู่ดี
 
-หมายเหตุ: ห้าม commit ไฟล์ `.env` ขึ้น repo (โปรเจกต์นี้ใส่ไว้ใน `.gitignore` แล้ว)
+### Collections ที่ใช้งาน (Firestore)
 
-### 3) ตั้งค่า Firebase (ขั้นต่ำที่ควรทำ)
+- `profiles` โปรไฟล์ผู้ใช้ + สถิติสะสม (เช่น playCount / totalScore) + following + settings
+- `posts` ฟีด community (ภายใต้โพสต์มี subcollection `comments`)
+- `chats` แชท 1:1 (ภายใต้แชทมี subcollection `messages`)
+- `reports` ฟอร์มรายงานปัญหา/ข้อเสนอแนะจากในเว็บ
+- `song_requests` คำขอเพิ่มเพลง/เรื่องจากหน้า library
 
-1. สร้าง Firebase Project
-2. เปิดใช้งาน Authentication Providers ที่ต้องการ (เช่น Email/Password, Google, GitHub)
-3. สร้าง Web App แล้วนำ config มาใส่ใน `.env`
-4. (ถ้าใช้ GitHub provider) ตั้งค่า OAuth client id/secret ใน Firebase Console
+### Rules
 
-> ถ้ามี Firestore Rules เฉพาะในโปรเจกต์นี้ ให้ตรวจสอบใน Firebase Console ให้ตรงกับที่โค้ดเรียกใช้งาน
+- `firestore.rules`
+- `storage.rules`
 
-### 4) รัน dev server
+> ถ้าเจอ `permission-denied` ตอนเขียน collection ใด ๆ ให้ตรวจ rules ใน Firebase Console ให้ตรงกับความตั้งใจของโปรเจกต์
+
+---
+
+## โครงสร้างโปรเจกต์
+
+- `src/main.jsx` entry ของ React
+- `src/App.jsx` จุดที่ mount ตัวเกม (import จากไฟล์หลักด้านล่าง)
+- `anime_op_quiz_starter.jsx` โค้ดหลักของเกม/หน้า UI ส่วนใหญ่ (home/play/result/library/community/about ฯลฯ)
+- `src/index.css` global styles
+- `src/lib/firebase.js` init Firebase + auth persistence + Firestore long-polling fallback
+- `src/lib/community.js` ฟีเจอร์ community (`posts` + `comments`)
+- `src/lib/chat.js` ฟีเจอร์แชท (`chats` + `messages`)
+- `src/lib/profiles.js` โปรไฟล์/ติดตาม/สถิติสะสม/leaderboard (`profiles`)
+- `src/lib/avatars.js` อัปโหลด/จัดการรูปโปรไฟล์ (บีบอัดก่อนส่ง)
+- `src/lib/utils.js` helper utilities ที่ใช้ร่วมกัน
+- `src/components/ui/*` primitive UI (button/card/input/badge)
+
+---
+
+## ชุดข้อมูล/ไฟล์ static
+
+อยู่ใน `public/` (ถูก deploy ไป Hosting ตรง ๆ):
+
+- `public/legal_catalog_th.json` แคตตาล็อกอนิเมะ/เพลง/เรื่อง (TH)
+- `public/legal_availability_th.json` ข้อมูลช่องทางรับชม/ฟัง (TH)
+- `public/provider_icons.json` ไอคอน provider
+- `public/synopsis_th.json` synopsis ภาษาไทย (ฐานข้อมูลที่ build ไว้)
+- `public/bg.mp4`, `public/libarry2.mp4` พื้นหลังแบบวิดีโอ (ลด bandwidth เมื่อเทียบกับ GIF)
+- `public/manifest.webmanifest`, `public/pwa-192.png`, `public/pwa-512.png` สำหรับ PWA metadata/icon
+- `public/robots.txt` สำหรับ crawler
+- `public/_redirects` (Netlify) และ `firebase.json` (Firebase) สำหรับ SPA fallback
+
+ไฟล์ข้อมูลดิบ/รายการชื่ออื่น ๆ อยู่ที่ root เช่น:
+
+- `anime_titles.txt`, `anime_works_320.txt` ฯลฯ
+
+---
+
+## Scripts (โฟลเดอร์ `scripts/`)
+
+มีสคริปต์สำหรับ build/อัปเดต dataset หลายตัว (Node.js):
+
+- `build_legal_catalog_th.mjs` สร้าง/อัปเดต `public/legal_catalog_th.json`
+- `build_legal_availability_th.mjs` สร้าง/อัปเดต `public/legal_availability_th.json`
+- `update_provider_icons.cjs` อัปเดต `public/provider_icons.json`
+- `build_synopsis_th.mjs` สร้าง/อัปเดต `public/synopsis_th.json`
+- `convert_library_backgrounds.mjs` งานแปลง/จัดการ background assets
+
+นอกนั้นเป็นกลุ่ม audit/debug/export เพื่อเช็คคุณภาพข้อมูล (ชื่อไฟล์มักขึ้นต้นด้วย `audit_`, `debug_`, `export_`)
+
+---
+
+## รันโปรเจกต์ (Local Development)
+
+### 1) ติดตั้ง dependencies
+
+```bash
+npm install
+```
+
+### 2) รัน dev server
 
 ```bash
 npm run dev
 ```
 
-เปิดตาม URL ที่ Vite แสดงใน terminal (ปกติ `http://localhost:5173`)
-
-## คำสั่งที่ใช้บ่อย
-
-- Dev: `npm run dev`
-- Build: `npm run build`
-- Preview (หลัง build): `npm run preview`
-
-## Deploy ให้เป็นเว็บ Public (และให้ Google หาเจอ)
-
-โปรเจกต์นี้เป็น Vite SPA (Single Page App) — deploy ได้ง่ายมาก แค่ build แล้วเอาโฟลเดอร์ `dist/` ไป host
-
-### ตัวเลือกที่แนะนำ (ง่าย)
-
-#### 1) Vercel
-
-1. ไปที่ https://vercel.com แล้ว Import GitHub repo
-2. ตั้งค่า:
-  - Build Command: `npm run build`
-  - Output Directory: `dist`
-3. Deploy ได้เลย
-
-#### 2) Netlify
-
-1. ไปที่ https://netlify.com แล้ว New site from Git
-2. ตั้งค่า:
-  - Build Command: `npm run build`
-  - Publish directory: `dist`
-3. โปรเจกต์นี้มีไฟล์ `public/_redirects` ให้แล้ว เพื่อทำ SPA fallback (`/* -> /index.html 200`)
-
-#### 3) Firebase Hosting (เข้ากับ Firebase ที่ใช้อยู่แล้ว)
-
-1. ติดตั้งเครื่องมือ:
-
-```bash
-npm i -g firebase-tools
-firebase login
-```
-
-2. init hosting:
-
-```bash
-firebase init hosting
-```
-
-แนะนำค่าตอนถาม:
-- public directory: `dist`
-- configure as a single-page app: `Yes`
-
-3. build แล้ว deploy:
+### 3) Build / Preview
 
 ```bash
 npm run build
-firebase deploy
+npm run preview
 ```
 
-### ทำให้ “ค้นเจอใน Google”
+---
 
-สิ่งสำคัญคือ “ต้องมี URL ที่เข้าถึงได้จริงแบบ public” (แนะนำผูก Custom Domain) แล้วทำตามนี้:
+## Deploy
 
-1. ตรวจว่าไม่ block การ index
-  - โปรเจกต์นี้มี `public/robots.txt` เป็น Allow ทั้งหมดแล้ว
-2. เปิดใช้ Google Search Console
-  - ไปที่ https://search.google.com/search-console
-  - Add property (โดเมนหรือ URL prefix)
-  - Verify ownership (DNS/HTML/อื่น ๆ)
-3. ส่ง Sitemap
-  - ถ้าคุณมีหลายหน้า/หลาย route และอยากให้ crawl ดีขึ้น ให้ทำ `sitemap.xml`
-  - สำหรับเว็บ SPA หน้าเดียว (ส่วนใหญ่เนื้อหาอยู่หน้าเดียว) Google ก็ index ได้ แต่ SEO มักจะจำกัดกว่า SSR/Pre-render
-4. ขอให้ Google เก็บหน้าเร็วขึ้น
-  - ใน Search Console ใช้ URL Inspection แล้วกด Request indexing
+### Firebase Hosting (โปรเจกต์นี้ตั้งค่าไว้แล้ว)
 
-> หมายเหตุเรื่อง SEO: ถ้าต้องการ SEO แบบ “ค้นคำแล้วติดง่าย” ในหลาย ๆ หน้า อาจต้องใช้ SSR/Pre-render (เช่น Next.js หรือ pre-render routes) เพราะ SPA บางส่วนต้องรัน JS ก่อนถึงเห็น content
+ไฟล์ config:
 
-## โครงสร้างโปรเจกต์ (คร่าว ๆ)
+- `.firebaserc` กำหนด default project และ hosting target
+- `firebase.json` ระบุว่า deploy จาก `dist/` + ทำ SPA rewrite ไป `index.html` + ตั้งค่า headers (caching) สำหรับไฟล์ static บางประเภท
 
-- `anime_op_quiz_starter.jsx` โค้ดหลักของเกม/หน้า UI จำนวนมาก
-- `src/lib/firebase.js` Firebase init
-- `src/lib/community.js` ฟังก์ชัน community (โพสต์/อัปโหลดรูป ฯลฯ)
-- `src/lib/chat.js`, `src/lib/profiles.js` ฟีเจอร์แชท/โปรไฟล์
-- `public/` ไฟล์ static และชุดข้อมูลบางส่วน
+คำสั่ง deploy:
 
-## หมายเหตุ
+```bash
+npm run build
+npx firebase-tools deploy --only hosting:otoverse
+```
 
-- โปรเจกต์ใช้การ embed YouTube (แบบ `youtube-nocookie`) สำหรับวิดีโอเพลง
-- บางส่วนของข้อมูล synopsis ดึงจาก AniList GraphQL (ถ้า API มีการจำกัด/เปลี่ยนแปลง อาจกระทบการแสดงผล)
+ถ้า fork โปรเจกต์ไปใช้ Firebase project ของตัวเอง:
+
+1) `npx firebase-tools login`
+2) `npx firebase-tools use --add` แล้วเลือก project
+3) ปรับ `.firebaserc`/hosting target ตามต้องการ หรือใช้ `--project <your_project_id>` ตอน deploy
+
+---
+
+## Notes / ข้อควรรู้
+
+- โปรเจกต์ embed YouTube (แนว `youtube-nocookie`) เพื่อเล่นเพลง
+- `src/lib/firebase.js` ตั้งค่า Firestore ให้ auto-detect long polling เพื่อช่วยในบางเครือข่าย/ส่วนขยายที่บล็อก transport แบบ streaming
+- บางกติกา “กันซ้ำ” เป็น logic ภายในของการสุ่ม/จัดลิสต์ และสามารถถูกพกไปกับ Room Code ได้ (แม้ UI ตั้งค่าอาจถูกซ่อนไว้ตามดีไซน์ล่าสุด)
