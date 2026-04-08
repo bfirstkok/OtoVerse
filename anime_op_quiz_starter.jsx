@@ -10398,6 +10398,15 @@ export default function AnimeOPQuizStarter() {
                   const total = typeof p?.totalScore === "number" ? p.totalScore : 0;
                   const best = typeof p?.bestStreak === "number" ? p.bestStreak : 0;
 
+                  const formatCompactNumber = (value) => {
+                    const n = Math.max(0, Number(value) || 0);
+                    if (n < 1000) return String(Math.floor(n));
+                    if (n < 1_000_000) return `${Math.round((n / 1000) * 10) / 10}k`;
+                    if (n < 1_000_000_000) return `${Math.round((n / 1_000_000) * 10) / 10}M`;
+                    if (n < 1_000_000_000_000) return `${Math.round((n / 1_000_000_000) * 10) / 10}B`;
+                    return `${Math.round((n / 1_000_000_000_000) * 10) / 10}T`;
+                  };
+
                   return (
                     <button
                       type="button"
@@ -10417,10 +10426,10 @@ export default function AnimeOPQuizStarter() {
                         <div className="truncate">{name}</div>
                       </div>
 
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <Badge variant="outline" className="rounded-full">🎮 {plays}</Badge>
-                        <Badge variant="outline" className="rounded-full">🔥 {best}</Badge>
-                        <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0">⭐ {total}</Badge>
+                      <div className="flex items-center gap-2 flex-wrap justify-end">
+                        <Badge variant="outline" className="rounded-full">🎮 {formatCompactNumber(plays)}</Badge>
+                        <Badge variant="outline" className="rounded-full">🔥 {formatCompactNumber(best)}</Badge>
+                        <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0">⭐ {formatCompactNumber(total)}</Badge>
                       </div>
                     </button>
                   );
