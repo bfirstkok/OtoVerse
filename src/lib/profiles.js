@@ -170,6 +170,43 @@ export async function updateProfilePhotoURL(uid, photoURL) {
   }
 }
 
+export async function updateProfilePublicFavorites(uid, favoriteIds) {
+  if (!firebaseReady || !firebaseDb) return { ok: false, error: "firebase_not_ready" };
+  const ref = profileDocRef(uid);
+  if (!ref) return { ok: false, error: "no_ref" };
+
+  const list = Array.isArray(favoriteIds) ? favoriteIds : [];
+  const normalized = [];
+  const seen = new Set();
+  for (const x of list) {
+    const n = Number(x);
+    if (!Number.isFinite(n)) continue;
+    if (seen.has(n)) continue;
+    seen.add(n);
+    normalized.push(n);
+    if (normalized.length >= 500) break;
+  }
+
+  const updates = {
+    publicFavorites: normalized,
+    publicFavoritesUpdatedAt: serverTimestamp()
+  };
+
+  try {
+    await updateDoc(ref, updates);
+    return { ok: true };
+  } catch (e) {
+    try {
+      await setDoc(ref, updates, { merge: true });
+      return { ok: true };
+    } catch (e2) {
+      const msg = String(e2?.code || e?.code || e2?.message || e?.message || "firestore_write_failed");
+      console.warn("updateProfilePublicFavorites failed:", e2 || e);
+      return { ok: false, error: msg };
+    }
+  }
+}
+
 export function subscribeProfile(uid, onChange, onError) {
   if (!firebaseReady || !firebaseDb) return () => {};
   const ref = profileDocRef(uid);

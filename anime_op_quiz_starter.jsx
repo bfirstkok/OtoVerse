@@ -61,6 +61,7 @@ import {
   unfollowUser,
   updateProfileNickname,
   updateProfilePhotoURL,
+  updateProfilePublicFavorites,
   updateProfileSettings
 } from "@/lib/profiles";
 import { uploadUserAvatar } from "@/lib/avatars";
@@ -6292,6 +6293,17 @@ export default function AnimeOPQuizStarter() {
   const appliedUserPrivateRef = useRef(null);
   const favoritesSyncTimerRef = useRef(null);
   const statsSyncTimerRef = useRef(null);
+  const publicFavoritesSyncTimerRef = useRef(null);
+
+  const [favoritesPopupOpen, setFavoritesPopupOpen] = useState(false);
+  const [favoritesPopupLabel, setFavoritesPopupLabel] = useState("เรื่องโปรด");
+  const [favoritesPopupIds, setFavoritesPopupIds] = useState([]);
+
+  const openFavoritesPopup = ({ label, ids } = {}) => {
+    setFavoritesPopupLabel(String(label || "เรื่องโปรด"));
+    setFavoritesPopupIds(Array.isArray(ids) ? ids : []);
+    setFavoritesPopupOpen(true);
+  };
 
   const [communitySearch, setCommunitySearch] = useState("");
   const [communityProfiles, setCommunityProfiles] = useState([]);
@@ -6552,6 +6564,31 @@ export default function AnimeOPQuizStarter() {
       if (favoritesSyncTimerRef.current) clearTimeout(favoritesSyncTimerRef.current);
     };
   }, [favoriteIds, user?.uid, userPrivate?.favorites]);
+
+  // Persist favorites to public profile (debounced) so other users can see "เรื่องโปรด".
+  useEffect(() => {
+    if (!user?.uid) return;
+    if (appliedUserPrivateRef.current !== user.uid) return;
+
+    const uid = user.uid;
+    const next = normalizeIdList(favoriteIds || [], 500);
+    const remote = normalizeIdList(profile?.publicFavorites || [], 500);
+    if (isSameNumberArray(next, remote)) return;
+
+    if (publicFavoritesSyncTimerRef.current) clearTimeout(publicFavoritesSyncTimerRef.current);
+    publicFavoritesSyncTimerRef.current = setTimeout(() => {
+      updateProfilePublicFavorites(uid, next).then((r) => {
+        if (r && r.ok === false) {
+          // non-blocking notice; keep console for debugging
+          console.warn("updateProfilePublicFavorites failed:", r.error);
+        }
+      });
+    }, 1500);
+
+    return () => {
+      if (publicFavoritesSyncTimerRef.current) clearTimeout(publicFavoritesSyncTimerRef.current);
+    };
+  }, [favoriteIds, user?.uid, profile?.publicFavorites]);
 
   // Persist localStats to private cloud doc (debounced) so "ยอดนิยมของคุณ" ไม่หายข้ามอุปกรณ์.
   useEffect(() => {
@@ -8012,6 +8049,30 @@ export default function AnimeOPQuizStarter() {
       genre: inferGenre(anime)
     }));
   }, []);
+
+  const animeById = useMemo(() => {
+    const map = new Map();
+    for (const a of animeWithGenre || []) {
+      const id = Number(a?.id);
+      if (!Number.isFinite(id)) continue;
+      if (!map.has(id)) map.set(id, a);
+    }
+    return map;
+  }, [animeWithGenre]);
+
+  const favoritesPopupItems = useMemo(() => {
+    const ids = normalizeIdList(favoritesPopupIds || [], 500);
+    return ids.map((id) => animeById.get(id)).filter(Boolean);
+  }, [animeById, favoritesPopupIds]);
+
+  useEffect(() => {
+    if (!favoritesPopupOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setFavoritesPopupOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [favoritesPopupOpen]);
 
   const dailyAnime = useMemo(() => {
     if (!animeWithGenre.length) return null;
@@ -12913,6 +12974,15 @@ export default function AnimeOPQuizStarter() {
                   </div>
                 </div>
 
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="rounded-2xl font-semibold"
+                  onClick={() => openFavoritesPopup({ label: "⭐ เรื่องโปรดของฉัน", ids: favoriteIds })}
+                >
+                  ⭐ เรื่องโปรด ({Array.isArray(favoriteIds) ? favoriteIds.length : 0})
+                </Button>
+
                 <div className="space-y-3">
                   <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">ตั้งค่าพื้นฐาน</div>
 
@@ -13117,9 +13187,103 @@ export default function AnimeOPQuizStarter() {
                   </div>
                 </div>
 
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="rounded-2xl font-semibold"
+                  onClick={() =>
+                    openFavoritesPopup({
+                      label: `⭐ เรื่องโปรดของ ${String(publicProfile?.nickname || publicProfile?.displayName || "ผู้เล่น").trim() || "ผู้เล่น"}`,
+                      ids: Array.isArray(publicProfile?.publicFavorites) ? publicProfile.publicFavorites : []
+                    })
+                  }
+                  disabled={Boolean(publicProfileError)}
+                >
+                  ⭐ เรื่องโปรด ({Array.isArray(publicProfile?.publicFavorites) ? publicProfile.publicFavorites.length : 0})
+                </Button>
+
                 {publicProfileNotice ? (
                   <div className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">{publicProfileNotice}</div>
                 ) : null}
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      )}
+
+      {favoritesPopupOpen && user && (
+        <div className="fixed inset-0 z-[115] flex items-center justify-center p-4">
+          <button
+            type="button"
+            className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
+            aria-label="ปิดรายการเรื่องโปรด"
+            onClick={() => setFavoritesPopupOpen(false)}
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.18 }}
+            className="relative w-full max-w-2xl"
+            role="dialog"
+            aria-modal="true"
+          >
+            <Card className="rounded-3xl border-2 border-slate-200 bg-white text-slate-950 shadow-2xl overflow-hidden dark:border-slate-700 dark:bg-slate-950 dark:text-slate-50">
+              <CardHeader className="relative">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <CardTitle className="font-display text-2xl">{favoritesPopupLabel}</CardTitle>
+                    <CardDescription className="text-slate-800 dark:text-slate-200">รายการเรื่องที่กด ⭐ ไว้</CardDescription>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-2xl"
+                    onClick={() => setFavoritesPopupOpen(false)}
+                    title="ปิด"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {!(favoritesPopupItems || []).length ? (
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700 dark:border-slate-800 dark:bg-slate-900/40 dark:text-slate-200">
+                    ยังไม่มีเรื่องโปรด
+                  </div>
+                ) : (
+                  <div className="max-h-[60vh] overflow-auto space-y-2 pr-1">
+                    {(favoritesPopupItems || []).map((a) => {
+                      const id = Number(a?.id);
+                      const title = String(a?.title || "").trim();
+                      const img = getAnimeImageUrl(a);
+                      return (
+                        <div
+                          key={Number.isFinite(id) ? id : `${title}_${Math.random().toString(16).slice(2)}`}
+                          className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-950/40"
+                        >
+                          <div className="h-12 w-12 rounded-2xl border border-slate-200 bg-slate-50 overflow-hidden flex items-center justify-center flex-shrink-0 dark:border-slate-700 dark:bg-slate-900/40">
+                            {img ? (
+                              <SmartImage src={img} fallbackSrc="" alt={title || "anime"} className="h-full w-full object-cover" />
+                            ) : (
+                              <div className="text-lg">🎵</div>
+                            )}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="text-sm font-black text-slate-900 dark:text-slate-50 truncate">{title || "-"}</div>
+                            {a?.note ? (
+                              <div className="mt-0.5 text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">{String(a.note)}</div>
+                            ) : null}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                <Button type="button" variant="outline" className="rounded-2xl font-semibold" onClick={() => setFavoritesPopupOpen(false)}>
+                  ปิด
+                </Button>
               </CardContent>
             </Card>
           </motion.div>
