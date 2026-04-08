@@ -66,6 +66,7 @@ import {
 import { uploadUserAvatar } from "@/lib/avatars";
 import { addComment, createPost, deletePost, subscribeComments, subscribePosts, togglePostLike, updatePost, uploadPostImage } from "@/lib/community";
 import { ensureDirectChat, getDirectChatId, sendDirectMessage, subscribeDirectMessages, subscribeUserChats, upsertChatMeta } from "@/lib/chat";
+import { ensureUserPrivate, subscribeUserPrivate, updateUserPrivate } from "@/lib/userPrivate";
 
 const animeData = [
   {
@@ -5907,6 +5908,68 @@ export default function AnimeOPQuizStarter() {
     return { byId };
   });
 
+  const normalizeIdList = (arr, max = 500) => {
+    const list = Array.isArray(arr) ? arr : [];
+    const out = [];
+    const seen = new Set();
+    for (const x of list) {
+      const n = Number(x);
+      if (!Number.isFinite(n)) continue;
+      if (seen.has(n)) continue;
+      seen.add(n);
+      out.push(n);
+      if (out.length >= max) break;
+    }
+    return out;
+  };
+
+  const isSameNumberArray = (a, b) => {
+    const aa = Array.isArray(a) ? a : [];
+    const bb = Array.isArray(b) ? b : [];
+    if (aa.length !== bb.length) return false;
+    for (let i = 0; i < aa.length; i += 1) {
+      if (Number(aa[i]) !== Number(bb[i])) return false;
+    }
+    return true;
+  };
+
+  const normalizeStatsPayload = (payload) => {
+    const byId = payload && typeof payload === "object" && payload.byId && typeof payload.byId === "object" ? payload.byId : {};
+    const out = {};
+    const entries = Object.entries(byId);
+    for (const [k, v] of entries) {
+      const key = String(k || "").trim();
+      if (!key) continue;
+      const obj = v && typeof v === "object" ? v : {};
+      out[key] = {
+        plays: Number(obj.plays || 0) || 0,
+        correct: Number(obj.correct || 0) || 0,
+        wrong: Number(obj.wrong || 0) || 0,
+        timeMs: Number(obj.timeMs || 0) || 0,
+        lastAt: Number(obj.lastAt || 0) || 0
+      };
+    }
+    return { byId: out };
+  };
+
+  const mergeStats = (a, b) => {
+    const aa = normalizeStatsPayload(a);
+    const bb = normalizeStatsPayload(b);
+    const out = { byId: { ...(aa.byId || {}) } };
+    for (const [id, row] of Object.entries(bb.byId || {})) {
+      const prev = out.byId[id] && typeof out.byId[id] === "object" ? out.byId[id] : {};
+      const next = row && typeof row === "object" ? row : {};
+      out.byId[id] = {
+        plays: Math.max(Number(prev.plays || 0) || 0, Number(next.plays || 0) || 0),
+        correct: Math.max(Number(prev.correct || 0) || 0, Number(next.correct || 0) || 0),
+        wrong: Math.max(Number(prev.wrong || 0) || 0, Number(next.wrong || 0) || 0),
+        timeMs: Math.max(Number(prev.timeMs || 0) || 0, Number(next.timeMs || 0) || 0),
+        lastAt: Math.max(Number(prev.lastAt || 0) || 0, Number(next.lastAt || 0) || 0)
+      };
+    }
+    return out;
+  };
+
   const [runQuestionStats, setRunQuestionStats] = useState([]); // [{id, genre, seriesKey, correct, ms}]
   const [runMaxStreak, setRunMaxStreak] = useState(0);
   const [runCurrStreak, setRunCurrStreak] = useState(0);
@@ -6224,6 +6287,12 @@ export default function AnimeOPQuizStarter() {
   const [profileSaveBusy, setProfileSaveBusy] = useState(false);
   const [nicknameDraft, setNicknameDraft] = useState("");
 
+  const [userPrivate, setUserPrivate] = useState(null);
+  const [userPrivateError, setUserPrivateError] = useState("");
+  const appliedUserPrivateRef = useRef(null);
+  const favoritesSyncTimerRef = useRef(null);
+  const statsSyncTimerRef = useRef(null);
+
   const [communitySearch, setCommunitySearch] = useState("");
   const [communityProfiles, setCommunityProfiles] = useState([]);
   const [communityLoading, setCommunityLoading] = useState(false);
@@ -6352,6 +6421,9 @@ export default function AnimeOPQuizStarter() {
             photoURL: nextUser.photoURL || undefined,
             accountCreatedAt
           }).catch(() => {});
+
+          // Personal client-side data should sync across devices.
+          await ensureUserPrivate(nextUser.uid).catch(() => {});
         } else {
           setProfile(null);
           setProfileOpen(false);
@@ -6366,6 +6438,140 @@ export default function AnimeOPQuizStarter() {
       unsub();
     };
   }, []);
+
+  useEffect(() => {
+    if (!user?.uid) {
+      setUserPrivate(null);
+      setUserPrivateError("");
+      appliedUserPrivateRef.current = null;
+      return;
+    }
+
+    setUserPrivateError("");
+    return subscribeUserPrivate(
+      user.uid,
+      (next) => {
+        setUserPrivate(next);
+      },
+      (err) => {
+        const msg = String(err?.code || err?.message || "user_private_subscribe_failed");
+        setUserPrivateError(msg);
+        console.warn("subscribeUserPrivate failed:", err);
+      }
+    );
+  }, [user?.uid]);
+
+  // Initial reconcile: pull cloud favorites/localStats (private) or push local up.
+  useEffect(() => {
+    if (!user?.uid) return;
+    const uid = user.uid;
+    if (appliedUserPrivateRef.current === uid) return;
+
+    const remoteFavs = normalizeIdList(userPrivate?.favorites || [], 500);
+    const localFavs = normalizeIdList(favoriteIds || [], 500);
+    const mergedFavs = normalizeIdList([...remoteFavs, ...localFavs], 500);
+
+    if (!isSameNumberArray(localFavs, mergedFavs)) {
+      setFavoriteIds(mergedFavs);
+    }
+
+    const remoteStats = userPrivate?.localStats;
+    const mergedStats = mergeStats(localStats, remoteStats);
+    const localStatsNorm = normalizeStatsPayload(localStats);
+    const mergedStatsNorm = normalizeStatsPayload(mergedStats);
+    const localStatsChanged = JSON.stringify(localStatsNorm) !== JSON.stringify(mergedStatsNorm);
+    if (localStatsChanged) {
+      setLocalStats(mergedStatsNorm);
+    }
+
+    // If cloud is missing anything we have locally, backfill once.
+    const needsFavBackfill = !isSameNumberArray(remoteFavs, mergedFavs);
+    const needsStatsBackfill = JSON.stringify(normalizeStatsPayload(remoteStats)) !== JSON.stringify(mergedStatsNorm);
+    if (needsFavBackfill || needsStatsBackfill) {
+      updateUserPrivate(uid, {
+        favorites: mergedFavs,
+        localStats: mergedStatsNorm
+      }).catch(() => {});
+    }
+
+    appliedUserPrivateRef.current = uid;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.uid, userPrivate?.favorites, userPrivate?.localStats]);
+
+  // Cross-tab sync: reflect changes from other tabs immediately.
+  useEffect(() => {
+    const onStorage = (e) => {
+      try {
+        if (!e || e.storageArea !== window.localStorage) return;
+        if (e.key === LS_FAVORITES) {
+          const parsed = safeJsonParse(e.newValue);
+          const next = normalizeIdList(parsed, 500);
+          setFavoriteIds((prev) => (isSameNumberArray(prev, next) ? prev : next));
+        }
+        if (e.key === LS_LOCAL_STATS) {
+          const parsed = safeJsonParse(e.newValue);
+          const next = normalizeStatsPayload(parsed);
+          setLocalStats((prev) => {
+            const prevNorm = normalizeStatsPayload(prev);
+            return JSON.stringify(prevNorm) === JSON.stringify(next) ? prev : next;
+          });
+        }
+        if (e.key === LS_DAILY) {
+          const parsed = safeJsonParse(e.newValue);
+          setDailyLastResult((prev) => {
+            const a = prev && typeof prev === "object" ? prev : {};
+            const b = parsed && typeof parsed === "object" ? parsed : {};
+            return JSON.stringify(a) === JSON.stringify(b) ? prev : b;
+          });
+        }
+      } catch {
+        // ignore
+      }
+    };
+
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, [LS_DAILY, LS_FAVORITES, LS_LOCAL_STATS]);
+
+  // Persist favorites to private cloud doc (debounced) so they survive across devices.
+  useEffect(() => {
+    if (!user?.uid) return;
+    if (appliedUserPrivateRef.current !== user.uid) return;
+
+    const uid = user.uid;
+    const next = normalizeIdList(favoriteIds || [], 500);
+    const remote = normalizeIdList(userPrivate?.favorites || [], 500);
+    if (isSameNumberArray(next, remote)) return;
+
+    if (favoritesSyncTimerRef.current) clearTimeout(favoritesSyncTimerRef.current);
+    favoritesSyncTimerRef.current = setTimeout(() => {
+      updateUserPrivate(uid, { favorites: next }).catch(() => {});
+    }, 1200);
+
+    return () => {
+      if (favoritesSyncTimerRef.current) clearTimeout(favoritesSyncTimerRef.current);
+    };
+  }, [favoriteIds, user?.uid, userPrivate?.favorites]);
+
+  // Persist localStats to private cloud doc (debounced) so "ยอดนิยมของคุณ" ไม่หายข้ามอุปกรณ์.
+  useEffect(() => {
+    if (!user?.uid) return;
+    if (appliedUserPrivateRef.current !== user.uid) return;
+
+    const uid = user.uid;
+    const next = normalizeStatsPayload(localStats);
+    const remote = normalizeStatsPayload(userPrivate?.localStats);
+    if (JSON.stringify(next) === JSON.stringify(remote)) return;
+
+    if (statsSyncTimerRef.current) clearTimeout(statsSyncTimerRef.current);
+    statsSyncTimerRef.current = setTimeout(() => {
+      updateUserPrivate(uid, { localStats: next }).catch(() => {});
+    }, 5000);
+
+    return () => {
+      if (statsSyncTimerRef.current) clearTimeout(statsSyncTimerRef.current);
+    };
+  }, [localStats, user?.uid, userPrivate?.localStats]);
 
   useEffect(() => {
     if (!user?.uid) return;

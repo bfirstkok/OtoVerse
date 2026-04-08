@@ -18,6 +18,11 @@ service cloud.firestore {
       allow write: if isSignedIn() && request.auth.uid == uid;
     }
 
+    // per-user private data (favorites, local stats, etc.)
+    match /user_private/{uid} {
+      allow read, write: if isSignedIn() && request.auth.uid == uid;
+    }
+
     // chats
     match /chats/{chatId} {
       allow read: if isSignedIn() && (request.auth.uid in resource.data.participants);
