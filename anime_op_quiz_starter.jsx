@@ -6166,11 +6166,6 @@ export default function AnimeOPQuizStarter() {
 
   useEffect(() => {
     if (!isGroupMode) return;
-    if (answerModeConfig?.[answerMode]?.choices) setAnswerMode("typing");
-  }, [isGroupMode, answerMode]);
-
-  useEffect(() => {
-    if (!isGroupMode) return;
     if (groupSetupPlayers.length) return;
     const seed = Date.now();
     setGroupSetupPlayers([
@@ -9274,11 +9269,9 @@ export default function AnimeOPQuizStarter() {
 
     if (typeof data.selectedGenre === "string") setSelectedGenre(data.selectedGenre);
 
-    // In group mode, force typing (choices are disabled by UI rules)
     if (typeof data.answerMode === "string") {
       const desired = data.answerMode;
-      const isChoice = Boolean(answerModeConfig?.[desired]?.choices);
-      setAnswerMode(playModeFromCode === "group" && isChoice ? "typing" : desired);
+      setAnswerMode(desired);
     }
 
     setRuleAvoidSameGenre(Boolean(data.ruleAvoidSameGenre));
@@ -10483,10 +10476,8 @@ export default function AnimeOPQuizStarter() {
                           whileHover={{ y: -4, scale: 1.02 }}
                           whileTap={{ scale: 0.96 }}
                           onClick={() => {
-                            if (isGroupMode && value.choices) return;
                             setAnswerMode(key);
                           }}
-                          disabled={isGroupMode && value.choices}
                           className={`text-left rounded-2xl border p-4 transition duration-300 group text-slate-900 dark:text-slate-100 ${
                             answerMode === key
                               ? "border-purple-600 bg-gradient-to-br from-purple-700 to-pink-700 text-white shadow-[0_16px_32px_rgba(147,51,234,0.3)]"
@@ -10495,9 +10486,6 @@ export default function AnimeOPQuizStarter() {
                         >
                           <div className="font-semibold text-lg">{value.label}</div>
                           <div className={`text-sm mt-1 ${answerMode === key ? "text-purple-100" : "text-slate-600 dark:text-slate-300"}`}>{value.description}</div>
-                          {isGroupMode && value.choices ? (
-                            <div className="mt-2 text-xs font-semibold text-slate-600 dark:text-slate-300">โหมดกลุ่มใช้ “พิมพ์ตอบเอง” เท่านั้น</div>
-                          ) : null}
                         </motion.button>
                       ))}
                     </div>
