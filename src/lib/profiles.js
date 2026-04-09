@@ -5,6 +5,7 @@ import {
   doc,
   getCountFromServer,
   getDoc,
+  getDocFromServer,
   increment,
   limit,
   onSnapshot,
@@ -43,7 +44,27 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
   const ref = profileDocRef(uid);
   if (!ref) return;
 
-  const snap = await getDoc(ref);
+  // IMPORTANT:
+  // Don't create/merge defaults based on cache-only misses.
+  // If the user is offline or the cache is cold, getDoc() may report "missing",
+  // and a subsequent setDoc(..., {merge:true}) can overwrite an existing server doc
+  // (resetting nickname/settings/stats).
+  let snap;
+  try {
+    snap = await getDocFromServer(ref);
+  } catch {
+    // Fall back to cache read for rendering only; never create on cache-only miss.
+    try {
+      snap = await getDoc(ref);
+    } catch {
+      return;
+    }
+  }
+
+  // If we couldn't confirm from server and cache says missing, do nothing.
+  // (Prevents accidental overwrites when offline/cold cache.)
+  if (!snap?.exists?.() && snap?.metadata?.fromCache) return;
+
   if (snap.exists()) {
     const data = snap.data() || {};
     const updates = {
