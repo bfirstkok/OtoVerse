@@ -10426,10 +10426,10 @@ export default function AnimeOPQuizStarter() {
                         <div className="truncate">{name}</div>
                       </div>
 
-                      <div className="flex items-center gap-2 flex-wrap justify-end">
-                        <Badge variant="outline" className="rounded-full">🎮 {formatCompactNumber(plays)}</Badge>
-                        <Badge variant="outline" className="rounded-full">🔥 {formatCompactNumber(best)}</Badge>
-                        <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0">⭐ {formatCompactNumber(total)}</Badge>
+                      <div className="grid grid-cols-3 gap-2 flex-shrink-0 w-44">
+                        <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🎮 {formatCompactNumber(plays)}</Badge>
+                        <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🔥 {formatCompactNumber(best)}</Badge>
+                        <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0 w-full justify-center tabular-nums">⭐ {formatCompactNumber(total)}</Badge>
                       </div>
                     </button>
                   );
