@@ -5365,41 +5365,96 @@ function buildChoices(correctAnime, pool, choiceCount = 6) {
 }
 
 function getYouTubeId(videoSource) {
-  if (!videoSource) return "";
-  if (!videoSource.includes("http")) return videoSource;
+  const raw = String(videoSource || "").trim();
+  if (!raw) return "";
+
+  const pickFromCandidate = (candidate) => {
+    const v = String(candidate || "").trim();
+    if (!v) return "";
+    // Most YouTube video IDs are 11 chars, but we'll accept a safe subset.
+    // Keep only the first token before any separators.
+    const token = v.split(/[?&#/\s]+/)[0] || "";
+    if (/^[a-zA-Z0-9_-]{6,20}$/.test(token)) return token;
+    return "";
+  };
+
+  // If already looks like an ID, return it.
+  const direct = pickFromCandidate(raw);
+  if (direct && !raw.includes(".")) return direct;
+
+  // Regex fallback for non-URL strings.
+  const m = raw.match(
+    /(?:v=|\/embed\/|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{6,20})/i
+  );
+  if (m && m[1]) return pickFromCandidate(m[1]);
+
+  // Try parsing as URL. If missing scheme, prefix https://
+  const toUrl = (s) => {
+    const str = String(s || "").trim();
+    if (!str) return null;
+    if (/^https?:\/\//i.test(str)) return new URL(str);
+    if (/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(str)) return new URL(`https://${str}`);
+    return null;
+  };
 
   try {
-    const url = new URL(videoSource);
+    const url = toUrl(raw);
+    if (!url) return "";
+
     const queryId = url.searchParams.get("v");
-    if (queryId) return queryId;
+    if (queryId) return pickFromCandidate(queryId);
 
     if (url.hostname.includes("youtu.be")) {
-      return url.pathname.replace(/^\//, "");
+      return pickFromCandidate(url.pathname.replace(/^\//, ""));
     }
 
     const parts = url.pathname.split("/").filter(Boolean);
     const embedIndex = parts.indexOf("embed");
     if (embedIndex !== -1 && parts[embedIndex + 1]) {
-      return parts[embedIndex + 1];
+      return pickFromCandidate(parts[embedIndex + 1]);
+    }
+
+    const shortsIndex = parts.indexOf("shorts");
+    if (shortsIndex !== -1 && parts[shortsIndex + 1]) {
+      return pickFromCandidate(parts[shortsIndex + 1]);
     }
   } catch {
-    return videoSource;
+    // ignore
   }
 
-  return videoSource;
+  return "";
 }
 
 function buildYouTubeEmbedUrl(videoSource, { start = 0 } = {}) {
   const videoId = getYouTubeId(videoSource);
+  if (!videoId) return "";
+  const origin = (() => {
+    try {
+      return typeof window !== "undefined" && window.location?.origin ? String(window.location.origin) : "";
+    } catch {
+      return "";
+    }
+  })();
+  const ref = (() => {
+    try {
+      return typeof window !== "undefined" && window.location?.href ? String(window.location.href) : "";
+    } catch {
+      return "";
+    }
+  })();
+
   const params = new URLSearchParams({
     start: String(start),
     rel: "0",
     modestbranding: "1",
     iv_load_policy: "3",
-    playsinline: "1"
+    playsinline: "1",
+    ...(origin ? { origin } : {}),
+    ...(ref ? { widget_referrer: ref } : {})
   });
 
-  return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
+  // Use youtube.com embed for better compatibility with consent/age-restricted playback.
+  return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
 }
 
 function getYouTubeThumbUrl(videoSource) {
@@ -8061,10 +8116,12 @@ export default function AnimeOPQuizStarter() {
         {loaded ? (
           <>
             <iframe
+              key={getYouTubeId(videoSource) || String(videoSource || "")}
               title={title}
               loading="lazy"
               className="w-full h-[calc(100%+72px)] -mt-[72px]"
               src={buildYouTubeEmbedUrl(videoSource)}
+              referrerPolicy="origin-when-cross-origin"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
@@ -11920,9 +11977,11 @@ export default function AnimeOPQuizStarter() {
                 >
                   <iframe
                     ref={iframeRef}
+                    key={getYouTubeId(currentAnime.youtubeVideoId) || String(currentAnime.youtubeVideoId || "")}
                     title={currentAnime.title}
                     className="w-full h-[calc(100%+72px)] -mt-[72px]"
                     src={buildYouTubeEmbedUrl(currentAnime.youtubeVideoId, { start: 0 })}
+                    referrerPolicy="origin-when-cross-origin"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
