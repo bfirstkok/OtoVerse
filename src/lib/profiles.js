@@ -81,9 +81,6 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
       displayName: displayName || "",
       photoURL: typeof photoURL === "string" ? photoURL : "",
       nickname,
-      playCount: 0,
-      totalScore: 0,
-      bestStreak: 0,
       following: [],
       settings: {
         theme: "dark",
