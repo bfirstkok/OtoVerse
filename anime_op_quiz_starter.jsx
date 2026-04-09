@@ -50,7 +50,6 @@ import { firebaseAuth, firebaseAuthPersistenceReady, firebaseDb, firebaseProject
 import {
   bumpPlayCount,
   bumpTotalScore,
-  bumpTotalWins,
   ensureProfile,
   followUser,
   getFollowersCount,
@@ -6764,8 +6763,7 @@ export default function AnimeOPQuizStarter() {
           ...r,
           playCount: typeof r?.playCount === "number" ? r.playCount : 0,
           totalScore: typeof r?.totalScore === "number" ? r.totalScore : 0,
-          bestStreak: typeof r?.bestStreak === "number" ? r.bestStreak : 0,
-          totalWins: typeof r?.totalWins === "number" ? r.totalWins : 0
+          bestStreak: typeof r?.bestStreak === "number" ? r.bestStreak : 0
         }));
 
         normalized.sort((a, b) => {
@@ -9909,7 +9907,6 @@ export default function AnimeOPQuizStarter() {
               setProfileNotice(`อัปเดตคะแนนสะสมไม่สำเร็จ (${r.error || "unknown"})`);
             }
           });
-          bumpTotalWins(user.uid, 1).catch(() => {});
         }
       }
       if (isSoloChallenge) resetSoloMultiplier();
@@ -9939,7 +9936,6 @@ export default function AnimeOPQuizStarter() {
               setProfileNotice(`อัปเดตคะแนนสะสมไม่สำเร็จ (${r.error || "unknown"})`);
             }
           });
-          bumpTotalWins(user.uid, 1).catch(() => {});
         }
       }
       if (isSoloChallenge) resetSoloMultiplier();
@@ -10401,7 +10397,6 @@ export default function AnimeOPQuizStarter() {
                   const plays = typeof p?.playCount === "number" ? p.playCount : 0;
                   const total = typeof p?.totalScore === "number" ? p.totalScore : 0;
                   const best = typeof p?.bestStreak === "number" ? p.bestStreak : 0;
-                  const wins = typeof p?.totalWins === "number" ? p.totalWins : 0;
 
                   const formatCompactNumber = (value) => {
                     const n = Math.max(0, Number(value) || 0);
@@ -10431,9 +10426,8 @@ export default function AnimeOPQuizStarter() {
                         <div className="truncate">{name}</div>
                       </div>
 
-                      <div className="grid grid-cols-4 gap-2 flex-shrink-0 w-60">
+                      <div className="grid grid-cols-3 gap-2 flex-shrink-0 w-44">
                         <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🎮 {formatCompactNumber(plays)}</Badge>
-                        <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🏆 {formatCompactNumber(wins)}</Badge>
                         <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🔥 {formatCompactNumber(best)}</Badge>
                         <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0 w-full justify-center tabular-nums">⭐ {formatCompactNumber(total)}</Badge>
                       </div>
@@ -13010,7 +13004,7 @@ export default function AnimeOPQuizStarter() {
                     คะแนนสะสม: {typeof profile?.totalScore === "number" ? profile.totalScore : 0}
                   </div>
                   <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
-                    ชนะสะสม: {typeof profile?.totalWins === "number" ? profile.totalWins : 0}
+                    สถิติ “ตอบถูกติดต่อกัน (สูงสุด)”: {typeof profile?.bestStreak === "number" ? profile.bestStreak : 0}
                   </div>
                 </div>
 
@@ -13223,7 +13217,7 @@ export default function AnimeOPQuizStarter() {
                     จำนวนการเล่น: {typeof publicProfile?.playCount === "number" ? publicProfile.playCount : 0}
                   </div>
                   <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
-                    ชนะสะสม: {typeof publicProfile?.totalWins === "number" ? publicProfile.totalWins : 0}
+                    สถิติ “ตอบถูกติดต่อกัน (สูงสุด)”: {typeof publicProfile?.bestStreak === "number" ? publicProfile.bestStreak : 0}
                   </div>
                   <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
                     คะแนนสะสม: {typeof publicProfile?.totalScore === "number" ? publicProfile.totalScore : 0}

@@ -62,7 +62,6 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
     }
     if (!Array.isArray(data.following)) updates.following = [];
     if (typeof data.bestStreak !== "number") updates.bestStreak = 0;
-    if (typeof data.totalWins !== "number") updates.totalWins = 0;
 
     await updateDoc(ref, updates).catch(() => {});
     return;
@@ -82,7 +81,6 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
       playCount: 0,
       totalScore: 0,
       bestStreak: 0,
-      totalWins: 0,
       following: [],
       settings: {
         theme: "dark",
@@ -326,36 +324,6 @@ export async function bumpTotalScore(uid, delta) {
     } catch (e2) {
       const msg = String(e2?.code || e?.code || e2?.message || e?.message || "firestore_write_failed");
       console.warn("bumpTotalScore failed:", e2 || e);
-      return { ok: false, error: msg };
-    }
-  }
-}
-
-export async function bumpTotalWins(uid, delta) {
-  if (!firebaseReady || !firebaseDb) return;
-  const ref = profileDocRef(uid);
-  if (!ref) return;
-  const amount = Math.floor(Number(delta) || 0);
-  if (!amount) return;
-
-  try {
-    await updateDoc(ref, {
-      totalWins: increment(amount)
-    });
-    return { ok: true };
-  } catch (e) {
-    try {
-      await setDoc(
-        ref,
-        {
-          totalWins: increment(amount)
-        },
-        { merge: true }
-      );
-      return { ok: true };
-    } catch (e2) {
-      const msg = String(e2?.code || e?.code || e2?.message || e?.message || "firestore_write_failed");
-      console.warn("bumpTotalWins failed:", e2 || e);
       return { ok: false, error: msg };
     }
   }
