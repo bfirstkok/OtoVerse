@@ -27,10 +27,10 @@ export function profileDocRef(uid) {
 
 function inferDefaultNickname({ email = "", displayName = "" } = {}) {
   const d = String(displayName || "").trim();
-  if (d) return d.slice(0, 24);
+  if (d) return d.slice(0, 14);
   const e = String(email || "").trim();
   if (!e) return "";
-  return e.split("@")[0].slice(0, 24);
+  return e.split("@")[0].slice(0, 14);
 }
 
 export async function ensureProfile(uid, { email = "", displayName = "", photoURL, accountCreatedAt } = {}) {
@@ -59,6 +59,9 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
     if (!data.nickname) {
       const nick = inferDefaultNickname({ email, displayName });
       if (nick) updates.nickname = nick;
+    } else {
+      const nickTrim = String(data.nickname || "").trim();
+      if (nickTrim.length > 14) updates.nickname = nickTrim.slice(0, 14);
     }
     if (!Array.isArray(data.following)) updates.following = [];
     if (typeof data.bestStreak !== "number") updates.bestStreak = 0;
@@ -142,7 +145,7 @@ export async function updateProfileNickname(uid, nickname) {
 
   const next = String(nickname || "")
     .trim()
-    .slice(0, 24);
+    .slice(0, 14);
 
   await updateDoc(ref, { nickname: next }).catch(async () => {
     await setDoc(ref, { nickname: next }, { merge: true }).catch(() => {});

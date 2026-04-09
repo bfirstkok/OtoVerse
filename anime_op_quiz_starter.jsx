@@ -7027,10 +7027,10 @@ export default function AnimeOPQuizStarter() {
 
       const nextNick = String(nicknameDraft || "")
         .trim()
-        .slice(0, 24);
+        .slice(0, 14);
       const prevNick = String(profile?.nickname || "")
         .trim()
-        .slice(0, 24);
+        .slice(0, 14);
       if (nextNick !== prevNick) tasks.push(updateProfileNickname(user.uid, nextNick));
 
       await Promise.all(tasks);
@@ -10412,7 +10412,7 @@ export default function AnimeOPQuizStarter() {
                       type="button"
                       key={p.id || idx}
                       onClick={() => (p?.id ? openPublicProfile(p.id) : null)}
-                      className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-900 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-950/35 dark:text-slate-50 dark:hover:border-slate-700 dark:hover:bg-slate-950/55"
+                      className="grid grid-cols-[minmax(0,1fr)_11rem] items-center gap-3 rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-900 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-950/35 dark:text-slate-50 dark:hover:border-slate-700 dark:hover:bg-slate-950/55"
                     >
                       <div className="flex items-center gap-2 min-w-0">
                         <div className="w-6 text-center font-black text-slate-700 dark:text-slate-200">{idx + 1}</div>
@@ -10426,7 +10426,7 @@ export default function AnimeOPQuizStarter() {
                         <div className="truncate">{name}</div>
                       </div>
 
-                      <div className="grid grid-cols-3 gap-2 flex-shrink-0 w-44">
+                      <div className="grid grid-cols-3 gap-2 w-44 justify-self-end">
                         <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🎮 {formatCompactNumber(plays)}</Badge>
                         <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🔥 {formatCompactNumber(best)}</Badge>
                         <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0 w-full justify-center tabular-nums">⭐ {formatCompactNumber(total)}</Badge>
@@ -12946,12 +12946,12 @@ export default function AnimeOPQuizStarter() {
                         <div className="text-xs font-semibold text-slate-700 dark:text-slate-200">ชื่อเล่น (แสดงในอันดับ/โปรไฟล์สาธารณะ)</div>
                         <Input
                           value={nicknameDraft}
-                          onChange={(e) => setNicknameDraft(e.target.value)}
-                          maxLength={24}
+                          onChange={(e) => setNicknameDraft(String(e.target.value || "").slice(0, 14))}
+                          maxLength={14}
                           placeholder="ตั้งชื่อเล่น"
                           className="mt-2 rounded-2xl h-11"
                         />
-                        <div className="mt-1 text-[11px] font-semibold text-slate-500 dark:text-slate-300/80">ยาวได้ไม่เกิน 24 ตัวอักษร</div>
+                        <div className="mt-1 text-[11px] font-semibold text-slate-500 dark:text-slate-300/80">ยาวได้ไม่เกิน 14 ตัวอักษร</div>
                       </div>
                       <div className="pt-2">
                         <input
