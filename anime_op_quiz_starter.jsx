@@ -50,6 +50,7 @@ import { firebaseAuth, firebaseAuthPersistenceReady, firebaseDb, firebaseProject
 import {
   bumpPlayCount,
   bumpTotalScore,
+  bumpTotalWins,
   ensureProfile,
   followUser,
   getFollowersCount,
@@ -6763,7 +6764,8 @@ export default function AnimeOPQuizStarter() {
           ...r,
           playCount: typeof r?.playCount === "number" ? r.playCount : 0,
           totalScore: typeof r?.totalScore === "number" ? r.totalScore : 0,
-          bestStreak: typeof r?.bestStreak === "number" ? r.bestStreak : 0
+          bestStreak: typeof r?.bestStreak === "number" ? r.bestStreak : 0,
+          totalWins: typeof r?.totalWins === "number" ? r.totalWins : 0
         }));
 
         normalized.sort((a, b) => {
@@ -9907,6 +9909,7 @@ export default function AnimeOPQuizStarter() {
               setProfileNotice(`อัปเดตคะแนนสะสมไม่สำเร็จ (${r.error || "unknown"})`);
             }
           });
+          bumpTotalWins(user.uid, 1).catch(() => {});
         }
       }
       if (isSoloChallenge) resetSoloMultiplier();
@@ -9936,6 +9939,7 @@ export default function AnimeOPQuizStarter() {
               setProfileNotice(`อัปเดตคะแนนสะสมไม่สำเร็จ (${r.error || "unknown"})`);
             }
           });
+          bumpTotalWins(user.uid, 1).catch(() => {});
         }
       }
       if (isSoloChallenge) resetSoloMultiplier();
@@ -10297,12 +10301,12 @@ export default function AnimeOPQuizStarter() {
 
   const renderHome = () => (
     <div className="space-y-6">
-      <div className="grid gap-6 lg:grid-cols-3 items-start">
+      <div className="grid gap-6 lg:grid-cols-5 items-start">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="lg:col-span-2"
+          className="lg:col-span-3"
         >
           <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_28px_56px_rgba(19,34,76,0.18)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_28px_56px_rgba(0,0,0,0.35)]">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-transparent to-purple-50/40 pointer-events-none dark:from-cyan-400/10 dark:to-blue-500/10" />
@@ -10373,7 +10377,7 @@ export default function AnimeOPQuizStarter() {
           </Card>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.05 }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.05 }} className="lg:col-span-2">
           <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_20px_40px_rgba(19,34,76,0.14)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
             <CardHeader className="relative">
               <CardTitle className="text-lg"> อันดับผู้เล่น</CardTitle>
@@ -10397,6 +10401,7 @@ export default function AnimeOPQuizStarter() {
                   const plays = typeof p?.playCount === "number" ? p.playCount : 0;
                   const total = typeof p?.totalScore === "number" ? p.totalScore : 0;
                   const best = typeof p?.bestStreak === "number" ? p.bestStreak : 0;
+                  const wins = typeof p?.totalWins === "number" ? p.totalWins : 0;
 
                   const formatCompactNumber = (value) => {
                     const n = Math.max(0, Number(value) || 0);
@@ -10426,8 +10431,9 @@ export default function AnimeOPQuizStarter() {
                         <div className="truncate">{name}</div>
                       </div>
 
-                      <div className="grid grid-cols-3 gap-2 flex-shrink-0 w-44">
+                      <div className="grid grid-cols-4 gap-2 flex-shrink-0 w-60">
                         <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🎮 {formatCompactNumber(plays)}</Badge>
+                        <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🏆 {formatCompactNumber(wins)}</Badge>
                         <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🔥 {formatCompactNumber(best)}</Badge>
                         <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0 w-full justify-center tabular-nums">⭐ {formatCompactNumber(total)}</Badge>
                       </div>
@@ -12993,7 +12999,7 @@ export default function AnimeOPQuizStarter() {
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-3 gap-3">
+                <div className="grid sm:grid-cols-4 gap-3">
                   <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
                     สมัครเมื่อ: {formatProfileDate(profile?.createdAt)}
                   </div>
@@ -13002,6 +13008,9 @@ export default function AnimeOPQuizStarter() {
                   </div>
                   <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
                     คะแนนสะสม: {typeof profile?.totalScore === "number" ? profile.totalScore : 0}
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
+                    ชนะสะสม: {typeof profile?.totalWins === "number" ? profile.totalWins : 0}
                   </div>
                 </div>
 
@@ -13209,9 +13218,12 @@ export default function AnimeOPQuizStarter() {
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-3">
+                <div className="grid sm:grid-cols-3 gap-3">
                   <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
                     จำนวนการเล่น: {typeof publicProfile?.playCount === "number" ? publicProfile.playCount : 0}
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
+                    ชนะสะสม: {typeof publicProfile?.totalWins === "number" ? publicProfile.totalWins : 0}
                   </div>
                   <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
                     คะแนนสะสม: {typeof publicProfile?.totalScore === "number" ? publicProfile.totalScore : 0}
