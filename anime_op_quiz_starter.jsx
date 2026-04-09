@@ -8594,66 +8594,83 @@ export default function AnimeOPQuizStarter() {
 
     const endsAtMs = Number(onlineRoom.countdownEndsAtMs) || 0;
     if (!endsAtMs) return;
-    if (Date.now() < endsAtMs) return;
+    let timeoutId;
 
-    if (onlineCountdownStartRef.current.roomId === onlineRoomId && onlineCountdownStartRef.current.endsAtMs === endsAtMs) return;
-    onlineCountdownStartRef.current = { roomId: onlineRoomId, endsAtMs };
+    const attemptStart = () => {
+      if (page !== "online") return;
+      if (!user?.uid) return;
+      if (!onlineRoomId || !onlineRoom) return;
+      if (String(onlineRoom.status || "") !== "lobby") return;
+      if (String(onlineRoom.hostUid || "") !== String(user.uid)) return;
+      if (Date.now() < endsAtMs) return;
 
-    if (onlineStartingRef.current) return;
-    const rows = Array.isArray(onlinePlayersRef.current) ? onlinePlayersRef.current : [];
-    const count = rows.length;
-    if (!(count >= 2 && count <= 6)) return;
-    if (!rows.every((p) => Boolean(p?.ready))) return;
+      if (onlineCountdownStartRef.current.roomId === onlineRoomId && onlineCountdownStartRef.current.endsAtMs === endsAtMs) return;
+      onlineCountdownStartRef.current = { roomId: onlineRoomId, endsAtMs };
 
-    onlineStartingRef.current = true;
+      if (onlineStartingRef.current) return;
+      const rows = Array.isArray(onlinePlayersRef.current) ? onlinePlayersRef.current : [];
+      const count = rows.length;
+      if (!(count >= 2 && count <= 6)) return;
+      if (!rows.every((p) => Boolean(p?.ready))) return;
 
-    (async () => {
-      setOnlineNotice("");
-      setOnlineBusy(true);
-      try {
-        const gm = String(onlineRoom.gameMode || "standard");
-        let ids = [];
+      onlineStartingRef.current = true;
 
-        if (gm === "battle_royale") {
-          const pool = Array.isArray(activeGenrePool) ? activeGenrePool : [];
-          const base = pool.map((a) => a?.id).filter((x) => x != null);
-          if (!base.length) throw new Error("no_questions");
-          const seedBase = `br:${onlineRoomId}:${String(onlineRoom.hostUid || user.uid)}`;
-          let round = 0;
-          let out = [];
-          while (out.length < 200 && round < 6) {
-            out = out.concat(deterministicShuffle(base, `${seedBase}:${round}`));
-            round += 1;
+      (async () => {
+        setOnlineNotice("");
+        setOnlineBusy(true);
+        try {
+          const gm = String(onlineRoom.gameMode || "standard");
+          let ids = [];
+
+          if (gm === "battle_royale") {
+            const pool = Array.isArray(activeGenrePool) ? activeGenrePool : [];
+            const base = pool.map((a) => a?.id).filter((x) => x != null);
+            if (!base.length) throw new Error("no_questions");
+            const seedBase = `br:${onlineRoomId}:${String(onlineRoom.hostUid || user.uid)}`;
+            let round = 0;
+            let out = [];
+            while (out.length < 200 && round < 6) {
+              out = out.concat(deterministicShuffle(base, `${seedBase}:${round}`));
+              round += 1;
+            }
+            ids = out.slice(0, Math.min(200, out.length));
+          } else {
+            const picked = buildQuestionListFromPool({
+              pool: activeGenrePool,
+              limit: Number(onlineRoom.questionCount) || 5,
+              balanceAcrossGenres: true
+            });
+            ids = (picked || []).map((a) => a?.id).filter((x) => x != null);
           }
-          ids = out.slice(0, Math.min(200, out.length));
-        } else {
-          const picked = buildQuestionListFromPool({
-            pool: activeGenrePool,
-            limit: Number(onlineRoom.questionCount) || 5,
-            balanceAcrossGenres: true
+
+          if (ids.length < 1) throw new Error("no_questions");
+
+          const res = await startOnlineRoomGame({
+            roomId: onlineRoomId,
+            hostUid: user.uid,
+            questions: ids,
+            answerMode: String(onlineRoom.answerMode || "choice6"),
+            questionCount: Number(onlineRoom.questionCount) || ids.length,
+            perQuestionMs: Number(onlineRoom.perQuestionMs) || 15000
           });
-          ids = (picked || []).map((a) => a?.id).filter((x) => x != null);
+          if (!res || res.ok === false) throw new Error(res?.error || "start_failed");
+        } catch (e) {
+          const msg = String(e?.message || e?.code || "start_failed");
+          setOnlineNotice(msg);
+        } finally {
+          setOnlineBusy(false);
+          onlineStartingRef.current = false;
         }
+      })();
+    };
 
-        if (ids.length < 1) throw new Error("no_questions");
+    const delayMs = Math.max(0, endsAtMs - Date.now()) + 75;
+    timeoutId = window.setTimeout(attemptStart, delayMs);
+    if (delayMs <= 100) attemptStart();
 
-        const res = await startOnlineRoomGame({
-          roomId: onlineRoomId,
-          hostUid: user.uid,
-          questions: ids,
-          answerMode: String(onlineRoom.answerMode || "choice6"),
-          questionCount: Number(onlineRoom.questionCount) || ids.length,
-          perQuestionMs: Number(onlineRoom.perQuestionMs) || 15000
-        });
-        if (!res || res.ok === false) throw new Error(res?.error || "start_failed");
-      } catch (e) {
-        const msg = String(e?.message || e?.code || "start_failed");
-        setOnlineNotice(msg);
-      } finally {
-        setOnlineBusy(false);
-        onlineStartingRef.current = false;
-      }
-    })();
+    return () => {
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
   }, [
     page,
     user?.uid,
