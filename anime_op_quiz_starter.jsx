@@ -10412,7 +10412,7 @@ export default function AnimeOPQuizStarter() {
                       type="button"
                       key={p.id || idx}
                       onClick={() => (p?.id ? openPublicProfile(p.id) : null)}
-                      className="grid grid-cols-[minmax(0,1fr)_11rem] items-center gap-3 rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-900 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-950/35 dark:text-slate-50 dark:hover:border-slate-700 dark:hover:bg-slate-950/55"
+                      className="w-full grid grid-cols-[minmax(0,1fr)_11rem] items-center gap-3 rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-900 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-950/35 dark:text-slate-50 dark:hover:border-slate-700 dark:hover:bg-slate-950/55"
                     >
                       <div className="flex items-center gap-2 min-w-0">
                         <div className="w-6 text-center font-black text-slate-700 dark:text-slate-200">{idx + 1}</div>
