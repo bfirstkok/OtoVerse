@@ -6286,6 +6286,7 @@ export default function AnimeOPQuizStarter() {
 
   const [userPrivate, setUserPrivate] = useState(null);
   const [userPrivateError, setUserPrivateError] = useState("");
+  const [userPrivateLoadedUid, setUserPrivateLoadedUid] = useState(null);
   const appliedUserPrivateRef = useRef(null);
   const favoritesSyncTimerRef = useRef(null);
   const statsSyncTimerRef = useRef(null);
@@ -6453,6 +6454,7 @@ export default function AnimeOPQuizStarter() {
     if (!user?.uid) {
       setUserPrivate(null);
       setUserPrivateError("");
+      setUserPrivateLoadedUid(null);
       appliedUserPrivateRef.current = null;
 
       bestStreakSentRef.current = 0;
@@ -6465,6 +6467,7 @@ export default function AnimeOPQuizStarter() {
       user.uid,
       (next) => {
         setUserPrivate(next);
+        setUserPrivateLoadedUid(user.uid);
       },
       (err) => {
         const msg = String(err?.code || err?.message || "user_private_subscribe_failed");
@@ -6503,6 +6506,7 @@ export default function AnimeOPQuizStarter() {
     if (!user?.uid) return;
     const uid = user.uid;
     if (appliedUserPrivateRef.current === uid) return;
+    if (userPrivateLoadedUid !== uid) return;
 
     const remoteFavs = normalizeIdList(userPrivate?.favorites || [], 500);
     const localFavs = normalizeIdList(favoriteIds || [], 500);
@@ -6533,7 +6537,25 @@ export default function AnimeOPQuizStarter() {
 
     appliedUserPrivateRef.current = uid;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.uid, userPrivate?.favorites, userPrivate?.localStats]);
+  }, [user?.uid, userPrivate?.favorites, userPrivate?.localStats, userPrivateLoadedUid]);
+
+  // Ongoing reconcile: if another device updates cloud, merge it into local state (never decreases).
+  useEffect(() => {
+    if (!user?.uid) return;
+    const uid = user.uid;
+    if (appliedUserPrivateRef.current !== uid) return;
+    if (userPrivateLoadedUid !== uid) return;
+
+    const remoteFavs = normalizeIdList(userPrivate?.favorites || [], 500);
+    const localFavs = normalizeIdList(favoriteIds || [], 500);
+    const mergedFavs = normalizeIdList([...remoteFavs, ...localFavs], 500);
+    if (!isSameNumberArray(localFavs, mergedFavs)) setFavoriteIds(mergedFavs);
+
+    const mergedStatsNorm = normalizeStatsPayload(mergeStats(localStats, userPrivate?.localStats));
+    const localStatsNorm = normalizeStatsPayload(localStats);
+    if (JSON.stringify(localStatsNorm) !== JSON.stringify(mergedStatsNorm)) setLocalStats(mergedStatsNorm);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.uid, userPrivate?.favorites, userPrivate?.localStats, userPrivateLoadedUid]);
 
   // Cross-tab sync: reflect changes from other tabs immediately.
   useEffect(() => {
@@ -6578,11 +6600,12 @@ export default function AnimeOPQuizStarter() {
     const uid = user.uid;
     const next = normalizeIdList(favoriteIds || [], 500);
     const remote = normalizeIdList(userPrivate?.favorites || [], 500);
-    if (isSameNumberArray(next, remote)) return;
+    const merged = normalizeIdList([...remote, ...next], 500);
+    if (isSameNumberArray(merged, remote)) return;
 
     if (favoritesSyncTimerRef.current) clearTimeout(favoritesSyncTimerRef.current);
     favoritesSyncTimerRef.current = setTimeout(() => {
-      updateUserPrivate(uid, { favorites: next }).catch(() => {});
+      updateUserPrivate(uid, { favorites: merged }).catch(() => {});
     }, 1200);
 
     return () => {
@@ -6623,11 +6646,12 @@ export default function AnimeOPQuizStarter() {
     const uid = user.uid;
     const next = normalizeStatsPayload(localStats);
     const remote = normalizeStatsPayload(userPrivate?.localStats);
-    if (JSON.stringify(next) === JSON.stringify(remote)) return;
+    const merged = normalizeStatsPayload(mergeStats(next, userPrivate?.localStats));
+    if (JSON.stringify(merged) === JSON.stringify(remote)) return;
 
     if (statsSyncTimerRef.current) clearTimeout(statsSyncTimerRef.current);
     statsSyncTimerRef.current = setTimeout(() => {
-      updateUserPrivate(uid, { localStats: next }).catch(() => {});
+      updateUserPrivate(uid, { localStats: merged }).catch(() => {});
     }, 5000);
 
     return () => {
