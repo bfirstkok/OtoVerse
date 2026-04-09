@@ -7607,89 +7607,6 @@ export default function AnimeOPQuizStarter() {
     return () => window.clearInterval(id);
   }, [page, onlineRoomId, onlineRoom?.status, onlineRoom?.questionIndex, onlineRoom?.questionStartedAt, onlineRoom?.countdownEndsAtMs]);
 
-  useEffect(() => {
-    if (page !== "online") return;
-    if (!user?.uid) return;
-    if (!onlineRoomId || !onlineRoom) return;
-    if (String(onlineRoom.status || "") !== "lobby") return;
-    if (String(onlineRoom.hostUid || "") !== String(user.uid)) return;
-
-    const endsAtMs = Number(onlineRoom.countdownEndsAtMs) || 0;
-    if (!endsAtMs) return;
-    if (Date.now() < endsAtMs) return;
-
-    if (onlineCountdownStartRef.current.roomId === onlineRoomId && onlineCountdownStartRef.current.endsAtMs === endsAtMs) return;
-    onlineCountdownStartRef.current = { roomId: onlineRoomId, endsAtMs };
-
-    if (onlineStartingRef.current) return;
-    const rows = Array.isArray(onlinePlayersRef.current) ? onlinePlayersRef.current : [];
-    const count = rows.length;
-    if (!(count >= 2 && count <= 6)) return;
-    if (!rows.every((p) => Boolean(p?.ready))) return;
-
-    onlineStartingRef.current = true;
-
-    (async () => {
-      setOnlineNotice("");
-      setOnlineBusy(true);
-      try {
-        const gm = String(onlineRoom.gameMode || "standard");
-        let ids = [];
-
-        if (gm === "battle_royale") {
-          const pool = Array.isArray(activeGenrePool) ? activeGenrePool : [];
-          const base = pool.map((a) => a?.id).filter((x) => x != null);
-          if (!base.length) throw new Error("no_questions");
-          const seedBase = `br:${onlineRoomId}:${String(onlineRoom.hostUid || user.uid)}`;
-          let round = 0;
-          let out = [];
-          while (out.length < 200 && round < 6) {
-            out = out.concat(deterministicShuffle(base, `${seedBase}:${round}`));
-            round += 1;
-          }
-          ids = out.slice(0, Math.min(200, out.length));
-        } else {
-          const picked = buildQuestionListFromPool({
-            pool: activeGenrePool,
-            limit: Number(onlineRoom.questionCount) || 5,
-            balanceAcrossGenres: true
-          });
-          ids = (picked || []).map((a) => a?.id).filter((x) => x != null);
-        }
-
-        if (ids.length < 1) throw new Error("no_questions");
-
-        const res = await startOnlineRoomGame({
-          roomId: onlineRoomId,
-          hostUid: user.uid,
-          questions: ids,
-          answerMode: String(onlineRoom.answerMode || "choice6"),
-          questionCount: Number(onlineRoom.questionCount) || ids.length,
-          perQuestionMs: Number(onlineRoom.perQuestionMs) || 15000
-        });
-        if (!res || res.ok === false) throw new Error(res?.error || "start_failed");
-      } catch (e) {
-        const msg = String(e?.message || e?.code || "start_failed");
-        setOnlineNotice(msg);
-      } finally {
-        setOnlineBusy(false);
-        onlineStartingRef.current = false;
-      }
-    })();
-  }, [
-    page,
-    user?.uid,
-    onlineRoomId,
-    onlineRoom?.status,
-    onlineRoom?.hostUid,
-    onlineRoom?.countdownEndsAtMs,
-    onlineRoom?.gameMode,
-    onlineRoom?.answerMode,
-    onlineRoom?.questionCount,
-    onlineRoom?.perQuestionMs,
-    activeGenrePool
-  ]);
-
   const loadChatReadMap = (uid) => {
     try {
       const key = `${CHAT_READ_STORAGE_PREFIX}${String(uid)}`;
@@ -8667,6 +8584,89 @@ export default function AnimeOPQuizStarter() {
     if (selectedGenre === "all") return animeWithGenre;
     return animeWithGenre.filter((anime) => anime.genre === selectedGenre);
   }, [animeWithGenre, selectedGenre]);
+
+  useEffect(() => {
+    if (page !== "online") return;
+    if (!user?.uid) return;
+    if (!onlineRoomId || !onlineRoom) return;
+    if (String(onlineRoom.status || "") !== "lobby") return;
+    if (String(onlineRoom.hostUid || "") !== String(user.uid)) return;
+
+    const endsAtMs = Number(onlineRoom.countdownEndsAtMs) || 0;
+    if (!endsAtMs) return;
+    if (Date.now() < endsAtMs) return;
+
+    if (onlineCountdownStartRef.current.roomId === onlineRoomId && onlineCountdownStartRef.current.endsAtMs === endsAtMs) return;
+    onlineCountdownStartRef.current = { roomId: onlineRoomId, endsAtMs };
+
+    if (onlineStartingRef.current) return;
+    const rows = Array.isArray(onlinePlayersRef.current) ? onlinePlayersRef.current : [];
+    const count = rows.length;
+    if (!(count >= 2 && count <= 6)) return;
+    if (!rows.every((p) => Boolean(p?.ready))) return;
+
+    onlineStartingRef.current = true;
+
+    (async () => {
+      setOnlineNotice("");
+      setOnlineBusy(true);
+      try {
+        const gm = String(onlineRoom.gameMode || "standard");
+        let ids = [];
+
+        if (gm === "battle_royale") {
+          const pool = Array.isArray(activeGenrePool) ? activeGenrePool : [];
+          const base = pool.map((a) => a?.id).filter((x) => x != null);
+          if (!base.length) throw new Error("no_questions");
+          const seedBase = `br:${onlineRoomId}:${String(onlineRoom.hostUid || user.uid)}`;
+          let round = 0;
+          let out = [];
+          while (out.length < 200 && round < 6) {
+            out = out.concat(deterministicShuffle(base, `${seedBase}:${round}`));
+            round += 1;
+          }
+          ids = out.slice(0, Math.min(200, out.length));
+        } else {
+          const picked = buildQuestionListFromPool({
+            pool: activeGenrePool,
+            limit: Number(onlineRoom.questionCount) || 5,
+            balanceAcrossGenres: true
+          });
+          ids = (picked || []).map((a) => a?.id).filter((x) => x != null);
+        }
+
+        if (ids.length < 1) throw new Error("no_questions");
+
+        const res = await startOnlineRoomGame({
+          roomId: onlineRoomId,
+          hostUid: user.uid,
+          questions: ids,
+          answerMode: String(onlineRoom.answerMode || "choice6"),
+          questionCount: Number(onlineRoom.questionCount) || ids.length,
+          perQuestionMs: Number(onlineRoom.perQuestionMs) || 15000
+        });
+        if (!res || res.ok === false) throw new Error(res?.error || "start_failed");
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "start_failed");
+        setOnlineNotice(msg);
+      } finally {
+        setOnlineBusy(false);
+        onlineStartingRef.current = false;
+      }
+    })();
+  }, [
+    page,
+    user?.uid,
+    onlineRoomId,
+    onlineRoom?.status,
+    onlineRoom?.hostUid,
+    onlineRoom?.countdownEndsAtMs,
+    onlineRoom?.gameMode,
+    onlineRoom?.answerMode,
+    onlineRoom?.questionCount,
+    onlineRoom?.perQuestionMs,
+    activeGenrePool
+  ]);
 
   const pickBalancedUnusedFromAllGenres = (usedSet) => {
     const used = usedSet instanceof Set ? usedSet : new Set();
