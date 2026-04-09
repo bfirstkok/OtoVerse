@@ -12,6 +12,29 @@ service cloud.firestore {
         && (request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participants);
     }
 
+    function roomDoc(roomId) {
+      return /databases/$(database)/documents/rooms/$(roomId);
+    }
+
+    function roomExists(roomId) {
+      return exists(roomDoc(roomId));
+    }
+
+    function roomData(roomId) {
+      return get(roomDoc(roomId)).data;
+    }
+
+    function isRoomHost(roomId) {
+      return isSignedIn() && roomExists(roomId) && roomData(roomId).hostUid == request.auth.uid;
+    }
+
+    function isRoomMember(roomId) {
+      return isSignedIn() && (
+        isRoomHost(roomId)
+        || exists(/databases/$(database)/documents/rooms/$(roomId)/players/$(request.auth.uid))
+      );
+    }
+
     // profiles
     match /profiles/{uid} {
       allow read: if isSignedIn();
@@ -62,6 +85,105 @@ service cloud.firestore {
         && request.resource.data.requestText.size() <= 220;
 
       allow read, update, delete: if false;
+    }
+
+    // reports (bug reports / video issues)
+    match /reports/{reportId} {
+      allow create: if isSignedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.createdAt is timestamp;
+
+      allow read, update, delete: if false;
+    }
+
+    // online rooms
+    match /rooms/{roomId} {
+      // Public room list shows only listed lobby rooms.
+      allow list: if isSignedIn() && resource.data.isListed == true && resource.data.status == "lobby";
+
+      // Allow opening a room doc if it's listed OR you're already a member OR it's a lobby room you know the id for.
+      allow get: if isSignedIn() && (
+        resource.data.isListed == true
+        || isRoomMember(roomId)
+        || resource.data.status == "lobby"
+      );
+
+      allow create: if isSignedIn()
+        && request.resource.data.hostUid == request.auth.uid
+        && request.resource.data.status == "lobby"
+        && request.resource.data.roomName is string
+        && request.resource.data.roomName.size() > 0
+        && request.resource.data.roomName.size() <= 40
+        && request.resource.data.hostNickname is string
+        && request.resource.data.hostNickname.size() > 0
+        && request.resource.data.hostNickname.size() <= 14
+        && request.resource.data.gameMode is string
+        && request.resource.data.gameMode in ["standard", "battle_royale"]
+        && request.resource.data.answerMode is string
+        && request.resource.data.questionCount is int
+        && request.resource.data.perQuestionMs is int;
+
+      // Host can update anything; non-host can only touch updatedAt (used as a heartbeat).
+      allow update: if isSignedIn() && (
+        request.auth.uid == resource.data.hostUid
+        || request.resource.data.diff(resource.data).changedKeys().hasOnly(["updatedAt"])
+      );
+
+      allow delete: if false;
+
+      match /players/{uid} {
+        allow read: if isSignedIn() && (roomData(roomId).isListed == true || isRoomMember(roomId));
+
+        allow create: if isSignedIn()
+          && request.auth.uid == uid
+          && roomExists(roomId)
+          && roomData(roomId).status in ["lobby", "playing"]
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.nickname is string
+          && request.resource.data.nickname.size() > 0
+          && request.resource.data.nickname.size() <= 14;
+
+        // Player can update own fields; host can reset scores/ready without changing identity fields.
+        allow update: if isSignedIn() && (
+          (
+            request.auth.uid == uid
+            && request.resource.data.uid == resource.data.uid
+            && request.resource.data.joinedAt == resource.data.joinedAt
+            && request.resource.data.nickname is string
+            && request.resource.data.nickname.size() > 0
+            && request.resource.data.nickname.size() <= 14
+          )
+          || (
+            isRoomHost(roomId)
+            && request.resource.data.uid == resource.data.uid
+            && request.resource.data.nickname == resource.data.nickname
+            && request.resource.data.joinedAt == resource.data.joinedAt
+          )
+        );
+
+        // Player can leave; host can kick.
+        allow delete: if isSignedIn() && (request.auth.uid == uid || isRoomHost(roomId));
+      }
+
+      // lobby chat
+      match /messages/{messageId} {
+        allow read: if isSignedIn() && (roomData(roomId).isListed == true || isRoomMember(roomId));
+
+        allow create: if isSignedIn()
+          && isRoomMember(roomId)
+          && roomExists(roomId)
+          && roomData(roomId).status in ["lobby", "playing"]
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.nickname is string
+          && request.resource.data.nickname.size() > 0
+          && request.resource.data.nickname.size() <= 14
+          && request.resource.data.text is string
+          && request.resource.data.text.size() > 0
+          && request.resource.data.text.size() <= 300
+          && request.resource.data.createdAt is timestamp;
+
+        allow update, delete: if false;
+      }
     }
 
     // posts + comments (community)

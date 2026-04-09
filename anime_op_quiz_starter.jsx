@@ -69,6 +69,27 @@ import { uploadUserAvatar } from "@/lib/avatars";
 import { addComment, createPost, deletePost, subscribeComments, subscribePosts, togglePostLike, updatePost, uploadPostImage } from "@/lib/community";
 import { ensureDirectChat, getDirectChatId, sendDirectMessage, subscribeDirectMessages, subscribeUserChats, upsertChatMeta } from "@/lib/chat";
 import { ensureUserPrivate, subscribeUserPrivate, updateUserPrivate } from "@/lib/userPrivate";
+import {
+  advanceOnlineRoomQuestion,
+  beginOnlineRoomCountdown,
+  closeOnlineRoom,
+  createOnlineRoom,
+  findRoomByCode,
+  finishOnlineRoomGame,
+  joinOnlineRoom,
+  kickOnlineRoomPlayer,
+  leaveOnlineRoom,
+  resetOnlineRoomToLobby,
+  sendRoomMessage,
+  setOnlineReady,
+  startOnlineRoomGame,
+  submitOnlineAnswer,
+  subscribeOnlineRooms,
+  subscribeRoom,
+  subscribeRoomMessages,
+  subscribeRoomPlayers,
+  updateOnlineRoomSettings
+} from "@/lib/rooms";
 
 const animeData = [
   {
@@ -6065,6 +6086,39 @@ export default function AnimeOPQuizStarter() {
   const [videoReportDetails, setVideoReportDetails] = useState("");
   const [videoReportBusy, setVideoReportBusy] = useState(false);
   const [videoReportNotice, setVideoReportNotice] = useState("");
+
+  const [onlineRooms, setOnlineRooms] = useState([]);
+  const [onlineRoomsError, setOnlineRoomsError] = useState("");
+  const [onlineRoomId, setOnlineRoomId] = useState("");
+  const [onlineRoom, setOnlineRoom] = useState(null);
+  const [onlinePlayers, setOnlinePlayers] = useState([]);
+  const [onlineBusy, setOnlineBusy] = useState(false);
+  const [onlineNotice, setOnlineNotice] = useState("");
+  const [onlineNowMs, setOnlineNowMs] = useState(() => Date.now());
+  const [onlineCreateName, setOnlineCreateName] = useState("");
+  const [onlineCreateCode, setOnlineCreateCode] = useState("");
+  const [onlineCreateGameMode, setOnlineCreateGameMode] = useState("standard");
+  const [onlineCreateAnswerMode, setOnlineCreateAnswerMode] = useState("choice6");
+  const [onlineCreateQuestionCount, setOnlineCreateQuestionCount] = useState(5);
+  const [onlineCreatePerQuestionMs, setOnlineCreatePerQuestionMs] = useState(15000);
+  const [onlineJoinCode, setOnlineJoinCode] = useState("");
+  const [onlineTypingDraft, setOnlineTypingDraft] = useState("");
+  const [onlineMessages, setOnlineMessages] = useState([]);
+  const [onlineChatDraft, setOnlineChatDraft] = useState("");
+  const [onlineLobbyRoomName, setOnlineLobbyRoomName] = useState("");
+  const [onlineLobbyGameMode, setOnlineLobbyGameMode] = useState("standard");
+  const [onlineLobbyAnswerMode, setOnlineLobbyAnswerMode] = useState("choice6");
+  const [onlineLobbyQuestionCount, setOnlineLobbyQuestionCount] = useState(5);
+  const [onlineLobbyPerQuestionMs, setOnlineLobbyPerQuestionMs] = useState(15000);
+  const [onlineLobbyDirty, setOnlineLobbyDirty] = useState(false);
+  const [onlineResultsOpen, setOnlineResultsOpen] = useState(false);
+  const onlineCountdownStartRef = useRef({ roomId: "", endsAtMs: 0 });
+  const onlineStartingRef = useRef(false);
+  const onlinePlayersRef = useRef([]);
+  const onlineFinishRef = useRef({ lastRoomId: "", lastStartMs: 0 });
+  const onlineLobbyInitRef = useRef({ roomId: "", didInit: false });
+  const onlineAutoAdvanceRef = useRef({ lastIdx: -1, lastStartMs: 0 });
+  const onlineAdvancingRef = useRef(false);
   const isDark = true;
   const [libraryTab, setLibraryTab] = useState("catalog");
   const [libraryListMode, setLibraryListMode] = useState("works");
@@ -6774,6 +6828,157 @@ export default function AnimeOPQuizStarter() {
   const headerAvatarUrl = profile?.photoURL || user?.photoURL || "";
 
   useEffect(() => {
+    if (page === "online") return;
+    if (user?.uid && onlineRoomId) {
+      leaveOnlineRoom({ roomId: onlineRoomId, uid: user.uid }).catch(() => {});
+    }
+    setOnlineRoomId("");
+    setOnlineRoom(null);
+    setOnlinePlayers([]);
+    setOnlineMessages([]);
+    setOnlineChatDraft("");
+    setOnlineLobbyRoomName("");
+    setOnlineLobbyGameMode("standard");
+    setOnlineLobbyAnswerMode("choice6");
+    setOnlineLobbyQuestionCount(5);
+    setOnlineLobbyPerQuestionMs(15000);
+    setOnlineLobbyDirty(false);
+    setOnlineResultsOpen(false);
+    onlineFinishRef.current = { lastRoomId: "", lastStartMs: 0 };
+    onlineLobbyInitRef.current = { roomId: "", didInit: false };
+    setOnlineRooms([]);
+    setOnlineRoomsError("");
+    setOnlineNotice("");
+    setOnlineBusy(false);
+    onlineAutoAdvanceRef.current = { lastIdx: -1, lastStartMs: 0 };
+    onlineAdvancingRef.current = false;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
+
+
+  useEffect(() => {
+    if (page !== "online") return;
+    if (!user?.uid) return;
+
+    setOnlineRoomsError("");
+    return subscribeOnlineRooms(
+      { max: 25 },
+      (rows) => setOnlineRooms(Array.isArray(rows) ? rows : []),
+      (err) => {
+        const msg = String(err?.code || err?.message || "rooms_subscribe_failed");
+        setOnlineRoomsError(msg);
+      }
+    );
+  }, [page, user?.uid]);
+
+  useEffect(() => {
+    if (page !== "online") return;
+    if (!onlineRoomId) {
+      setOnlineRoom(null);
+      setOnlinePlayers([]);
+      setOnlineMessages([]);
+      return;
+    }
+
+    setOnlineNotice("");
+    const unsubRoom = subscribeRoom(
+      onlineRoomId,
+      (r) => setOnlineRoom(r),
+      (err) => {
+        const msg = String(err?.code || err?.message || "room_subscribe_failed");
+        setOnlineNotice(msg);
+      }
+    );
+    const unsubPlayers = subscribeRoomPlayers(
+      onlineRoomId,
+      (rows) => setOnlinePlayers(Array.isArray(rows) ? rows : []),
+      (err) => {
+        const msg = String(err?.code || err?.message || "players_subscribe_failed");
+        setOnlineNotice(msg);
+      }
+    );
+
+    return () => {
+      unsubRoom();
+      unsubPlayers();
+    };
+  }, [page, onlineRoomId]);
+
+  useEffect(() => {
+    if (page !== "online") return;
+    if (!onlineRoomId) {
+      setOnlineMessages([]);
+      return;
+    }
+
+    return subscribeRoomMessages(
+      { roomId: onlineRoomId, max: 50 },
+      (rows) => setOnlineMessages(Array.isArray(rows) ? rows : []),
+      (err) => {
+        const msg = String(err?.code || err?.message || "messages_subscribe_failed");
+        setOnlineNotice(msg);
+      }
+    );
+  }, [page, onlineRoomId]);
+
+  useEffect(() => {
+    if (page !== "online") return;
+    if (!onlineRoomId || !onlineRoom) return;
+    if (String(onlineRoom.status || "") !== "finished") return;
+    if (String(onlineRoom.gameMode || "standard") !== "battle_royale") return;
+    setOnlineResultsOpen(true);
+  }, [page, onlineRoomId, onlineRoom?.status, onlineRoom?.gameMode]);
+
+  useEffect(() => {
+    if (page !== "online") return;
+    setOnlineTypingDraft("");
+  }, [page, onlineRoomId, onlineRoom?.questionIndex]);
+
+  useEffect(() => {
+    onlinePlayersRef.current = Array.isArray(onlinePlayers) ? onlinePlayers : [];
+  }, [onlinePlayers]);
+
+  useEffect(() => {
+    if (page !== "online") return;
+    if (!onlineRoomId) return;
+    if (onlineLobbyInitRef.current.roomId !== onlineRoomId) {
+      onlineLobbyInitRef.current = { roomId: onlineRoomId, didInit: false };
+      setOnlineLobbyDirty(false);
+    }
+  }, [page, onlineRoomId]);
+
+  useEffect(() => {
+    if (page !== "online") return;
+    if (!user?.uid) return;
+    if (!onlineRoomId || !onlineRoom) return;
+    if (String(onlineRoom.status || "") !== "lobby") return;
+    if (String(onlineRoom.hostUid || "") !== String(user.uid)) return;
+    if (onlineLobbyDirty) return;
+
+    if (!onlineLobbyInitRef.current.didInit) {
+      setOnlineLobbyRoomName(String(onlineRoom.roomName || "ห้องออนไลน์"));
+      setOnlineLobbyGameMode(String(onlineRoom.gameMode || "standard"));
+      setOnlineLobbyAnswerMode(String(onlineRoom.answerMode || "choice6"));
+      setOnlineLobbyQuestionCount(Math.max(1, Math.min(20, Math.floor(Number(onlineRoom.questionCount) || 5))));
+      setOnlineLobbyPerQuestionMs(Math.max(5_000, Math.min(60_000, Math.floor(Number(onlineRoom.perQuestionMs) || 15_000))));
+      onlineLobbyInitRef.current = { roomId: onlineRoomId, didInit: true };
+    }
+  }, [
+    page,
+    user?.uid,
+    onlineRoomId,
+    onlineRoom?.status,
+    onlineRoom?.hostUid,
+    onlineRoom?.roomName,
+    onlineRoom?.gameMode,
+    onlineRoom?.answerMode,
+    onlineRoom?.questionCount,
+    onlineRoom?.perQuestionMs,
+    onlineLobbyDirty
+  ]);
+
+  useEffect(() => {
     if (!profileOpen) {
       setNicknameDraft("");
       return;
@@ -7300,6 +7505,190 @@ export default function AnimeOPQuizStarter() {
       return 0;
     }
   };
+
+  useEffect(() => {
+    if (page !== "online") return;
+    if (!user?.uid) return;
+    if (!onlineRoomId || !onlineRoom) return;
+    if (String(onlineRoom.status || "") !== "playing") return;
+    if (String(onlineRoom.hostUid || "") !== String(user.uid)) return;
+
+    const perMs = Math.max(5000, Math.min(60000, Number(onlineRoom.perQuestionMs) || 15000));
+    const gameMode = String(onlineRoom.gameMode || "standard");
+
+    const tick = async () => {
+      if (gameMode === "battle_royale") {
+        const rows = Array.isArray(onlinePlayersRef.current) ? onlinePlayersRef.current : [];
+        const alive = rows.filter((p) => (p?.eliminated === true ? false : Math.max(0, Math.floor(Number(p?.hp) || 15)) > 0)).length;
+        const startedMsRoom = tsToMs(onlineRoom.startedAt);
+        if (alive <= 1 && startedMsRoom) {
+          if (onlineFinishRef.current.lastRoomId === onlineRoomId && onlineFinishRef.current.lastStartMs === startedMsRoom) return;
+          onlineFinishRef.current = { lastRoomId: onlineRoomId, lastStartMs: startedMsRoom };
+          finishOnlineRoomGame({ roomId: onlineRoomId, hostUid: user.uid }).catch(() => {});
+          return;
+        }
+      }
+
+      const startedMs = tsToMs(onlineRoom.questionStartedAt);
+      const idx = Math.max(0, Math.floor(Number(onlineRoom.questionIndex) || 0));
+      if (!startedMs) return;
+
+      const elapsed = Date.now() - startedMs;
+      if (elapsed < perMs) return;
+
+      if (onlineAutoAdvanceRef.current.lastIdx === idx && onlineAutoAdvanceRef.current.lastStartMs === startedMs) return;
+
+      if (onlineAdvancingRef.current) return;
+      onlineAdvancingRef.current = true;
+
+      onlineAutoAdvanceRef.current = { lastIdx: idx, lastStartMs: startedMs };
+
+      try {
+        if (gameMode === "battle_royale") {
+          const correctId = Array.isArray(onlineRoom.questions) ? Number(onlineRoom.questions[idx]) : NaN;
+          const rows = Array.isArray(onlinePlayersRef.current) ? onlinePlayersRef.current : [];
+          const pending = rows
+            .filter((p) => {
+              if (!p?.id) return false;
+              if (p?.eliminated === true) return false;
+              const hp = Math.max(0, Math.floor(Number(p?.hp) || 15));
+              if (hp <= 0) return false;
+              const answeredAtIndex = Math.floor(Number(p?.answeredAtIndex) || -1);
+              return answeredAtIndex !== idx;
+            })
+            .map((p) =>
+              submitOnlineAnswer({
+                roomId: onlineRoomId,
+                uid: String(p.id),
+                questionIndex: idx,
+                pickId: -1,
+                correctId: Number.isFinite(correctId) ? correctId : 0,
+                points: 1
+              }).catch(() => {})
+            );
+          await Promise.all(pending);
+        }
+
+        await advanceOnlineRoomQuestion({ roomId: onlineRoomId, hostUid: user.uid });
+      } catch {
+        // ignore
+      } finally {
+        onlineAdvancingRef.current = false;
+      }
+    };
+
+    tick();
+    const id = window.setInterval(tick, 500);
+    return () => window.clearInterval(id);
+  }, [
+    page,
+    user?.uid,
+    onlineRoomId,
+    onlineRoom?.status,
+    onlineRoom?.hostUid,
+    onlineRoom?.questionIndex,
+    onlineRoom?.questionStartedAt,
+    onlineRoom?.perQuestionMs,
+    onlineRoom?.gameMode,
+    onlineRoom?.startedAt
+  ]);
+
+  useEffect(() => {
+    if (page !== "online") return;
+    if (!onlineRoomId || !onlineRoom) return;
+    const st = String(onlineRoom.status || "");
+    const hasCountdown = Number(onlineRoom.countdownEndsAtMs) > Date.now();
+    if (!(st === "playing" || (st === "lobby" && hasCountdown))) return;
+
+    const id = window.setInterval(() => {
+      setOnlineNowMs(Date.now());
+    }, 250);
+
+    return () => window.clearInterval(id);
+  }, [page, onlineRoomId, onlineRoom?.status, onlineRoom?.questionIndex, onlineRoom?.questionStartedAt, onlineRoom?.countdownEndsAtMs]);
+
+  useEffect(() => {
+    if (page !== "online") return;
+    if (!user?.uid) return;
+    if (!onlineRoomId || !onlineRoom) return;
+    if (String(onlineRoom.status || "") !== "lobby") return;
+    if (String(onlineRoom.hostUid || "") !== String(user.uid)) return;
+
+    const endsAtMs = Number(onlineRoom.countdownEndsAtMs) || 0;
+    if (!endsAtMs) return;
+    if (Date.now() < endsAtMs) return;
+
+    if (onlineCountdownStartRef.current.roomId === onlineRoomId && onlineCountdownStartRef.current.endsAtMs === endsAtMs) return;
+    onlineCountdownStartRef.current = { roomId: onlineRoomId, endsAtMs };
+
+    if (onlineStartingRef.current) return;
+    const rows = Array.isArray(onlinePlayersRef.current) ? onlinePlayersRef.current : [];
+    const count = rows.length;
+    if (!(count >= 2 && count <= 6)) return;
+    if (!rows.every((p) => Boolean(p?.ready))) return;
+
+    onlineStartingRef.current = true;
+
+    (async () => {
+      setOnlineNotice("");
+      setOnlineBusy(true);
+      try {
+        const gm = String(onlineRoom.gameMode || "standard");
+        let ids = [];
+
+        if (gm === "battle_royale") {
+          const pool = Array.isArray(activeGenrePool) ? activeGenrePool : [];
+          const base = pool.map((a) => a?.id).filter((x) => x != null);
+          if (!base.length) throw new Error("no_questions");
+          const seedBase = `br:${onlineRoomId}:${String(onlineRoom.hostUid || user.uid)}`;
+          let round = 0;
+          let out = [];
+          while (out.length < 200 && round < 6) {
+            out = out.concat(deterministicShuffle(base, `${seedBase}:${round}`));
+            round += 1;
+          }
+          ids = out.slice(0, Math.min(200, out.length));
+        } else {
+          const picked = buildQuestionListFromPool({
+            pool: activeGenrePool,
+            limit: Number(onlineRoom.questionCount) || 5,
+            balanceAcrossGenres: true
+          });
+          ids = (picked || []).map((a) => a?.id).filter((x) => x != null);
+        }
+
+        if (ids.length < 1) throw new Error("no_questions");
+
+        const res = await startOnlineRoomGame({
+          roomId: onlineRoomId,
+          hostUid: user.uid,
+          questions: ids,
+          answerMode: String(onlineRoom.answerMode || "choice6"),
+          questionCount: Number(onlineRoom.questionCount) || ids.length,
+          perQuestionMs: Number(onlineRoom.perQuestionMs) || 15000
+        });
+        if (!res || res.ok === false) throw new Error(res?.error || "start_failed");
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "start_failed");
+        setOnlineNotice(msg);
+      } finally {
+        setOnlineBusy(false);
+        onlineStartingRef.current = false;
+      }
+    })();
+  }, [
+    page,
+    user?.uid,
+    onlineRoomId,
+    onlineRoom?.status,
+    onlineRoom?.hostUid,
+    onlineRoom?.countdownEndsAtMs,
+    onlineRoom?.gameMode,
+    onlineRoom?.answerMode,
+    onlineRoom?.questionCount,
+    onlineRoom?.perQuestionMs,
+    activeGenrePool
+  ]);
 
   const loadChatReadMap = (uid) => {
     try {
@@ -10426,6 +10815,17 @@ export default function AnimeOPQuizStarter() {
                       Community
                     </Button>
                   </motion.div>
+
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button
+                      variant="outline"
+                      className="w-full h-12 rounded-2xl border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors dark:border-slate-700 dark:hover:bg-slate-900/60"
+                      onClick={() => confirmLeaveGame(() => setPage("online"))}
+                    >
+                      <Users className="w-4 h-4 mr-2" />
+                      เล่นออนไลน์
+                    </Button>
+                  </motion.div>
                 </div>
 
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
@@ -10871,6 +11271,1092 @@ export default function AnimeOPQuizStarter() {
     } finally {
       setVideoReportBusy(false);
     }
+  };
+
+  const renderOnline = () => {
+    const uid = String(user?.uid || "").trim();
+    const nickname =
+      String(profile?.nickname || "").trim() ||
+      String(user?.displayName || "").trim() ||
+      String(user?.email || "").split("@")[0] ||
+      "ผู้เล่น";
+
+    const room = onlineRoom;
+    const players = Array.isArray(onlinePlayers) ? onlinePlayers : [];
+    const me = uid ? players.find((p) => String(p?.id || "") === uid) : null;
+    const messages = Array.isArray(onlineMessages) ? onlineMessages : [];
+
+    const status = String(room?.status || "");
+    const isHost = uid && String(room?.hostUid || "") === uid;
+
+    const gameMode = String(room?.gameMode || onlineCreateGameMode || "standard");
+    const isBattleRoyale = gameMode === "battle_royale";
+    const myHp = Math.max(0, Math.floor(Number(me?.hp) || 15));
+    const myWrongStreak = Math.max(0, Math.floor(Number(me?.wrongStreak) || 0));
+    const iAmEliminated = Boolean(me?.eliminated === true || myHp <= 0);
+
+    const questionIds = Array.isArray(room?.questions)
+      ? room.questions
+          .map((x) => Number(x))
+          .filter((n) => Number.isFinite(n))
+      : [];
+    const questionIndex = Math.max(0, Math.floor(Number(room?.questionIndex) || 0));
+    const currentQuestionId = questionIds[questionIndex];
+    const currentAnimeOnline = Number.isFinite(currentQuestionId) ? animeById.get(Number(currentQuestionId)) : null;
+
+    const effectiveAnswerMode = String(room?.answerMode || onlineCreateAnswerMode || "choice6");
+    const isChoiceMode = Boolean(answerModeConfig?.[effectiveAnswerMode]?.choices);
+    const hasAnswered = Math.floor(Number(me?.answeredAtIndex) || -1) === questionIndex;
+
+    const startedMs = tsToMs(room?.questionStartedAt);
+    const perMs = Math.max(5000, Math.min(60000, Number(room?.perQuestionMs) || 15000));
+    const leftMs = startedMs ? Math.max(0, perMs - (Number(onlineNowMs) - startedMs)) : perMs;
+    const leftSec = Math.max(0, Math.ceil(leftMs / 1000));
+    const totalQuestions = isBattleRoyale ? 0 : Math.max(1, Math.floor(Number(room?.questionCount) || questionIds.length || 1));
+
+    const buildOnlineChoices = (anime, count, seed) => {
+      const total = Math.max(2, Math.min(8, Number(count) || 6));
+      const correct = anime;
+      const pool = (animeWithGenre || []).filter((a) => a && a.id != null && Number(a.id) !== Number(correct?.id));
+      const decoys = deterministicShuffle(pool, `${seed}:decoys`).slice(0, Math.max(0, total - 1));
+      return deterministicShuffle([correct, ...decoys], `${seed}:mix`);
+    };
+
+    const onlineErrorToThai = (raw) => {
+      const msg = String(raw || "").trim();
+      if (!msg) return "เกิดข้อผิดพลาด";
+      if (msg === "firebase_not_ready") return "Firebase ยังไม่พร้อม";
+      if (msg === "missing_uid") return "ยังไม่ได้ล็อกอิน";
+      if (msg === "room_code_taken") return "รหัสห้องนี้ถูกใช้แล้ว";
+      if (msg === "invalid_room_code") return "รหัสห้องไม่ถูกต้อง (ใช้ได้ A-Z a-z 0-9 _ - และอย่างน้อย 4 ตัว)";
+      if (msg === "room_full") return "ห้องเต็มแล้ว (สูงสุด 6 คน)";
+      if (msg === "room_not_found" || msg === "not_found") return "ไม่พบห้องนี้";
+      if (msg === "empty_message") return "พิมพ์ข้อความก่อนส่ง";
+      if (msg === "cannot_kick_self") return "เตะตัวเองไม่ได้";
+      if (msg === "not_host") return "เฉพาะหัวห้องเท่านั้น";
+      if (msg === "not_lobby") return "ทำรายการนี้ได้เฉพาะตอนอยู่หน้า Lobby";
+      return msg;
+    };
+
+    const onlineChoices = isChoiceMode && currentAnimeOnline
+      ? buildOnlineChoices(currentAnimeOnline, 6, `room:${onlineRoomId}:q:${questionIndex}`)
+      : [];
+
+    const onlinePlayerCount = players.length;
+    const nowMs = Number(onlineNowMs) || Date.now();
+    const countdownEndsAtMs = Math.floor(Number(room?.countdownEndsAtMs) || 0);
+    const countdownActive = countdownEndsAtMs > nowMs;
+    const allReady = onlinePlayerCount >= 2 && players.every((p) => Boolean(p?.ready));
+    const canStart = status === "lobby" && isHost && onlinePlayerCount >= 2 && onlinePlayerCount <= 6 && allReady && !countdownActive;
+    const countdownOverlayNumber = (() => {
+      if (status !== "lobby") return null;
+      if (!countdownActive) return null;
+      const remainMs = countdownEndsAtMs - nowMs;
+      const sec = Math.ceil(remainMs / 1000);
+      if (sec < 1 || sec > 5) return null;
+      return sec;
+    })();
+
+    const handleCreateRoom = async () => {
+      if (!uid) return;
+      if (onlineBusy) return;
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const res = await createOnlineRoom({
+          hostUid: uid,
+          hostNickname: nickname,
+          name: onlineCreateName,
+          roomCode: onlineCreateCode,
+          gameMode: onlineCreateGameMode,
+          answerMode: onlineCreateAnswerMode,
+          questionCount: onlineCreateQuestionCount,
+          perQuestionMs: onlineCreatePerQuestionMs
+        });
+        if (!res || res.ok === false) throw new Error(res?.error || "create_failed");
+        setOnlineRoomId(String(res.roomId || ""));
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "create_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const joinByRoomId = async (rid) => {
+      if (!uid) return;
+      const roomId = String(rid || "").trim();
+      if (!roomId) return;
+      if (onlineBusy) return;
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const res = await joinOnlineRoom({ roomId, uid, nickname });
+        if (!res || res.ok === false) throw new Error(res?.error || "join_failed");
+        setOnlineRoomId(roomId);
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "join_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handleJoinByCode = async () => {
+      if (!uid) return;
+      const code = String(onlineJoinCode || "").trim();
+      if (!code) return;
+      if (onlineBusy) return;
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const found = await findRoomByCode({ roomCode: code });
+        if (!found || found.ok === false || !found.room?.id) throw new Error(found?.error || "not_found");
+
+        const rid = String(found.room.id);
+        const res = await joinOnlineRoom({ roomId: rid, uid, nickname });
+        if (!res || res.ok === false) throw new Error(res?.error || "join_failed");
+        setOnlineRoomId(rid);
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "join_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handleLeaveRoom = async () => {
+      if (!uid || !onlineRoomId) {
+        setOnlineRoomId("");
+        return;
+      }
+      if (onlineBusy) return;
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        await leaveOnlineRoom({ roomId: onlineRoomId, uid });
+      } catch {
+        // ignore
+      } finally {
+        setOnlineBusy(false);
+        setOnlineRoomId("");
+      }
+    };
+
+    const handleSendLobbyMessage = async () => {
+      if (!uid || !onlineRoomId) return;
+      if (onlineBusy) return;
+      const text = String(onlineChatDraft || "").trim();
+      if (!text) {
+        setOnlineNotice(onlineErrorToThai("empty_message"));
+        return;
+      }
+
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const res = await sendRoomMessage({ roomId: onlineRoomId, uid, nickname, text });
+        if (!res || res.ok === false) throw new Error(res?.error || "send_failed");
+        setOnlineChatDraft("");
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "send_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handleSaveLobbySettings = async () => {
+      if (!uid || !onlineRoomId || !room) return;
+      if (!isHost) return;
+      if (status !== "lobby") return;
+      if (onlineBusy) return;
+
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const res = await updateOnlineRoomSettings({
+          roomId: onlineRoomId,
+          hostUid: uid,
+          roomName: onlineLobbyRoomName,
+          gameMode: onlineLobbyGameMode,
+          answerMode: onlineLobbyAnswerMode,
+          questionCount: onlineLobbyQuestionCount,
+          perQuestionMs: onlineLobbyPerQuestionMs
+        });
+        if (!res || res.ok === false) throw new Error(res?.error || "update_failed");
+        setOnlineLobbyDirty(false);
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "update_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handleKickPlayer = async (targetUid, targetName) => {
+      if (!uid || !onlineRoomId || !room) return;
+      if (!isHost) return;
+      if (status !== "lobby") return;
+      const target = String(targetUid || "").trim();
+      if (!target) return;
+      if (target === uid) return;
+
+      const ok = window.confirm(`ต้องการเตะ ${String(targetName || "ผู้เล่น")} ออกจากห้องใช่ไหม?`);
+      if (!ok) return;
+
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const res = await kickOnlineRoomPlayer({ roomId: onlineRoomId, hostUid: uid, targetUid: target });
+        if (!res || res.ok === false) throw new Error(res?.error || "kick_failed");
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "kick_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handleStartGame = async () => {
+      if (!uid || !onlineRoomId || !room) return;
+      if (!isHost) return;
+      if (!canStart) return;
+      if (onlineBusy) return;
+      if (onlineStartCountdown > 0) return;
+
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const gm = String(room.gameMode || gameMode || "standard");
+
+        let ids = [];
+        if (gm === "battle_royale") {
+          const pool = Array.isArray(activeGenrePool) ? activeGenrePool : [];
+          const base = pool.map((a) => a?.id).filter((x) => x != null);
+          if (!base.length) throw new Error("no_questions");
+          const seedBase = `br:${onlineRoomId}:${String(room.hostUid || uid)}`;
+          let round = 0;
+          let out = [];
+          while (out.length < 200 && round < 6) {
+            out = out.concat(deterministicShuffle(base, `${seedBase}:${round}`));
+            round += 1;
+          }
+          ids = out.slice(0, Math.min(200, out.length));
+        } else {
+          const picked = buildQuestionListFromPool({
+            pool: activeGenrePool,
+            limit: Number(room.questionCount) || 5,
+            balanceAcrossGenres: true
+          });
+          ids = (picked || []).map((a) => a?.id).filter((x) => x != null);
+        }
+        if (ids.length < 1) throw new Error("no_questions");
+
+        const res = await startOnlineRoomGame({
+          roomId: onlineRoomId,
+          hostUid: uid,
+          questions: ids,
+          answerMode: String(room.answerMode || "choice6"),
+          questionCount: Number(room.questionCount) || ids.length,
+          perQuestionMs: Number(room.perQuestionMs) || 15000
+        });
+        if (!res || res.ok === false) throw new Error(res?.error || "start_failed");
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "start_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handleToggleReady = async () => {
+      if (!uid || !onlineRoomId) return;
+      if (status !== "lobby") return;
+      if (onlineBusy) return;
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const next = !Boolean(me?.ready);
+        const res = await setOnlineReady({ roomId: onlineRoomId, uid, ready: next });
+        if (!res || res.ok === false) throw new Error(res?.error || "ready_failed");
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "ready_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handleBackToLobby = async () => {
+      if (!uid || !onlineRoomId || !room) return;
+      if (!isHost) return;
+      if (onlineBusy) return;
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const res = await resetOnlineRoomToLobby({ roomId: onlineRoomId, hostUid: uid });
+        if (!res || res.ok === false) throw new Error(res?.error || "reset_failed");
+        setOnlineResultsOpen(false);
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "reset_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handleStartWithCountdown = async () => {
+      if (!canStart) return;
+      if (!uid || !onlineRoomId || !room) return;
+      if (!isHost) return;
+      if (status !== "lobby") return;
+      if (Number(room?.countdownEndsAtMs) > Date.now()) return;
+      setOnlineNotice("");
+
+      setOnlineBusy(true);
+      try {
+        const res = await beginOnlineRoomCountdown({ roomId: onlineRoomId, hostUid: uid, seconds: 5 });
+        if (!res || res.ok === false) throw new Error(res?.error || "countdown_failed");
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "countdown_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handlePickChoice = async (choiceAnime) => {
+      if (!uid || !onlineRoomId || !room || !currentAnimeOnline) return;
+      if (status !== "playing") return;
+      if (hasAnswered) return;
+      if (isBattleRoyale && iAmEliminated) return;
+      if (!choiceAnime?.id) return;
+
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const res = await submitOnlineAnswer({
+          roomId: onlineRoomId,
+          uid,
+          questionIndex,
+          pickId: Number(choiceAnime.id),
+          correctId: Number(currentAnimeOnline.id),
+          points: 1
+        });
+        if (!res || res.ok === false) throw new Error(res?.error || "submit_failed");
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "submit_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handleSubmitTyping = async () => {
+      if (!uid || !onlineRoomId || !room || !currentAnimeOnline) return;
+      if (status !== "playing") return;
+      if (hasAnswered) return;
+      if (isBattleRoyale && iAmEliminated) return;
+
+      const raw = String(onlineTypingDraft || "").trim();
+      if (!raw) return;
+      const q = normalize(raw);
+      const accepted = [
+        currentAnimeOnline?.title,
+        ...(currentAnimeOnline?.altTitles || []),
+        ...(currentAnimeOnline?.acceptedAnswers || [])
+      ]
+        .filter(Boolean)
+        .map((x) => normalize(String(x)));
+      const correct = q && accepted.includes(q);
+
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const cid = Number(currentAnimeOnline.id);
+        const res = await submitOnlineAnswer({
+          roomId: onlineRoomId,
+          uid,
+          questionIndex,
+          pickId: correct ? cid : -1,
+          correctId: cid,
+          points: 1
+        });
+        if (!res || res.ok === false) throw new Error(res?.error || "submit_failed");
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "submit_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const handleCloseRoom = async () => {
+      if (!uid || !onlineRoomId || !room) return;
+      if (!isHost) return;
+      if (onlineBusy) return;
+      setOnlineBusy(true);
+      setOnlineNotice("");
+      try {
+        const res = await closeOnlineRoom({ roomId: onlineRoomId, hostUid: uid });
+        if (!res || res.ok === false) throw new Error(res?.error || "close_failed");
+        setOnlineRoomId("");
+      } catch (e) {
+        const msg = String(e?.message || e?.code || "close_failed");
+        setOnlineNotice(onlineErrorToThai(msg));
+      } finally {
+        setOnlineBusy(false);
+      }
+    };
+
+    const formatDurationMs = (ms) => {
+      const t = Math.max(0, Math.floor(Number(ms) || 0));
+      const sec = Math.floor(t / 1000);
+      const m = Math.floor(sec / 60);
+      const s = String(sec % 60).padStart(2, "0");
+      return `${m}:${s}`;
+    };
+
+    const startedAtMsRoom = tsToMs(room?.startedAt);
+    const endedAtMsRoom = tsToMs(room?.endedAt) || Date.now();
+    const battleResults = isBattleRoyale && startedAtMsRoom
+      ? players
+          .map((p) => {
+            const elimMs = tsToMs(p?.eliminatedAt);
+            const endMs = elimMs || endedAtMsRoom;
+            const survivalMs = Math.max(0, endMs - startedAtMsRoom);
+            return {
+              id: String(p?.id || ""),
+              nickname: String(p?.nickname || "ผู้เล่น"),
+              score: Math.max(0, Math.floor(Number(p?.score) || 0)),
+              hp: Math.max(0, Math.floor(Number(p?.hp) || 15)),
+              eliminated: Boolean(p?.eliminated === true || Math.max(0, Math.floor(Number(p?.hp) || 15)) <= 0),
+              survivalMs
+            };
+          })
+          .sort((a, b) => {
+            if (b.survivalMs !== a.survivalMs) return b.survivalMs - a.survivalMs;
+            return (b.score || 0) - (a.score || 0);
+          })
+      : [];
+
+    return (
+      <>
+        <div className="space-y-6">
+        <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_20px_40px_rgba(19,34,76,0.14)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
+          <CardHeader>
+            <div className="flex items-start justify-between gap-3 flex-wrap">
+              <div>
+                <CardTitle className="text-xl">เล่นออนไลน์</CardTitle>
+                <CardDescription>เลือกเข้าห้อง หรือสร้างห้องใหม่ (2–6 คน)</CardDescription>
+              </div>
+              {onlineRoomId ? (
+                <Button variant="outline" className="rounded-2xl" onClick={handleLeaveRoom} disabled={onlineBusy}>
+                  ออกจากห้อง
+                </Button>
+              ) : null}
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {onlineRoomsError ? (
+              <div className="rounded-2xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-900 dark:border-rose-400/40 dark:bg-slate-900/40 dark:text-rose-100">
+                โหลดรายการห้องไม่สำเร็จ ({onlineRoomsError})
+              </div>
+            ) : null}
+            {onlineNotice ? (
+              <div className="rounded-2xl border border-slate-200 bg-white/70 p-3 text-sm font-semibold text-slate-800 dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-100">
+                {onlineNotice}
+              </div>
+            ) : null}
+
+            {!onlineRoomId ? (
+              <div className="grid gap-4 lg:grid-cols-2">
+                <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+                  <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">สร้างห้อง</div>
+                  <div className="space-y-2">
+                    <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">ชื่อห้อง</div>
+                    <Input
+                      value={onlineCreateName}
+                      onChange={(e) => setOnlineCreateName(e.target.value)}
+                      placeholder="เช่น ห้องของเรา"
+                      className="rounded-2xl h-11"
+                      maxLength={40}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">รหัสห้อง (ไม่ใส่ = ห้องสาธารณะ)</div>
+                    <Input
+                      value={onlineCreateCode}
+                      onChange={(e) => setOnlineCreateCode(e.target.value)}
+                      placeholder="ตัวอย่าง: ABCD_1234"
+                      className="rounded-2xl h-11"
+                      maxLength={20}
+                    />
+                    <div className="text-xs text-slate-600 dark:text-slate-300">ใช้ได้เฉพาะ A-Z, a-z, 0-9, _ และ - (อย่างน้อย 4 ตัว)</div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">โหมดเกม</div>
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        type="button"
+                        variant={onlineCreateGameMode === "standard" ? "default" : "outline"}
+                        className="rounded-2xl font-semibold"
+                        onClick={() => setOnlineCreateGameMode("standard")}
+                        disabled={onlineBusy}
+                      >
+                        ปกติ
+                      </Button>
+                      <Button
+                        type="button"
+                        variant={onlineCreateGameMode === "battle_royale" ? "default" : "outline"}
+                        className="rounded-2xl font-semibold"
+                        onClick={() => setOnlineCreateGameMode("battle_royale")}
+                        disabled={onlineBusy}
+                      >
+                        Battle Royale
+                      </Button>
+                    </div>
+                    {onlineCreateGameMode === "battle_royale" ? (
+                      <div className="text-xs text-slate-600 dark:text-slate-300">เล่นไม่จำกัดข้อ จนกว่าจะเหลือคนสุดท้าย (HP 15)</div>
+                    ) : null}
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">โหมดการตอบ</div>
+                    <div className="flex flex-wrap gap-2">
+                      {Object.entries(answerModeConfig).map(([k, v]) => (
+                        <Button
+                          key={k}
+                          type="button"
+                          variant={onlineCreateAnswerMode === k ? "default" : "outline"}
+                          className="rounded-2xl font-semibold"
+                          onClick={() => setOnlineCreateAnswerMode(k)}
+                        >
+                          {v.label}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-2">
+                      <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">จำนวนข้อ</div>
+                      <div className="flex flex-wrap gap-2">
+                        {[5, 10, 15].map((n) => (
+                          <Button
+                            key={n}
+                            type="button"
+                            variant={onlineCreateQuestionCount === n ? "default" : "outline"}
+                            className="rounded-2xl font-semibold"
+                            onClick={() => setOnlineCreateQuestionCount(n)}
+                            disabled={onlineBusy || onlineCreateGameMode === "battle_royale"}
+                          >
+                            {n}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">เวลา/ข้อ</div>
+                      <div className="flex flex-wrap gap-2">
+                        {[10_000, 15_000, 20_000].map((ms) => (
+                          <Button
+                            key={ms}
+                            type="button"
+                            variant={onlineCreatePerQuestionMs === ms ? "default" : "outline"}
+                            className="rounded-2xl font-semibold"
+                            onClick={() => setOnlineCreatePerQuestionMs(ms)}
+                          >
+                            {Math.round(ms / 1000)}s
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <Button
+                    type="button"
+                    className="rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl"
+                    onClick={handleCreateRoom}
+                    disabled={onlineBusy}
+                  >
+                    {onlineBusy ? "กำลังสร้าง…" : "สร้างห้อง"}
+                  </Button>
+                </div>
+
+                <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+                  <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">เข้าห้องด้วยรหัส</div>
+                  <Input
+                    value={onlineJoinCode}
+                    onChange={(e) => setOnlineJoinCode(e.target.value)}
+                    placeholder="ใส่รหัสห้อง"
+                    className="rounded-2xl h-11"
+                    maxLength={40}
+                  />
+                  <Button
+                    type="button"
+                    className="rounded-2xl font-semibold"
+                    onClick={handleJoinByCode}
+                    disabled={!String(onlineJoinCode || "").trim() || onlineBusy}
+                  >
+                    เข้าร่วม
+                  </Button>
+
+                  <div className="pt-2 text-sm font-extrabold text-slate-900 dark:text-slate-50">ห้องสาธารณะ</div>
+                  {(onlineRooms || []).length ? (
+                    <div className="space-y-2">
+                      {(onlineRooms || []).slice(0, 25).map((r) => (
+                        <div
+                          key={r.id}
+                          className="flex items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/35 dark:text-slate-50"
+                        >
+                          <div className="min-w-0">
+                            <div className="truncate">{String(r?.roomName || "ห้องออนไลน์")}</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-300 truncate">
+                              Host: {String(r?.hostNickname || "-")} • {String(r?.gameMode || "standard") === "battle_royale" ? "Battle Royale" : "ปกติ"} • {answerModeConfig?.[String(r?.answerMode || "")]?.label || String(r?.answerMode || "")}
+                            </div>
+                          </div>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="rounded-2xl"
+                            onClick={() => joinByRoomId(r.id)}
+                            disabled={onlineBusy}
+                          >
+                            เข้า
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-sm font-semibold text-slate-600 dark:text-slate-300">ยังไม่มีห้องสาธารณะ</div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-2">
+                  <div className="flex items-center justify-between gap-3 flex-wrap">
+                    <div className="text-base font-extrabold text-slate-900 dark:text-slate-50 truncate">
+                      {String(room?.roomName || "ห้องออนไลน์")}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className="rounded-full">{isBattleRoyale ? "Battle Royale" : "ปกติ"}</Badge>
+                      <Badge variant="outline" className="rounded-full">สถานะ: {status || "-"}</Badge>
+                    </div>
+                  </div>
+                  <div className="text-xs text-slate-600 dark:text-slate-300">
+                    รหัสห้อง: <span className="font-extrabold">{onlineRoomId}</span>
+                  </div>
+
+                  <div className="pt-2">
+                    <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50 mb-2">ผู้เล่น ({players.length})</div>
+                    <div className="grid sm:grid-cols-2 gap-2">
+                      {players.map((p) => (
+                        <div
+                          key={p.id}
+                          className="flex items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/35 dark:text-slate-50"
+                        >
+                          <div className="truncate">{String(p?.nickname || "ผู้เล่น")}</div>
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline" className="rounded-full tabular-nums">⭐ {Math.max(0, Math.floor(Number(p?.score) || 0))}</Badge>
+                            {status === "lobby" ? (
+                              <Badge variant="outline" className="rounded-full text-xs">{p?.ready ? "พร้อม" : "ยังไม่พร้อม"}</Badge>
+                            ) : null}
+                            {status === "lobby" && isHost && String(p?.id || "") !== uid ? (
+                              <Button
+                                type="button"
+                                variant="outline"
+                                className="rounded-2xl h-8 px-3 text-xs font-extrabold"
+                                onClick={() => handleKickPlayer(String(p?.id || ""), String(p?.nickname || "ผู้เล่น"))}
+                                disabled={onlineBusy}
+                              >
+                                เตะออก
+                              </Button>
+                            ) : null}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {status === "lobby" ? (
+                    <div className="pt-3 flex items-center justify-between gap-3 flex-wrap">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <div className="text-xs text-slate-600 dark:text-slate-300">เริ่มได้เมื่อมี 2–6 คน และทุกคนต้องพร้อม</div>
+                        <Button
+                          type="button"
+                          variant={me?.ready ? "default" : "outline"}
+                          className="rounded-2xl h-8 px-3 text-xs font-extrabold"
+                          onClick={handleToggleReady}
+                          disabled={onlineBusy || countdownActive || !uid}
+                        >
+                          {me?.ready ? "พร้อมแล้ว" : "กดพร้อม"}
+                        </Button>
+                      </div>
+                      {isHost ? (
+                        <Button
+                          type="button"
+                          className="rounded-2xl bg-gradient-to-r from-emerald-600 to-green-600 text-white font-semibold shadow-lg hover:shadow-xl"
+                          onClick={handleStartWithCountdown}
+                          disabled={!canStart || onlineBusy}
+                        >
+                          เริ่มเกม
+                        </Button>
+                      ) : (
+                        <Badge variant="outline" className="rounded-full">รอ Host เริ่มเกม…</Badge>
+                      )}
+                    </div>
+                  ) : null}
+
+                  {status === "finished" && isHost ? (
+                    <div className="pt-3 flex items-center gap-2 flex-wrap">
+                      <Button type="button" variant="outline" className="rounded-2xl" onClick={handleBackToLobby} disabled={onlineBusy}>
+                        กลับไป Lobby เพื่อเริ่มใหม่
+                      </Button>
+                      <Button type="button" variant="outline" className="rounded-2xl" onClick={handleCloseRoom} disabled={onlineBusy}>
+                        ปิดห้อง
+                      </Button>
+                    </div>
+                  ) : null}
+                </div>
+
+                {status === "lobby" ? (
+                  <div className={isHost ? "grid gap-4 lg:grid-cols-2" : "space-y-4"}>
+                    {isHost ? (
+                      <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+                        <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">ตั้งค่าห้อง (หัวห้อง)</div>
+                        <div className="space-y-2">
+                          <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">ชื่อห้อง</div>
+                          <Input
+                            value={onlineLobbyRoomName}
+                            onChange={(e) => {
+                              setOnlineLobbyRoomName(e.target.value);
+                              setOnlineLobbyDirty(true);
+                            }}
+                            placeholder="เช่น ห้องของเรา"
+                            className="rounded-2xl h-11"
+                            maxLength={40}
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">โหมดการตอบ</div>
+                          <div className="flex flex-wrap gap-2">
+                            {Object.entries(answerModeConfig).map(([k, v]) => (
+                              <Button
+                                key={k}
+                                type="button"
+                                variant={onlineLobbyAnswerMode === k ? "default" : "outline"}
+                                className="rounded-2xl font-semibold"
+                                onClick={() => {
+                                  setOnlineLobbyAnswerMode(k);
+                                  setOnlineLobbyDirty(true);
+                                }}
+                                disabled={onlineBusy}
+                              >
+                                {v.label}
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">โหมดเกม</div>
+                          <div className="flex flex-wrap gap-2">
+                            <Button
+                              type="button"
+                              variant={onlineLobbyGameMode === "standard" ? "default" : "outline"}
+                              className="rounded-2xl font-semibold"
+                              onClick={() => {
+                                setOnlineLobbyGameMode("standard");
+                                setOnlineLobbyDirty(true);
+                              }}
+                              disabled={onlineBusy}
+                            >
+                              ปกติ
+                            </Button>
+                            <Button
+                              type="button"
+                              variant={onlineLobbyGameMode === "battle_royale" ? "default" : "outline"}
+                              className="rounded-2xl font-semibold"
+                              onClick={() => {
+                                setOnlineLobbyGameMode("battle_royale");
+                                setOnlineLobbyDirty(true);
+                              }}
+                              disabled={onlineBusy}
+                            >
+                              Battle Royale
+                            </Button>
+                          </div>
+                          {onlineLobbyGameMode === "battle_royale" ? (
+                            <div className="text-xs text-slate-600 dark:text-slate-300">เล่นไม่จำกัดข้อ จนกว่าจะเหลือคนสุดท้าย (HP 15)</div>
+                          ) : null}
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="space-y-2">
+                            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">จำนวนข้อ</div>
+                            <div className="flex flex-wrap gap-2">
+                              {[5, 10, 15].map((n) => (
+                                <Button
+                                  key={n}
+                                  type="button"
+                                  variant={onlineLobbyQuestionCount === n ? "default" : "outline"}
+                                  className="rounded-2xl font-semibold"
+                                  onClick={() => {
+                                    setOnlineLobbyQuestionCount(n);
+                                    setOnlineLobbyDirty(true);
+                                  }}
+                                  disabled={onlineBusy || onlineLobbyGameMode === "battle_royale"}
+                                >
+                                  {n}
+                                </Button>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">เวลา/ข้อ</div>
+                            <div className="flex flex-wrap gap-2">
+                              {[10_000, 15_000, 20_000].map((ms) => (
+                                <Button
+                                  key={ms}
+                                  type="button"
+                                  variant={onlineLobbyPerQuestionMs === ms ? "default" : "outline"}
+                                  className="rounded-2xl font-semibold"
+                                  onClick={() => {
+                                    setOnlineLobbyPerQuestionMs(ms);
+                                    setOnlineLobbyDirty(true);
+                                  }}
+                                  disabled={onlineBusy}
+                                >
+                                  {Math.round(ms / 1000)}s
+                                </Button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        <Button
+                          type="button"
+                          className="rounded-2xl font-semibold"
+                          onClick={handleSaveLobbySettings}
+                          disabled={onlineBusy}
+                        >
+                          บันทึกตั้งค่า
+                        </Button>
+                      </div>
+                    ) : null}
+
+                    <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+                      <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">แชทห้อง</div>
+                      <div className="rounded-2xl border border-slate-200 bg-white/70 p-3 dark:border-slate-800 dark:bg-slate-950/35 max-h-60 overflow-auto space-y-2">
+                        {messages.length ? (
+                          messages.slice(-50).map((m) => (
+                            <div key={m.id} className="text-sm">
+                              <span className="font-extrabold text-slate-900 dark:text-slate-50">{String(m?.nickname || "ผู้เล่น")}</span>
+                              <span className="text-slate-600 dark:text-slate-300">: </span>
+                              <span className="text-slate-900 dark:text-slate-100 break-words">{String(m?.text || "")}</span>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="text-sm font-semibold text-slate-600 dark:text-slate-300">ยังไม่มีข้อความ</div>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <Input
+                          value={onlineChatDraft}
+                          onChange={(e) => setOnlineChatDraft(e.target.value)}
+                          placeholder="พิมพ์ข้อความ..."
+                          className="rounded-2xl h-11"
+                          maxLength={300}
+                          disabled={onlineBusy}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") handleSendLobbyMessage();
+                          }}
+                        />
+                        <Button
+                          type="button"
+                          className="rounded-2xl font-semibold"
+                          onClick={handleSendLobbyMessage}
+                          disabled={onlineBusy || !String(onlineChatDraft || "").trim()}
+                        >
+                          ส่ง
+                        </Button>
+                      </div>
+                      <div className="text-xs text-slate-600 dark:text-slate-300">ข้อความจะแสดงเฉพาะคนในห้อง</div>
+                    </div>
+                  </div>
+                ) : null}
+
+                {status === "playing" ? (
+                  <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-4">
+                    <div className="flex items-center justify-between gap-3 flex-wrap">
+                      <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0">
+                        {isBattleRoyale ? `รอบ ${questionIndex + 1}` : `ข้อ ${Math.min(questionIndex + 1, totalQuestions)} / ${totalQuestions}`}
+                      </Badge>
+                      <div className="flex items-center gap-2">
+                        {isBattleRoyale ? (
+                          <Badge variant="outline" className="rounded-full tabular-nums">❤️ {myHp}/15</Badge>
+                        ) : null}
+                        {isBattleRoyale && myWrongStreak > 0 ? (
+                          <Badge variant="outline" className="rounded-full tabular-nums">ผิดติดกัน {myWrongStreak}</Badge>
+                        ) : null}
+                        <Badge variant="outline" className="rounded-full tabular-nums">⏱ {leftSec}s</Badge>
+                      </div>
+                    </div>
+
+                    {isBattleRoyale && iAmEliminated ? (
+                      <div className="rounded-2xl border border-rose-200 bg-rose-50 p-3 text-sm font-extrabold text-rose-900 dark:border-rose-400/40 dark:bg-slate-900/40 dark:text-rose-100">
+                        คุณตกรอบแล้ว
+                      </div>
+                    ) : null}
+
+                    {currentAnimeOnline ? (
+                      <div className="space-y-3">
+                        <div className="relative aspect-video overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 to-black shadow-2xl w-[70%] mx-auto">
+                          <iframe
+                            key={getYouTubeId(currentAnimeOnline.youtubeVideoId) || String(currentAnimeOnline.youtubeVideoId || "")}
+                            title={currentAnimeOnline.title}
+                            className="w-full h-[calc(100%+72px)] -mt-[72px]"
+                            src={buildYouTubeEmbedUrl(currentAnimeOnline.youtubeVideoId, { start: 0 })}
+                            referrerPolicy="origin-when-cross-origin"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                          <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-black" />
+                        </div>
+
+                        {isChoiceMode ? (
+                          <div className="grid sm:grid-cols-2 gap-3">
+                            {onlineChoices.map((c, idx) => (
+                              <Button
+                                key={c.id}
+                                type="button"
+                                variant="outline"
+                                className="group rounded-2xl h-auto py-4 whitespace-normal w-full bg-white hover:bg-slate-50 border-2 border-slate-200 hover:border-slate-300 text-slate-900 font-semibold transition-all duration-200 shadow-sm hover:shadow-md dark:bg-slate-950/35 dark:hover:bg-slate-900/45 dark:border-slate-700 dark:hover:border-cyan-400/40 dark:text-slate-100"
+                                disabled={hasAnswered || onlineBusy || (isBattleRoyale && iAmEliminated)}
+                                onClick={() => handlePickChoice(c)}
+                              >
+                                <span className="text-sm text-slate-600 dark:text-slate-200/75 mr-2">({String.fromCharCode(65 + idx)})</span>
+                                <span className="leading-snug">{c.title}</span>
+                              </Button>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="space-y-3">
+                            <Input
+                              value={onlineTypingDraft}
+                              onChange={(e) => setOnlineTypingDraft(e.target.value)}
+                              placeholder="พิมพ์ชื่อเรื่อง..."
+                              className="rounded-2xl h-12"
+                              disabled={hasAnswered || onlineBusy || (isBattleRoyale && iAmEliminated)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") handleSubmitTyping();
+                              }}
+                            />
+                            <Button
+                              type="button"
+                              className="rounded-2xl font-semibold"
+                              onClick={handleSubmitTyping}
+                              disabled={hasAnswered || onlineBusy || (isBattleRoyale && iAmEliminated) || !String(onlineTypingDraft || "").trim()}
+                            >
+                              ส่งคำตอบ
+                            </Button>
+                          </div>
+                        )}
+
+                        {hasAnswered ? (
+                          <div className="text-sm font-semibold text-slate-600 dark:text-slate-300">ส่งคำตอบแล้ว</div>
+                        ) : null}
+                      </div>
+                    ) : (
+                      <div className="text-sm font-semibold text-slate-600 dark:text-slate-300">กำลังโหลดคำถาม…</div>
+                    )}
+                  </div>
+                ) : null}
+
+                {status === "finished" ? (
+                  <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+                    <div className="text-base font-extrabold text-slate-900 dark:text-slate-50">สรุปคะแนน</div>
+                    <div className="space-y-2">
+                      {players
+                        .slice()
+                        .sort((a, b) => (Number(b?.score) || 0) - (Number(a?.score) || 0))
+                        .map((p, i) => (
+                          <div
+                            key={p.id}
+                            className="flex items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/35 dark:text-slate-50"
+                          >
+                            <div className="truncate">{i + 1}. {String(p?.nickname || "ผู้เล่น")}</div>
+                            <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0 tabular-nums">⭐ {Math.max(0, Math.floor(Number(p?.score) || 0))}</Badge>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+        </div>
+
+        {countdownOverlayNumber != null ? (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+            <Card className="w-full max-w-sm rounded-3xl border border-white/60 bg-white/90 backdrop-blur-xl dark:border-slate-700/40 dark:bg-slate-950/70">
+              <CardContent className="py-12 flex items-center justify-center">
+                <div className="text-7xl font-extrabold tabular-nums text-slate-900 dark:text-slate-50">
+                  {countdownOverlayNumber}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        ) : null}
+
+        {onlineResultsOpen && status === "finished" && isBattleRoyale ? (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+            <Card className="w-full max-w-xl rounded-3xl border border-white/60 bg-white/90 backdrop-blur-xl dark:border-slate-700/40 dark:bg-slate-950/70">
+              <CardHeader>
+                <div className="flex items-start justify-between gap-3 flex-wrap">
+                  <div>
+                    <CardTitle className="text-xl">สรุปผล Battle Royale</CardTitle>
+                    <CardDescription>เวลารอดชีวิตนับตั้งแต่เริ่มเกม</CardDescription>
+                  </div>
+                  <Button variant="outline" className="rounded-2xl" onClick={() => setOnlineResultsOpen(false)}>
+                    ปิด
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {battleResults.length ? (
+                  battleResults.slice(0, 6).map((r, idx) => (
+                    <div
+                      key={r.id || String(idx)}
+                      className="flex items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/35 dark:text-slate-50"
+                    >
+                      <div className="truncate">
+                        {idx + 1}. {r.nickname}
+                        {idx === 0 ? " (ชนะ)" : ""}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline" className="rounded-full tabular-nums">⏳ {formatDurationMs(r.survivalMs)}</Badge>
+                        <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0 tabular-nums">⭐ {r.score}</Badge>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-sm font-semibold text-slate-600 dark:text-slate-300">ยังไม่มีผลการแข่งขัน</div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        ) : null}
+      </>
+    );
   };
 
   const renderAbout = () => {
@@ -12978,6 +14464,7 @@ export default function AnimeOPQuizStarter() {
             {page === "home" && renderHome()}
             {page === "library" && renderLibrary()}
             {page === "community" && renderCommunity()}
+            {page === "online" && renderOnline()}
             {page === "play" && renderPlay()}
             {page === "result" && renderResult()}
             {page === "about" && renderAbout()}
