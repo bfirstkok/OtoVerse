@@ -6059,6 +6059,12 @@ export default function AnimeOPQuizStarter() {
   const [reportText, setReportText] = useState("");
   const [reportBusy, setReportBusy] = useState(false);
   const [reportNotice, setReportNotice] = useState("");
+
+  const [videoReportOpen, setVideoReportOpen] = useState(false);
+  const [videoReportSubject, setVideoReportSubject] = useState("");
+  const [videoReportDetails, setVideoReportDetails] = useState("");
+  const [videoReportBusy, setVideoReportBusy] = useState(false);
+  const [videoReportNotice, setVideoReportNotice] = useState("");
   const isDark = true;
   const [libraryTab, setLibraryTab] = useState("catalog");
   const [libraryListMode, setLibraryListMode] = useState("works");
@@ -10805,6 +10811,68 @@ export default function AnimeOPQuizStarter() {
     }
   };
 
+  const submitVideoReport = async () => {
+    if (videoReportBusy) return;
+    const subject = String(videoReportSubject || "").trim();
+    const details = String(videoReportDetails || "").trim();
+    if (!subject) {
+      setVideoReportNotice("กรอกหัวเรื่องก่อนส่งนะ");
+      return;
+    }
+    if (!details) {
+      setVideoReportNotice("พิมพ์รายละเอียดก่อนส่งนะ");
+      return;
+    }
+
+    setVideoReportBusy(true);
+    setVideoReportNotice("");
+
+    const videoSource = currentAnime?.youtubeVideoId || "";
+    const videoId = getYouTubeId(videoSource);
+
+    const contextLines = [
+      `animeId: ${String(currentAnime?.id ?? "")}`,
+      `title: ${String(currentAnime?.title || "")}`,
+      `youtubeVideoId: ${String(videoSource || "")}`,
+      `youtubeId: ${String(videoId || "")}`,
+      `page: ${String(page || "")}`,
+      `sessionMode: ${String(sessionMode || "")}`,
+      `answerMode: ${String(answerMode || "")}`,
+      `playMode: ${String(playMode || "")}`
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    try {
+      await addDoc(collection(firebaseDb, "reports"), {
+        type: "video_issue",
+        subject,
+        details,
+        detailsWithContext: `${details}\n\n---\n${contextLines}`,
+        animeId: currentAnime?.id ?? null,
+        animeTitle: currentAnime?.title ? String(currentAnime.title) : "",
+        youtubeVideoId: videoSource ? String(videoSource) : "",
+        youtubeId: videoId ? String(videoId) : "",
+        uid: user?.uid || null,
+        email: user?.email || null,
+        page: String(page || ""),
+        sessionMode: String(sessionMode || ""),
+        createdAt: serverTimestamp(),
+        projectId: firebaseProjectId || null,
+        userAgent: typeof navigator !== "undefined" ? navigator.userAgent : ""
+      });
+      setVideoReportSubject("");
+      setVideoReportDetails("");
+      setVideoReportOpen(false);
+      setVideoReportNotice("ส่งแล้ว ขอบคุณครับ");
+    } catch (e) {
+      const msg = String(e?.message || e?.code || "error");
+      setVideoReportNotice(`ส่งไม่สำเร็จ (${msg})`);
+    } finally {
+      setVideoReportBusy(false);
+    }
+  };
+
   const renderAbout = () => {
     const sections = [
       {
@@ -12017,6 +12085,86 @@ export default function AnimeOPQuizStarter() {
                     <RotateCcw className="w-4 h-4 mr-2" />
                     หน้าแรก
                   </Button>
+                </div>
+
+                <div className="pt-2">
+                  <div className="flex items-center justify-between gap-3 flex-wrap">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="rounded-2xl border-2 border-slate-300 hover:border-rose-400 hover:bg-rose-50 font-semibold dark:border-slate-700 dark:hover:bg-slate-900/60 dark:hover:border-rose-400/40"
+                      onClick={() => {
+                        const nextOpen = !videoReportOpen;
+                        setVideoReportNotice("");
+                        setVideoReportOpen(nextOpen);
+                        if (nextOpen) {
+                          const title = String(currentAnime?.title || "").trim();
+                          if (!String(videoReportSubject || "").trim()) {
+                            setVideoReportSubject(title ? `วิดีโอมีปัญหา: ${title}`.slice(0, 80) : "วิดีโอมีปัญหา");
+                          }
+                        }
+                      }}
+                      disabled={!currentAnime}
+                      title="รายงานกรณีวิดีโอมีปัญหา"
+                    >
+                      รายงานวิดีโอมีปัญหา
+                    </Button>
+                    {videoReportNotice ? (
+                      <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">{videoReportNotice}</div>
+                    ) : null}
+                  </div>
+
+                  {videoReportOpen ? (
+                    <div className="mt-3 rounded-3xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/35 space-y-3">
+                      <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50">รายงานปัญหาวิดีโอ</div>
+
+                      <div className="space-y-2">
+                        <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">หัวเรื่อง</div>
+                        <Input
+                          value={videoReportSubject}
+                          onChange={(e) => setVideoReportSubject(e.target.value)}
+                          placeholder="เช่น วิดีโอเล่นไม่ได้ / ขึ้น error / ไม่มีเสียง"
+                          className="rounded-2xl h-11"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">รายละเอียด</div>
+                        <textarea
+                          value={videoReportDetails}
+                          onChange={(e) => setVideoReportDetails(e.target.value)}
+                          rows={4}
+                          placeholder="อธิบายสิ่งที่เจอ เช่น ขึ้นข้อความอะไร, อุปกรณ์/บราวเซอร์, ทำขั้นตอนไหนแล้วเกิด"
+                          className="w-full rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
+                        />
+                        <div className="text-xs text-slate-600 dark:text-slate-300">
+                          ระบบจะแนบชื่อเพลง + YouTube ID ให้อัตโนมัติ
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Button
+                          type="button"
+                          className="rounded-2xl bg-gradient-to-r from-rose-600 to-pink-600 text-white font-semibold shadow-lg hover:shadow-xl"
+                          onClick={submitVideoReport}
+                          disabled={videoReportBusy}
+                        >
+                          {videoReportBusy ? "กำลังส่ง…" : "ส่งรายงาน"}
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="rounded-2xl"
+                          onClick={() => {
+                            setVideoReportOpen(false);
+                          }}
+                          disabled={videoReportBusy}
+                        >
+                          ปิด
+                        </Button>
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               </div>
 
