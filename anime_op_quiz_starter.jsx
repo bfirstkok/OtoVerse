@@ -5511,6 +5511,127 @@ function SmartImage({ src, fallbackSrc, alt, className }) {
   );
 }
 
+function GitHubProfileCard({ username, roleLabel }) {
+  const user = String(username || "").trim();
+  const role = String(roleLabel || "").trim();
+  const [data, setData] = React.useState(null);
+  const [status, setStatus] = React.useState("idle"); // idle | loading | ok | error
+
+  React.useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    setStatus("loading");
+
+    fetch(`https://api.github.com/users/${encodeURIComponent(user)}`, {
+      headers: {
+        Accept: "application/vnd.github+json"
+      }
+    })
+      .then(async (r) => {
+        if (!r.ok) {
+          const text = await r.text().catch(() => "");
+          throw new Error(`${r.status}:${text || r.statusText || "fetch_failed"}`);
+        }
+        return r.json();
+      })
+      .then((json) => {
+        if (cancelled) return;
+        setData(json && typeof json === "object" ? json : null);
+        setStatus("ok");
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setData(null);
+        setStatus("error");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
+  const profileUrl = data?.html_url || `https://github.com/${user}`;
+  const avatarUrl = data?.avatar_url || "";
+  const displayName = String(data?.name || "").trim() || user;
+  const login = String(data?.login || "").trim() || user;
+  const bio = String(data?.bio || "").trim();
+  const followers = Number.isFinite(data?.followers) ? data.followers : null;
+  const repos = Number.isFinite(data?.public_repos) ? data.public_repos : null;
+
+  return (
+    <Card className="rounded-3xl border border-slate-200 bg-white/70 shadow-[0_16px_28px_rgba(15,23,42,0.08)] overflow-hidden dark:border-slate-700 dark:bg-slate-950/35">
+      <CardContent className="p-5">
+        <div className="flex items-start gap-4">
+          <div className="shrink-0">
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                alt={login}
+                loading="lazy"
+                className="h-14 w-14 rounded-2xl object-cover border border-slate-200 bg-white dark:border-slate-700"
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <div className="h-14 w-14 rounded-2xl border border-slate-200 bg-white/70 dark:border-slate-700 dark:bg-slate-950/45" />
+            )}
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="text-base font-extrabold text-slate-900 dark:text-slate-100 truncate">
+                  {displayName}
+                </div>
+                <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">@{login}</div>
+              </div>
+              {role ? (
+                <Badge
+                  variant="outline"
+                  className="rounded-full border-slate-200 bg-white/60 text-slate-800 dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-100"
+                >
+                  {role}
+                </Badge>
+              ) : null}
+            </div>
+
+            {bio ? (
+              <div className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200/90 whitespace-pre-line">
+                {bio}
+              </div>
+            ) : status === "loading" ? (
+              <div className="mt-2 text-xs font-semibold text-slate-600 dark:text-slate-300">กำลังโหลดโปรไฟล์ GitHub…</div>
+            ) : status === "error" ? (
+              <div className="mt-2 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                โหลดโปรไฟล์ไม่สำเร็จ (อาจติด rate limit) — กดปุ่มเพื่อเปิด GitHub ได้เลย
+              </div>
+            ) : null}
+
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              {followers != null ? (
+                <Badge variant="outline" className="rounded-full tabular-nums">👥 {followers.toLocaleString()} followers</Badge>
+              ) : null}
+              {repos != null ? (
+                <Badge variant="outline" className="rounded-full tabular-nums">📦 {repos.toLocaleString()} repos</Badge>
+              ) : null}
+            </div>
+
+            <div className="mt-4 flex items-center gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                className="rounded-2xl border-2 border-slate-200 dark:border-slate-700 font-semibold"
+                onClick={() => window.open(profileUrl, "_blank", "noopener,noreferrer")}
+              >
+                เปิด GitHub
+              </Button>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 function SynopsisInline({ title, synopsisCache, synopsisLoading, ensureSynopsis }) {
   const cacheKey = normalizeSynopsisKey(title);
 
@@ -5653,7 +5774,7 @@ const LEGAL_PROVIDER_PRESETS = {
   ytmusic: { label: "YouTube Music", short: "YM" }
 };
 
-function ProviderIconButton({ providerKey, term, title, iconSrc }) {
+function ProviderIconButton({ providerKey, term, title, iconSrc, size = "md" }) {
   const provider = LEGAL_PROVIDER_PRESETS[providerKey];
   if (!provider) return null;
 
@@ -5662,28 +5783,40 @@ function ProviderIconButton({ providerKey, term, title, iconSrc }) {
   const openUrl = buildProviderSearchUrl(providerKey, term);
   const openFeatures = providerKey === "bilibili" ? "noopener" : "noopener,noreferrer";
 
+  const s = String(size || "md");
+  const box = s === "sm" ? "h-[38px] w-[38px] rounded-lg" : "h-[50px] w-[50px] rounded-xl";
+  const icon = s === "sm" ? "h-[20px] w-[20px]" : "h-[28px] w-[28px]";
+  const fallbackIcon = s === "sm" ? "h-[18px] w-[18px]" : "h-[22px] w-[22px]";
+
   return (
-    
     <button
       type="button"
-      onClick={() => window.open(openUrl, "_blank", openFeatures)}
+      onClick={(e) => {
+        try {
+          e?.preventDefault?.();
+          e?.stopPropagation?.();
+        } catch {
+          // ignore
+        }
+        window.open(openUrl, "_blank", openFeatures);
+      }}
       title={title || provider.label}
-      className="inline-flex items-center justify-center h-[50px] w-[50px] rounded-xl border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
+      className={`inline-flex items-center justify-center ${box} border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55`}
     >
       {iconSrc ? (
         <img
           src={iconSrc}
           alt={provider.label}
           loading="lazy"
-          className="h-[28px] w-[28px] object-contain"
+          className={`${icon} object-contain`}
           referrerPolicy="no-referrer"
         />
       ) : isYouTube ? (
-        <Youtube className="h-[22px] w-[22px]" />
+        <Youtube className={fallbackIcon} />
       ) : isMusic ? (
-        <Music2 className="h-[22px] w-[22px]" />
+        <Music2 className={fallbackIcon} />
       ) : (
-        <Film className="h-[22px] w-[22px]" />
+        <Film className={fallbackIcon} />
       )}
       <span className="sr-only">{provider.label}</span>
     </button>
@@ -6125,6 +6258,8 @@ export default function AnimeOPQuizStarter() {
   const [legalSearch, setLegalSearch] = useState("");
   const [legalProviderFilter, setLegalProviderFilter] = useState("all");
   const [legalGenreFilter, setLegalGenreFilter] = useState("all");
+  const [legalYearFilter, setLegalYearFilter] = useState("all");
+  const [legalSelectedKey, setLegalSelectedKey] = useState("");
   const [synopsisCache, setSynopsisCache] = useState(() => loadSynopsisCache());
   const [synopsisLoading, setSynopsisLoading] = useState({});
   const [manualSynopsisDb, setManualSynopsisDb] = useState(null);
@@ -8258,7 +8393,22 @@ export default function AnimeOPQuizStarter() {
   useEffect(() => {
     setLegalProviderFilter("all");
     setLegalGenreFilter("all");
+    setLegalYearFilter("all");
+    setLegalSelectedKey("");
   }, [libraryListMode]);
+
+  useEffect(() => {
+    if (page !== "library" || libraryTab !== "legal") {
+      setLegalSelectedKey("");
+    }
+  }, [page, libraryTab]);
+
+  const openLegalDetail = (key) => {
+    const next = String(key || "").trim();
+    if (!next) return;
+    setLegalSelectedKey(next);
+    setLegalBotOpen(false);
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -8906,6 +9056,16 @@ export default function AnimeOPQuizStarter() {
     return Array.from(tags).sort((a, b) => a.localeCompare(b, "th", { sensitivity: "base" }));
   }, [legalCatalogTH, legalRawItems, libraryListMode, page, libraryTab]);
 
+  const legalYearOptions = useMemo(() => {
+    if (page !== "library" || libraryTab !== "legal") return [];
+    const years = new Set();
+    for (const item of legalRawItems) {
+      const y = item?.anime?.year;
+      if (Number.isFinite(y)) years.add(Math.floor(y));
+    }
+    return Array.from(years).sort((a, b) => b - a);
+  }, [legalRawItems, page, libraryTab]);
+
   const legalFilteredItems = useMemo(() => {
     if (page !== "library" || libraryTab !== "legal") return [];
     const q = normalize(legalSearch);
@@ -8977,6 +9137,17 @@ export default function AnimeOPQuizStarter() {
       });
     }
 
+    if (legalYearFilter !== "all") {
+      const y = Number(legalYearFilter);
+      if (Number.isFinite(y)) {
+        items = items.filter((item) => {
+          const iy = item?.anime?.year;
+          if (!Number.isFinite(iy)) return false;
+          return Math.floor(iy) === Math.floor(y);
+        });
+      }
+    }
+
     if (!q) return items;
     return items.filter((item) => {
       const titleKey = normalizeAvailabilityKey(item.title);
@@ -9002,7 +9173,27 @@ export default function AnimeOPQuizStarter() {
       const haystack = [item.title, genresText, providersText, genreKey, genreLabel].filter(Boolean).join(" ");
       return normalize(haystack).includes(q);
     });
-  }, [legalRawItems, legalSearch, legalGenreFilter, legalProviderFilter, legalCatalogTH, legalAvailability, libraryListMode, page, libraryTab]);
+  }, [legalRawItems, legalSearch, legalGenreFilter, legalProviderFilter, legalYearFilter, legalCatalogTH, legalAvailability, libraryListMode, page, libraryTab]);
+
+  const legalSelectedItem = useMemo(() => {
+    if (page !== "library" || libraryTab !== "legal") return null;
+    const key = String(legalSelectedKey || "").trim();
+    if (!key) return null;
+    return (legalRawItems || []).find((x) => String(x?.key || "") === key) || null;
+  }, [legalRawItems, legalSelectedKey, page, libraryTab]);
+
+  const legalSelectedIsSongLike = useMemo(() => {
+    if (!legalSelectedItem) return false;
+    if (libraryListMode === "songs") return true;
+    if (libraryListMode === "works") return false;
+    return isSongEntryTitle(legalSelectedItem.title);
+  }, [legalSelectedItem, libraryListMode]);
+
+  const legalSelectedDisplayTitle = useMemo(() => {
+    if (!legalSelectedItem) return "";
+    const raw = String(legalSelectedItem.title || "");
+    return legalSelectedIsSongLike ? raw : stripOpEdSuffix(raw);
+  }, [legalSelectedItem, legalSelectedIsSongLike]);
 
   const buildProviderLabelList = (keys) => {
     const list = Array.isArray(keys) ? keys : [];
@@ -12422,9 +12613,19 @@ export default function AnimeOPQuizStarter() {
       switch (key) {
         case "team":
           return (
-            <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
-              <p>หน้านี้ไว้สำหรับแนะนำทีมงาน/ผู้พัฒนา/ผู้ดูแลโปรเจกต์ OtoVerse</p>
-              <p>ถ้าคุณอยากใส่ชื่อทีม/เครดิต/ลิงก์โซเชียล บอกข้อมูลมาได้เลย เดี๋ยวผมจัดรูปแบบให้เข้ากับดีไซน์ชุดนี้ครับ</p>
+            <div className="space-y-4">
+              <div className="space-y-2 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+                <p>ขอบคุณผู้จัดทำและผู้มีส่วนร่วมของ OtoVerse</p>
+              </div>
+
+              <div className="grid gap-3 md:grid-cols-2">
+                <GitHubProfileCard username="bfirstkok" roleLabel="ผู้พัฒนา" />
+                <GitHubProfileCard username="Dparamet" roleLabel="ผู้จัดทำภาพพื้นหลังเว็บ" />
+              </div>
+
+              <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">
+                หมายเหตุ: ข้อมูลโปรไฟล์ดึงจาก GitHub API แบบเรียลไทม์ อาจโหลดไม่ขึ้นหากติด rate limit
+              </div>
             </div>
           );
         case "ads":
@@ -12985,11 +13186,15 @@ export default function AnimeOPQuizStarter() {
         <CardHeader className="flex flex-col gap-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <CardTitle className="text-2xl">Anime Library</CardTitle>
+              <CardTitle className="text-2xl">
+                {libraryTab === "legal" ? (legalSelectedItem ? "รายละเอียด" : "รายชื่ออนิเมะ") : "Anime Library"}
+              </CardTitle>
               <CardDescription>
                 {libraryTab === "catalog"
                   ? <>ตอนนี้มีอนิเมะให้ทายทั้งหมด {totalCount} เรื่อง • กำลังดู {selectedGenreLabel}</>
-                  : <>ดูรายชื่อ + ช่องทางรับชม/ฟัง</>}
+                  : legalSelectedItem
+                    ? <>ดูข้อมูลเรื่อง/เพลง และช่องทางรับชม/ฟัง (ลิขสิทธิ์ไทย)</>
+                    : <>ดูรายชื่อ + ช่องทางรับชม/ฟัง (ลิขสิทธิ์ไทย)</>}
               </CardDescription>
             </div>
             {libraryTab === "catalog" && (
@@ -13015,398 +13220,651 @@ export default function AnimeOPQuizStarter() {
                 </Button>
               </div>
             )}
-          </div>
-        </CardHeader>
-      </Card>
 
-      {libraryTab === "legal" ? (
-        <>
-          <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
-            <CardHeader>
-              <CardTitle className="text-lg">ช่องทางรับชม/ฟัง</CardTitle>
-              <CardDescription>
-                รายการในเกมมีทั้งชื่อเรื่อง, ภาค/ซีซั่น และเพลง OP/ED — เลือกหมวด แล้วกดไอคอนเพื่อค้นหาช่องทาง
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-            <div className="grid gap-3 md:grid-cols-2">
+            {libraryTab === "legal" && legalSelectedItem ? (
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  className="rounded-2xl"
+                  onClick={() => setLegalSelectedKey("")}
+                  title="กลับไปหน้ารายชื่อ"
+                >
+                  ← กลับ
+                </Button>
+              </div>
+            ) : null}
+          </div>
+
+          {libraryTab === "legal" && !legalSelectedItem ? (
+            <div className="space-y-3">
               <div className="relative w-full">
                 <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-slate-400" />
                 <Input
                   value={legalSearch}
                   onChange={(e) => setLegalSearch(e.target.value)}
-                  placeholder={libraryListMode === "songs" ? "ค้นหาเพลง OP/ED..." : "ค้นหาชื่อเรื่อง..."}
+                  placeholder="พิมพ์ชื่อเรื่องที่นี่ (ตามไทย, Romaji, 日本語)"
                   className="pl-9 rounded-2xl"
                 />
               </div>
 
-              <div className="grid gap-2 sm:grid-cols-3">
-                <select
-                  value={legalGenreFilter}
-                  onChange={(e) => setLegalGenreFilter(e.target.value)}
-                  className="h-10 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
-                >
-                  <option value="all">ทุกแนว</option>
-                  {libraryListMode !== "songs" && legalGenreTagOptions.length
-                    ? legalGenreTagOptions.map((tag) => (
-                        <option key={tag} value={tag}>
-                          {tag}
-                        </option>
-                      ))
-                    : null}
-                </select>
+              <div className="grid gap-3 md:grid-cols-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
+                    <Shield className="h-4 w-4" />
+                    ลิขสิทธิ์ (ไทย)
+                  </div>
+                  <select
+                    value={legalProviderFilter}
+                    onChange={(e) => setLegalProviderFilter(e.target.value)}
+                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
+                  >
+                    <option value="all">ทั้งหมด</option>
+                    {libraryListMode === "songs" ? (
+                      <>
+                        <option value="spotify">Spotify</option>
+                        <option value="applemusic">Apple Music</option>
+                        <option value="ytmusic">YouTube Music</option>
+                        <option value="youtube">YouTube</option>
+                      </>
+                    ) : (
+                      <>
+                        <option value="netflix">Netflix</option>
+                        <option value="prime">Prime Video</option>
+                        <option value="disney">Disney+</option>
+                        <option value="crunchyroll">Crunchyroll</option>
+                        <option value="iqiyi">iQIYI</option>
+                        <option value="bilibili">Bilibili</option>
+                        <option value="trueid">TrueID</option>
+                        <option value="viu">Viu</option>
+                        <option value="muse">Muse Thailand</option>
+                        <option value="anione">Ani-One Asia</option>
+                        <option value="flixer">Flixer</option>
+                        <option value="gundaminfo">GundamInfo</option>
+                        <option value="pops">POPS</option>
+                        <option value="linetv">LINE TV</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="x">X</option>
+                        <option value="appletv">Apple TV</option>
+                        <option value="pokemonasia">Pokémon Asia (YouTube)</option>
+                      </>
+                    )}
+                  </select>
+                </div>
 
-                <select
-                  value={legalProviderFilter}
-                  onChange={(e) => setLegalProviderFilter(e.target.value)}
-                  className="h-10 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
-                >
-                  <option value="all">ทุกแพลตฟอร์ม</option>
-                  {libraryListMode === "songs" ? (
-                    <>
-                      <option value="spotify">Spotify</option>
-                      <option value="applemusic">Apple Music</option>
-                      <option value="ytmusic">YouTube Music</option>
-                      <option value="youtube">YouTube</option>
-                    </>
-                  ) : (
-                    <>
-                      <option value="netflix">Netflix</option>
-                      <option value="prime">Prime Video</option>
-                      <option value="disney">Disney+</option>
-                      <option value="crunchyroll">Crunchyroll</option>
-                      <option value="iqiyi">iQIYI</option>
-                      <option value="bilibili">Bilibili</option>
-                      <option value="trueid">TrueID</option>
-                      <option value="viu">Viu</option>
-                      <option value="muse">Muse Thailand</option>
-                      <option value="anione">Ani-One Asia</option>
-                      <option value="flixer">Flixer</option>
-                      <option value="gundaminfo">GundamInfo</option>
-                      <option value="pops">POPS</option>
-                      <option value="linetv">LINE TV</option>
-                      <option value="youtube">YouTube</option>
-                      <option value="x">X</option>
-                      <option value="appletv">Apple TV</option>
-                      <option value="pokemonasia">Pokémon Asia (YouTube)</option>
-                    </>
-                  )}
-                </select>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
+                    <Headphones className="h-4 w-4" />
+                    เสียงพากย์
+                  </div>
+                  <select
+                    disabled
+                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/50 px-3 text-sm text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-200/70"
+                    title="ยังไม่มีข้อมูลเสียงพากย์ในชุดข้อมูล"
+                  >
+                    <option>ทั้งหมด</option>
+                  </select>
+                </div>
 
-                <div className="h-10 w-full rounded-2xl border border-slate-200 bg-white/50 px-3 text-sm text-slate-700 flex items-center dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-200/80">
-                  {legalFilteredItems.length.toLocaleString()} รายการ
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
+                    <Eye className="h-4 w-4" />
+                    ซับได้
+                  </div>
+                  <select
+                    disabled
+                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/50 px-3 text-sm text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-200/70"
+                    title="ยังไม่มีข้อมูลซับในชุดข้อมูล"
+                  >
+                    <option>ทั้งหมด</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
+                    <Info className="h-4 w-4" />
+                    สถานะ
+                  </div>
+                  <select
+                    disabled
+                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/50 px-3 text-sm text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-200/70"
+                    title="ยังไม่มีข้อมูลสถานะฉาย/จบในชุดข้อมูล"
+                  >
+                    <option>ทั้งหมด</option>
+                  </select>
                 </div>
               </div>
-            </div>
 
-            <div className="flex flex-wrap gap-2">
-              <Button
-                variant={libraryListMode === "works" ? "default" : "outline"}
-                className="rounded-2xl"
-                onClick={() => setLibraryListMode("works")}
-              >
-                รายชื่อเรื่อง (ตัดภาค)
-              </Button>
-              <Button
-                variant={libraryListMode === "songs" ? "default" : "outline"}
-                className="rounded-2xl"
-                onClick={() => setLibraryListMode("songs")}
-              >
-                เพลง OP/ED
-              </Button>
-              <Button
-                variant={libraryListMode === "all" ? "default" : "outline"}
-                className="rounded-2xl"
-                onClick={() => setLibraryListMode("all")}
-              >
-                ทั้งหมด (รวมภาค/ซีซั่น + OP/ED)
-              </Button>
-
-              {libraryListMode === "songs" ? (
-                <Button
-                  variant="outline"
-                  className="rounded-2xl"
-                  onClick={submitSongRequest}
-                  disabled={songRequestBusy}
-                  title="ส่งคำขอเพลงที่อยากได้ให้ผู้พัฒนา"
-                >
-                  {songRequestBusy ? "กำลังส่ง…" : "ขอเพลงเพิ่ม"}
-                </Button>
-              ) : null}
-            </div>
-
-            <div className="space-y-3">
-                {libraryListMode === "works" && (
-                  <div className="text-xs text-slate-600 dark:text-slate-300 mb-2">
-                    {legalSearch
-                      ? <>แสดง {legalFilteredItems.length} จาก {libraryTitleLists.works.length} เรื่อง (แยกภาค/ซีซั่น และซ่อน OP/ED)</>
-                      : <>แสดง {libraryTitleLists.works.length} เรื่อง (แยกภาค/ซีซั่น และซ่อน OP/ED)</>}
+              <div className="grid gap-3 md:grid-cols-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
+                    <ListMusic className="h-4 w-4" />
+                    ประเภท
                   </div>
-                )}
-                {libraryListMode === "songs" && (
-                  <div className="text-xs text-slate-600 dark:text-slate-300 mb-2">
-                    {legalSearch
-                      ? <>แสดง {legalFilteredItems.length} จาก {libraryTitleLists.songs.length} เพลง (ค้นหาในแพลตฟอร์มเพลง)</>
-                      : <>แสดง {libraryTitleLists.songs.length} เพลง (ค้นหาในแพลตฟอร์มเพลง)</>}
+                  <select
+                    value={legalGenreFilter}
+                    onChange={(e) => setLegalGenreFilter(e.target.value)}
+                    disabled={libraryListMode === "songs"}
+                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none disabled:bg-white/50 disabled:text-slate-700 dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:disabled:bg-slate-950/35 dark:disabled:text-slate-200/70"
+                    title={libraryListMode === "songs" ? "โหมดเพลงยังไม่รองรับกรองตามแนว" : ""}
+                  >
+                    <option value="all">ทั้งหมด</option>
+                    {libraryListMode !== "songs" && legalGenreTagOptions.length
+                      ? legalGenreTagOptions.map((tag) => (
+                          <option key={tag} value={tag}>
+                            {tag}
+                          </option>
+                        ))
+                      : null}
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
+                    <Trophy className="h-4 w-4" />
+                    ปี
                   </div>
-                )}
-                {libraryListMode === "all" && (
-                  <div className="text-xs text-slate-600 dark:text-slate-300 mb-2">
-                    {legalSearch
-                      ? <>แสดง {legalFilteredItems.length} จาก {libraryTitleLists.all.length} รายการ (รวมชื่อเรื่อง + ภาค/ซีซั่น + OP/ED)</>
-                      : <>แสดง {libraryTitleLists.all.length} รายการ (รวมชื่อเรื่อง + ภาค/ซีซั่น + OP/ED)</>}
+                  <select
+                    value={legalYearFilter}
+                    onChange={(e) => setLegalYearFilter(e.target.value)}
+                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
+                  >
+                    <option value="all">ทั้งหมด</option>
+                    {legalYearOptions.map((y) => (
+                      <option key={y} value={String(y)}>
+                        {y}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
+                    <RotateCcw className="h-4 w-4" />
+                    ฉาย/จบ
                   </div>
-                )}
+                  <select
+                    disabled
+                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/50 px-3 text-sm text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-200/70"
+                    title="ยังไม่มีข้อมูลฉาย/จบในชุดข้อมูล"
+                  >
+                    <option>ทั้งหมด</option>
+                  </select>
+                </div>
 
-                {legalFilteredItems.map((item) => {
-                  const providerOrderWorks = [
-                    "netflix",
-                    "prime",
-                    "disney",
-                    "crunchyroll",
-                    "bilibili",
-                    "iqiyi",
-                    "trueid",
-                    "viu",
-                    "muse",
-                    "anione",
-                    "flixer",
-                    "gundaminfo",
-                    "pops",
-                    "linetv",
-                    "youtube",
-                    "pokemonasia",
-                    "x",
-                    "appletv"
-                  ];
-                  const providerOrderSongs = ["spotify", "applemusic", "ytmusic", "youtube"];
-
-                  const fallbackProviderKeys = libraryListMode === "songs"
-                    ? providerOrderSongs
-                    : ["netflix", "prime", "disney", "crunchyroll", "iqiyi", "bilibili", "trueid"];
-
-                  const availabilityByTitle = legalAvailability?.byTitle || null;
-                  const availabilityByBase = legalAvailability?.byBase || null;
-                  const availabilityByTitleLoose = legalAvailability?.byTitleLoose || null;
-                  const availabilityByBaseLoose = legalAvailability?.byBaseLoose || null;
-
-                  const catalogByTitle = legalCatalogTH?.byTitle || null;
-                  const catalogByBase = legalCatalogTH?.byBase || null;
-                  const catalogByTitleLoose = legalCatalogTH?.byTitleLoose || null;
-                  const catalogByBaseLoose = legalCatalogTH?.byBaseLoose || null;
-
-                  const isSongLike = libraryListMode === "songs" || (libraryListMode !== "works" && isSongEntryTitle(item.title));
-                  const displayTitle = libraryListMode === "songs" ? item.title : stripOpEdSuffix(item.title);
-                  const manualEntry = !isSongLike && manualSynopsisDb ? findManualSynopsisEntry(manualSynopsisDb, displayTitle) : null;
-                  const altTitle = !isSongLike ? pickAltTitleLabel(manualEntry, displayTitle) : "";
-
-                  // In works mode, the representative title can still contain (OP/EDn).
-                  // Use the display title (suffix-stripped) for base/title lookups.
-                  const titleKey = normalizeAvailabilityKey(isSongLike ? item.title : displayTitle);
-                  const titleKeyLoose = normalizeAvailabilityKeyLoose(isSongLike ? item.title : displayTitle);
-                  const baseKey = availabilityBaseKeyFromTitle(displayTitle);
-                  const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
-
-                  const catalogEntryTitle = catalogByTitle?.[titleKey] || catalogByTitleLoose?.[titleKeyLoose] || null;
-                  const catalogEntryBase = catalogByBase?.[baseKey] || catalogByBaseLoose?.[baseKeyLoose] || null;
-                  const catalogProviders = catalogEntryTitle?.providers || catalogEntryBase?.providers || null;
-                  const catalogGenres = catalogEntryTitle?.genres || catalogEntryBase?.genres || null;
-                  const catalogNote = catalogEntryTitle?.note || catalogEntryBase?.note || "";
-                  const availableKeys = isSongLike
-                    ? availabilityByTitle?.[titleKey]?.providers || availabilityByTitleLoose?.[titleKeyLoose]?.providers || null
-                    : availabilityByBase?.[baseKey] || availabilityByBaseLoose?.[baseKeyLoose] || null;
-
-                  const fallbackGenreLabel = getFallbackGenreLabel(item?.anime);
-                  const effectiveGenres = Array.isArray(catalogGenres) && catalogGenres.length
-                    ? catalogGenres
-                    : [fallbackGenreLabel];
-
-                  const unsortedEffective = Array.isArray(catalogProviders) && catalogProviders.length
-                    ? catalogProviders
-                    : Array.isArray(availableKeys) && availableKeys.length
-                      ? availableKeys
-                      : fallbackProviderKeys;
-
-                  const order = libraryListMode === "songs" ? providerOrderSongs : providerOrderWorks;
-                  const effectiveProviderKeys = order.filter((k) => unsortedEffective.includes(k));
-
-                  const visibleProviderKeys = legalProviderFilter === "all"
-                    ? effectiveProviderKeys.slice(0, 4)
-                    : effectiveProviderKeys.includes(legalProviderFilter)
-                      ? [legalProviderFilter]
-                      : [];
-
-                  const baseQuery = libraryListMode === "songs"
-                    ? `${displayTitle} ฟัง ไทย`
-                    : `${displayTitle} ดู ไทย`;
-
-                  return (
-                    <div
-                      key={item.key}
-                      className="rounded-3xl border border-slate-200 bg-white/70 p-4 sm:p-5 dark:border-slate-700 dark:bg-slate-950/45"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="shrink-0">
-                          <SmartImage
-                            src={getAnimeImageUrl(item.anime)}
-                            fallbackSrc={getYouTubeThumbUrl(item.anime?.youtubeVideoId)}
-                            alt={displayTitle}
-                            className="h-[134px] w-[134px] sm:h-[164px] sm:w-[164px] rounded-2xl object-cover border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900"
-                          />
-                        </div>
-
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="min-w-0">
-                              <div className="flex flex-wrap items-center gap-2">
-                                <div className="font-extrabold text-slate-900 dark:text-slate-100 text-lg leading-snug break-words">{displayTitle}</div>
-                                <Badge className="rounded-full" title={effectiveGenres.join(", ")}>
-                                  {effectiveGenres[0]}
-                                </Badge>
-                                {item?.anime?.id != null ? (
-                                  <button
-                                    type="button"
-                                    onClick={() => toggleFavoriteId(item.anime.id)}
-                                    title={favoriteSet.has(Number(item.anime.id)) ? "ลบออกจาก Favorites" : "เพิ่มเข้า Favorites"}
-                                    className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
-                                  >
-                                    {favoriteSet.has(Number(item.anime.id)) ? "⭐" : "☆"}
-                                  </button>
-                                ) : null}
-                              </div>
-                              {!isSongLike && altTitle ? (
-                                <div className="mt-1 text-xs text-slate-600 dark:text-slate-300">โรมันจิ/ชื่ออื่น: {altTitle}</div>
-                              ) : null}
-                              {libraryListMode !== "songs" ? (
-                                <div className="mt-1 text-xs text-slate-600 dark:text-slate-300">แนว: {effectiveGenres.join(", ")}</div>
-                              ) : null}
-                              {libraryListMode === "works" && item.count > 1 && (
-                                <div className="text-xs text-slate-600 dark:text-slate-300">พบ {item.count} เวอร์ชันในลิสต์</div>
-                              )}
-                              {catalogNote ? (
-                                <div className="text-xs text-slate-600 dark:text-slate-300">{catalogNote}</div>
-                              ) : null}
-                            </div>
-                            <div className="hidden sm:flex items-center gap-1">
-                              {visibleProviderKeys.map((k) => (
-                                <ProviderTextBadge key={k} providerKey={k} />
-                              ))}
-                            </div>
-                          </div>
-
-                          {!isSongLike && (
-                            <div className="mt-3">
-                              <SynopsisInline
-                                title={displayTitle}
-                                synopsisCache={synopsisCache}
-                                synopsisLoading={synopsisLoading}
-                                ensureSynopsis={ensureSynopsis}
-                              />
-                            </div>
-                          )}
-
-                          <div className="mt-3 flex flex-wrap items-center gap-2">
-                            {effectiveProviderKeys.map((providerKey) => {
-                              const provider = LEGAL_PROVIDER_PRESETS[providerKey];
-                              const term = libraryListMode === "songs" ? item.title : displayTitle;
-                              return (
-                                <ProviderIconButton
-                                  key={providerKey}
-                                  providerKey={providerKey}
-                                  term={term}
-                                  title={provider?.label}
-                                  iconSrc={providerIcons?.[providerKey] || ""}
-                                />
-                              );
-                            })}
-
-                            <button
-                              type="button"
-                              onClick={() => window.open(buildLegalSearchUrl(`${baseQuery} ${libraryListMode === "songs" ? "Spotify Apple Music YouTube Music" : "Netflix Prime Disney+ Crunchyroll iQIYI Bilibili TrueID"}`), "_blank", "noopener,noreferrer")}
-                              title="ค้นหาเพิ่มเติม"
-                              className="inline-flex items-center justify-center h-[50px] px-3 rounded-xl border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
-                            >
-                              เพิ่มเติม
-                            </button>
-                          </div>
-
-                          <div className="mt-2 text-xs text-slate-600 dark:text-slate-300">
-                            หมายเหตุ: ผลลัพธ์ขึ้นกับสิทธิ์ในไทยและอาจเปลี่ยนแปลงได้
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
+                    <Palette className="h-4 w-4" />
+                    รูปแบบ
+                  </div>
+                  <select
+                    value={libraryListMode}
+                    onChange={(e) => setLibraryListMode(e.target.value)}
+                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/70 px-3 text-sm text-slate-900 outline-none dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100"
+                  >
+                    <option value="works">รายชื่อเรื่อง (ตัดภาค)</option>
+                    <option value="songs">เพลง OP/ED</option>
+                    <option value="all">ทั้งหมด (รวมภาค/ซีซั่น + OP/ED)</option>
+                  </select>
+                </div>
               </div>
-            </CardContent>
-          </Card>
 
-          {page === "library" && libraryTab === "legal" ? (
-            <div className="fixed bottom-20 right-4 z-[139]">
-              <div className="relative">
-                {legalBotOpen ? (
-                  <div className="absolute bottom-0 right-full mr-3 w-[340px] max-w-[calc(100vw-7.5rem)]">
-                <Card className="rounded-3xl border border-white/70 bg-white/90 shadow-[0_16px_28px_rgba(15,23,42,0.16)] dark:border-slate-700/40 dark:bg-slate-950/70 dark:shadow-[0_16px_28px_rgba(0,0,0,0.45)]">
-                  <CardHeader className="py-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <CardTitle className="text-base">แชทบอทช่วยค้นหาช่องทางรับชม/ฟัง</CardTitle>
-                        <CardDescription className="text-xs">
-                          ถามได้เลย เช่น “Jujutsu Kaisen ดูที่ไหน” หรือ “เพลง OP Demon Slayer ฟังที่ไหน”
-                        </CardDescription>
-                      </div>
-                      <Button type="button" variant="outline" className="rounded-2xl" onClick={() => setLegalBotOpen(false)}>
-                        ปิด
-                      </Button>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div
-                      ref={legalBotScrollRef}
-                      className="h-56 overflow-auto rounded-2xl border border-slate-200 bg-white/60 p-3 space-y-2 dark:border-slate-700 dark:bg-slate-950/35"
-                    >
-                      {(legalBotMessages || []).map((m) => (
-                        <div key={m.id} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
-                          <div
-                            className={
-                              m.role === "user"
-                                ? "max-w-[85%] rounded-2xl bg-slate-900 text-white px-3 py-2 text-sm dark:bg-slate-200 dark:text-slate-900"
-                                : "max-w-[85%] rounded-2xl bg-slate-100 text-slate-900 px-3 py-2 text-sm dark:bg-slate-900/60 dark:text-slate-100"
-                            }
-                          >
-                            {m.text}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <form onSubmit={handleLegalBotSend} className="flex gap-2">
-                      <Input
-                        value={legalBotInput}
-                        onChange={(e) => setLegalBotInput(e.target.value)}
-                        placeholder="พิมพ์คำถาม..."
-                        className="rounded-2xl"
-                      />
-                      <Button type="submit" className="rounded-2xl">ส่ง</Button>
-                    </form>
-                  </CardContent>
-                </Card>
-                  </div>
-                ) : null}
-
-                <Button
-                  type="button"
-                  className="rounded-2xl font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg hover:shadow-xl relative"
-                  onClick={() => setLegalBotOpen((v) => !v)}
-                  title="แชทบอทช่องทางรับชม/ฟัง"
-                >
-                  🤖 แชทบอท
-                </Button>
+              <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600 dark:text-slate-300">
+                <div className="font-semibold">{legalFilteredItems.length.toLocaleString()} รายการ</div>
+                <div>หมายเหตุ: ผลลัพธ์ขึ้นกับสิทธิ์ในไทยและอาจเปลี่ยนแปลงได้</div>
               </div>
             </div>
           ) : null}
-        </>
+        </CardHeader>
+      </Card>
+
+      {libraryTab === "legal" ? (
+        legalSelectedItem ? (
+          <>
+            <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
+              <div className="relative">
+                <SmartImage
+                  src={getAnimeImageUrl(legalSelectedItem.anime)}
+                  fallbackSrc={getYouTubeThumbUrl(legalSelectedItem.anime?.youtubeVideoId)}
+                  alt={legalSelectedDisplayTitle || ""}
+                  className="absolute inset-0 h-full w-full object-cover scale-110 blur-2xl opacity-40"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/55 to-transparent" />
+                <div className="relative p-5 sm:p-6">
+                  <div className="flex flex-col md:flex-row gap-5">
+                    <div className="shrink-0">
+                      <SmartImage
+                        src={getAnimeImageUrl(legalSelectedItem.anime)}
+                        fallbackSrc={getYouTubeThumbUrl(legalSelectedItem.anime?.youtubeVideoId)}
+                        alt={legalSelectedDisplayTitle || ""}
+                        className="h-[188px] w-[140px] sm:h-[220px] sm:w-[164px] rounded-2xl object-cover border border-white/30 bg-slate-100/20 shadow-xl"
+                      />
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      {(() => {
+                        const providerOrderWorks = [
+                          "netflix",
+                          "prime",
+                          "disney",
+                          "crunchyroll",
+                          "bilibili",
+                          "iqiyi",
+                          "trueid",
+                          "viu",
+                          "muse",
+                          "anione",
+                          "flixer",
+                          "gundaminfo",
+                          "pops",
+                          "linetv",
+                          "youtube",
+                          "pokemonasia",
+                          "x",
+                          "appletv"
+                        ];
+                        const providerOrderSongs = ["spotify", "applemusic", "ytmusic", "youtube"];
+                        const fallbackProviderKeys = legalSelectedIsSongLike
+                          ? providerOrderSongs
+                          : ["netflix", "prime", "disney", "crunchyroll", "iqiyi", "bilibili", "trueid"];
+
+                        const displayTitle = legalSelectedDisplayTitle;
+                        const rawTitle = String(legalSelectedItem.title || "");
+                        const year = Number.isFinite(legalSelectedItem?.anime?.year) ? Math.floor(legalSelectedItem.anime.year) : null;
+
+                        const catalogByTitle = legalCatalogTH?.byTitle || null;
+                        const catalogByBase = legalCatalogTH?.byBase || null;
+                        const catalogByTitleLoose = legalCatalogTH?.byTitleLoose || null;
+                        const catalogByBaseLoose = legalCatalogTH?.byBaseLoose || null;
+
+                        const titleKey = normalizeAvailabilityKey(legalSelectedIsSongLike ? rawTitle : displayTitle);
+                        const titleKeyLoose = normalizeAvailabilityKeyLoose(legalSelectedIsSongLike ? rawTitle : displayTitle);
+                        const baseKey = availabilityBaseKeyFromTitle(displayTitle);
+                        const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
+
+                        const catalogEntryTitle = catalogByTitle?.[titleKey] || catalogByTitleLoose?.[titleKeyLoose] || null;
+                        const catalogEntryBase = catalogByBase?.[baseKey] || catalogByBaseLoose?.[baseKeyLoose] || null;
+                        const catalogGenres = catalogEntryTitle?.genres || catalogEntryBase?.genres || null;
+                        const catalogNote = catalogEntryTitle?.note || catalogEntryBase?.note || "";
+
+                        const fallbackGenreLabel = getFallbackGenreLabel(legalSelectedItem?.anime);
+                        const effectiveGenres = Array.isArray(catalogGenres) && catalogGenres.length
+                          ? catalogGenres
+                          : fallbackGenreLabel
+                            ? [fallbackGenreLabel]
+                            : [];
+
+                        const providerKeysRaw = getProvidersForQueryTitle({ rawTitle: rawTitle || displayTitle, isSongLike: legalSelectedIsSongLike });
+                        const order = legalSelectedIsSongLike ? providerOrderSongs : providerOrderWorks;
+                        const ordered = order.filter((k) => providerKeysRaw.includes(k));
+                        const effectiveProviderKeys = ordered.length ? ordered : (providerKeysRaw.length ? providerKeysRaw : fallbackProviderKeys);
+
+                        const manualEntry = findManualSynopsisEntry(manualSynopsisDb, displayTitle);
+                        const altTitle = pickAltTitleLabel(manualEntry, displayTitle);
+                        const isSong = legalSelectedIsSongLike;
+                        const googleUrl = buildLegalSearchUrl(displayTitle);
+                        const anilistUrl = `https://anilist.co/search/anime?search=${encodeURIComponent(displayTitle)}`;
+                        const malUrl = `https://myanimelist.net/anime.php?q=${encodeURIComponent(displayTitle)}&cat=anime`;
+
+                        return (
+                          <>
+                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                              <div className="min-w-0">
+                                <div className="text-2xl sm:text-3xl font-extrabold text-white leading-tight break-words">
+                                  {displayTitle}
+                                </div>
+                                <div className="mt-2 flex flex-wrap items-center gap-2 text-xs font-semibold text-white/80">
+                                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
+                                    {isSong ? "เพลง OP/ED" : "เรื่อง"}
+                                  </span>
+                                  {year ? (
+                                    <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">ปี {year}</span>
+                                  ) : null}
+                                  {altTitle ? (
+                                    <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">ชื่ออื่น: {altTitle}</span>
+                                  ) : null}
+                                </div>
+                              </div>
+
+                              <div className="flex flex-wrap gap-2">
+                                <Button
+                                  type="button"
+                                  variant="outline"
+                                  className="rounded-2xl border-white/30 bg-white/10 text-white hover:bg-white/15"
+                                  onClick={() => window.open(googleUrl, "_blank", "noopener,noreferrer")}
+                                >
+                                  Google
+                                </Button>
+                                {!isSong ? (
+                                  <>
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      className="rounded-2xl border-white/30 bg-white/10 text-white hover:bg-white/15"
+                                      onClick={() => window.open(anilistUrl, "_blank", "noopener,noreferrer")}
+                                    >
+                                      AniList
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      className="rounded-2xl border-white/30 bg-white/10 text-white hover:bg-white/15"
+                                      onClick={() => window.open(malUrl, "_blank", "noopener,noreferrer")}
+                                    >
+                                      MyAnimeList
+                                    </Button>
+                                  </>
+                                ) : null}
+                              </div>
+                            </div>
+
+                            {effectiveGenres.length && !isSong ? (
+                              <div className="mt-4 flex flex-wrap gap-2">
+                                {effectiveGenres.slice(0, 8).map((g) => (
+                                  <Badge
+                                    key={g}
+                                    variant="outline"
+                                    className="rounded-full border-white/25 bg-white/10 text-white"
+                                  >
+                                    {g}
+                                  </Badge>
+                                ))}
+                              </div>
+                            ) : null}
+
+                            {catalogNote ? (
+                              <div className="mt-4 text-sm font-semibold text-white/80 whitespace-pre-line">{catalogNote}</div>
+                            ) : null}
+
+                            <div className="mt-5">
+                              <div className="text-xs font-semibold text-white/80 mb-2">ช่องทางรับชม/ฟัง (กดไอคอนเพื่อค้นหา)</div>
+                              <div className="flex flex-wrap items-center gap-2">
+                                {effectiveProviderKeys.slice(0, 18).map((providerKey) => {
+                                  const provider = LEGAL_PROVIDER_PRESETS[providerKey];
+                                  const term = isSong ? rawTitle : displayTitle;
+                                  return (
+                                    <ProviderIconButton
+                                      key={providerKey}
+                                      providerKey={providerKey}
+                                      term={term}
+                                      title={provider?.label}
+                                      iconSrc={providerIcons?.[providerKey] || ""}
+                                      size="md"
+                                    />
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </>
+                        );
+                      })()}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {!legalSelectedIsSongLike ? (
+              <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
+                <CardContent className="space-y-3">
+                  <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100">📖 เรื่องย่อ</div>
+                  <SynopsisInline
+                    title={legalSelectedDisplayTitle}
+                    synopsisCache={synopsisCache}
+                    synopsisLoading={synopsisLoading}
+                    ensureSynopsis={ensureSynopsis}
+                  />
+                  {manualSynopsisDb?.generatedAt ? (
+                    <div className="text-xs text-slate-600 dark:text-slate-300">อัปเดตฐานข้อมูลเรื่องย่อ: {String(manualSynopsisDb.generatedAt)}</div>
+                  ) : null}
+                </CardContent>
+              </Card>
+            ) : null}
+          </>
+        ) : (
+          <>
+            <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
+              <CardContent className="space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100"> รายการ</div>
+                  <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">
+                    แสดง {legalFilteredItems.length.toLocaleString()} จาก {(libraryListMode === "works"
+                      ? libraryTitleLists.works.length
+                      : libraryListMode === "songs"
+                        ? libraryTitleLists.songs.length
+                        : libraryTitleLists.all.length
+                    ).toLocaleString()}
+                  </div>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  {legalFilteredItems.map((item) => {
+                    const providerOrderWorks = [
+                      "netflix",
+                      "prime",
+                      "disney",
+                      "crunchyroll",
+                      "bilibili",
+                      "iqiyi",
+                      "trueid",
+                      "viu",
+                      "muse",
+                      "anione",
+                      "flixer",
+                      "gundaminfo",
+                      "pops",
+                      "linetv",
+                      "youtube",
+                      "pokemonasia",
+                      "x",
+                      "appletv"
+                    ];
+                    const providerOrderSongs = ["spotify", "applemusic", "ytmusic", "youtube"];
+
+                    const fallbackProviderKeys = libraryListMode === "songs"
+                      ? providerOrderSongs
+                      : ["netflix", "prime", "disney", "crunchyroll", "iqiyi", "bilibili", "trueid"];
+
+                    const availabilityByTitle = legalAvailability?.byTitle || null;
+                    const availabilityByBase = legalAvailability?.byBase || null;
+                    const availabilityByTitleLoose = legalAvailability?.byTitleLoose || null;
+                    const availabilityByBaseLoose = legalAvailability?.byBaseLoose || null;
+
+                    const catalogByTitle = legalCatalogTH?.byTitle || null;
+                    const catalogByBase = legalCatalogTH?.byBase || null;
+                    const catalogByTitleLoose = legalCatalogTH?.byTitleLoose || null;
+                    const catalogByBaseLoose = legalCatalogTH?.byBaseLoose || null;
+
+                    const isSongLike = libraryListMode === "songs" || (libraryListMode !== "works" && isSongEntryTitle(item.title));
+                    const displayTitle = libraryListMode === "songs" ? item.title : stripOpEdSuffix(item.title);
+
+                    // In works mode, the representative title can still contain (OP/EDn).
+                    // Use the display title (suffix-stripped) for base/title lookups.
+                    const titleKey = normalizeAvailabilityKey(isSongLike ? item.title : displayTitle);
+                    const titleKeyLoose = normalizeAvailabilityKeyLoose(isSongLike ? item.title : displayTitle);
+                    const baseKey = availabilityBaseKeyFromTitle(displayTitle);
+                    const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
+
+                    const catalogEntryTitle = catalogByTitle?.[titleKey] || catalogByTitleLoose?.[titleKeyLoose] || null;
+                    const catalogEntryBase = catalogByBase?.[baseKey] || catalogByBaseLoose?.[baseKeyLoose] || null;
+                    const catalogProviders = catalogEntryTitle?.providers || catalogEntryBase?.providers || null;
+                    const catalogGenres = catalogEntryTitle?.genres || catalogEntryBase?.genres || null;
+                    const catalogNote = catalogEntryTitle?.note || catalogEntryBase?.note || "";
+                    const availableKeys = isSongLike
+                      ? availabilityByTitle?.[titleKey]?.providers || availabilityByTitleLoose?.[titleKeyLoose]?.providers || null
+                      : availabilityByBase?.[baseKey] || availabilityByBaseLoose?.[baseKeyLoose] || null;
+
+                    const fallbackGenreLabel = getFallbackGenreLabel(item?.anime);
+                    const effectiveGenres = Array.isArray(catalogGenres) && catalogGenres.length
+                      ? catalogGenres
+                      : [fallbackGenreLabel];
+
+                    const unsortedEffective = Array.isArray(catalogProviders) && catalogProviders.length
+                      ? catalogProviders
+                      : Array.isArray(availableKeys) && availableKeys.length
+                        ? availableKeys
+                        : fallbackProviderKeys;
+
+                    const order = libraryListMode === "songs" ? providerOrderSongs : providerOrderWorks;
+                    const effectiveProviderKeys = order.filter((k) => unsortedEffective.includes(k));
+
+                    const visibleProviderKeys = legalProviderFilter === "all"
+                      ? effectiveProviderKeys.slice(0, 4)
+                      : effectiveProviderKeys.includes(legalProviderFilter)
+                        ? [legalProviderFilter]
+                        : [];
+
+                    return (
+                      <div
+                        key={item.key}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => openLegalDetail(item.key)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            openLegalDetail(item.key);
+                          }
+                        }}
+                        className="rounded-2xl border border-slate-200 bg-white/70 overflow-hidden cursor-pointer transition-colors hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 dark:border-slate-700 dark:bg-slate-950/45 dark:hover:border-slate-600"
+                        title="คลิกเพื่อดูรายละเอียด"
+                      >
+                        <div className="flex">
+                          <div className="shrink-0">
+                            <SmartImage
+                              src={getAnimeImageUrl(item.anime)}
+                              fallbackSrc={getYouTubeThumbUrl(item.anime?.youtubeVideoId)}
+                              alt={displayTitle}
+                              className="h-[138px] w-[104px] sm:h-[150px] sm:w-[112px] object-cover border-r border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900"
+                            />
+                          </div>
+
+                          <div className="min-w-0 flex-1 p-3">
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="min-w-0">
+                                <div className="font-extrabold text-slate-900 dark:text-slate-100 text-sm sm:text-base leading-snug break-words">
+                                  {displayTitle}
+                                </div>
+                                {libraryListMode !== "songs" ? (
+                                  <div className="mt-2 flex flex-wrap gap-1">
+                                    {effectiveGenres.slice(0, 3).map((g) => (
+                                      <Badge
+                                        key={g}
+                                        variant="outline"
+                                        className="rounded-full border-slate-200 bg-white/60 text-slate-800 dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-100"
+                                      >
+                                        {g}
+                                      </Badge>
+                                    ))}
+                                  </div>
+                                ) : null}
+
+                                {catalogNote ? (
+                                  <div className="mt-2 text-xs text-slate-600 dark:text-slate-300">{catalogNote}</div>
+                                ) : null}
+                              </div>
+
+                              <div className="hidden sm:flex items-center gap-1">
+                                {visibleProviderKeys.map((k) => (
+                                  <ProviderTextBadge key={k} providerKey={k} />
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="mt-3 flex flex-wrap items-center gap-2">
+                              {effectiveProviderKeys.slice(0, 8).map((providerKey) => {
+                                const provider = LEGAL_PROVIDER_PRESETS[providerKey];
+                                const term = libraryListMode === "songs" ? item.title : displayTitle;
+                                return (
+                                  <ProviderIconButton
+                                    key={providerKey}
+                                    providerKey={providerKey}
+                                    term={term}
+                                    title={provider?.label}
+                                    iconSrc={providerIcons?.[providerKey] || ""}
+                                    size="sm"
+                                  />
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="text-xs text-slate-600 dark:text-slate-300">
+                  กดไอคอนเพื่อเปิดค้นหาในแพลตฟอร์มนั้น ๆ • คลิกการ์ดเพื่อดูรายละเอียด
+                </div>
+              </CardContent>
+            </Card>
+
+            {page === "library" && libraryTab === "legal" ? (
+              <div className="fixed bottom-20 right-4 z-[139]">
+                <div className="relative">
+                  {legalBotOpen ? (
+                    <div className="absolute bottom-0 right-full mr-3 w-[340px] max-w-[calc(100vw-7.5rem)]">
+                  <Card className="rounded-3xl border border-white/70 bg-white/90 shadow-[0_16px_28px_rgba(15,23,42,0.16)] dark:border-slate-700/40 dark:bg-slate-950/70 dark:shadow-[0_16px_28px_rgba(0,0,0,0.45)]">
+                    <CardHeader className="py-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <CardTitle className="text-base">แชทบอทช่วยค้นหาช่องทางรับชม/ฟัง</CardTitle>
+                          <CardDescription className="text-xs">
+                            ถามได้เลย เช่น “Jujutsu Kaisen ดูที่ไหน” หรือ “เพลง OP Demon Slayer ฟังที่ไหน”
+                          </CardDescription>
+                        </div>
+                        <Button type="button" variant="outline" className="rounded-2xl" onClick={() => setLegalBotOpen(false)}>
+                          ปิด
+                        </Button>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <div
+                        ref={legalBotScrollRef}
+                        className="h-56 overflow-auto rounded-2xl border border-slate-200 bg-white/60 p-3 space-y-2 dark:border-slate-700 dark:bg-slate-950/35"
+                      >
+                        {(legalBotMessages || []).map((m) => (
+                          <div key={m.id} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
+                            <div
+                              className={
+                                m.role === "user"
+                                  ? "max-w-[85%] rounded-2xl bg-slate-900 text-white px-3 py-2 text-sm dark:bg-slate-200 dark:text-slate-900"
+                                  : "max-w-[85%] rounded-2xl bg-slate-100 text-slate-900 px-3 py-2 text-sm dark:bg-slate-900/60 dark:text-slate-100"
+                              }
+                            >
+                              {m.text}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <form onSubmit={handleLegalBotSend} className="flex gap-2">
+                        <Input
+                          value={legalBotInput}
+                          onChange={(e) => setLegalBotInput(e.target.value)}
+                          placeholder="พิมพ์คำถาม..."
+                          className="rounded-2xl"
+                        />
+                        <Button type="submit" className="rounded-2xl">ส่ง</Button>
+                      </form>
+                    </CardContent>
+                  </Card>
+                    </div>
+                  ) : null}
+
+                  <Button
+                    type="button"
+                    className="rounded-2xl font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg hover:shadow-xl relative"
+                    onClick={() => setLegalBotOpen((v) => !v)}
+                    title="แชทบอทช่องทางรับชม/ฟัง"
+                  >
+                    🤖 แชทบอท
+                  </Button>
+                </div>
+              </div>
+            ) : null}
+          </>
+        )
       ) : (
         <>
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
