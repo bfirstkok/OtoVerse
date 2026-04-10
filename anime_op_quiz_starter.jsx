@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
 // TEMP_MARKER_REMOVE
+import qrPaymentImg from "./QRpayment.jpg";
 import { motion } from "framer-motion";
 import {
   Search,
@@ -12675,9 +12676,22 @@ export default function AnimeOPQuizStarter() {
           );
         case "support":
           return (
-            <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
-              <p>ไว้สำหรับวิธีสนับสนุนโปรเจกต์ เช่น โดเนท/ซัพพอร์ตเซิร์ฟเวอร์/แชร์เว็บ</p>
-              <p>ถ้ามีลิงก์สำหรับสนับสนุน ส่งมาได้เลย เดี๋ยวผมใส่เป็นปุ่มให้</p>
+            <div className="space-y-4">
+              <div className="space-y-2 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+                <p>สนับสนุนโปรเจกต์ให้พัฒนาไปต่อได้ด้วยการสแกน QR ด้านล่าง</p>
+              </div>
+
+              <div className="rounded-2xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/35">
+                <img
+                  src={qrPaymentImg}
+                  alt="QR สำหรับสนับสนุน OtoVerse"
+                  className="mx-auto w-full max-w-[320px] rounded-2xl border border-slate-200 bg-white object-contain dark:border-slate-800"
+                  draggable={false}
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="text-center text-xs font-semibold text-slate-600 dark:text-slate-300">ขอบคุณที่สนับสนุน OtoVerse</div>
             </div>
           );
         case "branding":
