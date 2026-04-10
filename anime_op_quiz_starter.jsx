@@ -12602,9 +12602,9 @@ export default function AnimeOPQuizStarter() {
       },
       {
         key: "branding",
-        title: "Branding",
-        desc: "ทรัพยากรโลโก้/ภาพปก และแนวทางการใช้งาน",
-        icon: Palette
+        title: "วิธีเล่น / FAQ",
+        desc: "วิธีเล่นเกมและคำถามที่พบบ่อย",
+        icon: Info
       }
     ];
 
@@ -12794,9 +12794,47 @@ export default function AnimeOPQuizStarter() {
           );
         case "branding":
           return (
-            <div className="space-y-3 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
-              <p>ทรัพยากรแบรนด์ (โลโก้/ไอคอน/ภาพปก) และแนวทางการใช้งาน</p>
-              <p>ถ้ามีไฟล์โลโก้ในโปรเจกต์หรืออยากให้ทำปุ่มดาวน์โหลด/ลิงก์ไดรฟ์ บอกได้ครับ</p>
+            <div className="space-y-4">
+              <div className="space-y-2 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+                <p>คู่มือสั้นๆ สำหรับเริ่มเล่น OtoVerse และคำถามที่พบบ่อย</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="text-base font-extrabold text-slate-900 dark:text-slate-100">วิธีเล่น</div>
+                <ul className="list-disc pl-5 space-y-1 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+                  <li>เข้าสู่ระบบ แล้วไปที่หน้าหลักเพื่อเลือกโหมดเล่น</li>
+                  <li>เลือกจำนวนข้อ และรูปแบบการตอบ (เช่น ตัวเลือก) แล้วกดเริ่ม</li>
+                  <li>ฟังเพลง OP/ED แล้วพิมพ์คำตอบ หรือเลือกช้อยส์ให้ถูกก่อนหมดเวลา</li>
+                  <li>จบเกมแล้วดูคะแนน/สถิติ และสามารถเพิ่ม “เรื่องโปรด” เพื่อเล่นซ้ำได้</li>
+                </ul>
+              </div>
+
+              <div className="space-y-2">
+                <div className="text-base font-extrabold text-slate-900 dark:text-slate-100">Online Room</div>
+                <ul className="list-disc pl-5 space-y-1 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+                  <li>ไปที่หน้า Online เพื่อสร้างห้องหรือเข้าห้องด้วยโค้ด</li>
+                  <li>โฮสต์ตั้งค่าโหมด/เวลา/จำนวนข้อ แล้วกดเริ่ม (มีนับถอยหลังก่อนเริ่มเล่น)</li>
+                  <li>เล่นพร้อมกันได้หลายคน และดูคะแนนสรุปตอนจบเกม</li>
+                </ul>
+              </div>
+
+              <div className="space-y-2">
+                <div className="text-base font-extrabold text-slate-900 dark:text-slate-100">FAQ / ปัญหาที่พบบ่อย</div>
+                <div className="space-y-2 text-sm leading-7 text-slate-700 dark:text-slate-200/90">
+                  <div>
+                    <div className="font-extrabold text-slate-900 dark:text-slate-100">Q: เปิดแล้วไม่มีเสียง?</div>
+                    <div>A: เช็คว่าไม่ได้ปิดเสียงแท็บ/อุปกรณ์ และลองกดเล่นใหม่อีกครั้ง บางเบราว์เซอร์ต้องมีการกดปุ่มเพื่ออนุญาตเสียง</div>
+                  </div>
+                  <div>
+                    <div className="font-extrabold text-slate-900 dark:text-slate-100">Q: ล็อกอินไม่ได้?</div>
+                    <div>A: ลองปิดโหมดส่วนตัว (Incognito) หรืออนุญาต storage/cookies ในเบราว์เซอร์ แล้วรีเฟรชหน้าเว็บ</div>
+                  </div>
+                  <div>
+                    <div className="font-extrabold text-slate-900 dark:text-slate-100">Q: เข้า Online แล้วไม่เห็นห้อง/หลุดบ่อย?</div>
+                    <div>A: เช็คเน็ต แล้วลองเข้าใหม่ หากยังมีปัญหาไปที่ “Contact Us” เพื่อส่งรายงาน (พร้อมรายละเอียดอุปกรณ์/เบราว์เซอร์)</div>
+                  </div>
+                </div>
+              </div>
             </div>
           );
         default:
