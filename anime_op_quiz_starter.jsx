@@ -14973,10 +14973,10 @@ export default function AnimeOPQuizStarter() {
               {firebaseReady ? (
                 user ? (
                   <>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <div className="flex gap-2 items-center">
                       <Button
                         variant="outline"
-                        className="rounded-2xl border-2 border-slate-200 dark:border-slate-700 font-semibold"
+                        className="rounded-2xl border-2 border-slate-200 dark:border-slate-700 font-semibold flex items-center h-12 px-5 min-w-[120px] justify-center"
                         onClick={() => setProfileOpen(true)}
                         title={user.email || ""}
                       >
@@ -14991,17 +14991,29 @@ export default function AnimeOPQuizStarter() {
                           <span>โปรไฟล์</span>
                         </span>
                       </Button>
-                    </motion.div>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Button
                         variant="destructive"
-                        className="rounded-2xl font-semibold bg-red-600 hover:bg-red-700 text-white border-red-700 ring-2 ring-red-700 !important"
+                        className="rounded-2xl font-semibold flex items-center h-12 px-5 min-w-[120px] justify-center bg-red-600 hover:bg-red-700 text-white border-red-700 ring-2 ring-red-700 !important"
                         style={{ backgroundColor: '#dc2626', color: '#fff', borderColor: '#b91c1c' }}
                         onClick={handleLogout}
                       >
                         <span role="img" aria-label="logout" className="mr-2">🚪</span>ออกจากระบบ
                       </Button>
-                    </motion.div>
+                      <Button
+                        variant={page === "about" ? "default" : "outline"}
+                        className={`rounded-2xl font-semibold flex items-center h-12 px-5 min-w-[120px] justify-center ${
+                          page === "about"
+                            ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg hover:shadow-xl"
+                            : "border-2 border-slate-200 dark:border-slate-700"
+                        }`}
+                        onClick={() => confirmLeaveGame(() => setPage("about"))}
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          <Info className="w-5 h-5" />
+                          <span>เกี่ยวกับเรา</span>
+                        </span>
+                      </Button>
+                    </div>
                   </>
                 ) : (
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
