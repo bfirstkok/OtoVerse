@@ -14995,10 +14995,11 @@ export default function AnimeOPQuizStarter() {
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Button
                         variant="destructive"
-                        className="rounded-2xl font-semibold bg-red-600 hover:bg-red-700 text-white border-0 shadow-lg hover:shadow-xl"
+                        className="rounded-2xl font-semibold bg-red-600 hover:bg-red-700 text-white border-red-700 ring-2 ring-red-700 !important"
+                        style={{ backgroundColor: '#dc2626', color: '#fff', borderColor: '#b91c1c' }}
                         onClick={handleLogout}
                       >
-                        ออกจากระบบ
+                        <span role="img" aria-label="logout" className="mr-2">🚪</span>ออกจากระบบ
                       </Button>
                     </motion.div>
                   </>
