@@ -14993,11 +14993,14 @@ export default function AnimeOPQuizStarter() {
                       </Button>
                       <Button
                         variant="destructive"
-                        className="rounded-2xl font-semibold flex items-center h-12 px-5 min-w-[120px] justify-center bg-red-600 hover:bg-red-700 text-white border-red-700 ring-2 ring-red-700 !important"
-                        style={{ backgroundColor: '#dc2626', color: '#fff', borderColor: '#b91c1c' }}
+                        className="rounded-2xl font-semibold flex items-center h-12 px-5 min-w-[120px] justify-center bg-red-600 hover:bg-red-700 text-white border-red-700 ring-2 ring-red-700"
+                        style={{ backgroundColor: '#dc2626', color: '#fff', borderColor: '#b91c1c', boxSizing: 'border-box' }}
                         onClick={handleLogout}
                       >
-                        <span role="img" aria-label="logout" className="mr-2">🚪</span>ออกจากระบบ
+                        <span className="inline-flex items-center gap-2 justify-center w-full">
+                          <span role="img" aria-label="logout">🚪</span>
+                          <span>ออกจากระบบ</span>
+                        </span>
                       </Button>
                       <Button
                         variant={page === "about" ? "default" : "outline"}
