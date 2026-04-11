@@ -15042,21 +15042,6 @@ export default function AnimeOPQuizStarter() {
                 </motion.div>
               )}
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  variant={page === "about" ? "default" : "outline"}
-                  className={`rounded-2xl font-semibold ${
-                    page === "about"
-                      ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg hover:shadow-xl"
-                      : "border-2 border-slate-200 dark:border-slate-700"
-                  }`}
-                  onClick={() => confirmLeaveGame(() => setPage("about"))}
-                  title="เกี่ยวกับเรา"
-                >
-                  <Info className="w-4 h-4 mr-2" />
-                  เกี่ยวกับเรา
-                </Button>
-              </motion.div>
 
               {/* (removed) GIF background upload UI */}
             </motion.div>
