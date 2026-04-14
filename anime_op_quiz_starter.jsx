@@ -6678,28 +6678,24 @@ export default function AnimeOPQuizStarter() {
 
           await consumePendingLinkForUser(nextUser).catch(() => {});
 
-          // Subscribe profile first, if not found, then ensureProfile
-          subscribeProfile(
-            nextUser.uid,
-            async (nextProfile) => {
-              setProfile(nextProfile);
-              setProfileMissing(!nextProfile);
-              if (!nextProfile) {
-                // Only ensureProfile if profile is missing
-                await ensureProfile(nextUser.uid, {
-                  email: nextUser.email || "",
-                  displayName: nextUser.displayName || "",
-                  photoURL: nextUser.photoURL || undefined,
-                  accountCreatedAt
-                }).catch(() => {});
-              }
-            },
-            (err) => {
-              const msg = String(err?.code || err?.message || "profile_subscribe_failed");
-              setProfileError(msg);
-              console.warn("subscribeProfile failed:", err);
+
+          // ตรวจสอบ profile จาก server ก่อน ถ้าไม่เจอจริงๆ ค่อย ensureProfile (subscribeProfile จะอยู่ใน useEffect [user?.uid] เท่านั้น)
+          import("@/lib/profiles").then(async ({ profileDocRef }) => {
+            const ref = profileDocRef(nextUser.uid);
+            if (ref) {
+              try {
+                const snap = await getDocFromServer(ref);
+                if (!snap.exists()) {
+                  await ensureProfile(nextUser.uid, {
+                    email: nextUser.email || "",
+                    displayName: nextUser.displayName || "",
+                    photoURL: nextUser.photoURL || undefined,
+                    accountCreatedAt
+                  }).catch(() => {});
+                }
+              } catch {}
             }
-          );
+          });
 
           // Personal client-side data should sync across devices.
           await ensureUserPrivate(nextUser.uid).catch(() => {});
