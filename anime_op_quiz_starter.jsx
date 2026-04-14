@@ -6677,12 +6677,29 @@ export default function AnimeOPQuizStarter() {
           })();
 
           await consumePendingLinkForUser(nextUser).catch(() => {});
-          await ensureProfile(nextUser.uid, {
-            email: nextUser.email || "",
-            displayName: nextUser.displayName || "",
-            photoURL: nextUser.photoURL || undefined,
-            accountCreatedAt
-          }).catch(() => {});
+
+          // Subscribe profile first, if not found, then ensureProfile
+          subscribeProfile(
+            nextUser.uid,
+            async (nextProfile) => {
+              setProfile(nextProfile);
+              setProfileMissing(!nextProfile);
+              if (!nextProfile) {
+                // Only ensureProfile if profile is missing
+                await ensureProfile(nextUser.uid, {
+                  email: nextUser.email || "",
+                  displayName: nextUser.displayName || "",
+                  photoURL: nextUser.photoURL || undefined,
+                  accountCreatedAt
+                }).catch(() => {});
+              }
+            },
+            (err) => {
+              const msg = String(err?.code || err?.message || "profile_subscribe_failed");
+              setProfileError(msg);
+              console.warn("subscribeProfile failed:", err);
+            }
+          );
 
           // Personal client-side data should sync across devices.
           await ensureUserPrivate(nextUser.uid).catch(() => {});
