@@ -1,3 +1,17 @@
+// ตรวจสอบว่ามี nickname นี้อยู่ในระบบหรือยัง (ยกเว้น uid ปัจจุบัน)
+export async function checkNicknameExists(nickname, excludeUid = null) {
+  if (!firebaseReady || !firebaseDb) throw new Error("firebase_not_ready");
+  if (!nickname) return false;
+  const profilesCol = collection(firebaseDb, COLLECTION);
+  let q = query(profilesCol, where("nickname", "==", nickname));
+  // ถ้ามี excludeUid ให้ filter ทีหลัง
+  const snap = await getDocFromServer(q);
+  if (!snap.empty) {
+    // ถ้ามี excludeUid ให้เช็กว่าอย่างน้อย 1 อันไม่ใช่ uid ปัจจุบัน
+    return snap.docs.some(doc => doc.id !== excludeUid);
+  }
+  return false;
+}
 import {
   arrayRemove,
   arrayUnion,

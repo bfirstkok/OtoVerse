@@ -64,7 +64,8 @@ import {
   updateProfileNickname,
   updateProfilePhotoURL,
   updateProfilePublicFavorites,
-  updateProfileSettings
+  updateProfileSettings,
+  checkNicknameExists
 } from "@/lib/profiles";
 import { uploadUserAvatar } from "@/lib/avatars";
 import { addComment, createPost, deletePost, subscribeComments, subscribePosts, togglePostLike, updatePost, uploadPostImage } from "@/lib/community";
@@ -6534,6 +6535,8 @@ export default function AnimeOPQuizStarter() {
   const [profileNotice, setProfileNotice] = useState("");
   const [profileSaveBusy, setProfileSaveBusy] = useState(false);
   const [nicknameDraft, setNicknameDraft] = useState("");
+  const [nicknameError, setNicknameError] = useState("");
+  const [checkingNickname, setCheckingNickname] = useState(false);
 
   const [userPrivate, setUserPrivate] = useState(null);
   const [userPrivateError, setUserPrivateError] = useState("");
@@ -7130,11 +7133,42 @@ export default function AnimeOPQuizStarter() {
   useEffect(() => {
     if (!profileOpen) {
       setNicknameDraft("");
+      setNicknameError("");
       return;
     }
     const inferred = String(profile?.nickname || user?.displayName || (user?.email || "").split("@")[0] || "").trim();
     setNicknameDraft(inferred);
+    setNicknameError("");
   }, [profileOpen, profile?.nickname, user?.displayName, user?.email]);
+
+  // ตรวจสอบชื่อซ้ำเมื่อ nicknameDraft เปลี่ยน
+  useEffect(() => {
+    let ignore = false;
+    const check = async () => {
+      const nick = String(nicknameDraft || "").trim();
+      if (!nick) {
+        setNicknameError("");
+        return;
+      }
+      if (nick.length > 14) {
+        setNicknameError("ชื่อเล่นต้องไม่เกิน 14 ตัวอักษร");
+        return;
+      }
+      setCheckingNickname(true);
+      try {
+        const exists = await checkNicknameExists(nick, user?.uid);
+        if (!ignore) {
+          setNicknameError(exists ? "ชื่อเล่นนี้ถูกใช้แล้ว" : "");
+        }
+      } catch {
+        if (!ignore) setNicknameError("เกิดข้อผิดพลาดในการตรวจสอบชื่อซ้ำ");
+      } finally {
+        if (!ignore) setCheckingNickname(false);
+      }
+    };
+    check();
+    return () => { ignore = true; };
+  }, [nicknameDraft, user?.uid]);
 
   useEffect(() => {
     if (!user?.uid) return;
@@ -7457,19 +7491,19 @@ export default function AnimeOPQuizStarter() {
     setProfileNotice("");
     setProfileSaveBusy(true);
     try {
+      // validate nickname ก่อน
+      const nextNick = String(nicknameDraft || "").trim().slice(0, 14);
+      if (!nextNick) throw new Error("กรุณาตั้งชื่อเล่น");
+      if (nextNick.length > 14) throw new Error("ชื่อเล่นต้องไม่เกิน 14 ตัวอักษร");
+      if (nicknameError) throw new Error(nicknameError);
+
       const tasks = [
         updateProfileSettings(user.uid, {
           defaultAnswerMode: answerMode,
           defaultQuestionCount: Number(questionCount) || 5
         })
       ];
-
-      const nextNick = String(nicknameDraft || "")
-        .trim()
-        .slice(0, 14);
-      const prevNick = String(profile?.nickname || "")
-        .trim()
-        .slice(0, 14);
+      const prevNick = String(profile?.nickname || "").trim().slice(0, 14);
       if (nextNick !== prevNick) tasks.push(updateProfileNickname(user.uid, nextNick));
 
       await Promise.all(tasks);
@@ -15303,12 +15337,20 @@ export default function AnimeOPQuizStarter() {
                         <div className="text-xs font-semibold text-slate-700 dark:text-slate-200">ชื่อเล่น (แสดงในอันดับ/โปรไฟล์สาธารณะ)</div>
                         <Input
                           value={nicknameDraft}
-                          onChange={(e) => setNicknameDraft(String(e.target.value || "").slice(0, 14))}
+                          onChange={(e) => {
+                            const val = String(e.target.value || "").slice(0, 14);
+                            setNicknameDraft(val);
+                          }}
                           maxLength={14}
                           placeholder="ตั้งชื่อเล่น"
                           className="mt-2 rounded-2xl h-11"
+                          disabled={profileSaveBusy}
                         />
-                        <div className="mt-1 text-[11px] font-semibold text-slate-500 dark:text-slate-300/80">ยาวได้ไม่เกิน 14 ตัวอักษร</div>
+                        <div className="mt-1 text-[11px] font-semibold text-slate-500 dark:text-slate-300/80">
+                          ยาวได้ไม่เกิน 14 ตัวอักษร
+                          {checkingNickname && <span className="ml-2 text-blue-500">(กำลังตรวจสอบชื่อซ้ำ...)</span>}
+                          {nicknameError && <span className="ml-2 text-rose-600 dark:text-rose-400">{nicknameError}</span>}
+                        </div>
                       </div>
                       <div className="pt-2">
                         <input
