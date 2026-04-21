@@ -346,9 +346,10 @@ function getYouTubeId(videoSource) {
   return "";
 }
 
-function buildYouTubeEmbedUrl(videoSource, { start = 0 } = {}) {
+function buildYouTubeEmbedUrl(videoSource, { start = 0, autoplay = 0 } = {}) {
   const videoId = getYouTubeId(videoSource);
   if (!videoId) return "";
+
   const origin = (() => {
     try {
       return typeof window !== "undefined" && window.location?.origin ? String(window.location.origin) : "";
@@ -356,6 +357,7 @@ function buildYouTubeEmbedUrl(videoSource, { start = 0 } = {}) {
       return "";
     }
   })();
+
   const ref = (() => {
     try {
       return typeof window !== "undefined" && window.location?.href ? String(window.location.href) : "";
@@ -366,6 +368,8 @@ function buildYouTubeEmbedUrl(videoSource, { start = 0 } = {}) {
 
   const params = new URLSearchParams({
     start: String(start),
+    autoplay: String(autoplay),
+    mute: "0",
     rel: "0",
     modestbranding: "1",
     iv_load_policy: "3",
@@ -374,7 +378,6 @@ function buildYouTubeEmbedUrl(videoSource, { start = 0 } = {}) {
     ...(ref ? { widget_referrer: ref } : {})
   });
 
-  // Use youtube.com embed for better compatibility with consent/age-restricted playback.
   return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
 }
 
@@ -1142,6 +1145,9 @@ export default function AnimeOPQuizStarter() {
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState(null);
   const [showHint, setShowHint] = useState(false);
+  const [playVideoMasked, setPlayVideoMasked] = useState(false);
+  const [playVideoMaskSeconds, setPlayVideoMaskSeconds] = useState(0);
+  const [playVideoStarted, setPlayVideoStarted] = useState(false);
   const [playStartedAtMs, setPlayStartedAtMs] = useState(null);
   const [playElapsedMs, setPlayElapsedMs] = useState(0);
   const [aboutSection, setAboutSection] = useState(null);
@@ -1260,6 +1266,45 @@ export default function AnimeOPQuizStarter() {
       tick();
     };
   }, [page, playStartedAtMs]);
+
+  useEffect(() => {
+  if (page !== "play") return;
+
+  const currentVideoId = gameList[currentIndex]?.youtubeVideoId;
+  if (!currentVideoId) return;
+
+  if (!playVideoStarted) {
+    setPlayVideoMasked(false);
+    setPlayVideoMaskSeconds(0);
+    return;
+  }
+
+  setPlayVideoMasked(true);
+  setPlayVideoMaskSeconds(10);
+
+  let left = 10;
+  const timer = window.setInterval(() => {
+    left -= 1;
+
+    if (left <= 0) {
+      setPlayVideoMaskSeconds(0);
+      setPlayVideoMasked(false);
+      window.clearInterval(timer);
+      return;
+    }
+
+    setPlayVideoMaskSeconds(left);
+  }, 1000);
+
+  return () => window.clearInterval(timer);
+}, [page, currentIndex, gameList, playVideoStarted]);
+
+useEffect(() => {
+  if (page !== "play") return;
+  setPlayVideoStarted(false);
+  setPlayVideoMasked(false);
+  setPlayVideoMaskSeconds(0);
+}, [page, currentIndex]);
 
   useEffect(() => {
     if (page !== "play") return;
@@ -9139,23 +9184,48 @@ console.log("library works =", works.length);
               <div ref={playFocusRef} className="space-y-5">
               <div className="space-y-2">
                 <motion.div
-                  initial={{ scale: 0.95, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.1, duration: 0.3 }}
-                  className="relative aspect-video overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 to-black shadow-2xl w-[70%] mx-auto"
-                >
-                  <iframe
-                    ref={iframeRef}
-                    key={getYouTubeId(currentAnime.youtubeVideoId) || String(currentAnime.youtubeVideoId || "")}
-                    title={currentAnime.title}
-                    className="w-full h-[calc(100%+72px)] -mt-[72px]"
-                    src={buildYouTubeEmbedUrl(currentAnime.youtubeVideoId, { start: 0 })}
-                    referrerPolicy="origin-when-cross-origin"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-black" />
-                </motion.div>
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.1, duration: 0.3 }}
+  className="relative aspect-video overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 to-black shadow-2xl w-[70%] mx-auto"
+>
+  {playVideoStarted ? (
+    <iframe
+      ref={iframeRef}
+      key={`${getYouTubeId(currentAnime.youtubeVideoId) || String(currentAnime.youtubeVideoId || "")}-${playVideoStarted ? "play" : "idle"}`}
+      title={currentAnime.title}
+      className="w-full h-[calc(100%+72px)] -mt-[72px]"
+      src={buildYouTubeEmbedUrl(currentAnime.youtubeVideoId, { start: 0, autoplay: 1 })}
+      referrerPolicy="origin-when-cross-origin"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    />
+  ) : (
+    <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-950">
+      <button
+        type="button"
+        onClick={() => setPlayVideoStarted(true)}
+        className="rounded-2xl bg-cyan-500 px-6 py-3 text-lg font-bold text-white hover:bg-cyan-400"
+      >
+        ▶ เริ่มเล่น
+      </button>
+    </div>
+  )}
+
+  <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-black" />
+
+  {playVideoStarted && playVideoMasked ? (
+    <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-950/95 backdrop-blur-sm">
+      <div className="text-center px-6">
+        <div className="text-2xl md:text-3xl font-extrabold text-white">ฟังก่อน 👂</div>
+        <div className="mt-2 text-sm md:text-base text-slate-300">ซ่อนภาพไว้ชั่วคราว</div>
+        <div className="mt-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-2xl font-black text-cyan-300 ring-2 ring-cyan-400/40">
+          {playVideoMaskSeconds}
+        </div>
+      </div>
+    </div>
+  ) : null}
+</motion.div>
 
                 <div className="grid grid-cols-3 gap-2">
                   <Button
@@ -9415,10 +9485,11 @@ console.log("library works =", works.length);
                         );
                       })}
                     </div>
-                    <div className="mt-2 text-xs font-semibold text-slate-600 dark:text-slate-300">ระบบจะลดคะแนนของคนที่เลือกลง 1 แล้วให้คนถัดไปตอบต่อ</div>
-                  </div>
-                ) : null}
-
+                    <div className="mt-2 text-xs font-semibold text-slate-600 dark:text-slate-300">
+  ระบบจะลด HP ของคนที่เลือกลง 1 แล้วให้คนถัดไปตอบต่อ
+</div>
+</div>
+) : null}
                 {isGroupMode && feedback?.type === "correct" ? (
                   <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950/40">
                     <div className="text-sm font-extrabold text-slate-900 dark:text-slate-50 mb-2">ใครตอบถูก?</div>
@@ -9451,7 +9522,7 @@ console.log("library works =", works.length);
                         );
                       })}
                     </div>
-                    <div className="mt-2 text-xs font-semibold text-slate-600 dark:text-slate-300">ระบบจะเพิ่มคะแนนของคนที่เลือกขึ้น 1 แล้วไปข้อต่อไป</div>
+                    <div className="mt-2 text-xs font-semibold text-slate-600 dark:text-slate-300">ระบบจะคง HP ไว้ และไปข้อต่อไป</div>
                   </div>
                 ) : null}
 
@@ -9464,12 +9535,17 @@ console.log("library works =", works.length);
                         if (!picked) return;
 
                         setGroupPlayers((prev) =>
-                          (prev || []).map((p) => {
-                            if (String(p?.id || "") !== picked) return p;
-                            const currScore = typeof p?.score === "number" ? p.score : 0;
-                            return { ...p, score: Math.max(0, currScore - 1) };
-                          })
-                        );
+  (prev || []).map((p) => {
+    if (String(p?.id || "") !== picked) return p;
+    const currHp = typeof p?.hp === "number" ? p.hp : 10;
+    const nextHp = Math.max(0, currHp - 1);
+    return {
+      ...p,
+      hp: nextHp,
+      eliminated: nextHp <= 0
+    };
+  })
+);
 
                         const idx = (groupPlayers || []).findIndex((p) => String(p?.id || "") === picked);
                         const nextTurn = getGroupNextTurnIndex(groupPlayers, idx >= 0 ? idx : groupTurnSafe);
@@ -9485,12 +9561,18 @@ console.log("library works =", works.length);
                         if (!picked) return;
 
                         setGroupPlayers((prev) =>
-                          (prev || []).map((p) => {
-                            if (String(p?.id || "") !== picked) return p;
-                            const currScore = typeof p?.score === "number" ? p.score : 0;
-                            return { ...p, score: Math.max(0, currScore + 1), mult: 1 };
-                          })
-                        );
+                         (prev || []).map((p) => {
+                           if (String(p?.id || "") !== picked) return p;
+
+                           const currScore = typeof p?.score === "number" ? p.score : 0;
+
+                           return {
+                                ...p,
+                                score: currScore + 1,
+                                mult: 1
+                              };
+                            })
+                       );
 
                         const idx = (groupPlayers || []).findIndex((p) => String(p?.id || "") === picked);
                         const nextTurn = getGroupNextTurnIndex(groupPlayers, idx >= 0 ? idx : groupTurnSafe);
