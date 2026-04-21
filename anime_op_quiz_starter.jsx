@@ -1155,6 +1155,8 @@ export default function AnimeOPQuizStarter() {
   const [reportBusy, setReportBusy] = useState(false);
   const [reportNotice, setReportNotice] = useState("");
 
+  const [dailyRecommendIndex, setDailyRecommendIndex] = useState(0);
+
   const [videoReportOpen, setVideoReportOpen] = useState(false);
   const [videoReportSubject, setVideoReportSubject] = useState("");
   const [videoReportDetails, setVideoReportDetails] = useState("");
@@ -4218,6 +4220,8 @@ console.log("library works =", works.length);
     return (legalRawItems || []).find((x) => String(x?.key || "") === key) || null;
   }, [legalRawItems, legalSelectedKey, page, libraryTab]);
 
+  
+
   const legalSelectedIsSongLike = useMemo(() => {
     if (!legalSelectedItem) return false;
     if (libraryListMode === "songs") return true;
@@ -4464,8 +4468,88 @@ console.log("library works =", works.length);
   }, [activeGenrePool, answerMode, currentAnime]);
 
   // (removed) handleGifUpload / clearGifBackground
-
+  
   const totalCount = animeWithGenre.length;
+  
+  const getDailyKeyFromDate = (d) => {
+    try {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    } catch {
+      return "";
+    }
+  };
+
+  const hashStringToSeed = (str) => {
+    // Small deterministic string hash (32-bit)
+    let h = 1779033703 ^ str.length;
+    for (let i = 0; i < str.length; i += 1) {
+      h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+      h = (h << 13) | (h >>> 19);
+    }
+    return () => {
+      h = Math.imul(h ^ (h >>> 16), 2246822507);
+      h = Math.imul(h ^ (h >>> 13), 3266489909);
+      h ^= h >>> 16;
+      return h >>> 0;
+    };
+  };
+
+  const mulberry32 = (seed) => {
+    let a = seed >>> 0;
+    return () => {
+      a |= 0;
+      a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  };
+
+  const deterministicShuffle = (arr, seedStr) => {
+    const list = Array.isArray(arr) ? arr.slice() : [];
+    const seedFn = hashStringToSeed(String(seedStr || ""));
+    const rnd = mulberry32(seedFn());
+    for (let i = list.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(rnd() * (i + 1));
+      const tmp = list[i];
+      list[i] = list[j];
+      list[j] = tmp;
+    }
+    return list;
+  };
+
+  const dailyRecommendedAnime = useMemo(() => {
+  const pool = Array.isArray(animeWithGenre) ? animeWithGenre.filter((a) => a?.title) : [];
+  if (!pool.length) return [];
+
+  const dateKey = getDailyKeyFromDate(new Date());
+  const shuffled = deterministicShuffle(pool, `daily-recommend:${dateKey}`);
+  return shuffled.slice(0, 5);
+}, [animeWithGenre]);
+
+const activeDailyRecommendedAnime =
+  dailyRecommendedAnime[dailyRecommendIndex] || dailyRecommendedAnime[0] || null;
+
+useEffect(() => {
+  if (page !== "library") return;
+  if (libraryTab !== "legal") return;
+  if (!dailyRecommendedAnime.length) return;
+
+  setDailyRecommendIndex(0);
+
+  const id = window.setInterval(() => {
+    setDailyRecommendIndex((prev) => (prev + 1) % dailyRecommendedAnime.length);
+  }, 5000);
+
+  return () => window.clearInterval(id);
+}, [page, libraryTab, dailyRecommendedAnime]);
+
+
+
+  
   const selectedGenreLabel = selectedGenre === "all"
     ? "รวมทุกแนว"
     : genreConfig[selectedGenre]?.label || selectedGenre;
@@ -4577,71 +4661,23 @@ console.log("library works =", works.length);
       "กำลังเล่นอยู่ ต้องการออกจากการเล่นจริงๆใช่มั้ย?\nกด OK เพื่อออก หรือ Cancel เพื่ออยู่ต่อ"
     );
     if (ok) next();
-  };
+  }; 
 
   useEffect(() => {
-    if (!isGameInProgress) return;
+  if (!isGameInProgress) return;
 
-    const onBeforeUnload = (e) => {
-      e.preventDefault();
-      // Most browsers ignore custom strings; setting returnValue triggers the confirm dialog.
-      e.returnValue = "";
-      return "";
-    };
 
-    window.addEventListener("beforeunload", onBeforeUnload);
-    return () => window.removeEventListener("beforeunload", onBeforeUnload);
-  }, [isGameInProgress]);
-
-  const getDailyKeyFromDate = (d) => {
-    try {
-      const y = d.getFullYear();
-      const m = String(d.getMonth() + 1).padStart(2, "0");
-      const day = String(d.getDate()).padStart(2, "0");
-      return `${y}-${m}-${day}`;
-    } catch {
-      return "";
-    }
+  const onBeforeUnload = (e) => {
+    e.preventDefault();
+    e.returnValue = "";
+    return "";
   };
 
-  const hashStringToSeed = (str) => {
-    // Small deterministic string hash (32-bit)
-    let h = 1779033703 ^ str.length;
-    for (let i = 0; i < str.length; i += 1) {
-      h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
-      h = (h << 13) | (h >>> 19);
-    }
-    return () => {
-      h = Math.imul(h ^ (h >>> 16), 2246822507);
-      h = Math.imul(h ^ (h >>> 13), 3266489909);
-      h ^= h >>> 16;
-      return h >>> 0;
-    };
-  };
+  window.addEventListener("beforeunload", onBeforeUnload);
+  return () => window.removeEventListener("beforeunload", onBeforeUnload);
+}, [isGameInProgress]);
 
-  const mulberry32 = (seed) => {
-    let a = seed >>> 0;
-    return () => {
-      a |= 0;
-      a = (a + 0x6D2B79F5) | 0;
-      let t = Math.imul(a ^ (a >>> 15), 1 | a);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-  };
-
-  const deterministicShuffle = (arr, seedStr) => {
-    const list = Array.isArray(arr) ? arr.slice() : [];
-    const seedFn = hashStringToSeed(String(seedStr || ""));
-    const rnd = mulberry32(seedFn());
-    for (let i = list.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(rnd() * (i + 1));
-      const tmp = list[i];
-      list[i] = list[j];
-      list[j] = tmp;
-    }
-    return list;
-  };
+  
 
   const base64UrlEncode = (str) => {
     try {
@@ -8765,26 +8801,190 @@ console.log("library works =", works.length);
             </Card>
 
             {!legalSelectedIsSongLike ? (
-              <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
-                <CardContent className="space-y-3">
-                  <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100">📖 เรื่องย่อ</div>
-                  <SynopsisInline
-                    title={legalSelectedDisplayTitle}
-                    synopsisCache={synopsisCache}
-                    synopsisLoading={synopsisLoading}
-                    ensureSynopsis={ensureSynopsis}
-                  />
-                  {manualSynopsisDb?.generatedAt ? (
-                    <div className="text-xs text-slate-600 dark:text-slate-300">อัปเดตฐานข้อมูลเรื่องย่อ: {String(manualSynopsisDb.generatedAt)}</div>
-                  ) : null}
-                </CardContent>
-              </Card>
-            ) : null}
+  <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
+    <CardContent className="space-y-3">
+      <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100">📖 เรื่องย่อ</div>
+      <SynopsisInline
+        title={legalSelectedDisplayTitle}
+        synopsisCache={synopsisCache}
+        synopsisLoading={synopsisLoading}
+        ensureSynopsis={ensureSynopsis}
+      />
+      {manualSynopsisDb?.generatedAt ? (
+        <div className="text-xs text-slate-600 dark:text-slate-300">อัปเดตฐานข้อมูลเรื่องย่อ: {String(manualSynopsisDb.generatedAt)}</div>
+      ) : null}
+    </CardContent>
+  </Card>
+) : null}
+
+{Array.isArray(legalSelectedItem?.anime?.characters) && legalSelectedItem.anime.characters.length > 0 ? (
+  <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
+    <CardContent className="space-y-4">
+      <div className="mt-6">
+  <div className="flex items-center gap-2 mb-4">
+    <span className="text-lg">👥</span>
+    <div className="text-xl font-extrabold text-white">ตัวละครเด่น</div>
+  </div>
+
+  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+    {(legalSelectedItem?.anime?.characters || []).map((character) => (
+      <div className="rounded-3xl border border-slate-700/60 bg-slate-950/40 p-4">
+  <div className="flex gap-4">
+    <img
+      src={character.image}
+      alt={character.name}
+      className="h-24 w-24 rounded-2xl object-cover flex-shrink-0"
+    />
+
+    <div className="min-w-0 flex-1">
+      <div className="flex items-start justify-between gap-2">
+        <div className="text-xl font-extrabold text-white">
+          {character.name}
+        </div>
+        <span className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-300">
+          {character.role}
+        </span>
+      </div>
+
+      <div className="mt-2 text-sm leading-6 text-slate-200/80 line-clamp-4">
+        {character.bio}
+      </div>
+    </div>
+  </div>
+</div>
+    ))}
+  </div>
+</div>
+    </CardContent>
+  </Card>
+) : null}
           </>
         ) : (
           <>
             <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
               <CardContent className="space-y-4">
+                {activeDailyRecommendedAnime ? (
+  <div className="rounded-3xl border border-slate-200 bg-white/70 overflow-hidden dark:border-slate-700 dark:bg-slate-950/45">
+    <div className="p-4 sm:p-5">
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <div>
+          <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100">
+            อนิเมะแนะนำรายวัน
+          </div>
+          <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">
+            วันนี้แนะนำ 5 เรื่อง • กำลังแสดง {dailyRecommendIndex + 1} / {dailyRecommendedAnime.length}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            className="rounded-2xl"
+            onClick={() =>
+              setDailyRecommendIndex((prev) =>
+                prev <= 0 ? dailyRecommendedAnime.length - 1 : prev - 1
+              )
+            }
+          >
+            ←
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="rounded-2xl"
+            onClick={() =>
+              setDailyRecommendIndex((prev) =>
+                prev >= dailyRecommendedAnime.length - 1 ? 0 : prev + 1
+              )
+            }
+          >
+            →
+          </Button>
+        </div>
+      </div>
+
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={() => {
+          const animeTitle = stripOpEdSuffix(activeDailyRecommendedAnime.title || "");
+          const workKey = normalizeAvailabilityKey(animeTitle);
+          openLegalDetail(workKey);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            const animeTitle = stripOpEdSuffix(activeDailyRecommendedAnime.title || "");
+            const workKey = normalizeAvailabilityKey(animeTitle);
+            openLegalDetail(workKey);
+          }
+        }}
+        className="cursor-pointer rounded-3xl border border-slate-200 bg-white/80 p-4 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:border-slate-600"
+      >
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="shrink-0">
+            <SmartImage
+              src={getAnimeImageUrl(activeDailyRecommendedAnime)}
+              fallbackSrc={getYouTubeThumbUrl(activeDailyRecommendedAnime?.youtubeVideoId)}
+              alt={activeDailyRecommendedAnime?.title || ""}
+              className="h-[180px] w-[320px] rounded-2xl object-cover border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900"
+            />
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <div className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
+              {stripOpEdSuffix(activeDailyRecommendedAnime?.title || "")}
+            </div>
+
+            {activeDailyRecommendedAnime?.altTitles?.length ? (
+              <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                {activeDailyRecommendedAnime.altTitles.join(" • ")}
+              </div>
+            ) : null}
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Badge variant="outline" className="rounded-full">
+                {genreConfig[activeDailyRecommendedAnime.genre]?.label || activeDailyRecommendedAnime.genre || "อื่นๆ"}
+              </Badge>
+              {activeDailyRecommendedAnime?.year ? (
+                <Badge variant="outline" className="rounded-full">
+                  ปี {activeDailyRecommendedAnime.year}
+                </Badge>
+              ) : null}
+            </div>
+
+            {activeDailyRecommendedAnime?.note ? (
+              <div className="mt-4 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                OP: {activeDailyRecommendedAnime.note}
+              </div>
+            ) : null}
+
+            <div className="mt-4 text-xs font-semibold text-slate-500 dark:text-slate-400">
+              คลิกเพื่อดูรายละเอียดและช่องทางรับชม/ฟัง
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4 flex items-center justify-center gap-2">
+        {dailyRecommendedAnime.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => setDailyRecommendIndex(idx)}
+            className={`h-2.5 w-2.5 rounded-full transition-all ${
+              idx === dailyRecommendIndex
+                ? "bg-cyan-500 w-6"
+                : "bg-slate-300 dark:bg-slate-600"
+            }`}
+            title={`ดูเรื่องที่ ${idx + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+) : null}
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100"> รายการ</div>
                   <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">
@@ -8797,162 +8997,197 @@ console.log("library works =", works.length);
                   </div>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                  {legalFilteredItems.map((item) => {
-                    const providerOrderWorks = [
-                      "netflix",
-                      "prime",
-                      "disney",
-                      "crunchyroll",
-                      "bilibili",
-                      "iqiyi",
-                      "trueid",
-                      "viu",
-                      "muse",
-                      "anione",
-                      "flixer",
-                      "gundaminfo",
-                      "pops",
-                      "linetv",
-                      "youtube",
-                      "pokemonasia",
-                      "x",
-                      "appletv"
-                    ];
-                    const providerOrderSongs = ["spotify", "applemusic", "ytmusic", "youtube"];
+                <div className="grid gap-4">
+  {legalFilteredItems.map((item) => {
+    const providerOrderWorks = [
+      "netflix",
+      "prime",
+      "disney",
+      "crunchyroll",
+      "bilibili",
+      "iqiyi",
+      "trueid",
+      "viu",
+      "muse",
+      "anione",
+      "flixer",
+      "gundaminfo",
+      "pops",
+      "linetv",
+      "youtube",
+      "pokemonasia",
+      "x",
+      "appletv"
+    ];
 
-                    const fallbackProviderKeys = libraryListMode === "songs"
-                      ? providerOrderSongs
-                      : ["netflix", "prime", "disney", "crunchyroll", "iqiyi", "bilibili", "trueid"];
+    const providerOrderSongs = ["spotify", "applemusic", "ytmusic", "youtube"];
 
-                    const availabilityByTitle = legalAvailability?.byTitle || null;
-                    const availabilityByBase = legalAvailability?.byBase || null;
-                    const availabilityByTitleLoose = legalAvailability?.byTitleLoose || null;
-                    const availabilityByBaseLoose = legalAvailability?.byBaseLoose || null;
+    const fallbackProviderKeys =
+      libraryListMode === "songs"
+        ? providerOrderSongs
+        : ["netflix", "prime", "disney", "crunchyroll", "iqiyi", "bilibili", "trueid"];
 
-                    const catalogByTitle = legalCatalogTH?.byTitle || null;
-                    const catalogByBase = legalCatalogTH?.byBase || null;
-                    const catalogByTitleLoose = legalCatalogTH?.byTitleLoose || null;
-                    const catalogByBaseLoose = legalCatalogTH?.byBaseLoose || null;
+    const availabilityByTitle = legalAvailability?.byTitle || null;
+    const availabilityByBase = legalAvailability?.byBase || null;
+    const availabilityByTitleLoose = legalAvailability?.byTitleLoose || null;
+    const availabilityByBaseLoose = legalAvailability?.byBaseLoose || null;
 
-                    const isSongLike = libraryListMode === "songs" || (libraryListMode !== "works" && isSongEntryTitle(item.title));
-                    const displayTitle = libraryListMode === "songs" ? item.title : stripOpEdSuffix(item.title);
+    const catalogByTitle = legalCatalogTH?.byTitle || null;
+    const catalogByBase = legalCatalogTH?.byBase || null;
+    const catalogByTitleLoose = legalCatalogTH?.byTitleLoose || null;
+    const catalogByBaseLoose = legalCatalogTH?.byBaseLoose || null;
 
-                    // In works mode, the representative title can still contain (OP/EDn).
-                    // Use the display title (suffix-stripped) for base/title lookups.
-                    const titleKey = normalizeAvailabilityKey(isSongLike ? item.title : displayTitle);
-                    const titleKeyLoose = normalizeAvailabilityKeyLoose(isSongLike ? item.title : displayTitle);
-                    const baseKey = availabilityBaseKeyFromTitle(displayTitle);
-                    const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
+    const isSongLike =
+      libraryListMode === "songs" || (libraryListMode !== "works" && isSongEntryTitle(item.title));
 
-                    const catalogEntryTitle = catalogByTitle?.[titleKey] || catalogByTitleLoose?.[titleKeyLoose] || null;
-                    const catalogEntryBase = catalogByBase?.[baseKey] || catalogByBaseLoose?.[baseKeyLoose] || null;
-                    const catalogProviders = catalogEntryTitle?.providers || catalogEntryBase?.providers || null;
-                    const catalogGenres = catalogEntryTitle?.genres || catalogEntryBase?.genres || null;
-                    const catalogNote = catalogEntryTitle?.note || catalogEntryBase?.note || "";
-                    const availableKeys = isSongLike
-                      ? availabilityByTitle?.[titleKey]?.providers || availabilityByTitleLoose?.[titleKeyLoose]?.providers || null
-                      : availabilityByBase?.[baseKey] || availabilityByBaseLoose?.[baseKeyLoose] || null;
+    const displayTitle = libraryListMode === "songs" ? item.title : stripOpEdSuffix(item.title);
 
-                    const fallbackGenreLabel = getFallbackGenreLabel(item?.anime);
-                    const effectiveGenres = Array.isArray(catalogGenres) && catalogGenres.length
-                      ? catalogGenres
-                      : [fallbackGenreLabel];
+    const titleKey = normalizeAvailabilityKey(isSongLike ? item.title : displayTitle);
+    const titleKeyLoose = normalizeAvailabilityKeyLoose(isSongLike ? item.title : displayTitle);
+    const baseKey = availabilityBaseKeyFromTitle(displayTitle);
+    const baseKeyLoose = normalizeAvailabilityKeyLoose(baseKey);
 
-                    const unsortedEffective = Array.isArray(catalogProviders) && catalogProviders.length
-                      ? catalogProviders
-                      : Array.isArray(availableKeys) && availableKeys.length
-                        ? availableKeys
-                        : fallbackProviderKeys;
+    const catalogEntryTitle =
+      catalogByTitle?.[titleKey] || catalogByTitleLoose?.[titleKeyLoose] || null;
+    const catalogEntryBase =
+      catalogByBase?.[baseKey] || catalogByBaseLoose?.[baseKeyLoose] || null;
 
-                    const order = libraryListMode === "songs" ? providerOrderSongs : providerOrderWorks;
-                    const effectiveProviderKeys = order.filter((k) => unsortedEffective.includes(k));
+    const catalogProviders = catalogEntryTitle?.providers || catalogEntryBase?.providers || null;
+    const catalogGenres = catalogEntryTitle?.genres || catalogEntryBase?.genres || null;
+    const catalogNote = catalogEntryTitle?.note || catalogEntryBase?.note || "";
 
-                    const visibleProviderKeys = legalProviderFilter === "all"
-                      ? effectiveProviderKeys.slice(0, 4)
-                      : effectiveProviderKeys.includes(legalProviderFilter)
-                        ? [legalProviderFilter]
-                        : [];
+    const availableKeys = isSongLike
+      ? availabilityByTitle?.[titleKey]?.providers ||
+        availabilityByTitleLoose?.[titleKeyLoose]?.providers ||
+        null
+      : availabilityByBase?.[baseKey] || availabilityByBaseLoose?.[baseKeyLoose] || null;
 
-                    return (
-                      <div
-                        key={item.key}
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => openLegalDetail(item.key)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
-                            openLegalDetail(item.key);
-                          }
-                        }}
-                        className="rounded-2xl border border-slate-200 bg-white/70 overflow-hidden cursor-pointer transition-colors hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 dark:border-slate-700 dark:bg-slate-950/45 dark:hover:border-slate-600"
-                        title="คลิกเพื่อดูรายละเอียด"
-                      >
-                        <div className="flex">
-                          <div className="shrink-0">
-                            <SmartImage
-                              src={getAnimeImageUrl(item.anime)}
-                              fallbackSrc={getYouTubeThumbUrl(item.anime?.youtubeVideoId)}
-                              alt={displayTitle}
-                              className="h-[138px] w-[104px] sm:h-[150px] sm:w-[112px] object-cover border-r border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900"
-                            />
-                          </div>
+    const fallbackGenreLabel = getFallbackGenreLabel(item?.anime);
 
-                          <div className="min-w-0 flex-1 p-3">
-                            <div className="flex items-start justify-between gap-2">
-                              <div className="min-w-0">
-                                <div className="font-extrabold text-slate-900 dark:text-slate-100 text-sm sm:text-base leading-snug break-words">
-                                  {displayTitle}
-                                </div>
-                                {libraryListMode !== "songs" ? (
-                                  <div className="mt-2 flex flex-wrap gap-1">
-                                    {effectiveGenres.slice(0, 3).map((g) => (
-                                      <Badge
-                                        key={g}
-                                        variant="outline"
-                                        className="rounded-full border-slate-200 bg-white/60 text-slate-800 dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-100"
-                                      >
-                                        {g}
-                                      </Badge>
-                                    ))}
-                                  </div>
-                                ) : null}
+    const effectiveGenres =
+      Array.isArray(catalogGenres) && catalogGenres.length ? catalogGenres : [fallbackGenreLabel];
 
-                                {catalogNote ? (
-                                  <div className="mt-2 text-xs text-slate-600 dark:text-slate-300">{catalogNote}</div>
-                                ) : null}
-                              </div>
+    const unsortedEffective =
+      Array.isArray(catalogProviders) && catalogProviders.length
+        ? catalogProviders
+        : Array.isArray(availableKeys) && availableKeys.length
+          ? availableKeys
+          : fallbackProviderKeys;
 
-                              <div className="hidden sm:flex items-center gap-1">
-                                {visibleProviderKeys.map((k) => (
-                                  <ProviderTextBadge key={k} providerKey={k} />
-                                ))}
-                              </div>
-                            </div>
+    const order = libraryListMode === "songs" ? providerOrderSongs : providerOrderWorks;
+    const effectiveProviderKeys = order.filter((k) => unsortedEffective.includes(k));
 
-                            <div className="mt-3 flex flex-wrap items-center gap-2">
-                              {effectiveProviderKeys.slice(0, 8).map((providerKey) => {
-                                const provider = LEGAL_PROVIDER_PRESETS[providerKey];
-                                const term = libraryListMode === "songs" ? item.title : displayTitle;
-                                return (
-                                  <ProviderIconButton
-                                    key={providerKey}
-                                    providerKey={providerKey}
-                                    term={term}
-                                    title={provider?.label}
-                                    iconSrc={providerIcons?.[providerKey] || ""}
-                                    size="sm"
-                                  />
-                                );
-                              })}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+    const visibleProviderKeys =
+      legalProviderFilter === "all"
+        ? effectiveProviderKeys.slice(0, 4)
+        : effectiveProviderKeys.includes(legalProviderFilter)
+          ? [legalProviderFilter]
+          : [];
+
+    return (
+      <div
+        key={item.key}
+        role="button"
+        tabIndex={0}
+        onClick={() => openLegalDetail(item.key)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openLegalDetail(item.key);
+          }
+        }}
+        className="rounded-3xl border border-slate-700/60 bg-slate-950/35 overflow-hidden cursor-pointer transition-all hover:border-cyan-400/50 hover:bg-slate-900/45"
+        title="คลิกเพื่อดูรายละเอียด"
+      >
+        <div className="flex gap-4 p-4">
+          <div className="shrink-0">
+            <SmartImage
+              src={getAnimeImageUrl(item.anime)}
+              fallbackSrc={getYouTubeThumbUrl(item.anime?.youtubeVideoId)}
+              alt={displayTitle}
+              className="h-[150px] w-[220px] rounded-2xl object-cover border border-slate-700/60 bg-slate-900"
+            />
+          </div>
+
+          <div className="min-w-0 flex-1 flex flex-col justify-between">
+            <div>
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <div className="text-2xl font-extrabold text-white leading-tight break-words">
+                    {displayTitle}
+                  </div>
+
+                  {item?.anime?.altTitles?.length ? (
+                    <div className="mt-1 text-sm text-slate-300 break-words">
+                      {item.anime.altTitles[0]}
+                    </div>
+                  ) : null}
                 </div>
+
+                <div className="flex items-center gap-1 shrink-0">
+                  {visibleProviderKeys.map((k) => (
+                    <ProviderTextBadge key={k} providerKey={k} />
+                  ))}
+                </div>
+              </div>
+
+              {libraryListMode !== "songs" ? (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {effectiveGenres.slice(0, 3).map((g) => (
+                    <Badge
+                      key={g}
+                      variant="outline"
+                      className="rounded-full border-slate-600 bg-slate-900/40 text-white"
+                    >
+                      {g}
+                    </Badge>
+                  ))}
+
+                  {Number.isFinite(item?.anime?.year) ? (
+                    <Badge
+                      variant="outline"
+                      className="rounded-full border-slate-600 bg-slate-900/40 text-white"
+                    >
+                      🕒 {item.anime.year}
+                    </Badge>
+                  ) : null}
+                </div>
+              ) : null}
+
+              {item?.anime?.note ? (
+                <div className="mt-4 text-lg font-bold text-white">
+                  OP: {item.anime.note}
+                </div>
+              ) : null}
+
+              <div className="mt-3 text-sm font-semibold text-slate-400">
+                คลิกเพื่อดูรายละเอียดและช่องทางรับชม/ฟัง
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              {effectiveProviderKeys.slice(0, 8).map((providerKey) => {
+                const provider = LEGAL_PROVIDER_PRESETS[providerKey];
+                const term = libraryListMode === "songs" ? item.title : displayTitle;
+
+                return (
+                  <ProviderIconButton
+                    key={providerKey}
+                    providerKey={providerKey}
+                    term={term}
+                    title={provider?.label}
+                    iconSrc={providerIcons?.[providerKey] || ""}
+                    size="sm"
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
 
                 <div className="text-xs text-slate-600 dark:text-slate-300">
                   กดไอคอนเพื่อเปิดค้นหาในแพลตฟอร์มนั้น ๆ • คลิกการ์ดเพื่อดูรายละเอียด
