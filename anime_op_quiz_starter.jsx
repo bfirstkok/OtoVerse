@@ -5097,17 +5097,15 @@ console.log("library works =", works.length);
     if (isNormalPlay) {
       const limit = Math.min(questionCount, pool.length);
       const picked = buildQuestionListFromPool({
-        pool,
-        limit,
-        balanceAcrossGenres: selectedGenre === "all"
-      });
+       pool,
+       limit,
+       balanceAcrossGenres: false
+     });
       startGameFromList(picked, { mode: "normal" });
       return;
     }
 
-    const first = selectedGenre === "all"
-      ? buildQuestionListFromPool({ pool, limit: 1, balanceAcrossGenres: true })[0] || null
-      : (pool[Math.floor(Math.random() * pool.length)] || null);
+    const first = pickRandomUnusedFromPool(pool);
     if (!first) return;
     if (first?.id != null && usedAnimeIdsRef.current instanceof Set) usedAnimeIdsRef.current.add(first.id);
 
@@ -5175,75 +5173,53 @@ console.log("library works =", works.length);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [specialModesOpen]);
 
-  const pickRandomUnusedFromPool = (pool) => {
-    if (!Array.isArray(pool) || !pool.length) return null;
-    const used = usedAnimeIdsRef.current instanceof Set ? usedAnimeIdsRef.current : new Set();
-    if (!(usedAnimeIdsRef.current instanceof Set)) usedAnimeIdsRef.current = used;
-    for (const x of gameList || []) {
-      const id = x?.id;
-      if (id != null) used.add(id);
+ const pickRandomUnusedFromPool = (pool) => {
+  if (!Array.isArray(pool) || !pool.length) return null;
+
+  const used = usedAnimeIdsRef.current instanceof Set ? usedAnimeIdsRef.current : new Set();
+  if (!(usedAnimeIdsRef.current instanceof Set)) usedAnimeIdsRef.current = used;
+
+  for (const x of gameList || []) {
+    const id = x?.id;
+    if (id != null) used.add(id);
+  }
+
+  const seriesWindow = Math.max(0, Number(ruleNoRepeatSeriesWindow) || 0);
+  const lastGenre = String(lastGenreRef.current || "");
+  const recentSeries = Array.isArray(recentSeriesRef.current) ? recentSeriesRef.current : [];
+
+  const isOk = (a, { relaxGenre, relaxSeries } = {}) => {
+    if (!a || a.id == null) return false;
+    if (used.has(a.id)) return false;
+
+    const g = String(a?.genre || "");
+    if (!relaxGenre && ruleAvoidSameGenre && lastGenre && g && g === lastGenre) return false;
+
+    if (!relaxSeries && seriesWindow > 0) {
+      const key = baseSeriesKeyFromTitle(a?.title);
+      if (key && recentSeries.includes(key)) return false;
     }
 
-    const seriesWindow = Math.max(0, Number(ruleNoRepeatSeriesWindow) || 0);
-    const lastGenre = String(lastGenreRef.current || "");
-    const recentSeries = Array.isArray(recentSeriesRef.current) ? recentSeriesRef.current : [];
-
-    const isOk = (a, { relaxGenre, relaxSeries } = {}) => {
-      if (!a || a.id == null) return false;
-      if (used.has(a.id)) return false;
-      const g = String(a?.genre || "");
-      if (!relaxGenre && ruleAvoidSameGenre && lastGenre && g && g === lastGenre) return false;
-      if (!relaxSeries && seriesWindow > 0) {
-        const key = baseSeriesKeyFromTitle(a?.title);
-        if (key && recentSeries.includes(key)) return false;
-      }
-      return true;
-    };
-
-    const remaining = pool.filter((a) => a && a.id != null && !used.has(a.id));
-    if (!remaining.length) return null;
-
-    const pickAny = (list) => (list.length ? list[Math.floor(Math.random() * list.length)] : null);
-
-    if (selectedGenre === "all") {
-      const genreMap = {};
-      for (const a of remaining) {
-        if (!isOk(a, { relaxGenre: true, relaxSeries: false })) continue;
-        const g = String(a?.genre || "");
-        if (!g) continue;
-        if (!genreMap[g]) genreMap[g] = [];
-        genreMap[g].push(a);
-      }
-
-      let genres = Object.keys(genreMap);
-      if (ruleAvoidSameGenre && lastGenre) {
-        const filtered = genres.filter((g) => g !== lastGenre);
-        if (filtered.length) genres = filtered;
-      }
-
-      let next = null;
-      if (genres.length) {
-        const chosen = genres[Math.floor(Math.random() * genres.length)] || "";
-        const bucket = (genreMap[chosen] || []).filter((a) => isOk(a));
-        next = pickAny(bucket);
-      }
-
-      if (!next) {
-        let candidates = remaining.filter((a) => isOk(a));
-        if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxGenre: true, relaxSeries: false }));
-        next = pickAny(candidates);
-      }
-
-      if (next?.id != null) used.add(next.id);
-      return next || null;
-    }
-
-    let candidates = remaining.filter((a) => isOk(a));
-    if (!candidates.length) candidates = remaining.filter((a) => isOk(a, { relaxGenre: true, relaxSeries: false }));
-    const next = pickAny(candidates) || null;
-    if (next?.id != null) used.add(next.id);
-    return next;
+    return true;
   };
+
+  const remaining = pool.filter((a) => a && a.id != null && !used.has(a.id));
+  if (!remaining.length) return null;
+
+  const pickAny = (list) => (list.length ? list[Math.floor(Math.random() * list.length)] : null);
+
+  let candidates = remaining.filter((a) => isOk(a));
+  if (!candidates.length) {
+    candidates = remaining.filter((a) => isOk(a, { relaxGenre: true, relaxSeries: false }));
+  }
+  if (!candidates.length) {
+    candidates = remaining.filter((a) => isOk(a, { relaxGenre: true, relaxSeries: true }));
+  }
+
+  const next = pickAny(candidates) || null;
+  if (next?.id != null) used.add(next.id);
+  return next;
+};
 
   const renderSpecialModesPanel = () => (
     <div
