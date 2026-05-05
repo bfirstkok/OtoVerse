@@ -3718,7 +3718,21 @@ useEffect(() => {
     if (!favoriteSet.size) return [];
     return (animeWithGenre || []).filter((a) => a && a.id != null && favoriteSet.has(Number(a.id)));
   }, [animeWithGenre, favoriteSet]);
+  const toggleFavoriteAnime = (anime) => {
+  const id = Number(anime?.id);
+  if (!Number.isFinite(id)) return;
 
+  setFavoriteIds((prev) => {
+    const list = Array.isArray(prev) ? prev : [];
+    const exists = list.includes(id);
+
+    if (exists) {
+      return list.filter((x) => x !== id);
+    }
+
+    return [id, ...list].slice(0, 500);
+  });
+};
   const seriesBuckets = useMemo(() => {
     const buckets = {};
     for (const a of animeWithGenre || []) {
@@ -8751,6 +8765,22 @@ useEffect(() => {
                                     </Button>
                                   </>
                                 ) : null}
+
+                                {legalSelectedItem?.anime ? (
+                                  <Button
+                                    type="button"
+                                    onClick={() => toggleFavoriteAnime(legalSelectedItem.anime)}
+                                    className={`rounded-2xl ${
+                                      favoriteSet.has(Number(legalSelectedItem.anime.id))
+                                        ? "bg-pink-600 text-white hover:bg-pink-700"
+                                        : "bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950"
+                                    }`}
+                                  >
+                                    {favoriteSet.has(Number(legalSelectedItem.anime.id))
+                                      ? "♥ ลบออกจากเรื่องโปรด"
+                                      : "♡ เพิ่มเป็นเรื่องโปรด"}
+                                  </Button>
+                                ) : null}
                               </div>
                             </div>
 
@@ -9163,6 +9193,26 @@ useEffect(() => {
               <div className="mt-3 text-sm font-semibold text-slate-400">
                 คลิกเพื่อดูรายละเอียดและช่องทางรับชม/ฟัง
               </div>
+
+              {item?.anime ? (
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleFavoriteAnime(item.anime);
+                  }}
+                  className={`rounded-xl ${
+                    favoriteSet.has(Number(item.anime.id))
+                      ? "border-pink-400 bg-pink-500/15 text-pink-600 dark:text-pink-300"
+                      : "border-slate-200 bg-white/70 text-slate-700 dark:border-slate-700 dark:bg-slate-950/40 dark:text-slate-200"
+                  }`}
+                >
+                  {favoriteSet.has(Number(item.anime.id)) ? "♥ เรื่องโปรด" : "♡ เพิ่มเรื่องโปรด"}
+                </Button>
+              ) : null}
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-2">
