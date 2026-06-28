@@ -49,6 +49,9 @@ import {
 } from "firebase/auth";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { firebaseAuth, firebaseAuthPersistenceReady, firebaseDb, firebaseProjectId, firebaseReady } from "@/lib/firebase";
+import { subscribeActiveAnimeSongs } from "@/lib/adminContent";
+import { getAnimeImageUrl, getYouTubeId, getYouTubeThumbUrl } from "@/lib/media";
+import { GENRE_CONFIG as genreConfig, inferAnimeGenre as inferGenre } from "@/lib/animeGenre";
 import {
   bumpPlayCount,
   bumpTotalScore,
@@ -108,39 +111,11 @@ const answerModeConfig = {
   }
 };
 
-const genreConfig = {
-  action: { label: "แอ็กชัน" },
-  fantasy: { label: "แฟนตาซี" },
-  isekai: { label: "ต่างโลก" },
-  scifi: { label: "ไซไฟ" },
-  sports: { label: "กีฬา" },
-  mystery: { label: "สืบสวน/จิตวิทยา" },
-  romance: { label: "โรแมนซ์" },
-  comedy: { label: "คอมเมดี้" },
-  music: { label: "ดนตรี/ไอดอล" },
-  mecha: { label: "หุ่นยนต์" },
-  slice: { label: "ชีวิตประจำวัน" },
-  other: { label: "อื่นๆ" }
-};
-
 function getFallbackGenreLabel(anime) {
   const key = String(anime?.genre || "").trim();
   if (key) return genreConfig[key]?.label || key;
   return genreConfig.other.label;
 }
-
-const genreKeywordRules = [
-  { genre: "sports", keywords: ["haikyuu", "slam dunk", "kuroko", "blue lock", "diamond no ace", "yowamushi", "prince of tennis"] },
-  { genre: "music", keywords: ["k-on", "bocchi", "paripi", "zombieland saga", "your lie in april", "idol", "love live", "macross"] },
-  { genre: "mecha", keywords: ["gundam", "evangelion", "code geass", "darling in the franxx", "gurren lagann", "mecha", "eureka seven"] },
-  { genre: "isekai", keywords: ["re:zero", "konosuba", "slime", "shield hero", "mushoku", "overlord", "tanya", "log horizon", "sao", "sword art", "no game no life"] },
-  { genre: "scifi", keywords: ["steins", "psycho", "ghost in the shell", "cyberpunk", "86", "dr. stone", "vivy", "akudama", "edgerunners", "science"] },
-  { genre: "mystery", keywords: ["death note", "conan", "erased", "neverland", "parasyte", "monster", "summertime", "boku dake", "higurashi"] },
-  { genre: "romance", keywords: ["kaguya", "toradora", "your name", "horimiya", "clannad", "bunny girl", "kimi ni todoke", "fruits basket", "shigatsu"] },
-  { genre: "comedy", keywords: ["gintama", "nichijou", "asobi", "saiki", "grand blue", "osomatsu", "komi", "spy x family"] },
-  { genre: "fantasy", keywords: ["fate", "frieren", "made in abyss", "vinland", "seven deadly sins", "black clover", "fairy tail", "akame", "magi"] },
-  { genre: "slice", keywords: ["barakamon", "non non", "yuru camp", "hyouka", "violet", "anohana", "daily life", "slice"] }
-];
 
 function normalize(text) {
   return text
@@ -156,6 +131,12 @@ function stripOpEdSuffix(text) {
     .replace(/\s*\(\s*(?:op|ed)\s*\d+\s*\)\s*$/i, "")
     .replace(/\s+(?:op|ed)\s*\d+\s*$/i, "")
     .trim();
+}
+
+function getAnimeSongLabel(anime) {
+  if (anime?.songType) return `${anime.songType}${anime.songNumber || ""}`;
+  const match = String(anime?.title || "").match(/\((OP|ED)\s*(\d*)\)\s*$/i);
+  return match ? `${match[1].toUpperCase()}${match[2] || ""}` : "เพลง";
 }
 
 function extractBaseTitle(text) {
@@ -251,15 +232,6 @@ function parseRoomCode(code) {
   }
 }
 
-function inferGenre(anime) {
-  const haystack = normalize([anime.title, ...(anime.altTitles || []), anime.note || ""].join(" "));
-  const matched = genreKeywordRules.find((rule) =>
-    rule.keywords.some((keyword) => haystack.includes(normalize(keyword)))
-  );
-
-  return matched?.genre || "action";
-}
-
 function buildChoices(correctAnime, pool, choiceCount = 6) {
   const targetCount = Math.max(choiceCount - 1, 0);
   const correctKey = extractBaseTitle(correctAnime.title || "");
@@ -283,67 +255,6 @@ function buildChoices(correctAnime, pool, choiceCount = 6) {
   }
 
   return shuffleArray([correctAnime, ...others]);
-}
-
-function getYouTubeId(videoSource) {
-  const raw = String(videoSource || "").trim();
-  if (!raw) return "";
-
-  const pickFromCandidate = (candidate) => {
-    const v = String(candidate || "").trim();
-    if (!v) return "";
-    // Most YouTube video IDs are 11 chars, but we'll accept a safe subset.
-    // Keep only the first token before any separators.
-    const token = v.split(/[?&#/\s]+/)[0] || "";
-    if (/^[a-zA-Z0-9_-]{6,20}$/.test(token)) return token;
-    return "";
-  };
-
-  // If already looks like an ID, return it.
-  const direct = pickFromCandidate(raw);
-  if (direct && !raw.includes(".")) return direct;
-
-  // Regex fallback for non-URL strings.
-  const m = raw.match(
-    /(?:v=|\/embed\/|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{6,20})/i
-  );
-  if (m && m[1]) return pickFromCandidate(m[1]);
-
-  // Try parsing as URL. If missing scheme, prefix https://
-  const toUrl = (s) => {
-    const str = String(s || "").trim();
-    if (!str) return null;
-    if (/^https?:\/\//i.test(str)) return new URL(str);
-    if (/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(str)) return new URL(`https://${str}`);
-    return null;
-  };
-
-  try {
-    const url = toUrl(raw);
-    if (!url) return "";
-
-    const queryId = url.searchParams.get("v");
-    if (queryId) return pickFromCandidate(queryId);
-
-    if (url.hostname.includes("youtu.be")) {
-      return pickFromCandidate(url.pathname.replace(/^\//, ""));
-    }
-
-    const parts = url.pathname.split("/").filter(Boolean);
-    const embedIndex = parts.indexOf("embed");
-    if (embedIndex !== -1 && parts[embedIndex + 1]) {
-      return pickFromCandidate(parts[embedIndex + 1]);
-    }
-
-    const shortsIndex = parts.indexOf("shorts");
-    if (shortsIndex !== -1 && parts[shortsIndex + 1]) {
-      return pickFromCandidate(parts[shortsIndex + 1]);
-    }
-  } catch {
-    // ignore
-  }
-
-  return "";
 }
 
 function buildYouTubeEmbedUrl(videoSource, { start = 0, autoplay = 0 } = {}) {
@@ -379,20 +290,6 @@ function buildYouTubeEmbedUrl(videoSource, { start = 0, autoplay = 0 } = {}) {
   });
 
   return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
-}
-
-function getYouTubeThumbUrl(videoSource) {
-  const videoId = getYouTubeId(videoSource);
-  if (!videoId) return "";
-  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-}
-
-function getAnimeImageUrl(anime) {
-  if (!anime) return "";
-  // You can set `imageUrl` to either:
-  // - a full URL (https://...)
-  // - a local public asset path (e.g. /covers/aot.jpg)
-  return anime.imageUrl || getYouTubeThumbUrl(anime.youtubeVideoId);
 }
 
 function SmartImage({ src, fallbackSrc, alt, className }) {
@@ -535,20 +432,21 @@ function GitHubProfileCard({ username, roleLabel }) {
   );
 }
 
-function SynopsisInline({ title, synopsisCache, synopsisLoading, ensureSynopsis }) {
+function SynopsisInline({ title, directSynopsis, synopsisCache, synopsisLoading, ensureSynopsis }) {
   const cacheKey = normalizeSynopsisKey(title);
 
   React.useEffect(() => {
+    if (String(directSynopsis || "").trim()) return;
     if (!cacheKey || !title) return;
     const existing = synopsisCache?.[cacheKey];
     // Allow retries for cached misses so newly-added synopsis can appear.
     if (existing && (existing?.text || existing?.url || existing?.error)) return;
     if (synopsisLoading?.[cacheKey]) return;
     ensureSynopsis({ cacheKey, searchTitle: title });
-  }, [cacheKey, title, synopsisCache, synopsisLoading, ensureSynopsis]);
+  }, [cacheKey, title, directSynopsis, synopsisCache, synopsisLoading, ensureSynopsis]);
 
   const cached = synopsisCache?.[cacheKey];
-  const text = cached?.text || "";
+  const text = String(directSynopsis || "").trim() || cached?.text || "";
   const url = cached?.url || "";
   const hadError = Boolean(cached?.error);
   const isLoading = Boolean(synopsisLoading?.[cacheKey]);
@@ -973,6 +871,42 @@ async function fetchAniListSynopsis(searchTitle) {
   };
 }
 
+function stableAnimeId(value, index = 0) {
+  const numeric = Number(value);
+  if (Number.isFinite(numeric)) return numeric;
+
+  const text = String(value || `anime-${index}`);
+  let hash = 2166136261;
+  for (let i = 0; i < text.length; i += 1) {
+    hash ^= text.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) || index + 1;
+}
+
+function normalizeFirestoreAnime(item, index) {
+  const altTitles = Array.isArray(item?.altTitles)
+    ? item.altTitles.map((value) => String(value || "").trim()).filter(Boolean)
+    : String(item?.altTitles || "")
+      .split(/[\n,]+/)
+      .map((value) => value.trim())
+      .filter(Boolean);
+  const acceptedAnswers = Array.isArray(item?.acceptedAnswers) && item.acceptedAnswers.length
+    ? item.acceptedAnswers
+    : [item?.title, ...altTitles].filter(Boolean);
+
+  return {
+    ...item,
+    id: stableAnimeId(item?.legacyId ?? item?.id, index),
+    title: String(item?.title || "").trim(),
+    altTitles,
+    acceptedAnswers,
+    genre: String(item?.genre || "other").trim() || "other",
+    note: String(item?.note || item?.songTitle || "").trim(),
+    synopsis: String(item?.synopsis || "").trim()
+  };
+}
+
 export default function AnimeOPQuizStarter() {
   window.__COMPONENT_RENDER = true;
   console.log('=== AnimeOPQuizStarter rendering ===');
@@ -982,6 +916,7 @@ export default function AnimeOPQuizStarter() {
     console.log('animeData state initializing');
     return [];
   });
+  const [libraryAnimeData, setLibraryAnimeData] = useState([]);
   const [page, setPage] = useState("home");
   const [search, setSearch] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("all");
@@ -991,31 +926,72 @@ export default function AnimeOPQuizStarter() {
   const [soloHp, setSoloHp] = useState(10);
   const [soloWrongMultiplier, setSoloWrongMultiplier] = useState(1);
 
-  // Fetch anime data from JSON file
+  // Prefer active content from Firestore. Keep the static JSON as a safe fallback
+  // so the existing game remains playable before the collection is populated.
   useEffect(() => {
+    let cancelled = false;
+    let firestoreHasContent = false;
     window.__EFFECT_RUN = true;
-    console.log('=== useEffect: Fetch anime data ===');
-    console.log('Starting to fetch animeData.json...');
-    fetch('/animeData.json')
-      .then(res => {
+    console.log('=== useEffect: Load anime data ===');
+
+    const loadJsonFallback = async () => {
+      console.log('Loading animeData.json fallback...');
+      const res = await fetch('/animeData.json');
+      if (!cancelled && !firestoreHasContent) {
         window.__FETCH_RESPONSE = res.status;
-        console.log('Response status:', res.status);
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        return res.json();
-      })
-      .then(data => {
+      }
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const data = await res.json();
+      if (!cancelled) {
         window.__DATA_LOADED = Array.isArray(data) ? data.length : 'not an array';
-        console.log('✅ Loaded anime data, entries:', Array.isArray(data) ? data.length : 'not an array');
-        if (Array.isArray(data) && data.length > 0) {
-          console.log('First entry ID:', data[0].id);
-          console.log('Last entry ID:', data[data.length - 1].id);
-        }
-        setAnimeData(Array.isArray(data) ? data : []);
-      })
-      .catch(err => {
-        window.__FETCH_ERROR = String(err);
-        console.error('❌ Failed to load anime data:', err);
-      });
+        const safeData = Array.isArray(data) ? data : [];
+        setAnimeData(safeData);
+        setLibraryAnimeData(safeData);
+      }
+    };
+
+    let unsubscribe = null;
+    const startSubscription = () => {
+      try {
+        unsubscribe = subscribeActiveAnimeSongs((firestoreItems, firestoreError) => {
+          if (cancelled) return;
+          if (firestoreError) {
+            console.warn("Firestore animeSongs unavailable; using JSON fallback:", firestoreError);
+            window.__DATA_SOURCE = "json_fallback_error";
+            loadJsonFallback().catch((error) => console.error("JSON fallback failed:", error));
+            return;
+          }
+
+          const normalized = (Array.isArray(firestoreItems) ? firestoreItems : [])
+            .map(normalizeFirestoreAnime)
+            .filter((item) => item.title);
+
+          if (normalized.length > 0) {
+            firestoreHasContent = true;
+            const playableItems = normalized.filter((item) => getYouTubeId(item.youtubeVideoId));
+            window.__DATA_SOURCE = "firestore";
+            window.__DATA_LOADED = normalized.length;
+            setLibraryAnimeData(normalized);
+            setAnimeData(playableItems);
+            return;
+          }
+
+          firestoreHasContent = false;
+          window.__DATA_SOURCE = "json_fallback_empty";
+          loadJsonFallback().catch((error) => console.error("JSON fallback failed:", error));
+        });
+      } catch (error) {
+        console.warn("Firestore subscription failed; using JSON fallback:", error);
+        loadJsonFallback().catch((fallbackError) => console.error("JSON fallback failed:", fallbackError));
+      }
+    };
+
+    startSubscription();
+
+    return () => {
+      cancelled = true;
+      if (typeof unsubscribe === "function") unsubscribe();
+    };
   }, []);
 
   const LS_FAVORITES = "otoverse:favorites:v1";
@@ -1198,6 +1174,7 @@ export default function AnimeOPQuizStarter() {
   const isDark = true;
   const [libraryTab, setLibraryTab] = useState("catalog");
   const [libraryListMode, setLibraryListMode] = useState("works");
+  const [expandedCatalogGroups, setExpandedCatalogGroups] = useState(() => new Set());
   const [legalSearch, setLegalSearch] = useState("");
   const [legalProviderFilter, setLegalProviderFilter] = useState("all");
   const [legalGenreFilter, setLegalGenreFilter] = useState("all");
@@ -3644,7 +3621,7 @@ useEffect(() => {
     if (!Array.isArray(animeData) || animeData.length === 0) return [];
     const result = animeData.map((anime) => ({
       ...anime,
-      genre: inferGenre(anime)
+      genre: anime?.genre && anime.genre !== "other" ? anime.genre : inferGenre(anime)
     }));
     console.log('animeWithGenre count:', result.length, 'animeData count:', animeData.length);
     if (result.length !== animeData.length) {
@@ -3652,6 +3629,14 @@ useEffect(() => {
     }
     return result;
   }, [animeData]);
+
+  const libraryAnimeWithGenre = useMemo(() => {
+    if (!Array.isArray(libraryAnimeData)) return [];
+    return libraryAnimeData.map((anime) => ({
+      ...anime,
+      genre: anime?.genre && anime.genre !== "other" ? anime.genre : inferGenre(anime)
+    }));
+  }, [libraryAnimeData]);
 
   const animeById = useMemo(() => {
     const map = new Map();
@@ -3907,8 +3892,8 @@ useEffect(() => {
   const filteredAnime = useMemo(() => {
     const q = normalize(search);
     const source = selectedGenre === "all"
-      ? animeWithGenre
-      : animeWithGenre.filter((anime) => anime.genre === selectedGenre);
+      ? libraryAnimeWithGenre
+      : libraryAnimeWithGenre.filter((anime) => anime.genre === selectedGenre);
 
     const filtered = !q
       ? source
@@ -3938,7 +3923,27 @@ useEffect(() => {
         if (byTitle) return byTitle;
         return String(a?.id || "").localeCompare(String(b?.id || ""), "en", { numeric: true });
       });
-  }, [animeWithGenre, search, selectedGenre]);
+  }, [libraryAnimeWithGenre, search, selectedGenre]);
+
+  const groupedFilteredAnime = useMemo(() => {
+    const groups = new Map();
+    for (const anime of filteredAnime) {
+      const title = stripOpEdSuffix(anime?.animeTitle || anime?.title || "");
+      const key = normalize(title) || String(anime?.id || "");
+      if (!groups.has(key)) groups.set(key, { key, title, items: [] });
+      groups.get(key).items.push(anime);
+    }
+    return [...groups.values()];
+  }, [filteredAnime]);
+
+  const toggleCatalogGroup = (key) => {
+    setExpandedCatalogGroups((current) => {
+      const next = new Set(current);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
 
   const libraryTitleLists = useMemo(() => {
     if (page !== "library") {
@@ -3952,10 +3957,10 @@ useEffect(() => {
     // - works: deduped anime works (OP/ED suffix removed; seasons/parts preserved)
     // - songs: OP/ED/Insert track entries
     // - all: every entry in animeData (403)
-    const allTitles = animeWithGenre.map((a) => a.title).filter(Boolean);
+    const allTitles = libraryAnimeWithGenre.map((a) => a.title).filter(Boolean);
 
     const songs = [];
-    for (const a of animeWithGenre) {
+    for (const a of libraryAnimeWithGenre) {
       if (!a?.title) continue;
       if (isSongEntryTitle(a.title)) songs.push(a.title);
     }
@@ -3964,7 +3969,7 @@ useEffect(() => {
     // IMPORTANT: do NOT collapse seasons/parts here; users want to see every season.
     // We only strip the (OP/EDn) suffix.
     const byWorkKey = new Map();
-    for (const anime of animeWithGenre) {
+    for (const anime of libraryAnimeWithGenre) {
       if (!anime?.title) continue;
       const displayTitle = stripOpEdSuffix(anime.title);
       if (!displayTitle) continue;
@@ -3999,7 +4004,7 @@ useEffect(() => {
 
     const works = Array.from(byWorkKey.values()).sort((a, b) => compareEnglishTitle(a.title, b.title));
 console.log("animeData length =", animeData.length);
-console.log("animeWithGenre length =", animeWithGenre.length);
+console.log("libraryAnimeWithGenre length =", libraryAnimeWithGenre.length);
 console.log("library all =", allTitles.length);
 console.log("library songs =", songs.length);
 console.log("library works =", works.length);
@@ -4012,7 +4017,7 @@ console.log("library works =", works.length);
         .sort((a, b) => compareEnglishTitle(a, b)),
       works
     };
-  }, [animeWithGenre, page]);
+  }, [libraryAnimeWithGenre, page]);
 
   const legalRawItems = useMemo(() => {
     if (page !== "library" || libraryTab !== "legal") return [];
@@ -4043,7 +4048,7 @@ console.log("library works =", works.length);
 
     if (libraryListMode === "songs") {
       // Use ids for stable keys (titles can repeat across different entries).
-      return animeWithGenre
+      return libraryAnimeWithGenre
         .filter((a) => a?.title && isSongEntryTitle(a.title))
         .slice()
         .sort((a, b) => compareEnglishTitle(a.title, b.title))
@@ -4055,7 +4060,7 @@ console.log("library works =", works.length);
     }
 
     // Use ids for stable keys (titles can repeat across different entries).
-    return animeWithGenre
+    return libraryAnimeWithGenre
       .filter((a) => a?.title)
       .slice()
       .sort((a, b) => compareEnglishTitle(a.title, b.title))
@@ -4064,7 +4069,7 @@ console.log("library works =", works.length);
         title: a.title,
         anime: a
       }));
-  }, [animeWithGenre, libraryListMode, libraryTitleLists, page, libraryTab]);
+  }, [libraryAnimeWithGenre, libraryListMode, libraryTitleLists, page, libraryTab]);
 
   const legalGenreTagOptions = useMemo(() => {
     if (page !== "library" || libraryTab !== "legal") return [];
@@ -4201,7 +4206,7 @@ console.log("library works =", works.length);
     }
 
     if (!q) return items;
-    return items.filter((item) => {
+    const matchedItems = items.filter((item) => {
       const titleKey = normalizeAvailabilityKey(item.title);
       const titleKeyLoose = normalizeAvailabilityKeyLoose(item.title);
       const baseKey = availabilityBaseKeyFromTitle(item.title);
@@ -4225,6 +4230,13 @@ console.log("library works =", works.length);
       const haystack = [item.title, genresText, providersText, genreKey, genreLabel].filter(Boolean).join(" ");
       return normalize(haystack).includes(q);
     });
+    const relevance = (item) => {
+      const title = normalize(item?.title);
+      if (title === q) return 0;
+      if (title.startsWith(q)) return 1;
+      return 2;
+    };
+    return matchedItems.slice().sort((a, b) => relevance(a) - relevance(b));
   }, [legalRawItems, legalSearch, legalGenreFilter, legalProviderFilter, legalYearFilter, legalCatalogTH, legalAvailability, libraryListMode, page, libraryTab]);
 
   const legalSelectedItem = useMemo(() => {
@@ -8836,6 +8848,7 @@ useEffect(() => {
       <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100">📖 เรื่องย่อ</div>
       <SynopsisInline
         title={legalSelectedDisplayTitle}
+        directSynopsis={legalSelectedItem?.anime?.synopsis}
         synopsisCache={synopsisCache}
         synopsisLoading={synopsisLoading}
         ensureSynopsis={ensureSynopsis}
@@ -9313,37 +9326,74 @@ useEffect(() => {
         )
       ) : (
         <>
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {filteredAnime.map((anime) => (
-              <Card key={anime.id} className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <CardTitle className="text-lg leading-6">{anime.title}</CardTitle>
-                      <CardDescription className="mt-1">{anime.altTitles.join(" • ") || "-"}</CardDescription>
+          <div className="space-y-4">
+            {groupedFilteredAnime.map((group) => {
+              const primary = group.items[0];
+              const expanded = expandedCatalogGroups.has(group.key);
+              return (
+                <Card key={group.key} className="overflow-hidden rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
+                  <button
+                    type="button"
+                    onClick={() => toggleCatalogGroup(group.key)}
+                    className="flex w-full items-center gap-4 p-5 text-left transition hover:bg-slate-50/70 dark:hover:bg-slate-900/50"
+                  >
+                    <SmartImage
+                      src={getAnimeImageUrl(primary)}
+                      fallbackSrc={getYouTubeThumbUrl(primary?.youtubeVideoId)}
+                      alt={group.title}
+                      className="h-20 w-32 shrink-0 rounded-2xl border border-slate-200 object-cover dark:border-slate-700"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100">{group.title}</div>
+                        <Badge className="rounded-full">{group.items.length} OP/ED</Badge>
+                        <Badge variant="outline" className="rounded-full">
+                          {genreConfig[primary?.genre]?.label || primary?.genre}
+                        </Badge>
+                      </div>
+                      <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                        {primary?.year ? `ปี ${primary.year}` : "ไม่ระบุปี"}
+                        {Array.isArray(primary?.characters) ? ` • ${primary.characters.length} ตัวละคร` : ""}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      {anime?.id != null ? (
-                        <button
-                          type="button"
-                          onClick={() => toggleFavoriteId(anime.id)}
-                          title={favoriteSet.has(Number(anime.id)) ? "ลบออกจาก Favorites" : "เพิ่มเข้า Favorites"}
-                          className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-slate-200 bg-white/70 text-slate-900 hover:bg-white hover:border-slate-300 transition-colors dark:border-slate-700 dark:bg-slate-950/45 dark:text-slate-100 dark:hover:bg-slate-900/55"
-                        >
-                          {favoriteSet.has(Number(anime.id)) ? "⭐" : "☆"}
-                        </button>
-                      ) : null}
-                      <Badge className="rounded-full">{genreConfig[anime.genre]?.label || anime.genre}</Badge>
+                    <span className="text-xl text-slate-500 dark:text-slate-300">{expanded ? "▾" : "▸"}</span>
+                  </button>
+
+                  {expanded ? (
+                    <div className="grid gap-4 border-t border-slate-200 p-5 dark:border-slate-800 md:grid-cols-2 xl:grid-cols-3">
+                      {group.items.map((anime) => (
+                        <div key={anime.id} className="rounded-2xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/50">
+                          <div className="flex items-start justify-between gap-3">
+                            <div>
+                              <div className="font-bold text-slate-900 dark:text-slate-100">
+                                {getAnimeSongLabel(anime)}
+                              </div>
+                              <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                                {anime.songTitle || anime.note || "ยังไม่ระบุชื่อเพลง"}
+                              </div>
+                              {anime.artist ? <div className="text-xs text-slate-500 dark:text-slate-400">{anime.artist}</div> : null}
+                            </div>
+                            {anime?.id != null ? (
+                              <button
+                                type="button"
+                                onClick={() => toggleFavoriteId(anime.id)}
+                                title={favoriteSet.has(Number(anime.id)) ? "ลบออกจาก Favorites" : "เพิ่มเข้า Favorites"}
+                                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white/70 dark:border-slate-700 dark:bg-slate-900"
+                              >
+                                {favoriteSet.has(Number(anime.id)) ? "⭐" : "☆"}
+                              </button>
+                            ) : null}
+                          </div>
+                          <div className="mt-3">
+                            <LazyYouTube videoSource={anime.youtubeVideoId} title={anime.title} />
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm text-zinc-600 dark:text-slate-200/80">
-                  <div>ปีฉาย: {anime.year}</div>
-                  <div>OP: {anime.note}</div>
-                  <LazyYouTube videoSource={anime.youtubeVideoId} title={anime.title} />
-                </CardContent>
-              </Card>
-            ))}
+                  ) : null}
+                </Card>
+              );
+            })}
           </div>
 
           <div className="flex gap-3">

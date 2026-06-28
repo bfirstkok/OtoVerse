@@ -6,6 +6,12 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function isAdmin() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+        && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == "admin";
+    }
+
     function isChatParticipant(chatId) {
       return isSignedIn()
         && exists(/databases/$(database)/documents/chats/$(chatId))
@@ -33,6 +39,20 @@ service cloud.firestore {
         isRoomHost(roomId)
         || exists(/databases/$(database)/documents/rooms/$(roomId)/players/$(request.auth.uid))
       );
+    }
+
+    // Admin membership. Users may read only their own role; an existing admin
+    // may manage additional admin documents.
+    match /admins/{uid} {
+      allow read: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Public content is queryable only when the query filters isActive == true.
+    // Admins can read and manage every item.
+    match /animeSongs/{songId} {
+      allow read: if resource.data.isActive == true || isAdmin();
+      allow create, update, delete: if isAdmin();
     }
 
     // profiles
