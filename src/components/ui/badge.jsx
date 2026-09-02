@@ -15,6 +15,7 @@ export function Badge({ className, variant = "default", ...props }) {
     <span
       className={cn("inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold leading-none", variants[variant] || variants.default, className)}
       {...props}
+      data-ui="badge"
     />
   );
 }

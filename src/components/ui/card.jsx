@@ -10,6 +10,7 @@ export function Card({ className, ...props }) {
         className
       )}
       {...props}
+      data-ui="card"
     />
   );
 }

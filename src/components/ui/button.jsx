@@ -30,6 +30,7 @@ export function Button({ className, variant = "default", size = "default", type 
         className
       )}
       {...props}
+      data-ui="button"
     />
   );
 }
