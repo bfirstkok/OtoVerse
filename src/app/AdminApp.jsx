@@ -13,8 +13,8 @@ export default function AdminApp() {
     document.title = page === "login" ? "Admin Login | OtoVerse" : "Admin Panel | OtoVerse";
 
     return () => {
-      document.documentElement.classList.remove("admin-theme");
-      document.body.classList.remove("admin-theme");
+      document.documentElement.classList.remove("dark", "admin-theme");
+      document.body.classList.remove("dark", "admin-theme");
       document.documentElement.style.colorScheme = "";
     };
   }, [page]);
