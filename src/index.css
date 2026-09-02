@@ -1,51 +1,71 @@
-@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Prompt:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --anime-ink: #12141f;
-  --anime-paper: #f6f8ff;
-  --transition-smooth: cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
-  --transition-ease: cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+  --app-bg: #f6f7fb;
+  --app-fg: #151827;
+  --app-muted: #687086;
+  --app-border: rgba(148, 163, 184, 0.24);
+  --app-primary: #5b5ce2;
+  --transition-fast: 160ms cubic-bezier(0.2, 0, 0, 1);
+  --transition-smooth: 240ms cubic-bezier(0.2, 0, 0, 1);
   --bg-gif: none;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html,
 body,
 #root {
   min-height: 100%;
+}
+
+html {
   scroll-behavior: smooth;
+  background: var(--app-bg);
 }
 
 body {
   margin: 0;
-  color: var(--anime-ink);
-  font-family: "Prompt", "Chakra Petch", sans-serif;
+  min-width: 320px;
+  color: var(--app-fg);
+  font-family: "Prompt", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background-image:
     var(--bg-gif),
-    radial-gradient(circle at 12% 18%, rgba(252, 78, 78, 0.25), transparent 38%),
-    radial-gradient(circle at 82% 24%, rgba(76, 120, 255, 0.2), transparent 36%),
-    linear-gradient(180deg, #f8f9ff 0%, #eef2ff 52%, #f4f8ff 100%);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+    radial-gradient(circle at 8% 0%, rgba(91, 92, 226, 0.12), transparent 32rem),
+    radial-gradient(circle at 92% 8%, rgba(14, 165, 233, 0.1), transparent 28rem),
+    linear-gradient(180deg, #fbfbfe 0%, #f3f5fb 60%, #f8f9fc 100%);
   background-attachment: fixed;
-  letter-spacing: 0.3px;
-  transition: background-color var(--transition-smooth), color var(--transition-smooth);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body.dark {
-  color: #e6f3ff;
+  --app-bg: #080b14;
+  --app-fg: #f4f7fb;
+  --app-muted: #98a2b6;
+  --app-border: rgba(148, 163, 184, 0.12);
+  color: var(--app-fg);
   background-image:
     var(--bg-gif),
-    radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.15), transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(0, 200, 255, 0.12), transparent 35%),
-    linear-gradient(180deg, #0a1622 0%, #0d1f2d 50%, #051a2a 100%);
-  background-attachment: fixed;
-  background-size: cover;
+    radial-gradient(circle at 8% 0%, rgba(79, 70, 229, 0.16), transparent 34rem),
+    radial-gradient(circle at 92% 10%, rgba(6, 182, 212, 0.1), transparent 30rem),
+    linear-gradient(180deg, #0b0e18 0%, #080b14 58%, #0a0d17 100%);
 }
 
 body.with-gif {
-  background-blend-mode: screen, normal, normal, normal;
+  background-blend-mode: soft-light, normal, normal, normal;
+}
+
+.admin-theme {
+  color-scheme: dark;
 }
 
 h1,
@@ -53,22 +73,57 @@ h2,
 h3,
 .font-display {
   font-family: "Chakra Petch", "Prompt", sans-serif;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.025em;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a,
+input,
+textarea,
+select,
+[role="button"] {
+  transition-duration: var(--transition-fast);
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+textarea:disabled,
+select:disabled {
+  cursor: not-allowed;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 ::selection {
-  background: rgba(76, 120, 255, 0.25);
-  color: #12141f;
+  background: rgba(99, 102, 241, 0.22);
+  color: inherit;
 }
 
-body.dark ::selection {
-  background: rgba(99, 102, 241, 0.35);
-  color: #e0e7ff;
+:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.55);
+  outline-offset: 2px;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
 }
 
 ::-webkit-scrollbar-track {
@@ -76,73 +131,49 @@ body.dark ::selection {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(76, 120, 255, 0.3);
-  border-radius: 10px;
-  transition: background var(--transition-ease);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: rgba(100, 116, 139, 0.35);
+  background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(76, 120, 255, 0.5);
+  background: rgba(99, 102, 241, 0.5);
+  background-clip: padding-box;
 }
 
-body.dark ::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 255, 0.4);
+.admin-theme select,
+.admin-theme textarea {
+  width: 100%;
+  border: 1px solid rgb(51 65 85);
+  border-radius: 0.75rem;
+  background: rgba(2, 6, 23, 0.72);
+  color: rgb(241 245 249);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
 }
 
-body.dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 255, 255, 0.7);
+.admin-theme select {
+  min-height: 2.75rem;
+  padding: 0 0.875rem;
 }
 
-/* Smooth interactions */
-button,
-input,
-textarea,
-select,
-a {
-  transition: all var(--transition-ease);
+.admin-theme textarea {
+  padding: 0.75rem 0.875rem;
+  line-height: 1.6;
+  resize: vertical;
 }
 
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: 2px solid rgba(76, 120, 255, 0.5);
-  outline-offset: 2px;
+.admin-theme select:focus,
+.admin-theme textarea:focus {
+  border-color: rgb(99 102 241);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
 }
 
-body.dark button:focus-visible,
-body.dark input:focus-visible,
-body.dark textarea:focus-visible,
-body.dark select:focus-visible {
-  outline: 2px solid rgba(99, 102, 241, 0.5);
-}
-
-/* Remove default button/input styles for better consistency */
-button,
-input[type="button"],
-input[type="submit"] {
-  cursor: pointer;
-  font-family: inherit;
-}
-
-input:disabled,
-button:disabled,
-textarea:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Better link interaction */
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Smooth animations for motion elements */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -153,7 +184,7 @@ a {
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(-10px);
+    transform: translateX(-8px);
   }
   to {
     opacity: 1;
@@ -162,39 +193,27 @@ a {
 }
 
 @keyframes pulse-soft {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.85;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.78; }
 }
 
-/* Improve focus visible on interactive elements */
-div[role="button"],
-[role="button"] {
-  transition: all var(--transition-ease);
-}
-
-/* Better text rendering */
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-/* Prevent FOUC (Flash of Unstyled Content) */
-#root {
-  min-height: 100vh;
-}
-
-/* Better mobile experience */
 @media (max-width: 640px) {
   body {
-    font-size: 16px; /* Prevents zoom on iOS input focus */
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 
-  button:active {
-    transform: scale(0.98);
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
