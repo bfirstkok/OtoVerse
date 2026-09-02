@@ -1,5 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import {
+  CircleOff,
+  Database,
+  ExternalLink,
+  FilePenLine,
+  LibraryBig,
+  ListFilter,
+  Music2,
+  Plus,
+  Search,
+  Upload
+} from "lucide-react";
 import { firebaseAuth } from "@/lib/firebase";
 import {
   createAnimeSong,
@@ -12,6 +24,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import AdminShell from "@/components/layout/AdminShell";
+import PageLoader from "@/components/system/PageLoader";
 import AnimeSongForm from "./AnimeSongForm";
 import AnimeSongTable from "./AnimeSongTable";
 
@@ -104,10 +118,7 @@ export default function AdminDashboard() {
   const filteredItems = useMemo(() => {
     const keyword = search.trim().toLocaleLowerCase();
     let sourceItems = items;
-
-    if (displayMode === "songs") {
-      sourceItems = items.filter(isSongEntry);
-    }
+    if (displayMode === "songs") sourceItems = items.filter(isSongEntry);
 
     return sourceItems.filter((item) => {
       if (!keyword) return true;
@@ -122,6 +133,21 @@ export default function AdminDashboard() {
     });
   }, [items, search, displayMode]);
 
+  const summary = useMemo(() => {
+    const series = new Set(items.map((item) => normalizeTitleKey(item?.title)).filter(Boolean)).size;
+    const songs = items.filter(isSongEntry).length;
+    const active = items.filter((item) => item?.isActive !== false).length;
+    return { series, songs, active, inactive: Math.max(0, items.length - active) };
+  }, [items]);
+
+  const resetEditor = () => {
+    setEditing(null);
+    setEditScope("song");
+    setEditingSeriesItems([]);
+    setCreateFromId("");
+    setFormOpen(false);
+  };
+
   const openCreate = () => {
     setEditing(null);
     setEditScope("song");
@@ -129,6 +155,7 @@ export default function AdminDashboard() {
     setCreateFromId("");
     setFormOpen(true);
     setError("");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const openEdit = (item) => {
@@ -177,18 +204,13 @@ export default function AdminDashboard() {
           synopsis: data.synopsis,
           characters: data.characters
         };
-        await Promise.all(
-          editingSeriesItems.map((seriesItem) =>
-            updateAnimeSong(seriesItem.id, { ...seriesItem, ...sharedFields })
-          )
-        );
-      } else if (editing) await updateAnimeSong(editing.id, data);
-      else await createAnimeSong(data);
-      setEditing(null);
-      setEditScope("song");
-      setEditingSeriesItems([]);
-      setCreateFromId("");
-      setFormOpen(false);
+        await Promise.all(editingSeriesItems.map((seriesItem) => updateAnimeSong(seriesItem.id, { ...seriesItem, ...sharedFields })));
+      } else if (editing) {
+        await updateAnimeSong(editing.id, data);
+      } else {
+        await createAnimeSong(data);
+      }
+      resetEditor();
     } catch (err) {
       setError(err?.message || "บันทึกข้อมูลไม่สำเร็จ");
     } finally {
@@ -214,32 +236,14 @@ export default function AdminDashboard() {
     window.location.replace("/admin/login");
   };
 
-  const handleBack = () => {
-    if (formOpen) {
-      setFormOpen(false);
-      setEditing(null);
-      setEditScope("song");
-      setEditingSeriesItems([]);
-      setCreateFromId("");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   const handleImportExistingData = async () => {
-    const confirmed = window.confirm(
-      "นำเข้ารายการเดิมจาก animeData.json พร้อมเรื่องย่อและตัวละครเข้า Firestore ใช่หรือไม่?"
-    );
+    const confirmed = window.confirm("นำเข้ารายการเดิมจาก animeData.json พร้อมเรื่องย่อและตัวละครเข้า Firestore ใช่หรือไม่?");
     if (!confirmed) return;
 
     setImporting(true);
     setError("");
     try {
-      const [animeResponse, synopsisResponse] = await Promise.all([
-        fetch("/animeData.json"),
-        fetch("/synopsis_th.json")
-      ]);
+      const [animeResponse, synopsisResponse] = await Promise.all([fetch("/animeData.json"), fetch("/synopsis_th.json")]);
       if (!animeResponse.ok) throw new Error("โหลด animeData.json ไม่สำเร็จ");
 
       const animeData = await animeResponse.json();
@@ -251,10 +255,7 @@ export default function AdminDashboard() {
         .filter((anime) => !existingIds.has(`legacy-${anime.id}`))
         .map((anime) => {
           const candidates = [anime.title, ...(Array.isArray(anime.altTitles) ? anime.altTitles : [])];
-          const synopsis = candidates
-            .map((title) => synopsisIndex.get(normalizeTitleKey(title)))
-            .find(Boolean) || "";
-
+          const synopsis = candidates.map((title) => synopsisIndex.get(normalizeTitleKey(title))).find(Boolean) || "";
           return {
             ...anime,
             documentId: `legacy-${anime.id}`,
@@ -281,125 +282,152 @@ export default function AdminDashboard() {
     }
   };
 
-  if (authState === "checking") return <StatusScreen>กำลังตรวจสอบสิทธิ์แอดมิน…</StatusScreen>;
-  if (authState === "unavailable") return <StatusScreen>ยังไม่ได้ตั้งค่า Firebase สำหรับโปรเจกต์นี้</StatusScreen>;
+  if (authState === "checking") return <PageLoader dark label="กำลังตรวจสอบสิทธิ์แอดมิน…" />;
+  if (authState === "unavailable") return <StatusScreen title="Firebase ยังไม่พร้อม">ยังไม่ได้ตั้งค่า Firebase สำหรับโปรเจกต์นี้</StatusScreen>;
   if (authState === "denied") {
     return (
-      <StatusScreen>
-        <div className="font-semibold text-red-700">บัญชีนี้ไม่มีสิทธิ์เข้าใช้งาน Admin Panel</div>
-        <div className="mt-1 text-sm text-slate-500">{user?.email}</div>
-        <Button className="mt-4" variant="outline" onClick={handleLogout}>ออกจากบัญชี</Button>
+      <StatusScreen title="ไม่มีสิทธิ์เข้าใช้งาน">
+        <div className="text-sm text-slate-400">{user?.email}</div>
+        {error ? <div className="mt-3 text-sm text-rose-300">{error}</div> : null}
+        <Button className="mt-5" variant="outline" onClick={handleLogout}>ออกจากบัญชี</Button>
       </StatusScreen>
     );
   }
 
+  const editorTitle = editing
+    ? editScope === "anime"
+      ? `แก้ไขข้อมูลเรื่อง: ${editing.animeTitle || editing.title}`
+      : `แก้ไขเพลง: ${editing.songTitle || editing.note || editing.title}`
+    : "เพิ่ม Anime / Song";
+
   return (
-    <main className="min-h-screen bg-slate-950 px-4 py-6 text-slate-100 md:px-8">
-      <div className="mx-auto max-w-7xl space-y-6">
-        <header className="flex flex-col gap-4 rounded-3xl border border-slate-700 bg-gradient-to-r from-slate-900 to-indigo-950 p-6 text-white shadow-xl shadow-black/30 md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="text-xs font-bold uppercase tracking-[0.24em] text-indigo-300">OtoVerse</div>
-            <h1 className="mt-1 text-3xl font-bold">Admin Panel</h1>
-            <div className="mt-1 text-sm text-slate-400">{user?.email}</div>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button variant="outline" onClick={handleBack}>← กลับ</Button>
-            <a href="/"><Button variant="outline">เปิดหน้าเกม</Button></a>
-            <Button variant="outline" onClick={handleImportExistingData} disabled={importing}>
-              {importing ? "กำลังนำเข้า…" : "นำเข้าข้อมูลเดิม"}
-            </Button>
-            <Button className="bg-indigo-600 hover:bg-indigo-500" onClick={openCreate}>+ เพิ่มอนิเมะ/เพลง</Button>
-            <Button variant="outline" onClick={handleLogout}>ออกจากระบบ</Button>
-          </div>
-        </header>
+    <AdminShell
+      user={user}
+      onLogout={handleLogout}
+      title={formOpen ? editorTitle : "Content Dashboard"}
+      description={formOpen ? "แก้ไขข้อมูลโดยแยกข้อมูลเรื่องและข้อมูลเพลงให้ชัดเจน" : "จัดการอนิเมะ เพลง OP/ED เรื่องย่อ ตัวละคร และสถานะการใช้งาน"}
+      actions={(
+        <>
+          {formOpen ? <Button variant="outline" onClick={resetEditor}>ยกเลิกการแก้ไข</Button> : null}
+          <a href="/"><Button variant="outline"><ExternalLink className="h-4 w-4" /> เปิดหน้าเกม</Button></a>
+          {!formOpen ? (
+            <Button onClick={openCreate}><Plus className="h-4 w-4" /> เพิ่มข้อมูล</Button>
+          ) : null}
+        </>
+      )}
+    >
+      {error ? (
+        <div className="mb-5 rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{error}</div>
+      ) : null}
 
-        {error ? (
-          <div className="rounded-2xl border border-red-800 bg-red-950/70 px-4 py-3 text-sm text-red-200">{error}</div>
-        ) : null}
-
-        {formOpen ? (
-          <Card className="rounded-3xl !border-slate-700 !bg-slate-900 !text-slate-100">
-            <CardHeader>
-              <CardTitle>
-                {editing
-                  ? editScope === "anime"
-                    ? `แก้ไขข้อมูลเรื่อง: ${editing.animeTitle || editing.title}`
-                    : `แก้ไขเพลง: ${editing.songTitle || editing.note || editing.title}`
-                  : "เพิ่ม Anime / Song"}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <AnimeSongForm
-                item={editing}
-                existingItems={items}
-                preferredExistingId={createFromId}
-                editScope={editScope}
-                onSave={handleSave}
-                onCancel={() => {
-                  setFormOpen(false);
-                  setEditing(null);
-                  setEditScope("song");
-                  setEditingSeriesItems([]);
-                  setCreateFromId("");
-                }}
-                saving={saving}
-              />
-            </CardContent>
-          </Card>
-        ) : null}
-
-        <Card className="rounded-3xl !border-slate-700 !bg-slate-900 !text-slate-100">
-          <CardHeader className="gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <CardTitle>รายการอนิเมะและเพลงทั้งหมด</CardTitle>
-              <div className="mt-1 text-sm text-slate-500">{filteredItems.length} จาก {items.length} รายการ</div>
-            </div>
-            <div className="grid w-full gap-3 sm:grid-cols-[minmax(220px,1fr)_320px] md:w-auto">
-              <Input
-                className="!border-slate-600 !bg-slate-950 !text-slate-100 placeholder:!text-slate-500"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="ค้นหาอนิเมะ เพลง หรือศิลปิน"
-              />
-              <select
-                className="rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
-                value={displayMode}
-                onChange={(event) => setDisplayMode(event.target.value)}
-              >
-                <option value="series">รายชื่อเรื่อง</option>
-                <option value="songs">เพลง OP/ED</option>
-                <option value="all">ทั้งหมด (รวมภาค/ซีซั่น + OP/ED)</option>
-              </select>
+      {formOpen ? (
+        <Card className="!border-white/8 !bg-white/[0.035]">
+          <CardHeader className="border-b border-white/8">
+            <div className="flex items-center gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-indigo-500/12 text-indigo-300"><FilePenLine className="h-5 w-5" /></span>
+              <CardTitle>{editorTitle}</CardTitle>
             </div>
           </CardHeader>
-          <CardContent>
-            {loadingItems ? (
-              <div className="py-12 text-center text-slate-500">กำลังโหลดข้อมูล…</div>
-            ) : (
-              <AnimeSongTable
-                items={filteredItems}
-                onEdit={openEdit}
-                onDelete={handleDelete}
-                onAddSong={openAddSongForAnime}
-                onEditAnime={openEditAnime}
-                deletingId={deletingId}
-                onImport={handleImportExistingData}
-                importing={importing}
-                displayMode={displayMode}
-              />
-            )}
+          <CardContent className="pt-6">
+            <AnimeSongForm
+              item={editing}
+              existingItems={items}
+              preferredExistingId={createFromId}
+              editScope={editScope}
+              onSave={handleSave}
+              onCancel={resetEditor}
+              saving={saving}
+            />
           </CardContent>
         </Card>
-      </div>
-    </main>
+      ) : (
+        <div className="space-y-6">
+          <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <Metric icon={LibraryBig} label="Anime series" value={summary.series} hint="จำนวนเรื่องไม่ซ้ำ" />
+            <Metric icon={Music2} label="OP / ED" value={summary.songs} hint="เพลงในคลัง" />
+            <Metric icon={Database} label="Active" value={summary.active} hint="พร้อมใช้ในระบบ" tone="success" />
+            <Metric icon={CircleOff} label="Inactive" value={summary.inactive} hint="ปิดการใช้งาน" tone="muted" />
+          </section>
+
+          <Card className="!border-white/8 !bg-white/[0.035]">
+            <CardHeader className="border-b border-white/8">
+              <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+                <div>
+                  <CardTitle>คลังคอนเทนต์</CardTitle>
+                  <div className="mt-1 text-sm text-slate-400">แสดง {filteredItems.length.toLocaleString()} จาก {items.length.toLocaleString()} รายการ</div>
+                </div>
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <Button variant="outline" onClick={handleImportExistingData} disabled={importing}>
+                    <Upload className="h-4 w-4" /> {importing ? "กำลังนำเข้า…" : "นำเข้าข้อมูลเดิม"}
+                  </Button>
+                  <Button onClick={openCreate}><Plus className="h-4 w-4" /> เพิ่ม Anime / Song</Button>
+                </div>
+              </div>
+
+              <div className="mt-5 grid gap-3 lg:grid-cols-[minmax(0,1fr)_260px]">
+                <div className="relative">
+                  <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+                  <Input className="!border-white/10 !bg-black/20 pl-10" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="ค้นหาอนิเมะ เพลง ศิลปิน หรือชื่ออื่น…" />
+                </div>
+                <div className="relative">
+                  <ListFilter className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+                  <select className="pl-10" value={displayMode} onChange={(event) => setDisplayMode(event.target.value)}>
+                    <option value="series">แยกตามเรื่อง</option>
+                    <option value="songs">เฉพาะเพลง OP/ED</option>
+                    <option value="all">ทั้งหมด</option>
+                  </select>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-5">
+              {loadingItems ? (
+                <div className="rounded-2xl border border-white/8 bg-white/[0.02] py-16 text-center text-sm text-slate-500">กำลังโหลดข้อมูลจาก Firestore…</div>
+              ) : (
+                <AnimeSongTable
+                  items={filteredItems}
+                  onEdit={openEdit}
+                  onDelete={handleDelete}
+                  onAddSong={openAddSongForAnime}
+                  onEditAnime={openEditAnime}
+                  deletingId={deletingId}
+                  onImport={handleImportExistingData}
+                  importing={importing}
+                  displayMode={displayMode}
+                />
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      )}
+    </AdminShell>
   );
 }
 
-function StatusScreen({ children }) {
+function Metric({ icon: Icon, label, value, hint, tone = "default" }) {
+  const tones = {
+    default: "bg-indigo-500/10 text-indigo-300 ring-indigo-500/15",
+    success: "bg-emerald-500/10 text-emerald-300 ring-emerald-500/15",
+    muted: "bg-slate-500/10 text-slate-400 ring-slate-500/15"
+  };
+
   return (
-    <main className="min-h-screen flex items-center justify-center bg-slate-950 p-6 text-slate-100">
-      <Card className="w-full max-w-lg rounded-3xl !border-slate-700 !bg-slate-900 !text-slate-100">
-        <CardContent className="p-8 text-center">{children}</CardContent>
+    <div className="rounded-2xl border border-white/8 bg-white/[0.035] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.15)]">
+      <div className={`grid h-10 w-10 place-items-center rounded-xl ring-1 ring-inset ${tones[tone] || tones.default}`}><Icon className="h-5 w-5" /></div>
+      <div className="mt-5 text-3xl font-bold text-white">{value.toLocaleString()}</div>
+      <div className="mt-1 text-sm font-semibold text-slate-300">{label}</div>
+      <div className="mt-1 text-xs text-slate-500">{hint}</div>
+    </div>
+  );
+}
+
+function StatusScreen({ title, children }) {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-[#080b14] p-6 text-slate-100">
+      <Card className="w-full max-w-lg !border-white/8 !bg-white/[0.035]">
+        <CardContent className="p-8 text-center">
+          <div className="text-xl font-bold text-white">{title}</div>
+          <div className="mt-3 text-slate-400">{children}</div>
+        </CardContent>
       </Card>
     </main>
   );
