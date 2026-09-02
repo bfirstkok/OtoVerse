@@ -1,0 +1,50 @@
+name: Build and Deploy OtoVerse
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANIMEQUIZ_8A93B }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Deploy with Firebase service account
+        if: ${{ env.FIREBASE_SERVICE_ACCOUNT != '' }}
+        shell: bash
+        run: |
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-service-account.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-service-account.json"
+          npx --yes firebase-tools@latest deploy --only hosting:otoverse --project animequiz-8a93b --non-interactive
+
+      - name: Deploy with Firebase CLI token
+        if: ${{ env.FIREBASE_SERVICE_ACCOUNT == '' && env.FIREBASE_TOKEN != '' }}
+        run: npx --yes firebase-tools@latest deploy --only hosting:otoverse --project animequiz-8a93b --token "$FIREBASE_TOKEN" --non-interactive
+
+      - name: Report missing Firebase credentials
+        if: ${{ env.FIREBASE_SERVICE_ACCOUNT == '' && env.FIREBASE_TOKEN == '' }}
+        run: |
+          echo "Production build succeeded, but Firebase deployment credentials are not configured in GitHub Actions."
+          echo "Add FIREBASE_SERVICE_ACCOUNT_ANIMEQUIZ_8A93B or FIREBASE_TOKEN to repository Actions secrets."
