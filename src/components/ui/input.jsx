@@ -13,6 +13,7 @@ export const Input = React.forwardRef(function Input({ className, ...props }, re
         className
       )}
       {...props}
+      data-ui="input"
     />
   );
 });
