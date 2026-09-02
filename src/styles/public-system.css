@@ -1,0 +1,119 @@
+.otoverse-public {
+  min-height: 100vh;
+  --public-accent: #4f46e5;
+  --public-accent-soft: rgba(79, 70, 229, 0.12);
+  --public-border: rgba(148, 163, 184, 0.24);
+}
+
+.dark .otoverse-public {
+  --public-accent: #818cf8;
+  --public-accent-soft: rgba(99, 102, 241, 0.16);
+  --public-border: rgba(148, 163, 184, 0.14);
+}
+
+/* Turn the legacy top bar into a compact floating app header without touching game state. */
+.otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 {
+  top: 0.75rem !important;
+  margin-inline: 0 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 > div {
+  overflow: hidden;
+  border: 1px solid var(--public-border) !important;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 14px 42px rgba(15, 23, 42, 0.11) !important;
+}
+
+.dark .otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 > div {
+  background: rgba(9, 13, 24, 0.9) !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.3) !important;
+}
+
+.otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 [data-ui="button"] {
+  min-width: auto !important;
+  height: 2.6rem !important;
+  min-height: 2.6rem !important;
+  padding-inline: 0.8rem !important;
+  border-width: 1px !important;
+  border-radius: 0.8rem !important;
+  box-shadow: none !important;
+  white-space: nowrap;
+}
+
+.otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 [data-ui="button"][class*="bg-gradient"] {
+  background-image: none !important;
+}
+
+.otoverse-public [data-ui="card"] {
+  border-radius: 1.25rem !important;
+  border-color: var(--public-border) !important;
+}
+
+.otoverse-public [data-ui="input"] {
+  border-radius: 0.8rem !important;
+}
+
+.otoverse-public [data-ui="badge"] {
+  letter-spacing: 0;
+}
+
+/* Dialogs become calmer and easier to scan on small screens. */
+.otoverse-public .fixed.inset-0 [data-ui="card"] {
+  max-height: min(90vh, 900px);
+}
+
+@media (max-width: 900px) {
+  .otoverse-public > div {
+    padding: 0.75rem !important;
+  }
+
+  .otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 {
+    top: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 > div > div {
+    flex-wrap: nowrap !important;
+    padding: 0.65rem 0.75rem !important;
+  }
+
+  .otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 > div > div > :first-child {
+    flex: 0 0 auto;
+  }
+
+  .otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 > div > div > :last-child {
+    min-width: 0;
+    max-width: 72vw;
+    flex: 1 1 auto;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  .otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 > div > div > :last-child::-webkit-scrollbar {
+    display: none;
+  }
+
+  .otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 img[alt="OtoVerse"] {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    border-radius: 0.8rem !important;
+  }
+
+  .otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 h1 {
+    font-size: 1.05rem !important;
+  }
+
+  .otoverse-public .fixed.inset-0 > div[class*="max-w-"] {
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 * {
+    transform: none !important;
+  }
+}
