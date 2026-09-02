@@ -1,5 +1,15 @@
 import React, { useMemo, useState } from "react";
+import {
+  ChevronDown,
+  ChevronRight,
+  ExternalLink,
+  ImageOff,
+  Pencil,
+  Plus,
+  Trash2
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { getAnimeImageUrl, getYouTubeId, getYouTubeThumbUrl } from "@/lib/media";
 import { getAnimeGenreLabel } from "@/lib/animeGenre";
 
@@ -21,13 +31,7 @@ function groupItems(items) {
   const groups = new Map();
   items.forEach((item) => {
     const key = seriesKey(item.title) || item.id;
-    if (!groups.has(key)) {
-      groups.set(key, {
-        key,
-        title: baseAnimeTitle(item.title) || item.title,
-        items: []
-      });
-    }
+    if (!groups.has(key)) groups.set(key, { key, title: baseAnimeTitle(item.title) || item.title, items: [] });
     groups.get(key).items.push(item);
   });
 
@@ -41,21 +45,18 @@ function groupItems(items) {
 
 function YouTubePreview({ videoSource, title }) {
   const youtubeId = getYouTubeId(videoSource);
-  if (!youtubeId) return <span className="text-slate-500">ไม่มีวิดีโอ</span>;
+  if (!youtubeId) return <span className="text-xs text-slate-600">ไม่มีวิดีโอ</span>;
+
   return (
     <a
-      className="block w-32 overflow-hidden rounded-lg border border-slate-700 bg-slate-950"
+      className="group relative block w-full max-w-36 overflow-hidden rounded-xl border border-white/8 bg-black/30"
       href={`https://www.youtube.com/watch?v=${youtubeId}`}
       target="_blank"
       rel="noreferrer"
       title="เปิดวิดีโอใน YouTube"
     >
-      <img
-        className="aspect-video w-full object-cover"
-        src={getYouTubeThumbUrl(videoSource, "mqdefault")}
-        alt={`YouTube preview: ${title}`}
-        loading="lazy"
-      />
+      <img className="aspect-video w-full object-cover opacity-80 transition group-hover:opacity-100" src={getYouTubeThumbUrl(videoSource, "mqdefault")} alt={`YouTube preview: ${title}`} loading="lazy" />
+      <span className="absolute right-2 top-2 grid h-7 w-7 place-items-center rounded-lg bg-black/65 text-white backdrop-blur"><ExternalLink className="h-3.5 w-3.5" /></span>
     </a>
   );
 }
@@ -85,14 +86,13 @@ export default function AnimeSongTable({
 
   if (!items.length) {
     return (
-      <div className="rounded-2xl border border-dashed border-slate-600 bg-slate-950/50 p-10 text-center">
-        <div className="font-semibold text-slate-200">ยังไม่มีข้อมูลใน Firestore</div>
-        <div className="mt-1 text-sm text-slate-400">
-          นำเข้ารายการอนิเมะ เพลง เรื่องย่อ และตัวละครจากข้อมูลเดิมของเว็บ
-        </div>
+      <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-10 text-center sm:p-14">
+        <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-slate-800/70 text-slate-500"><ImageOff className="h-5 w-5" /></div>
+        <div className="mt-4 font-semibold text-slate-200">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</div>
+        <div className="mx-auto mt-1 max-w-md text-sm leading-6 text-slate-500">ลองเปลี่ยนคำค้นหาหรือตัวกรอง หาก Firestore ยังว่างสามารถนำเข้าข้อมูลเดิมได้ทันที</div>
         {onImport ? (
-          <Button className="mt-5 bg-indigo-600 hover:bg-indigo-500" onClick={onImport} disabled={importing}>
-            {importing ? "กำลังนำเข้าข้อมูล…" : "นำเข้าข้อมูลเดิมตอนนี้"}
+          <Button className="mt-5" variant="outline" onClick={onImport} disabled={importing}>
+            {importing ? "กำลังนำเข้าข้อมูล…" : "นำเข้าข้อมูลเดิม"}
           </Button>
         ) : null}
       </div>
@@ -105,104 +105,56 @@ export default function AnimeSongTable({
         const primary = group.items[0];
         const isExpanded = displayMode !== "series" || expandedGroups.has(group.key);
         const songCount = group.items.filter((item) => /\((?:OP|ED)\s*\d*\)\s*$/i.test(item.title)).length;
+        const imageUrl = getAnimeImageUrl(primary);
 
         return (
-          <section key={group.key} className="overflow-hidden rounded-2xl border border-slate-700 bg-slate-950/60">
-            <button
-              type="button"
-              className="flex w-full items-center gap-4 bg-slate-800/80 px-4 py-4 text-left transition hover:bg-slate-800"
-              onClick={() => toggleGroup(group.key)}
-            >
-              {getAnimeImageUrl(primary) ? (
-                <img
-                  className="h-16 w-24 shrink-0 rounded-xl border border-slate-600 object-cover"
-                  src={getAnimeImageUrl(primary)}
-                  alt={group.title}
-                  loading="lazy"
-                />
-              ) : (
-                <div className="flex h-16 w-24 shrink-0 items-center justify-center rounded-xl bg-slate-700 text-xs text-slate-400">
-                  ไม่มีรูป
+          <section key={group.key} className="overflow-hidden rounded-2xl border border-white/8 bg-black/15">
+            <div className="flex flex-col gap-3 p-3 sm:flex-row sm:items-center sm:p-4">
+              <button type="button" className="flex min-w-0 flex-1 items-center gap-3 text-left" onClick={() => toggleGroup(group.key)}>
+                <div className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-white/[0.04] text-slate-400">
+                  {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                 </div>
-              )}
+                {imageUrl ? (
+                  <img className="h-16 w-24 shrink-0 rounded-xl border border-white/8 object-cover" src={imageUrl} alt={group.title} loading="lazy" />
+                ) : (
+                  <div className="grid h-16 w-24 shrink-0 place-items-center rounded-xl border border-white/8 bg-white/[0.025] text-slate-600"><ImageOff className="h-5 w-5" /></div>
+                )}
+                <div className="min-w-0 flex-1">
+                  <div className="truncate font-bold text-white">{group.title}</div>
+                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                    <Badge>{songCount} OP/ED</Badge>
+                    <Badge variant="secondary">{getAnimeGenreLabel(primary)}</Badge>
+                    {primary.year ? <Badge variant="outline">{primary.year}</Badge> : null}
+                    <Badge variant={primary.synopsis ? "success" : "warning"}>{primary.synopsis ? "มีเรื่องย่อ" : "ไม่มีเรื่องย่อ"}</Badge>
+                  </div>
+                </div>
+              </button>
 
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="truncate text-base font-bold text-white">{group.title}</h3>
-                  <span className="rounded-full bg-indigo-500/20 px-2.5 py-1 text-xs font-semibold text-indigo-200">
-                    {songCount} OP/ED
-                  </span>
-                  <span className="rounded-full bg-slate-700 px-2.5 py-1 text-xs text-slate-200">
-                    {getAnimeGenreLabel(primary)}
-                  </span>
-                </div>
-                <div className="mt-1 flex flex-wrap gap-3 text-xs text-slate-400">
-                  {primary.year ? <span>ปี {primary.year}</span> : null}
-                  <span>{Array.isArray(primary.characters) ? primary.characters.length : 0} ตัวละคร</span>
-                  <span>{primary.synopsis ? "มีเรื่องย่อ" : "ยังไม่มีเรื่องย่อ"}</span>
-                </div>
+              <div className="flex shrink-0 flex-wrap gap-2 sm:justify-end">
+                {onEditAnime ? <Button size="sm" variant="outline" onClick={() => onEditAnime(primary, group.items)}><Pencil className="h-3.5 w-3.5" /> แก้ไขเรื่อง</Button> : null}
+                {onAddSong ? <Button size="sm" onClick={() => onAddSong(primary)}><Plus className="h-3.5 w-3.5" /> เพิ่ม OP/ED</Button> : null}
               </div>
-
-              <span className="shrink-0 text-xl text-slate-300">{isExpanded ? "▾" : "▸"}</span>
-            </button>
-
-            {onAddSong ? (
-              <div className="flex flex-wrap justify-end gap-2 border-t border-slate-700 bg-slate-800/80 px-4 py-2">
-                {onEditAnime ? (
-                  <Button variant="outline" onClick={() => onEditAnime(primary, group.items)}>
-                    แก้ไขข้อมูลเรื่อง
-                  </Button>
-                ) : null}
-                <Button
-                  className="bg-indigo-600 hover:bg-indigo-500"
-                  onClick={() => onAddSong(primary)}
-                >
-                  + เพิ่ม OP/ED ให้เรื่องนี้
-                </Button>
-              </div>
-            ) : null}
+            </div>
 
             {isExpanded ? (
-              <div className="divide-y divide-slate-800">
+              <div className="border-t border-white/8 bg-black/10">
                 {group.items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="grid gap-4 px-4 py-4 pl-8 hover:bg-slate-800/40 md:grid-cols-[90px_minmax(260px,1fr)_150px_90px_150px] md:items-center"
-                  >
-                    <div>
-                      <span className="inline-flex rounded-lg border border-indigo-500/30 bg-indigo-500/10 px-3 py-1.5 text-sm font-bold text-indigo-200">
-                        {songTypeLabel(item)}
-                      </span>
-                    </div>
-
+                  <article key={item.id} className="grid gap-4 border-b border-white/6 p-4 last:border-b-0 md:grid-cols-[74px_minmax(220px,1fr)_150px_100px_auto] md:items-center">
+                    <div><Badge variant="outline" className="justify-center">{songTypeLabel(item)}</Badge></div>
                     <div className="min-w-0">
-                      <div className="font-semibold text-slate-100">{item.songTitle || item.note || item.title}</div>
-                      {item.artist ? <div className="mt-1 text-sm text-slate-400">{item.artist}</div> : null}
-                      <div className="mt-1 truncate text-xs text-slate-500">{item.title}</div>
+                      <div className="truncate font-semibold text-slate-100">{item.songTitle || item.note || item.title}</div>
+                      {item.artist ? <div className="mt-1 truncate text-sm text-slate-400">{item.artist}</div> : null}
+                      <div className="mt-1 truncate text-xs text-slate-600">{item.title}</div>
                     </div>
-
                     <YouTubePreview videoSource={item.youtubeVideoId} title={item.title} />
-
-                    <div>
-                      <span className={item.isActive
-                        ? "rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700"
-                        : "rounded-full bg-slate-700 px-2.5 py-1 text-xs font-semibold text-slate-300"}
-                      >
-                        {item.isActive ? "ใช้งาน" : "ปิด"}
-                      </span>
-                    </div>
-
-                    <div className="flex justify-end gap-2">
-                      <Button variant="outline" onClick={() => onEdit(item)}>แก้ไข</Button>
-                      <Button
-                        className="border-red-900 bg-red-950 text-red-200 hover:bg-red-900"
-                        onClick={() => onDelete(item)}
-                        disabled={deletingId === item.id}
-                      >
-                        {deletingId === item.id ? "กำลังลบ…" : "ลบ"}
+                    <div><Badge variant={item.isActive !== false ? "success" : "secondary"}>{item.isActive !== false ? "ใช้งาน" : "ปิด"}</Badge></div>
+                    <div className="flex gap-2 md:justify-end">
+                      <Button size="sm" variant="outline" onClick={() => onEdit(item)}><Pencil className="h-3.5 w-3.5" /> แก้ไข</Button>
+                      <Button size="sm" variant="destructive" onClick={() => onDelete(item)} disabled={deletingId === item.id}>
+                        <Trash2 className="h-3.5 w-3.5" /> {deletingId === item.id ? "กำลังลบ…" : "ลบ"}
                       </Button>
                     </div>
-                  </div>
+                  </article>
                 ))}
               </div>
             ) : null}
