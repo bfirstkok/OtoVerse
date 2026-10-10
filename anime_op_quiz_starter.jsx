@@ -6036,100 +6036,36 @@ useEffect(() => {
     if (page !== "about") setAboutSection(null);
   }, [page]);
 
-  const renderHome = () => (
-    <div className="space-y-6">
-      <div className="grid gap-6 lg:grid-cols-5 items-start">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="lg:col-span-3"
-        >
-          <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_28px_56px_rgba(19,34,76,0.18)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_28px_56px_rgba(0,0,0,0.35)]">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-transparent to-purple-50/40 pointer-events-none dark:from-cyan-400/10 dark:to-blue-500/10" />
+    const renderHome = () => (
+    <div className="oto-home space-y-6">
+      <div className="oto-home-layout grid gap-6 items-start">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="oto-home-main">
+          <Card className="oto-home-hero relative overflow-hidden">
+            <div className="oto-home-record" aria-hidden="true"><div /><span>OTO</span></div>
             <CardHeader className="relative">
-              <div className="flex items-center gap-2 mb-4">
-                <Badge className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">OtoVerse</Badge>
-                <Badge variant="outline" className="rounded-full">เลือกแนวจากนั้นเด้ง!</Badge>
-              </div>
-              <CardTitle className="font-display text-3xl md:text-4xl bg-gradient-to-r from-slate-900 to-slate-700 dark:from-cyan-200 dark:to-slate-100 bg-clip-text text-transparent">OtoVerse</CardTitle>
-              <CardDescription className="text-base leading-7 text-slate-600 dark:text-slate-200/80">
-                กดเริ่มเล่น ⟶ เลือกแนว ⟶ ตั้งค่าเกม + เลือกโหมด ⟶ เด้งเข้าเล่นเกม
-              </CardDescription>
+              <div className="oto-home-eyebrow">YOUR ANIME SOUNDTRACK</div>
+              <h1 className="oto-home-title">แค่ได้ยิน…<br /><span>ก็รู้ว่าเรื่องอะไร</span></h1>
+              <CardDescription className="oto-home-description">เพลงที่คุ้นเคย ความทรงจำที่คิดถึง<br />มาทดสอบกันว่าคุณรู้จักเพลงอนิเมะดีแค่ไหน</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4 relative">
-              <div className="grid gap-3 sm:grid-cols-3">
-                <div className="space-y-3">
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button
-                      className="w-full h-12 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow"
-                      onClick={() => setHomeSetupOpen(true)}
-                    >
-                      <Play className="w-4 h-4 mr-2" />
-                      เริ่มเล่นทายเพลง
-                    </Button>
-                  </motion.div>
-
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button
-                      variant="outline"
-                      className="w-full h-12 rounded-2xl border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors dark:border-slate-700 dark:hover:bg-slate-900/60"
-                      onClick={() => confirmLeaveGame(() => setPage("community"))}
-                    >
-                      <Trophy className="w-4 h-4 mr-2" />
-                      Community
-                    </Button>
-                  </motion.div>
-
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button
-                      variant="outline"
-                      className="w-full h-12 rounded-2xl border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors dark:border-slate-700 dark:hover:bg-slate-900/60"
-                      onClick={() => confirmLeaveGame(() => setPage("online"))}
-                    >
-                      <Users className="w-4 h-4 mr-2" />
-                      เล่นออนไลน์
-                    </Button>
-                  </motion.div>
-                </div>
-
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button
-                    variant="outline"
-                    className="w-full h-12 rounded-2xl border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors dark:border-slate-700 dark:hover:bg-slate-900/60"
-                    onClick={() => {
-                      setPage("library");
-                      setLibraryTab("catalog");
-                    }}
-                  >
-                    <ListMusic className="w-4 h-4 mr-2" />
-                    คลังเพลง
-                  </Button>
-                </motion.div>
-
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button
-                    variant="outline"
-                    className="w-full h-12 rounded-2xl border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors dark:border-slate-700 dark:hover:bg-slate-900/60"
-                    onClick={() => {
-                      setPage("library");
-                      setLibraryTab("legal");
-                    }}
-                  >
-                    <Eye className="w-4 h-4 mr-2" />
-                    ช่องทาง/ฟัง
-                  </Button>
-                </motion.div>
-              </div>
+            <CardContent className="relative">
+              <Button className="oto-home-start" onClick={() => setHomeSetupOpen(true)}><Play className="w-5 h-5 mr-2" />เริ่มเล่นทายเพลง<span aria-hidden="true"> →</span></Button>
+              <div className="oto-home-game-hint">เลือกแนวที่ชอบ · ตั้งค่าโหมด · เริ่มทาย</div>
+              <div className="oto-home-stats"><div><strong>{totalCount.toLocaleString()}</strong><span>เรื่องในคลังเพลง</span></div><div><strong>OP / ED</strong><span>เพลงที่คุณคิดถึง</span></div><div><strong>Solo + Online</strong><span>เล่นคนเดียวหรือกับเพื่อน</span></div></div>
             </CardContent>
           </Card>
+          <div className="oto-home-section-label">ค้นพบสิ่งที่ชอบ</div>
+          <div className="oto-home-destinations">
+            <button type="button" onClick={() => {setPage("library"); setLibraryTab("catalog");}}><ListMusic /><strong>คลังเพลง</strong><span>ค้นหาเพลงและอนิเมะที่คุ้นเคย</span><i aria-hidden="true">↗</i></button>
+            <button type="button" onClick={() => {setPage("library"); setLibraryTab("legal");}}><Eye /><strong>ดูและฟังที่ไหน</strong><span>สำรวจช่องทางรับชมในไทย</span><i aria-hidden="true">↗</i></button>
+            <button type="button" onClick={() => confirmLeaveGame(() => setPage("community"))}><Trophy /><strong>Community</strong><span>แบ่งปันเรื่องโปรดกับทุกคน</span><i aria-hidden="true">↗</i></button>
+            <button type="button" onClick={() => confirmLeaveGame(() => setPage("online"))}><Users /><strong>เล่นกับเพื่อน</strong><span>สร้างห้องแล้วมาทายไปด้วยกัน</span><i aria-hidden="true">↗</i></button>
+          </div>
         </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.05 }} className="lg:col-span-2">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.05 }} className="oto-home-leaderboard">
           <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_20px_40px_rgba(19,34,76,0.14)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
             <CardHeader className="relative">
-              <CardTitle className="text-lg"> อันดับผู้เล่น</CardTitle>
-              <CardDescription>จำนวนการเล่น ชนะสะสม  คะแนนสะสม</CardDescription>
+              <div className="oto-home-eyebrow">THE LEADERBOARD</div><CardTitle className="text-lg">อันดับผู้เล่น</CardTitle>
+              <CardDescription>🎮 จำนวนครั้ง · 🔥 สถิติต่อเนื่อง · ⭐ คะแนนสะสม</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
               {!user?.uid ? (
