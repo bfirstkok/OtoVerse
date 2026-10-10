@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
+/* OtoVerse uses one dark theme, independent of the device preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --app-bg: #f6f7fb;
-  --app-fg: #151827;
-  --app-muted: #687086;
-  --app-border: rgba(148, 163, 184, 0.24);
+  color-scheme: dark;
+  --app-bg: #080b14;
+  --app-fg: #f4f7fb;
+  --app-muted: #98a2b6;
+  --app-border: rgba(148, 163, 184, 0.12);
   --app-primary: #5b5ce2;
   --transition-fast: 160ms cubic-bezier(0.2, 0, 0, 1);
   --transition-smooth: 240ms cubic-bezier(0.2, 0, 0, 1);
@@ -37,7 +41,7 @@ body {
     var(--bg-gif),
     radial-gradient(circle at 8% 0%, rgba(91, 92, 226, 0.12), transparent 32rem),
     radial-gradient(circle at 92% 8%, rgba(14, 165, 233, 0.1), transparent 28rem),
-    linear-gradient(180deg, #fbfbfe 0%, #f3f5fb 60%, #f8f9fc 100%);
+    linear-gradient(180deg, #0b0e18 0%, #080b14 58%, #0a0d17 100%);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
