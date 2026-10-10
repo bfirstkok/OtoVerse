@@ -1,4 +1,4 @@
-﻿import React, { useMemo, useRef, useState, useEffect } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 window.__QUIZ_LOADED = true;
 // TEMP_MARKER_REMOVE
 import qrPaymentImg from "./QRpayment.jpg";
@@ -8387,20 +8387,21 @@ useEffect(() => {
   );
 
   const renderLibrary = () => (
-    <div className="space-y-6">
+    <div className={`space-y-6 ${libraryTab === "legal" && !legalSelectedItem ? "oto-discover" : ""}`}>
       <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_20px_40px_rgba(19,34,76,0.14)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
         <CardHeader className="flex flex-col gap-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
+              {libraryTab === "legal" && !legalSelectedItem ? <div className="oto-discover-eyebrow">OTOVERSE • DISCOVER</div> : null}
               <CardTitle className="text-2xl">
-                {libraryTab === "legal" ? (legalSelectedItem ? "รายละเอียด" : "รายชื่ออนิเมะ") : "Anime Library"}
+                {libraryTab === "legal" ? (legalSelectedItem ? "รายละเอียด" : "เรื่องต่อไปที่อยากดู อยู่ที่นี่") : "Anime Library"}
               </CardTitle>
               <CardDescription>
                 {libraryTab === "catalog"
                   ? <>ตอนนี้มีอนิเมะให้ทายทั้งหมด {totalCount} เรื่อง • กำลังดู {selectedGenreLabel}</>
                   : legalSelectedItem
                     ? <>ดูข้อมูลเรื่อง/เพลง และช่องทางรับชม/ฟัง (ลิขสิทธิ์ไทย)</>
-                    : <>ดูรายชื่อ + ช่องทางรับชม/ฟัง (ลิขสิทธิ์ไทย)</>}
+                    : <>ค้นพบอนิเมะและเพลงที่ชอบ พร้อมค้นหาช่องทางดูและฟังในไทย</>}
               </CardDescription>
             </div>
             {libraryTab === "catalog" && (
@@ -8442,18 +8443,19 @@ useEffect(() => {
           </div>
 
           {libraryTab === "legal" && !legalSelectedItem ? (
-            <div className="space-y-3">
+            <div className="oto-discover-filters space-y-3">
               <div className="relative w-full">
                 <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-slate-400" />
                 <Input
                   value={legalSearch}
                   onChange={(e) => setLegalSearch(e.target.value)}
-                  placeholder="พิมพ์ชื่อเรื่องที่นี่ (ตามไทย, Romaji, 日本語)"
+                  aria-label="ค้นหาอนิเมะหรือเพลง"
+                  placeholder="ค้นหาอนิเมะหรือเพลง · ไทย / Romaji / 日本語"
                   className="pl-9 rounded-2xl"
                 />
               </div>
 
-              <div className="grid gap-3 md:grid-cols-4">
+              <div className="oto-discover-filter-row grid gap-3">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
                     <Shield className="h-4 w-4" />
@@ -8497,50 +8499,14 @@ useEffect(() => {
                   </select>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
-                    <Headphones className="h-4 w-4" />
-                    เสียงพากย์
-                  </div>
-                  <select
-                    disabled
-                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/50 px-3 text-sm text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-200/70"
-                    title="ยังไม่มีข้อมูลเสียงพากย์ในชุดข้อมูล"
-                  >
-                    <option>ทั้งหมด</option>
-                  </select>
-                </div>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
-                    <Eye className="h-4 w-4" />
-                    ซับได้
-                  </div>
-                  <select
-                    disabled
-                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/50 px-3 text-sm text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-200/70"
-                    title="ยังไม่มีข้อมูลซับในชุดข้อมูล"
-                  >
-                    <option>ทั้งหมด</option>
-                  </select>
-                </div>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
-                    <Info className="h-4 w-4" />
-                    สถานะ
-                  </div>
-                  <select
-                    disabled
-                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/50 px-3 text-sm text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-200/70"
-                    title="ยังไม่มีข้อมูลสถานะฉาย/จบในชุดข้อมูล"
-                  >
-                    <option>ทั้งหมด</option>
-                  </select>
-                </div>
+
+
+
               </div>
 
-              <div className="grid gap-3 md:grid-cols-4">
+              <div className="oto-discover-filter-row grid gap-3">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
                     <ListMusic className="h-4 w-4" />
@@ -8583,19 +8549,7 @@ useEffect(() => {
                   </select>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
-                    <RotateCcw className="h-4 w-4" />
-                    ฉาย/จบ
-                  </div>
-                  <select
-                    disabled
-                    className="h-10 w-full rounded-2xl border border-slate-200 bg-white/50 px-3 text-sm text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950/35 dark:text-slate-200/70"
-                    title="ยังไม่มีข้อมูลฉาย/จบในชุดข้อมูล"
-                  >
-                    <option>ทั้งหมด</option>
-                  </select>
-                </div>
+
 
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-200/80">
@@ -8616,7 +8570,7 @@ useEffect(() => {
 
               <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600 dark:text-slate-300">
                 <div className="font-semibold">{legalFilteredItems.length.toLocaleString()} รายการ</div>
-                <div>หมายเหตุ: ผลลัพธ์ขึ้นกับสิทธิ์ในไทยและอาจเปลี่ยนแปลงได้</div>
+                <Button type="button" variant="ghost" size="sm" onClick={() => { setLegalSearch(""); setLegalProviderFilter("all"); setLegalGenreFilter("all"); setLegalYearFilter("all"); }}>ล้างตัวกรอง</Button>
               </div>
             </div>
           ) : null}
@@ -8890,7 +8844,7 @@ useEffect(() => {
             <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
               <CardContent className="space-y-4">
                 {activeDailyRecommendedAnime ? (
-  <div className="rounded-3xl border border-slate-200 bg-white/70 overflow-hidden dark:border-slate-700 dark:bg-slate-950/45">
+  <div className="oto-discover-feature rounded-3xl border border-slate-200 bg-white/70 overflow-hidden dark:border-slate-700 dark:bg-slate-950/45">
     <div className="p-4 sm:p-5">
       <div className="flex items-center justify-between gap-3 mb-4">
         <div>
@@ -8907,6 +8861,7 @@ useEffect(() => {
             type="button"
             variant="outline"
             className="rounded-2xl"
+            aria-label="เรื่องแนะนำก่อนหน้า"
             onClick={() =>
               setDailyRecommendIndex((prev) =>
                 prev <= 0 ? dailyRecommendedAnime.length - 1 : prev - 1
@@ -8919,6 +8874,7 @@ useEffect(() => {
             type="button"
             variant="outline"
             className="rounded-2xl"
+            aria-label="เรื่องแนะนำถัดไป"
             onClick={() =>
               setDailyRecommendIndex((prev) =>
                 prev >= dailyRecommendedAnime.length - 1 ? 0 : prev + 1
@@ -8946,7 +8902,7 @@ useEffect(() => {
             openLegalDetail(workKey);
           }
         }}
-        className="cursor-pointer rounded-3xl border border-slate-200 bg-white/80 p-4 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:border-slate-600"
+        className="oto-discover-feature-body cursor-pointer rounded-3xl border border-slate-200 bg-white/80 p-4 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-950/35 dark:hover:border-slate-600"
       >
         <div className="flex flex-col md:flex-row gap-4">
           <div className="shrink-0">
@@ -9012,7 +8968,7 @@ useEffect(() => {
   </div>
 ) : null}
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100"> รายการ</div>
+                  <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100">{legalSearch ? "ผลการค้นหา" : "สำรวจทั้งหมด"}</div>
                   <div className="text-xs font-semibold text-slate-600 dark:text-slate-300">
                     แสดง {legalFilteredItems.length.toLocaleString()} จาก {(libraryListMode === "works"
                       ? libraryTitleLists.works.length
@@ -9023,7 +8979,8 @@ useEffect(() => {
                   </div>
                 </div>
 
-                <div className="grid gap-4">
+                {legalFilteredItems.length === 0 ? <div className="oto-discover-empty"><Search className="h-8 w-8 mx-auto mb-3" /><h3>ยังไม่พบเรื่องที่ตรงใจ</h3><p>ลองเปลี่ยนคำค้นหรือกดล้างตัวกรองด้านบน</p></div> : null}
+                <div className="oto-discover-grid grid gap-4">
   {legalFilteredItems.map((item) => {
     const providerOrderWorks = [
       "netflix",
@@ -9122,7 +9079,7 @@ useEffect(() => {
             openLegalDetail(item.key);
           }
         }}
-        className="rounded-3xl border border-slate-700/60 bg-slate-950/35 overflow-hidden cursor-pointer transition-all hover:border-cyan-400/50 hover:bg-slate-900/45"
+        className="oto-discover-tile rounded-3xl border border-slate-700/60 bg-slate-950/35 overflow-hidden cursor-pointer transition-all hover:border-cyan-400/50 hover:bg-slate-900/45"
         title="คลิกเพื่อดูรายละเอียด"
       >
         <div className="flex gap-4 p-4">
@@ -9187,7 +9144,7 @@ useEffect(() => {
               ) : null}
 
               <div className="mt-3 text-sm font-semibold text-slate-400">
-                คลิกเพื่อดูรายละเอียดและช่องทางรับชม/ฟัง
+                ดูรายละเอียดและช่องทาง ↗
               </div>
 
               {item?.anime ? (
@@ -10193,7 +10150,7 @@ useEffect(() => {
 
   return (
     <div className="relative isolate min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
-      {page === "library" && shouldShowLibraryGifBg ? (
+      {page === "library" && libraryTab !== "legal" && shouldShowLibraryGifBg ? (
         canPlayLibraryMp4Bg && !libraryBgVideoFailed ? (
           <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
             <video

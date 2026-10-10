@@ -5,6 +5,50 @@
   --public-border: rgba(148, 163, 184, 0.24);
 }
 
+.oto-discover { max-width: 1280px; margin-inline: auto; }
+.oto-discover > [data-ui="card"] { background: #0b1020ed; border: 1px solid #ffffff0f; box-shadow: 0 16px 48px #00000026; }
+.oto-discover > [data-ui="card"]:first-child { background: radial-gradient(ellipse at 100% 0%, #4338ca28, transparent 60%), #0c1221; }
+.oto-discover > [data-ui="card"]:first-child h3 { font-size: clamp(24px, 3vw, 36px); line-height: 1.3; }
+.oto-discover-eyebrow { color: #a5b4fc; font-size: 11px; font-weight: 700; letter-spacing: .2em; margin-bottom: 12px; }
+.oto-discover-filters { margin-top: 8px; }
+.oto-discover-filters input { height: 54px; padding-left: 42px; background: #070c19; border-color: #ffffff1c; font-size: 15px; }
+.oto-discover-filters > .relative > svg { left: 16px; }
+.oto-discover-filter-row { display: contents; }
+.oto-discover-filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.oto-discover-filters > .relative, .oto-discover-filters > .flex { grid-column: 1 / -1; }
+.oto-discover-filters > * { margin-top: 0 !important; }
+.oto-discover-filters select { height: 44px; border-radius: 12px; background: #111a2c; border-color: #ffffff12; }
+.oto-discover-feature { background: linear-gradient(115deg, #191637, #0c1628); border-color: #818cf826; }
+.oto-discover-feature-body { background: transparent; border: 0; padding: 0; }
+.oto-discover-feature-body img { width: 100%; max-width: 400px; height: 215px; border-radius: 16px; }
+.oto-discover-feature-body > div { align-items: center; gap: 28px; }
+.oto-discover-feature-body > div > .shrink-0 { width: 38%; }
+.oto-discover-feature-body .text-2xl { font-size: clamp(24px, 2.7vw, 34px); }
+.oto-discover-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.oto-discover-tile { border-radius: 18px; background: #11192a; border-color: #ffffff0d; }
+.oto-discover-tile:hover { transform: translateY(-4px); background: #151e33; border-color: #818cf85e; box-shadow: 0 14px 30px #00000030; }
+.oto-discover-tile:focus-visible, .oto-discover-feature-body:focus-visible { outline: 2px solid #a5b4fc; outline-offset: 4px; }
+.oto-discover-tile > .flex { flex-direction: column; padding: 0; gap: 0; height: 100%; }
+.oto-discover-tile > .flex > .shrink-0 img { width: 100%; height: auto; aspect-ratio: 16 / 9; border: 0; border-radius: 0; }
+.oto-discover-tile > .flex > .flex-1 { padding: 18px; gap: 6px; }
+.oto-discover-tile .text-2xl { font-size: 20px; line-height: 1.4; }
+.oto-discover-tile .text-lg { font-size: 14px; font-weight: 500; color: #c7d2fe; }
+.oto-discover-tile .text-sm { font-size: 12px; }
+.oto-discover-tile .mt-3.text-sm { font-size: 11px; color: #8d9bb5; }
+.oto-discover-tile .mt-1 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+.oto-discover-tile button { margin-top: 10px; }
+.oto-discover-empty { padding: 48px 16px; text-align: center; border: 1px dashed #ffffff20; border-radius: 16px; color: #94a3b8; }
+.oto-discover-empty h3 { font-size: 20px; margin-bottom: 8px; color: #f1f5f9; }
+@media (max-width: 1024px) { .oto-discover-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .oto-discover-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .oto-discover-grid { grid-template-columns: 1fr; }
+  .oto-discover-feature-body > div > .shrink-0 { width: 100%; }
+  .oto-discover-feature-body img { max-width: none; height: auto; aspect-ratio: 16 / 9; }
+  .oto-discover-tile > .flex > .flex-1 { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .oto-discover-tile:hover { transform: none; } }
+
 /* Lightweight ambient home backdrop; no video download or autoplay required. */
 .oto-home-atmosphere {
   position: fixed;
