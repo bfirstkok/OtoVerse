@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect } from "react";
 import PageLoader from "@/components/system/PageLoader";
+import WebMascot from "@/components/system/WebMascot";
 import "@/styles/public-system.css";
 
 const OtoVerseExperience = React.lazy(() => import("../../anime_op_quiz_starter"));
@@ -15,6 +16,7 @@ export default function PublicApp() {
     <div className="otoverse-public">
       <Suspense fallback={<PageLoader label="กำลังเตรียมเกมและคลังอนิเมะ…" />}>
         <OtoVerseExperience />
+        <WebMascot />
       </Suspense>
     </div>
   );
