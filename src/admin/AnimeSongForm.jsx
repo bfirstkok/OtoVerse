@@ -1,7 +1,8 @@
+import { prepareProfileImage } from "@/lib/avatars";
 import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getYouTubeThumbUrl } from "@/lib/media";
+import { getYouTubeId, getYouTubeThumbUrl } from "@/lib/media";
 import { GENRE_CONFIG } from "@/lib/animeGenre";
 
 const EMPTY_CHARACTER = { name: "", role: "", image: "", bio: "" };
@@ -82,6 +83,9 @@ export default function AnimeSongForm({
   saving
 }) {
   const [form, setForm] = useState(() => toFormValue(item));
+  const [imageBusy, setImageBusy] = useState(false);
+  const [animeSearch, setAnimeSearch] = useState("");
+  const [formError, setFormError] = useState("");
   const [createMode, setCreateMode] = useState("existing");
   const [selectedExistingId, setSelectedExistingId] = useState("");
 
@@ -142,6 +146,8 @@ export default function AnimeSongForm({
     const nextTitle = nextOpeningTitle(baseTitle, existingItems);
     setForm({
       ...toFormValue({ ...source, title: nextTitle, animeTitle: baseTitle }),
+      songType: "OP",
+      songNumber: Number(nextTitle.match(/OP(\d+)/)?.[1]) || 1,
       songTitle: "",
       artist: "",
       youtubeVideoId: "",
@@ -162,8 +168,14 @@ export default function AnimeSongForm({
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setFormError("");
+    const videoId = getYouTubeId(form.youtubeVideoId);
+    if (editScope !== "anime" && !/^[a-zA-Z0-9_-]{11}$/.test(videoId)) { setFormError("กรุณาวางลิงก์ YouTube หรือรหัสวิดีโอที่ถูกต้อง"); return; }
+    const duplicate = existingItems.some(entry => entry.id !== item?.id && titleKey(entry.animeTitle || entry.title) === titleKey(form.animeTitle) && toFormValue(entry).songType === form.songType && Number(toFormValue(entry).songNumber) === Number(form.songNumber));
+    if (editScope !== "anime" && duplicate) { setFormError("เรื่องนี้มีเพลงประเภทและลำดับนี้แล้ว กรุณาแก้รายการเดิมหรือเปลี่ยนลำดับเพลง"); return; }
     onSave({
       ...form,
+      youtubeVideoId: videoId,
       title: `${String(form.animeTitle || "").trim()} (${form.songType}${Math.max(1, Number(form.songNumber) || 1)})`,
       altTitles: splitLines(form.altTitles),
       acceptedAnswers: splitLines(form.acceptedAnswers),
@@ -176,7 +188,7 @@ export default function AnimeSongForm({
 
   const previewImage = String(form.imageUrl || "").trim()
     || getYouTubeThumbUrl(form.youtubeVideoId, "mqdefault");
-  const editingSongOnly = Boolean(item && editScope === "song");
+  const editingSongOnly = Boolean((item && editScope === "song") || (!item && createMode === "existing"));
   const editingAnimeOnly = Boolean(item && editScope === "anime");
 
   return (
@@ -212,14 +224,16 @@ export default function AnimeSongForm({
 
           {createMode === "existing" ? (
             <Field label="เลือกเรื่อง Anime ที่มีอยู่แล้ว">
+              <Input aria-label="ค้นหาอนิเมะ" value={animeSearch} onChange={e => setAnimeSearch(e.target.value)} placeholder="ค้นหาชื่ออนิเมะก่อนเลือก…" className="mb-2"/>
               <select
                 className="w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+                aria-label="เลือกอนิเมะเดิม"
                 value={selectedExistingId}
                 onChange={(event) => selectExistingAnime(event.target.value)}
                 required
               >
                 <option value="">— เลือกเรื่อง —</option>
-                {existingAnimeOptions.map((entry) => (
+                {existingAnimeOptions.filter(entry => entry.id === selectedExistingId || [entry.title, ...(entry.altTitles || [])].join(" ").toLowerCase().includes(animeSearch.toLowerCase())).map((entry) => (
                   <option key={entry.id} value={entry.id}>{baseAnimeTitle(entry.title)}</option>
                 ))}
               </select>
@@ -271,8 +285,13 @@ export default function AnimeSongForm({
               <option value="hard">Hard</option>
             </select>
           </Field>
-          <Field label="Image URL">
-            <Input type="url" value={form.imageUrl} onChange={(e) => update("imageUrl", e.target.value)} />
+          <Field label="ภาพปกเรื่อง (URL หรือเลือกจากเครื่อง)">
+            <Input value={String(form.imageUrl || "").startsWith('data:') ? '' : form.imageUrl} placeholder={String(form.imageUrl || "").startsWith('data:') ? 'ใช้ภาพที่เลือกจากเครื่อง' : 'https://…'} onChange={(e) => update("imageUrl", e.target.value)} />
+            <input className="mt-2 block w-full text-xs text-slate-400" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif" disabled={saving || imageBusy} onChange={async e => {
+              const file=e.target.files?.[0]; e.target.value=''; if(!file)return;
+              setImageBusy(true); setFormError('');
+              try {update('imageUrl', await prepareProfileImage('admin-cover', file, 'cover'));} catch {setFormError('เลือกรูปภาพขนาดไม่เกิน 8 MB');} finally {setImageBusy(false);}
+            }}/>
           </Field>
         </div>
 
@@ -293,7 +312,7 @@ export default function AnimeSongForm({
         <div className="rounded-2xl border border-slate-700 bg-slate-900/70 p-4">
           <div className="text-xs font-semibold uppercase tracking-wide text-slate-400">เรื่องอนิเมะ</div>
           <div className="mt-1 text-lg font-bold text-white">{form.animeTitle}</div>
-          <div className="mt-1 text-sm text-slate-400">กำลังแก้ไขเฉพาะข้อมูลเพลง OP/ED</div>
+          <div className="mt-1 text-sm text-slate-400">ข้อมูลเรื่องและรูปปกใช้จากเรื่องเดิม · กรอกเฉพาะเพลงใหม่ได้เลย</div>
         </div>
       )}
 
@@ -303,7 +322,13 @@ export default function AnimeSongForm({
             <select
               className="w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
               value={form.songType}
-              onChange={(e) => update("songType", e.target.value)}
+              onChange={(e) => {
+                const type = e.target.value;
+                if (!item) {
+                  const highest = existingItems.filter(entry => titleKey(entry.animeTitle || entry.title) === titleKey(form.animeTitle) && toFormValue(entry).songType === type).reduce((max,entry) => Math.max(max, Number(toFormValue(entry).songNumber) || 0), 0);
+                  setForm(current => ({...current, songType:type, songNumber:highest + 1}));
+                } else update("songType",type);
+              }}
             >
               <option value="OP">Opening (OP)</option>
               <option value="ED">Ending (ED)</option>
@@ -323,23 +348,25 @@ export default function AnimeSongForm({
           <Field label="ศิลปิน">
             <Input value={form.artist} onChange={(e) => update("artist", e.target.value)} />
           </Field>
-          <Field label="YouTube Video ID">
+          <Field label="ลิงก์ YouTube หรือ Video ID *">
             <Input
               value={form.youtubeVideoId}
               onChange={(e) => update("youtubeVideoId", e.target.value)}
-              placeholder="เช่น euX_8PYBvr4"
+              placeholder="วางลิงก์ youtube.com/watch หรือ youtu.be ได้เลย"
+              required
             />
           </Field>
           <Field label="ชื่อเพลง/หมายเหตุเดิม">
             <Input value={form.note} onChange={(e) => update("note", e.target.value)} />
           </Field>
         </div>
+        {getYouTubeId(form.youtubeVideoId) && <div className="flex gap-4 items-center rounded-xl bg-slate-950 p-3"><img src={getYouTubeThumbUrl(form.youtubeVideoId, "mqdefault")} alt="ตัวอย่างวิดีโอเพลง" className="w-32 rounded-lg"/><div className="text-sm text-slate-300"><div>ตรวจวิดีโอก่อนบันทึก</div><a className="text-indigo-300 underline" href={`https://www.youtube.com/watch?v=${getYouTubeId(form.youtubeVideoId)}`} target="_blank" rel="noreferrer">เปิดใน YouTube ↗</a></div></div>}
         <Field label="คำตอบที่ยอมรับ (คั่นด้วย comma หรือขึ้นบรรทัดใหม่)">
           <TextArea rows={4} value={form.acceptedAnswers} onChange={(e) => update("acceptedAnswers", e.target.value)} />
         </Field>
       </FormSection> : null}
 
-      {!editingSongOnly ? <FormSection
+      {!editingSongOnly ? <details className="rounded-xl border border-slate-700 p-3"><summary className="cursor-pointer text-sm text-slate-300">ข้อมูลตัวละครเพิ่มเติม (ไม่จำเป็นต้องกรอก)</summary><FormSection
         title={`ตัวละครแนะนำ (${form.characters.length})`}
         action={<Button variant="outline" onClick={addCharacter}>+ เพิ่มตัวละคร</Button>}
       >
@@ -387,7 +414,7 @@ export default function AnimeSongForm({
             ))}
           </div>
         )}
-      </FormSection> : null}
+      </FormSection></details> : null}
 
       <label className="flex items-center gap-3 text-sm font-medium text-slate-200">
         <input
@@ -399,9 +426,10 @@ export default function AnimeSongForm({
         เปิดใช้งานรายการนี้ในเกม
       </label>
 
-      <div className="flex flex-wrap justify-end gap-3 border-t border-slate-700 pt-5">
-        <Button variant="outline" onClick={onCancel} disabled={saving}>ยกเลิก</Button>
-        <Button type="submit" className="bg-indigo-600 hover:bg-indigo-500" disabled={saving}>
+      {formError && <p role="alert" className="rounded-xl bg-rose-500/10 p-3 text-sm text-rose-300">{formError}</p>}
+      <div className="sticky bottom-0 bg-slate-950/95 flex flex-wrap justify-end gap-3 border-t border-slate-700 pt-5">
+        <Button variant="outline" onClick={onCancel} disabled={saving || imageBusy}>ยกเลิก</Button>
+        <Button type="submit" className="bg-indigo-600 hover:bg-indigo-500" disabled={saving || imageBusy}>
           {saving ? "กำลังบันทึก…" : item ? "บันทึกการแก้ไข" : "เพิ่มรายการ"}
         </Button>
       </div>

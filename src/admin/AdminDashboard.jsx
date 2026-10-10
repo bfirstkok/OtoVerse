@@ -1,3 +1,4 @@
+import AnimeCoverEditor from "./AnimeCoverEditor";
 import React, { useEffect, useMemo, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import {
@@ -19,7 +20,8 @@ import {
   getAdminRole,
   importAnimeSongs,
   subscribeAnimeSongs,
-  updateAnimeSong
+  updateAnimeSong,
+  updateAnimeCovers
 } from "@/lib/adminContent";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -171,11 +173,17 @@ export default function AdminDashboard() {
   const openEditAnime = (item, seriesItems) => {
     setEditing(item);
     setEditScope("anime");
-    setEditingSeriesItems(seriesItems);
+    setEditingSeriesItems(items.filter(entry => normalizeTitleKey(entry.title) === normalizeTitleKey(item.title)));
     setCreateFromId("");
     setFormOpen(true);
     setError("");
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const openCover = (item) => {
+    setEditing(item); setEditScope("cover");
+    setEditingSeriesItems(items.filter(entry => normalizeTitleKey(entry.title) === normalizeTitleKey(item.title)));
+    setFormOpen(true); setError(""); window.scrollTo({top:0, behavior:"smooth"});
   };
 
   const openAddSongForAnime = (item) => {
@@ -192,7 +200,9 @@ export default function AdminDashboard() {
     setSaving(true);
     setError("");
     try {
-      if (editing && editScope === "anime") {
+      if (editing && editScope === "cover") {
+        await updateAnimeCovers(editingSeriesItems.map(entry => entry.id), data.imageUrl);
+      } else if (editing && editScope === "anime") {
         const sharedFields = {
           animeTitle: data.animeTitle,
           altTitles: data.altTitles,
@@ -295,7 +305,7 @@ export default function AdminDashboard() {
   }
 
   const editorTitle = editing
-    ? editScope === "anime"
+    ? editScope === "cover" ? `เปลี่ยนปก: ${editing.animeTitle || editing.title}` : editScope === "anime"
       ? `แก้ไขข้อมูลเรื่อง: ${editing.animeTitle || editing.title}`
       : `แก้ไขเพลง: ${editing.songTitle || editing.note || editing.title}`
     : "เพิ่ม Anime / Song";
@@ -329,7 +339,7 @@ export default function AdminDashboard() {
             </div>
           </CardHeader>
           <CardContent className="pt-6">
-            <AnimeSongForm
+            {editScope === "cover" ? <AnimeCoverEditor item={editing} count={editingSeriesItems.length} saving={saving} onSave={handleSave} onCancel={resetEditor}/> : <AnimeSongForm
               item={editing}
               existingItems={items}
               preferredExistingId={createFromId}
@@ -337,7 +347,7 @@ export default function AdminDashboard() {
               onSave={handleSave}
               onCancel={resetEditor}
               saving={saving}
-            />
+            />}
           </CardContent>
         </Card>
       ) : (
@@ -389,6 +399,7 @@ export default function AdminDashboard() {
                   onDelete={handleDelete}
                   onAddSong={openAddSongForAnime}
                   onEditAnime={openEditAnime}
+                  onCover={openCover}
                   deletingId={deletingId}
                   onImport={handleImportExistingData}
                   importing={importing}

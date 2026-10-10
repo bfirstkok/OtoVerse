@@ -67,6 +67,7 @@ export default function AnimeSongTable({
   onDelete,
   onAddSong,
   onEditAnime,
+  onCover,
   deletingId,
   onImport,
   importing,
@@ -131,6 +132,7 @@ export default function AnimeSongTable({
               </button>
 
               <div className="flex shrink-0 flex-wrap gap-2 sm:justify-end">
+                {onCover ? <Button size="sm" variant="outline" onClick={() => onCover(primary)}>เปลี่ยนปก</Button> : null}
                 {onEditAnime ? <Button size="sm" variant="outline" onClick={() => onEditAnime(primary, group.items)}><Pencil className="h-3.5 w-3.5" /> แก้ไขเรื่อง</Button> : null}
                 {onAddSong ? <Button size="sm" onClick={() => onAddSong(primary)}><Plus className="h-3.5 w-3.5" /> เพิ่ม OP/ED</Button> : null}
               </div>

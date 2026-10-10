@@ -197,3 +197,11 @@ export async function getAdminRole(uid) {
   if (!snapshot.exists()) return null;
   return snapshot.data()?.role || null;
 }
+
+export async function updateAnimeCovers(ids, imageUrl) {
+  const uniqueIds = [...new Set(ids)].filter(Boolean);
+  if (!uniqueIds.length || uniqueIds.length > 500) throw new Error("จำนวนรายการไม่ถูกต้อง");
+  const batch = writeBatch(requireDb());
+  uniqueIds.forEach(id => batch.update(doc(requireDb(), COLLECTION_NAME, id), { imageUrl: String(imageUrl || "").trim(), updatedAt: serverTimestamp() }));
+  await batch.commit();
+}
