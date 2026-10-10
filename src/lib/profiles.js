@@ -452,3 +452,15 @@ export async function touchUserPresence(uid) {
     await setDoc(ref, { lastActiveAt: serverTimestamp(), online: true }, { merge: true }).catch(() => {});
   });
 }
+
+export async function updateProfileShowcase(uid, { bio, topAnimeIds, recommendedAnimeIds }) {
+  const ref = profileDocRef(uid);
+  if (!firebaseReady || !ref) throw new Error("firebase_not_ready");
+  const normalize = values => [...new Set((Array.isArray(values) ? values : []).map(Number).filter(n => Number.isFinite(n) && n > 0))].slice(0, 5);
+  await setDoc(ref, {
+    bio: String(bio || "").trim().slice(0, 160),
+    topAnimeIds: normalize(topAnimeIds),
+    recommendedAnimeIds: normalize(recommendedAnimeIds),
+    showcaseUpdatedAt: serverTimestamp()
+  }, { merge: true });
+}

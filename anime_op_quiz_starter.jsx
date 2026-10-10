@@ -1,3 +1,4 @@
+import ProfilePage from "./src/components/system/ProfilePage";
 import React, { useMemo, useRef, useState, useEffect } from "react";
 window.__QUIZ_LOADED = true;
 // TEMP_MARKER_REMOVE
@@ -1386,6 +1387,7 @@ useEffect(() => {
 
   const [authOpen, setAuthOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [profileSettingsOpen, setProfileSettingsOpen] = useState(false);
   const [authMode, setAuthMode] = useState("signin");
   const [authEmail, setAuthEmail] = useState("");
   const [authPassword, setAuthPassword] = useState("");
@@ -10484,13 +10486,15 @@ useEffect(() => {
         </div>
       )}
 
-      {profileOpen && user && (
+      {profileOpen && user && <ProfilePage uid={user.uid} profile={profile} own favorites={favoriteIds} anime={libraryAnimeWithGenre} avatar={headerAvatarUrl} onClose={() => setProfileOpen(false)} onSettings={() => setProfileSettingsOpen(true)} onAnime={a => openFavoritesPopup({label: a.title, ids: [a.id]})} />}
+
+      {profileSettingsOpen && user && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
           <button
             type="button"
             className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
             aria-label="ปิดโปรไฟล์"
-            onClick={() => setProfileOpen(false)}
+            onClick={() => setProfileSettingsOpen(false)}
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.96, y: 8 }}
@@ -10512,7 +10516,7 @@ useEffect(() => {
                     variant="ghost"
                     size="icon"
                     className="rounded-2xl"
-                    onClick={() => setProfileOpen(false)}
+                    onClick={() => setProfileSettingsOpen(false)}
                     title="ปิด"
                   >
                     ✕
@@ -10710,147 +10714,7 @@ useEffect(() => {
         </div>
       )}
 
-      {publicProfileOpen && user && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
-          <button
-            type="button"
-            className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
-            aria-label="ปิดโปรไฟล์ผู้เล่น"
-            onClick={() => setPublicProfileOpen(false)}
-          />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
-            className="relative w-full max-w-2xl"
-          >
-            <Card className="rounded-3xl border-2 border-slate-200 bg-white text-slate-950 shadow-2xl overflow-hidden dark:border-slate-700 dark:bg-slate-950 dark:text-slate-50">
-              <CardHeader className="relative">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <CardTitle className="font-display text-2xl">🪪 โปรไฟล์ผู้เล่น</CardTitle>
-                    <CardDescription className="text-slate-800 dark:text-slate-200">ดูสถิติและติดตามกันได้</CardDescription>
-                  </div>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-2xl"
-                    onClick={() => setPublicProfileOpen(false)}
-                    title="ปิด"
-                  >
-                    ✕
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {publicProfileError ? (
-                  <div className="rounded-2xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-900 dark:border-rose-400/40 dark:bg-slate-900/40 dark:text-rose-100">
-                    โหลดโปรไฟล์ไม่สำเร็จ ({publicProfileError})
-                  </div>
-                ) : null}
-
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-900/40 dark:text-slate-50">
-                  <div className="flex items-center gap-4">
-                    <div className="relative h-16 w-16 rounded-2xl border border-slate-200 bg-white/70 overflow-hidden flex items-center justify-center flex-shrink-0 dark:border-slate-700 dark:bg-slate-950/30">
-                      {String(publicProfile?.photoURL || "").trim() ? (
-                        <img src={publicProfile.photoURL} alt="" className="h-full w-full object-cover" draggable={false} />
-                      ) : (
-                        <div className="text-xl">👤</div>
-                      )}
-                      {(() => {
-                        const on = isProbablyOnline(publicProfile);
-                        return (
-                          <span
-                            aria-label={on ? "ออนไลน์" : "ออฟไลน์"}
-                            title={on ? "ออนไลน์" : "ออฟไลน์"}
-                            className={`absolute -bottom-1 -right-1 h-4 w-4 rounded-full border-2 border-white dark:border-slate-950 ${
-                              on ? "bg-emerald-500" : "bg-slate-400"
-                            }`}
-                          />
-                        );
-                      })()}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="text-base font-black truncate">
-                        {String(publicProfile?.nickname || "").trim() || String(publicProfile?.displayName || "").trim() || "ผู้เล่น"}
-                      </div>
-                      <div className="mt-1 text-xs font-semibold text-slate-600 dark:text-slate-300">
-                        ผู้ติดตาม: {publicProfileFollowers == null ? "…" : publicProfileFollowers}
-                        {Array.isArray(publicProfile?.following) ? ` • กำลังติดตาม: ${publicProfile.following.length}` : ""}
-                      </div>
-                      <div className="mt-1 text-xs font-semibold text-slate-600 dark:text-slate-300">
-                        สถานะ: {isProbablyOnline(publicProfile) ? "ออนไลน์" : "ออฟไลน์"}
-                        {publicProfile?.lastSeenAt ? ` • ล่าสุด: ${formatTs(publicProfile.lastSeenAt)}` : ""}
-                      </div>
-                    </div>
-                    {user.uid !== publicProfileUid ? (
-                      <div className="flex items-center gap-2">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="rounded-2xl font-semibold"
-                          onClick={() =>
-                            openChatWithUid(publicProfileUid, {
-                              nickname: publicProfile?.nickname || publicProfile?.displayName || "",
-                              photoURL: publicProfile?.photoURL || ""
-                            })
-                          }
-                          disabled={!publicProfileUid}
-                          title="แชทส่วนตัว"
-                        >
-                          แชท
-                        </Button>
-                        <Button
-                          type="button"
-                          className="rounded-2xl font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg hover:shadow-xl"
-                          onClick={toggleFollowPublicProfile}
-                          disabled={publicProfileBusy || !publicProfileUid}
-                        >
-                          {publicProfileBusy ? "กำลังทำรายการ..." : publicIsFollowing ? "เลิกติดตาม" : "ติดตาม"}
-                        </Button>
-                      </div>
-                    ) : (
-                      <Badge variant="outline" className="rounded-full">นี่คือคุณ</Badge>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-3 gap-3">
-                  <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
-                    จำนวนการเล่น: {typeof publicProfile?.playCount === "number" ? publicProfile.playCount : 0}
-                  </div>
-                  <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
-                    สถิติ “ตอบถูกติดต่อกัน (สูงสุด)”: {typeof publicProfile?.bestStreak === "number" ? publicProfile.bestStreak : 0}
-                  </div>
-                  <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-50">
-                    คะแนนสะสม: {typeof publicProfile?.totalScore === "number" ? publicProfile.totalScore : 0}
-                  </div>
-                </div>
-
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="rounded-2xl font-semibold"
-                  onClick={() =>
-                    openFavoritesPopup({
-                      label: `⭐ เรื่องโปรดของ ${String(publicProfile?.nickname || publicProfile?.displayName || "ผู้เล่น").trim() || "ผู้เล่น"}`,
-                      ids: Array.isArray(publicProfile?.publicFavorites) ? publicProfile.publicFavorites : []
-                    })
-                  }
-                  disabled={Boolean(publicProfileError)}
-                >
-                  ⭐ เรื่องโปรด ({Array.isArray(publicProfile?.publicFavorites) ? publicProfile.publicFavorites.length : 0})
-                </Button>
-
-                {publicProfileNotice ? (
-                  <div className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">{publicProfileNotice}</div>
-                ) : null}
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      )}
+      {publicProfileOpen && user && <ProfilePage uid={publicProfileUid} profile={publicProfile} own={user.uid === publicProfileUid} favorites={publicProfile?.publicFavorites || []} anime={libraryAnimeWithGenre} onClose={() => setPublicProfileOpen(false)} onSettings={() => { setPublicProfileOpen(false); setProfileOpen(true); setProfileSettingsOpen(true); }} onAnime={a => openFavoritesPopup({label: a.title, ids: [a.id]})} onFollow={toggleFollowPublicProfile} following={publicIsFollowing} busy={publicProfileBusy} error={publicProfileError || publicProfileNotice} onChat={() => { setPublicProfileOpen(false); openChatWithUid(publicProfileUid, {nickname: publicProfile?.nickname || publicProfile?.displayName || "", photoURL: publicProfile?.photoURL || ""}); }} />}
 
       {favoritesPopupOpen && user && (
         <div className="fixed inset-0 z-[115] flex items-center justify-center p-4">
