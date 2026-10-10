@@ -1,3 +1,4 @@
+import ContentInbox from "./ContentInbox";
 import AnimeCoverEditor from "./AnimeCoverEditor";
 import React, { useEffect, useMemo, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -69,6 +70,7 @@ export default function AdminDashboard() {
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [displayMode, setDisplayMode] = useState("series");
+  const [songDraft, setSongDraft] = useState(null);
   const [editing, setEditing] = useState(null);
   const [editScope, setEditScope] = useState("song");
   const [editingSeriesItems, setEditingSeriesItems] = useState([]);
@@ -143,6 +145,7 @@ export default function AdminDashboard() {
   }, [items]);
 
   const resetEditor = () => {
+    setSongDraft(null);
     setEditing(null);
     setEditScope("song");
     setEditingSeriesItems([]);
@@ -151,6 +154,7 @@ export default function AdminDashboard() {
   };
 
   const openCreate = () => {
+    setSongDraft(null);
     setEditing(null);
     setEditScope("song");
     setEditingSeriesItems([]);
@@ -161,6 +165,7 @@ export default function AdminDashboard() {
   };
 
   const openEdit = (item) => {
+    setSongDraft(null);
     setEditing(item);
     setEditScope("song");
     setEditingSeriesItems([]);
@@ -187,6 +192,7 @@ export default function AdminDashboard() {
   };
 
   const openAddSongForAnime = (item) => {
+    setSongDraft(null);
     setEditing(null);
     setEditScope("song");
     setEditingSeriesItems([]);
@@ -194,6 +200,13 @@ export default function AdminDashboard() {
     setFormOpen(true);
     setError("");
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const useSuggestion = request => {
+    openCreate();
+    const source=items.find(entry=>normalizeTitleKey(entry.animeTitle || entry.title)===normalizeTitleKey(request.animeTitle));
+    if(source)setCreateFromId(source.id);
+    setSongDraft({animeTitle: request.animeTitle || request.requestText || '', songTitle:request.songTitle || '', songType:request.songType === 'ED' ? 'ED':'OP', youtubeVideoId:request.youtubeVideoId || '', fromExisting:Boolean(source)});
   };
 
   const handleSave = async (data) => {
@@ -340,6 +353,7 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent className="pt-6">
             {editScope === "cover" ? <AnimeCoverEditor item={editing} count={editingSeriesItems.length} saving={saving} onSave={handleSave} onCancel={resetEditor}/> : <AnimeSongForm
+              initialSongDraft={songDraft}
               item={editing}
               existingItems={items}
               preferredExistingId={createFromId}
@@ -352,6 +366,7 @@ export default function AdminDashboard() {
         </Card>
       ) : (
         <div className="space-y-6">
+          <ContentInbox onUse={useSuggestion}/>
           <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <Metric icon={LibraryBig} label="Anime series" value={summary.series} hint="จำนวนเรื่องไม่ซ้ำ" />
             <Metric icon={Music2} label="OP / ED" value={summary.songs} hint="เพลงในคลัง" />

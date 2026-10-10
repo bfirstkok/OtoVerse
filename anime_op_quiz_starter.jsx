@@ -1,3 +1,7 @@
+import ShareCardDialog from "./src/components/system/ShareCardDialog";
+import ContentSubmission from "./src/components/system/ContentSubmission";
+import WatchStatusSelector from "./src/components/system/WatchStatusSelector";
+import "./src/styles/social-features.css";
 import ProfilePage from "./src/components/system/ProfilePage";
 import React, { useMemo, useRef, useState, useEffect } from "react";
 window.__QUIZ_LOADED = true;
@@ -1386,6 +1390,8 @@ useEffect(() => {
   }, [isGroupMode]);
 
   const [authOpen, setAuthOpen] = useState(false);
+  const [shareCardData,setShareCardData] = useState(null);
+  const [contentSubmission,setContentSubmission] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const [profileSettingsOpen, setProfileSettingsOpen] = useState(false);
   const [authMode, setAuthMode] = useState("signin");
@@ -2470,6 +2476,18 @@ useEffect(() => {
     setPublicProfileOpen(true);
   };
 
+  const closeProfilePage = () => {
+    setProfileOpen(false); setPublicProfileOpen(false);
+    if(window.location.pathname.startsWith('/profile/')) window.history.replaceState(null,'','/');
+  };
+  useEffect(() => {
+    if(!user?.uid)return;
+    let linked='';
+    try {linked=decodeURIComponent(window.location.pathname.match(/^\/profile\/([^/]+)/)?.[1] || '');} catch {return;}
+    if(!linked)return;
+    if(linked===user.uid)setProfileOpen(true);else openPublicProfile(linked);
+  },[user?.uid]);
+
   useEffect(() => {
     if (!publicProfileOpen || !publicProfileUid) return;
     setPublicProfileError("");
@@ -2480,6 +2498,7 @@ useEffect(() => {
       publicProfileUid,
       (p) => {
         setPublicProfile(p);
+        if(!p)setPublicProfileError("ไม่พบโปรไฟล์นี้");
       },
       (err) => {
         const msg = String(err?.code || err?.message || "public_profile_subscribe_failed");
@@ -3465,69 +3484,7 @@ useEffect(() => {
     }
   };
 
-  const submitSongRequest = async () => {
-    if (songRequestBusy) return;
-
-    if (!firebaseReady || !firebaseDb) {
-      window.alert("Firebase ยังไม่พร้อม");
-      return;
-    }
-    if (!user?.uid) {
-      window.alert("กรุณาเข้าสู่ระบบก่อนส่งคำขอเพลง");
-      return;
-    }
-
-    const raw = window.prompt("ต้องการเพลง/เรื่องอะไรเพิ่ม? (พิมพ์ชื่อเรื่องหรือชื่อเพลง)", "");
-    const requestText = String(raw || "").trim();
-    if (!requestText) return;
-
-    setSongRequestBusy(true);
-    try {
-      await addDoc(collection(firebaseDb, "song_requests"), {
-        uid: user.uid,
-        displayName: String(user.displayName || "").trim(),
-        email: String(user.email || "").trim(),
-        photoURL: String(user.photoURL || "").trim(),
-        requestText: requestText.slice(0, 220),
-        context: {
-          page: "library",
-          mode: "songs",
-          search: String(legalSearch || "").trim().slice(0, 120)
-        },
-        userAgent: typeof navigator !== "undefined" ? String(navigator.userAgent || "") : "",
-        clientNow: Date.now(),
-        createdAt: serverTimestamp()
-      });
-      window.alert("ส่งคำขอเพลงเรียบร้อย ขอบคุณครับ");
-    } catch (e) {
-      const code = String(e?.code || e?.message || "send_failed");
-      if (code.includes("permission-denied")) {
-        window.alert("ส่งคำขอไม่สำเร็จ: ไม่มีสิทธิ์เขียนข้อมูล (permission-denied)");
-      } else {
-        window.alert("ส่งคำขอไม่สำเร็จ: " + code);
-      }
-    } finally {
-      setSongRequestBusy(false);
-    }
-  };
-
-  useEffect(() => {
-    document.documentElement.classList.add("dark");
-    document.body.classList.add("dark");
-  }, []);
-
-  useEffect(() => {
-    try {
-      // Background is handled via a video element (home) or CSS gradients.
-      // Keep the legacy CSS var disabled to avoid loading the GIF.
-      document.documentElement.style.setProperty("--bg-gif", "none");
-      document.body.classList.remove("with-gif");
-    } catch {
-      // ignore
-    }
-  }, [page]);
-
-  // (removed) GIF background upload feature
+  const submitSongRequest = () => setContentSubmission({anime:null});
 
   const LazyYouTube = ({ videoSource, title }) => {
     const [loaded, setLoaded] = useState(false);
@@ -5570,6 +5527,7 @@ useEffect(() => {
     const startedAt = typeof questionStartedAtRef.current === "number" ? questionStartedAtRef.current : Date.now();
     const ms = Math.max(0, Date.now() - startedAt);
     questionRecordedRef.current = true;
+    window.dispatchEvent(new CustomEvent("otoverse:answer",{detail:{outcome}}));
 
     const id = currentAnime?.id;
     const idKey = id == null ? "" : String(id);
@@ -5739,273 +5697,7 @@ useEffect(() => {
     });
   };
 
-  const shareResultAsImage = async () => {
-    try {
-      const total = Array.isArray(gameList) ? gameList.length : 0;
-      if (!total) return;
-
-      const isNormal = isNormalPlay;
-      const percentage = isNormal ? Math.round((score / total) * 100) : 0;
-      const modeLabel = sessionMode === "daily"
-        ? "Daily Challenge"
-        : sessionMode === "favorites"
-          ? "Favorites"
-          : sessionMode === "popular"
-            ? "Popular"
-            : sessionMode === "series"
-              ? "Anime"
-              : sessionMode === "room"
-                ? "Room"
-                : isGroupMode
-                  ? "Group"
-                  : isSoloChallenge
-                    ? "Solo Challenge"
-                    : isTimeAttack
-                      ? "Time Attack (3m)"
-                    : "Normal";
-
-      const title = "OtoVerse";
-      const host = typeof window !== "undefined" ? window.location.host : "";
-
-      const primaryLine = isGroupMode
-        ? `Questions: ${total} • Time: ${formatPlayElapsedThai(playElapsedMs)}`
-        : isSoloChallenge
-          ? `Correct: ${score} • HP: ${soloHp} • Questions: ${total} • Time: ${formatPlayElapsedThai(playElapsedMs)}`
-          : `Score: ${score}/${total} (${percentage}%) • Time: ${formatPlayElapsedThai(playElapsedMs)}`;
-
-      const qStats = Array.isArray(runQuestionStats) ? runQuestionStats : [];
-      const correctQs = qStats.filter((x) => x?.outcome === "correct").length;
-      const wrongQs = qStats.filter((x) => x?.outcome === "wrong").length;
-      const skipQs = qStats.filter((x) => x?.outcome === "skip").length;
-      const totalRecorded = qStats.length || total;
-
-      const topTitles = (() => {
-        const seen = new Set();
-        const out = [];
-
-        const fastestCorrect = qStats
-          .filter((x) => x?.outcome === "correct")
-          .slice()
-          .sort((a, b) => (Number(a?.ms || 0) || 0) - (Number(b?.ms || 0) || 0));
-
-        for (const x of fastestCorrect) {
-          const t = String(x?.title || "").trim();
-          if (!t) continue;
-          if (seen.has(t)) continue;
-          seen.add(t);
-          out.push(t);
-          if (out.length >= 3) break;
-        }
-
-        if (out.length < 3) {
-          for (const a of Array.isArray(gameList) ? gameList : []) {
-            const t = String(a?.title || "").trim();
-            if (!t) continue;
-            if (seen.has(t)) continue;
-            seen.add(t);
-            out.push(t);
-            if (out.length >= 3) break;
-          }
-        }
-
-        return out;
-      })();
-
-      const headerLine = sessionMode === "daily" && sessionDailyKey
-        ? `Daily • ${sessionDailyKey}`
-        : modeLabel;
-
-      const subLines = [headerLine, primaryLine, `Max streak: ${runMaxStreak}`, host].filter(Boolean);
-
-      const loadImage = (src) =>
-        new Promise((resolve) => {
-          const img = new Image();
-          img.onload = () => resolve(img);
-          img.onerror = () => resolve(null);
-          img.src = src;
-        });
-
-      const size = 1080;
-      const canvas = document.createElement("canvas");
-      canvas.width = size;
-      canvas.height = size;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-
-      const roundRectPath = (x, y, w, h, r) => {
-        const rr = Math.max(0, Math.min(r, Math.min(w, h) / 2));
-        ctx.beginPath();
-        ctx.moveTo(x + rr, y);
-        ctx.arcTo(x + w, y, x + w, y + h, rr);
-        ctx.arcTo(x + w, y + h, x, y + h, rr);
-        ctx.arcTo(x, y + h, x, y, rr);
-        ctx.arcTo(x, y, x + w, y, rr);
-        ctx.closePath();
-      };
-
-      const wrapText = ({ text, x, y, maxWidth, lineHeight }) => {
-        const words = String(text || "").split(/\s+/).filter(Boolean);
-        let line = "";
-        let cy = y;
-        for (const w of words) {
-          const test = line ? `${line} ${w}` : w;
-          if (ctx.measureText(test).width <= maxWidth) {
-            line = test;
-          } else {
-            if (line) ctx.fillText(line, x, cy);
-            line = w;
-            cy += lineHeight;
-          }
-        }
-        if (line) ctx.fillText(line, x, cy);
-        return cy;
-      };
-
-      // Background gradient
-      const bg = ctx.createLinearGradient(0, 0, size, size);
-      bg.addColorStop(0, "#0ea5e9");
-      bg.addColorStop(0.55, "#2563eb");
-      bg.addColorStop(1, "#9333ea");
-      ctx.fillStyle = bg;
-      ctx.fillRect(0, 0, size, size);
-
-      // Card
-      const cardX = 64;
-      const cardY = 88;
-      const cardW = size - cardX * 2;
-      const cardH = size - cardY * 2;
-      ctx.save();
-      roundRectPath(cardX, cardY, cardW, cardH, 48);
-      ctx.fillStyle = "rgba(255,255,255,0.88)";
-      ctx.fill();
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "rgba(255,255,255,0.75)";
-      ctx.stroke();
-      ctx.restore();
-
-      const logo = await loadImage("/pwa-192.png?v=5");
-      if (logo) {
-        const logoSize = 108;
-        ctx.save();
-        roundRectPath(cardX + 48, cardY + 40, logoSize, logoSize, 28);
-        ctx.clip();
-        ctx.drawImage(logo, cardX + 48, cardY + 40, logoSize, logoSize);
-        ctx.restore();
-      }
-
-      // Title
-      ctx.fillStyle = "#0f172a";
-      ctx.font = "800 64px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-      const titleX = cardX + 48 + (logo ? 128 : 0);
-      ctx.fillText(title, titleX, cardY + 110);
-
-      ctx.fillStyle = "#334155";
-      ctx.font = "700 34px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-      ctx.fillText("Quiz Result", titleX, cardY + 160);
-
-      // Body
-      const bodyX = cardX + 48;
-      const bodyTop = cardY + 240;
-      const bodyMaxW = cardW - 96;
-
-      ctx.fillStyle = "#0f172a";
-      ctx.font = "700 44px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-      wrapText({ text: subLines[0] || "", x: bodyX, y: bodyTop, maxWidth: bodyMaxW, lineHeight: 58 });
-
-      ctx.fillStyle = "#0f172a";
-      ctx.font = "600 38px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-      let y = bodyTop + 90;
-      for (const line of subLines.slice(1, 3)) {
-        y = wrapText({ text: line, x: bodyX, y, maxWidth: bodyMaxW, lineHeight: 52 }) + 22;
-      }
-
-      // Mini chart: correct / wrong / skip
-      const barW = bodyMaxW;
-      const barH = 22;
-      const barY = y + 18;
-      const barX = bodyX;
-      const safeTotal = Math.max(1, Number(totalRecorded) || 1);
-      const wCorrect = Math.round((barW * correctQs) / safeTotal);
-      const wWrong = Math.round((barW * wrongQs) / safeTotal);
-      const wSkip = Math.max(0, barW - wCorrect - wWrong);
-
-      ctx.save();
-      roundRectPath(barX, barY, barW, barH, 12);
-      ctx.clip();
-      ctx.fillStyle = "rgba(15,23,42,0.10)";
-      ctx.fillRect(barX, barY, barW, barH);
-      let cx = barX;
-      if (wCorrect > 0) {
-        ctx.fillStyle = "#10b981";
-        ctx.fillRect(cx, barY, wCorrect, barH);
-        cx += wCorrect;
-      }
-      if (wWrong > 0) {
-        ctx.fillStyle = "#ef4444";
-        ctx.fillRect(cx, barY, wWrong, barH);
-        cx += wWrong;
-      }
-      if (wSkip > 0) {
-        ctx.fillStyle = "#f59e0b";
-        ctx.fillRect(cx, barY, wSkip, barH);
-      }
-      ctx.restore();
-
-      ctx.fillStyle = "#334155";
-      ctx.font = "700 28px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-      ctx.fillText(`✅ ${correctQs}   ❌ ${wrongQs}   ⏭️ ${skipQs}`, barX, barY + 54);
-
-      let y2 = barY + 92;
-      if (topTitles.length) {
-        ctx.fillStyle = "#0f172a";
-        ctx.font = "800 30px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-        ctx.fillText("Top 3 in this run", barX, y2);
-        y2 += 44;
-
-        ctx.fillStyle = "#0f172a";
-        ctx.font = "600 30px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-        for (let i = 0; i < topTitles.length; i += 1) {
-          const t = topTitles[i];
-          y2 = wrapText({ text: `${i + 1}. ${t}`, x: barX, y: y2, maxWidth: bodyMaxW, lineHeight: 40 }) + 14;
-          if (y2 > cardY + cardH - 160) break;
-        }
-      }
-
-      ctx.fillStyle = "#334155";
-      ctx.font = "600 34px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-      wrapText({ text: subLines[3] || "", x: bodyX, y: cardY + cardH - 110, maxWidth: bodyMaxW, lineHeight: 48 });
-
-      // Footer
-      ctx.fillStyle = "#475569";
-      ctx.font = "600 28px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-      const footer = host ? `Play at ${host}` : "";
-      if (footer) ctx.fillText(footer, bodyX, cardY + cardH - 56);
-
-      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
-      if (!blob) return;
-
-      const filename = `otoverse-${String(sessionMode || "result")}-${Date.now()}.png`;
-      const file = new File([blob], filename, { type: "image/png" });
-
-      const shareText = `${title} — ${modeLabel}${sessionMode === "daily" && sessionDailyKey ? ` (${sessionDailyKey})` : ""}`;
-
-      if (navigator?.share && navigator?.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], text: shareText });
-        return;
-      }
-
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    } catch {
-      // ignore
-    }
-  };
+  const shareResultAsImage = () => setShareCardData({kind:'result',name:profile?.nickname || user?.displayName || 'ผู้เล่น',score,total:gameList.length,streak:runMaxStreak,mode:sessionMode === 'daily' ? 'Daily Challenge' : isSoloChallenge ? 'Solo Challenge' : isTimeAttack ? 'Time Attack' : 'Anime Quiz',items:gameList.slice(0,3),url:'https://otoverse.games/'});
 
   useEffect(() => {
     if (page !== "play") {
@@ -8653,6 +8345,7 @@ useEffect(() => {
                                   </>
                                 ) : null}
 
+                                {legalSelectedItem?.anime && <WatchStatusSelector uid={user?.uid} anime={legalSelectedItem.anime} watchlist={profile?.watchlist || {}}/>}
                                 {legalSelectedItem?.anime ? (
                                   <Button
                                     type="button"
@@ -9106,6 +8799,7 @@ useEffect(() => {
               ) : null}
             </div>
 
+            {item?.anime && <div onClick={e => e.stopPropagation()} onKeyDown={e => e.stopPropagation()}><WatchStatusSelector uid={user?.uid} anime={item.anime} watchlist={profile?.watchlist || {}}/></div>}
             <div className="mt-4 flex flex-wrap items-center gap-2">
               {effectiveProviderKeys.slice(0, 8).map((providerKey) => {
                 const provider = LEGAL_PROVIDER_PRESETS[providerKey];
@@ -9262,6 +8956,8 @@ useEffect(() => {
                               </button>
                             ) : null}
                           </div>
+                          <WatchStatusSelector uid={user?.uid} anime={anime} watchlist={profile?.watchlist || {}}/>
+                          <button className="mt-2 text-xs text-slate-400 underline" onClick={() => setContentSubmission({anime})}>แจ้งเพลงเสีย</button>
                           <div className="mt-3">
                             <LazyYouTube videoSource={anime.youtubeVideoId} title={anime.title} />
                           </div>
@@ -10486,7 +10182,9 @@ useEffect(() => {
         </div>
       )}
 
-      {profileOpen && user && <ProfilePage uid={user.uid} profile={profile} own favorites={favoriteIds} anime={libraryAnimeWithGenre} avatar={headerAvatarUrl} onClose={() => setProfileOpen(false)} onSettings={() => setProfileSettingsOpen(true)} onAnime={a => openFavoritesPopup({label: a.title, ids: [a.id]})} />}
+      {shareCardData && <ShareCardDialog data={shareCardData} onClose={() => setShareCardData(null)}/>}
+      {contentSubmission && user && <ContentSubmission uid={user.uid} anime={contentSubmission.anime} onClose={() => setContentSubmission(null)}/>}
+      {profileOpen && user && <ProfilePage uid={user.uid} profile={profile} own favorites={favoriteIds} anime={libraryAnimeWithGenre} avatar={headerAvatarUrl} onClose={closeProfilePage} onSettings={() => setProfileSettingsOpen(true)} onAnime={a => openFavoritesPopup({label: a.title, ids: [a.id]})} />}
 
       {profileSettingsOpen && user && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
@@ -10714,7 +10412,7 @@ useEffect(() => {
         </div>
       )}
 
-      {publicProfileOpen && user && <ProfilePage uid={publicProfileUid} profile={publicProfile} own={user.uid === publicProfileUid} favorites={publicProfile?.publicFavorites || []} anime={libraryAnimeWithGenre} onClose={() => setPublicProfileOpen(false)} onSettings={() => { setPublicProfileOpen(false); setProfileOpen(true); setProfileSettingsOpen(true); }} onAnime={a => openFavoritesPopup({label: a.title, ids: [a.id]})} onFollow={toggleFollowPublicProfile} following={publicIsFollowing} busy={publicProfileBusy} error={publicProfileError || publicProfileNotice} onChat={() => { setPublicProfileOpen(false); openChatWithUid(publicProfileUid, {nickname: publicProfile?.nickname || publicProfile?.displayName || "", photoURL: publicProfile?.photoURL || ""}); }} />}
+      {publicProfileOpen && user && <ProfilePage uid={publicProfileUid} profile={publicProfile} own={user.uid === publicProfileUid} favorites={publicProfile?.publicFavorites || []} anime={libraryAnimeWithGenre} onClose={closeProfilePage} onSettings={() => { setPublicProfileOpen(false); setProfileOpen(true); setProfileSettingsOpen(true); }} onAnime={a => openFavoritesPopup({label: a.title, ids: [a.id]})} onFollow={toggleFollowPublicProfile} following={publicIsFollowing} busy={publicProfileBusy} error={publicProfileError || publicProfileNotice} onChat={() => { setPublicProfileOpen(false); openChatWithUid(publicProfileUid, {nickname: publicProfile?.nickname || publicProfile?.displayName || "", photoURL: publicProfile?.photoURL || ""}); }} />}
 
       {favoritesPopupOpen && user && (
         <div className="fixed inset-0 z-[115] flex items-center justify-center p-4">

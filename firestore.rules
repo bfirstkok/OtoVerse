@@ -104,7 +104,8 @@ service cloud.firestore {
         && request.resource.data.requestText.size() > 0
         && request.resource.data.requestText.size() <= 220;
 
-      allow read, update, delete: if false;
+      allow read, update: if isAdmin();
+      allow delete: if false;
     }
 
     // reports (bug reports / video issues)
@@ -113,7 +114,8 @@ service cloud.firestore {
         && request.resource.data.uid == request.auth.uid
         && request.resource.data.createdAt is timestamp;
 
-      allow read, update, delete: if false;
+      allow read, update: if isAdmin();
+      allow delete: if false;
     }
 
     // online rooms

@@ -1,0 +1,10 @@
+import React,{useEffect,useState} from 'react';
+import {createShareCard} from '@/lib/shareCards';
+export default function ShareCardDialog({data,onClose}){
+ const [blob,setBlob]=useState(null),[preview,setPreview]=useState(''),[notice,setNotice]=useState('');
+ useEffect(()=>{let active=true;let objectUrl='';createShareCard(data).then(canvas=>new Promise(resolve=>canvas.toBlob(resolve,'image/png'))).then(result=>{if(!active)return;if(!result)throw new Error('encode');objectUrl=URL.createObjectURL(result);setBlob(result);setPreview(objectUrl);}).catch(()=>{if(active)setNotice('สร้างภาพไม่สำเร็จ ลองเปิดใหม่อีกครั้ง');});return()=>{active=false;if(objectUrl)URL.revokeObjectURL(objectUrl);};},[data]);
+ const filename=data.kind==='top'?'otoverse-top5.png':'otoverse-result.png';
+ const share=async()=>{const file=new File([blob],filename,{type:'image/png'});try{if(navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:'OtoVerse',text:`${data.name} · ${data.url}`});}else{setNotice('เครื่องนี้แชร์ภาพโดยตรงไม่ได้ กดดาวน์โหลดภาพแล้วนำไปลงสตอรี่ได้เลย');}}catch(e){if(e.name!=='AbortError')setNotice('แชร์ไม่สำเร็จ ใช้ปุ่มดาวน์โหลดภาพได้เลย');}};
+ const copy=async()=>{try{await navigator.clipboard.writeText(data.url);setNotice('คัดลอกลิงก์แล้ว');}catch{setNotice('คัดลอกไม่ได้ สามารถเลือกคัดลอกลิงก์ด้านล่างได้');}};
+ return <div className="ov-feature-overlay" role="dialog" aria-modal="true" aria-label="การ์ดแชร์"><div className="ov-feature-panel"><h2>{data.kind==='top'?'แชร์ Top 5 ของฉัน':'แชร์ผลเกม'}</h2>{preview?<img className="ov-share-preview" src={preview} alt="ตัวอย่างการ์ดแชร์ OtoVerse"/>:<p role="status">กำลังสร้างภาพ…</p>}<p><a href={data.url}>{data.url}</a></p>{notice&&<p role="status">{notice}</p>}<div className="ov-feature-actions"><button onClick={onClose}>ปิด</button><button onClick={copy}>คัดลอกลิงก์</button>{preview&&<a className="ov-share-button" download={filename} href={preview}>ดาวน์โหลด</a>}<button disabled={!blob} onClick={share}>แชร์ภาพ</button></div></div></div>;
+}

@@ -13,3 +13,5 @@ body:has([role="dialog"]) .oto-mascot { visibility: hidden; }
 @keyframes oto-mascot-hop { 50% { translate: 0 -10px; } }
 @media (hover: none) { .oto-mascot-hide { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .oto-mascot { transition: none; } .oto-mascot .oto-mascot-sprite, .oto-mascot .oto-mascot-character { animation: none !important; } }
+
+.oto-mascot.is-celebrating .oto-mascot-bubble{border-color:#9a7fff;color:#e2d4ff;background:#25194b}.oto-mascot.is-celebrating .oto-mascot-character::after{content:"✦";position:absolute;top:-8px;left:50px;color:#ffe894;font-size:24px}

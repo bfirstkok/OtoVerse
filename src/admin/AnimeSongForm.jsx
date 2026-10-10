@@ -75,6 +75,7 @@ function nextOpeningTitle(baseTitle, existingItems) {
 
 export default function AnimeSongForm({
   item,
+  initialSongDraft,
   existingItems = [],
   preferredExistingId = "",
   editScope = "song",
@@ -165,6 +166,14 @@ export default function AnimeSongForm({
       selectExistingAnime(preferredExistingId);
     }
   }, [item, preferredExistingId]);
+
+  useEffect(() => {
+    if (!initialSongDraft || item) return;
+    const type=initialSongDraft.songType || 'OP';
+    const highest=existingItems.filter(entry => titleKey(entry.animeTitle || entry.title)===titleKey(initialSongDraft.animeTitle) && toFormValue(entry).songType===type).reduce((n,entry)=>Math.max(n,Number(toFormValue(entry).songNumber)||0),0);
+    setCreateMode(initialSongDraft.fromExisting ? 'existing':'new');
+    setForm(current=>({...current,...initialSongDraft,songNumber:highest+1}));
+  }, [initialSongDraft, item]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
