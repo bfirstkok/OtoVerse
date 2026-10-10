@@ -5881,7 +5881,7 @@ useEffect(() => {
       ctx.stroke();
       ctx.restore();
 
-      const logo = await loadImage("/pwa-192.png");
+      const logo = await loadImage("/pwa-192.png?v=5");
       if (logo) {
         const logoSize = 108;
         ctx.save();
@@ -10159,7 +10159,7 @@ useEffect(() => {
                   className="drop-shadow-lg"
                 >
                   <img
-                    src="/iconweb-v2.jpg"
+                    src="/otoverse-logo-v3.png"
                     alt="OtoVerse"
                     className="h-12 w-12 md:h-14 md:w-14 rounded-2xl object-cover border border-white/50 dark:border-slate-700/40"
                     draggable={false}
