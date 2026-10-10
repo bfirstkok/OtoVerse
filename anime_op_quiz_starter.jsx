@@ -10130,7 +10130,7 @@ useEffect(() => {
     );
   };
 
-  const shouldShowHomeVideoBg = useMemo(() => {
+  const shouldAnimateHomeBg = useMemo(() => {
     if (typeof window === "undefined") return false;
     try {
       const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
@@ -10146,7 +10146,7 @@ useEffect(() => {
       const effectiveType = connection?.effectiveType;
       if (effectiveType === "slow-2g" || effectiveType === "2g") return false;
     } catch {
-      // If the browser blocks these APIs, fall back to showing the video.
+      // The CSS background remains visible even when motion is disabled.
     }
     return true;
   }, []);
@@ -10222,19 +10222,12 @@ useEffect(() => {
           />
         )
       ) : null}
-      {page === "home" && shouldShowHomeVideoBg ? (
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-          <video
-            className="h-full w-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-hidden="true"
-          >
-            <source src="/bg.mp4" type="video/mp4" />
-          </video>
+      {page === "home" ? (
+        <div className={`oto-home-atmosphere${shouldAnimateHomeBg ? " is-animated" : ""}`} aria-hidden="true">
+          <div className="oto-home-glow oto-home-glow-violet" />
+          <div className="oto-home-glow oto-home-glow-blue" />
+          <div className="oto-home-horizon" />
+          <div className="oto-home-stars" />
         </div>
       ) : null}
       {page === "library" ? (

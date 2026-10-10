@@ -5,6 +5,58 @@
   --public-border: rgba(148, 163, 184, 0.24);
 }
 
+/* Lightweight ambient home backdrop; no video download or autoplay required. */
+.oto-home-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 110%, #1c1642 0%, transparent 60%), #080b16;
+}
+.oto-home-glow {
+  position: absolute;
+  width: min(80vw, 960px);
+  height: min(75vh, 720px);
+  border-radius: 50%;
+  opacity: .65;
+}
+.oto-home-glow-violet {
+  top: -25%;
+  left: -20%;
+  background: radial-gradient(ellipse, #6d28d940 0%, #4f46e518 40%, transparent 70%);
+}
+.oto-home-glow-blue {
+  right: -20%;
+  bottom: -15%;
+  background: radial-gradient(ellipse, #0284c733 0%, #0891b214 40%, transparent 70%);
+}
+.oto-home-horizon {
+  position: absolute;
+  inset: 50% -25% -35%;
+  border-radius: 50%;
+  border-top: 1px solid #a78bfa1f;
+  box-shadow: 0 -20px 90px #7c3aed0d;
+  transform: rotate(-12deg);
+}
+.oto-home-stars {
+  position: absolute;
+  inset: 0;
+  opacity: .3;
+  background-image: radial-gradient(circle, #c4b5fd 1px, transparent 1.5px), radial-gradient(circle, #7dd3fc 1px, transparent 1.5px);
+  background-size: 173px 191px, 257px 283px;
+  background-position: 32px 21px, 110px 130px;
+  mask-image: linear-gradient(to bottom, #000, transparent 85%);
+}
+.oto-home-atmosphere.is-animated .oto-home-glow-violet { animation: oto-home-drift 24s ease-in-out infinite alternate; }
+.oto-home-atmosphere.is-animated .oto-home-glow-blue { animation: oto-home-drift 30s ease-in-out -12s infinite alternate-reverse; }
+@keyframes oto-home-drift {
+  to { transform: translate(8vw, 5vh) scale(1.15); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oto-home-atmosphere .oto-home-glow { animation: none !important; }
+}
+
 .dark .otoverse-public {
   --public-accent: #818cf8;
   --public-accent-soft: rgba(99, 102, 241, 0.16);
