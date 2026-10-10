@@ -1,3 +1,4 @@
+import MusicLibrary from "./src/components/system/MusicLibrary";
 import ShareCardDialog from "./src/components/system/ShareCardDialog";
 import ContentSubmission from "./src/components/system/ContentSubmission";
 import WatchStatusSelector from "./src/components/system/WatchStatusSelector";
@@ -8024,11 +8025,11 @@ useEffect(() => {
             <div>
               {libraryTab === "legal" && !legalSelectedItem ? <div className="oto-discover-eyebrow">OTOVERSE • DISCOVER</div> : null}
               <CardTitle className="text-2xl">
-                {libraryTab === "legal" ? (legalSelectedItem ? "รายละเอียด" : "เรื่องต่อไปที่อยากดู อยู่ที่นี่") : "Anime Library"}
+                {libraryTab === "legal" ? (legalSelectedItem ? "รายละเอียด" : "เรื่องต่อไปที่อยากดู อยู่ที่นี่") : "เพลงที่รู้จัก เรื่องที่คิดถึง"}
               </CardTitle>
               <CardDescription>
                 {libraryTab === "catalog"
-                  ? <>ตอนนี้มีอนิเมะให้ทายทั้งหมด {totalCount} เรื่อง • กำลังดู {selectedGenreLabel}</>
+                  ? <>รวมเพลง OP / ED · ค้นหาเพลง ศิลปิน และอนิเมะที่ชอบ</>
                   : legalSelectedItem
                     ? <>ดูข้อมูลเรื่อง/เพลง และช่องทางรับชม/ฟัง (ลิขสิทธิ์ไทย)</>
                     : <>ค้นพบอนิเมะและเพลงที่ชอบ พร้อมค้นหาช่องทางดูและฟังในไทย</>}
@@ -8041,7 +8042,8 @@ useEffect(() => {
                   <Input
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="ค้นหาชื่อเรื่อง..."
+                    placeholder="ค้นหาเรื่อง เพลง หรือศิลปิน…"
+                    aria-label="ค้นหาในคลังเพลง"
                     className="pl-9 rounded-2xl"
                   />
                 </div>
@@ -8897,84 +8899,8 @@ useEffect(() => {
           </>
         )
       ) : (
-        <>
-          <div className="space-y-4">
-            {groupedFilteredAnime.map((group) => {
-              const primary = group.items[0];
-              const expanded = expandedCatalogGroups.has(group.key);
-              return (
-                <Card key={group.key} className="overflow-hidden rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
-                  <button
-                    type="button"
-                    onClick={() => toggleCatalogGroup(group.key)}
-                    className="flex w-full items-center gap-4 p-5 text-left transition hover:bg-slate-50/70 dark:hover:bg-slate-900/50"
-                  >
-                    <SmartImage
-                      src={getAnimeImageUrl(primary)}
-                      fallbackSrc={getYouTubeThumbUrl(primary?.youtubeVideoId)}
-                      alt={group.title}
-                      className="h-20 w-32 shrink-0 rounded-2xl border border-slate-200 object-cover dark:border-slate-700"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100">{group.title}</div>
-                        <Badge className="rounded-full">{group.items.length} OP/ED</Badge>
-                        <Badge variant="outline" className="rounded-full">
-                          {genreConfig[primary?.genre]?.label || primary?.genre}
-                        </Badge>
-                      </div>
-                      <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                        {primary?.year ? `ปี ${primary.year}` : "ไม่ระบุปี"}
-                        {Array.isArray(primary?.characters) ? ` • ${primary.characters.length} ตัวละคร` : ""}
-                      </div>
-                    </div>
-                    <span className="text-xl text-slate-500 dark:text-slate-300">{expanded ? "▾" : "▸"}</span>
-                  </button>
+        <MusicLibrary songs={libraryAnimeWithGenre} search={search} onSearch={setSearch} uid={user?.uid} watchlist={profile?.watchlist || {}} favoriteIds={favoriteIds} onFavorite={toggleFavoriteId} onReport={anime => setContentSubmission({anime})} onRequest={submitSongRequest}/>
 
-                  {expanded ? (
-                    <div className="grid gap-4 border-t border-slate-200 p-5 dark:border-slate-800 md:grid-cols-2 xl:grid-cols-3">
-                      {group.items.map((anime) => (
-                        <div key={anime.id} className="rounded-2xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/50">
-                          <div className="flex items-start justify-between gap-3">
-                            <div>
-                              <div className="font-bold text-slate-900 dark:text-slate-100">
-                                {getAnimeSongLabel(anime)}
-                              </div>
-                              <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                                {anime.songTitle || anime.note || "ยังไม่ระบุชื่อเพลง"}
-                              </div>
-                              {anime.artist ? <div className="text-xs text-slate-500 dark:text-slate-400">{anime.artist}</div> : null}
-                            </div>
-                            {anime?.id != null ? (
-                              <button
-                                type="button"
-                                onClick={() => toggleFavoriteId(anime.id)}
-                                title={favoriteSet.has(Number(anime.id)) ? "ลบออกจาก Favorites" : "เพิ่มเข้า Favorites"}
-                                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white/70 dark:border-slate-700 dark:bg-slate-900"
-                              >
-                                {favoriteSet.has(Number(anime.id)) ? "⭐" : "☆"}
-                              </button>
-                            ) : null}
-                          </div>
-                          <WatchStatusSelector uid={user?.uid} anime={anime} watchlist={profile?.watchlist || {}}/>
-                          <button className="mt-2 text-xs text-slate-400 underline" onClick={() => setContentSubmission({anime})}>แจ้งเพลงเสีย</button>
-                          <div className="mt-3">
-                            <LazyYouTube videoSource={anime.youtubeVideoId} title={anime.title} />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-                </Card>
-              );
-            })}
-          </div>
-
-          <div className="flex gap-3">
-            <Button className="rounded-2xl" onClick={() => setPage("home")}>กลับหน้าแรก</Button>
-            <Button variant="outline" className="rounded-2xl" onClick={startGame}>เริ่มเล่นเลย</Button>
-          </div>
-        </>
       )}
     </div>
   );
@@ -9742,77 +9668,8 @@ useEffect(() => {
     return true;
   }, []);
 
-  const shouldShowLibraryGifBg = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    try {
-      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-      if (reduceMotion) return false;
-
-      const connection =
-        navigator.connection ||
-        navigator.mozConnection ||
-        navigator.webkitConnection;
-
-      if (connection?.saveData) return false;
-
-      const effectiveType = connection?.effectiveType;
-      if (effectiveType === "slow-2g" || effectiveType === "2g") return false;
-    } catch {
-      // If the browser blocks these APIs, fall back to showing the GIF.
-    }
-    return true;
-  }, []);
-
-  const canPlayLibraryMp4Bg = useMemo(() => {
-    if (typeof document === "undefined") return false;
-    try {
-      const v = document.createElement("video");
-      if (!v?.canPlayType) return false;
-      return Boolean(v.canPlayType("video/mp4"));
-    } catch {
-      return false;
-    }
-  }, []);
-
-  const [libraryBgVideoFailed, setLibraryBgVideoFailed] = useState(false);
-  const libraryGifUrl1 = String(import.meta?.env?.VITE_LIBRARY_BG_GIF1 || "").trim();
-  const libraryGifUrl2 = String(import.meta?.env?.VITE_LIBRARY_BG_GIF2 || "").trim();
-  useEffect(() => {
-    if (page !== "library") return;
-    setLibraryBgVideoFailed(false);
-  }, [page, libraryTab]);
-
   return (
     <div className="relative isolate min-h-screen overflow-hidden text-slate-900 dark:text-slate-100 p-4 md:p-8">
-      {page === "library" && libraryTab !== "legal" && shouldShowLibraryGifBg ? (
-        canPlayLibraryMp4Bg && !libraryBgVideoFailed ? (
-          <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
-            <video
-              key="librarybg"
-              className="h-full w-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              onError={() => setLibraryBgVideoFailed(true)}
-            >
-              <source src="/libarry2.mp4" type="video/mp4" />
-            </video>
-          </div>
-        ) : (
-          <div
-            className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: (() => {
-                const url = libraryTab === "legal" ? libraryGifUrl2 : libraryGifUrl1;
-                return url ? `url(${url})` : "";
-              })()
-            }}
-            aria-hidden="true"
-          />
-        )
-      ) : null}
       {page === "home" ? (
         <div className={`oto-home-atmosphere${shouldAnimateHomeBg ? " is-animated" : ""}`} aria-hidden="true">
           <div className="oto-home-glow oto-home-glow-violet" />
