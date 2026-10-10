@@ -453,7 +453,7 @@ export async function touchUserPresence(uid) {
   });
 }
 
-export async function updateProfileShowcase(uid, { bio, topAnimeIds, recommendedAnimeIds }) {
+export async function updateProfileShowcase(uid, { bio, topAnimeIds, recommendedAnimeIds, photoURL, coverURL }) {
   const ref = profileDocRef(uid);
   if (!firebaseReady || !ref) throw new Error("firebase_not_ready");
   const normalize = values => [...new Set((Array.isArray(values) ? values : []).map(Number).filter(n => Number.isFinite(n) && n > 0))].slice(0, 5);
@@ -461,6 +461,8 @@ export async function updateProfileShowcase(uid, { bio, topAnimeIds, recommended
     bio: String(bio || "").trim().slice(0, 160),
     topAnimeIds: normalize(topAnimeIds),
     recommendedAnimeIds: normalize(recommendedAnimeIds),
+    ...(typeof photoURL === "string" ? { photoURL } : {}),
+    ...(typeof coverURL === "string" ? { coverURL } : {}),
     showcaseUpdatedAt: serverTimestamp()
   }, { merge: true });
 }

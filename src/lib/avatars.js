@@ -94,3 +94,12 @@ export async function uploadUserAvatar(uid, file) {
   // Free-tier friendly: store as compressed data URL (no Firebase Storage required).
   return await fileToCompressedImageDataUrl(file, { maxDim: 512, maxBytes: 350_000 });
 }
+
+export async function prepareProfileImage(uid, file, kind = "avatar") {
+  if (!uid || !file) throw new Error("missing_file");
+  if (!/^image\/(jpeg|png|webp|gif|avif)$/.test(file.type)) throw new Error("invalid_file_type");
+  if (file.size > 8 * 1024 * 1024) throw new Error("image_too_large");
+  return fileToCompressedImageDataUrl(file, kind === "cover"
+    ? { maxDim: 1400, maxBytes: 140_000 }
+    : { maxDim: 512, maxBytes: 200_000 });
+}
