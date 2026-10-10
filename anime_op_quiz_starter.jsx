@@ -43,7 +43,6 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signInWithRedirect,
   signOut,
   updateProfile
 } from "firebase/auth";
@@ -2357,33 +2356,17 @@ useEffect(() => {
       return;
     }
 
-    const canUseSessionStorage = () => {
-      try {
-        const k = "__otoverse_auth_ss_test";
-        window.sessionStorage.setItem(k, "1");
-        window.sessionStorage.removeItem(k);
-        return true;
-      } catch {
-        return false;
-      }
-    };
-
     setAuthError("");
     setAuthBusy(true);
     try {
       const provider = providerKey === "google" ? new GoogleAuthProvider() : new GithubAuthProvider();
 
-      // Redirect flow requires sessionStorage to keep state across navigation.
-      // If storage is blocked (common in some in-app browsers / strict privacy modes),
-      // Google/GitHub OAuth cannot complete reliably.
-      if (!canUseSessionStorage()) {
-        setAuthError("บราวเซอร์บล็อก sessionStorage ทำให้ล็อกอิน Google/GitHub ไม่ได้ — ลองเปิดด้วย Chrome/Safari ปกติ (ไม่ใช่โหมดส่วนตัว/ไม่ใช่ in-app browser) หรือใช้ล็อกอินด้วยอีเมล/รหัสผ่านแทน");
-        return;
-      }
-
-      // Redirect-only OAuth: more reliable across browsers (especially iOS/Safari and strict privacy modes).
-      await signInWithRedirect(firebaseAuth, provider);
-      return;
+      // A popup uses the registered Firebase callback domain without requiring
+      // cross-site redirect state to survive a full-page navigation.
+      const result = await signInWithPopup(firebaseAuth, provider);
+      await consumePendingLinkForUser(result.user).catch(() => {});
+      setAuthOpen(false);
+      setAuthPassword("");
     } catch (e) {
       const code = String(e?.code || "");
       console.warn("[auth] oauth failed", {
