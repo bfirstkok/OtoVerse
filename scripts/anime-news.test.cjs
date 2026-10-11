@@ -48,3 +48,21 @@ test('source image metadata ignores unsafe hosts and parses reversed attributes'
   assert.equal(imageFromHtml('<meta content="https://a.storyblok.com/image.jpg?a=1&amp;b=2" property="og:image">'), 'https://a.storyblok.com/image.jpg?a=1&b=2');
   assert.equal(imageFromHtml('<meta property="og:image" content="https://evil.example/image.jpg">'), '');
 });
+
+
+test('news images are archived with source attribution and reused without redownloading', async () => {
+  const {archiveNewsImages} = require('./anime-news.cjs');
+  const io = require('node:fs/promises');
+  const original = {fetch:global.fetch,mkdir:io.mkdir,writeFile:io.writeFile};
+  const id = 'a'.repeat(24); let downloads = 0, saved;
+  io.mkdir = async () => {}; io.writeFile = async (file,bytes) => {saved = {file,bytes};};
+  global.fetch = async () => {downloads++;return new Response(new Uint8Array([255,216,255]),{headers:{'Content-Type':'image/jpeg'}});};
+  try {
+    const digest = {items:[{id,imageUrl:'https://www.animenewsnetwork.com/news.jpg'},{id:'b'.repeat(24),imageUrl:'https://evil.example/image.jpg'}]};
+    await archiveNewsImages(digest,'public/anime-news.json');
+    assert.equal(downloads,1); assert.equal(saved.bytes.length,3);
+    assert.equal(digest.items[0].sourceImageUrl,'https://www.animenewsnetwork.com/news.jpg');
+    assert.equal(digest.items[0].imageUrl,'https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/'+id+'.jpg');
+    await archiveNewsImages(digest,'public/anime-news.json'); assert.equal(downloads,1);
+  } finally {global.fetch=original.fetch;io.mkdir=original.mkdir;io.writeFile=original.writeFile;}
+});
