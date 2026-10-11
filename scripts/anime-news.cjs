@@ -6,7 +6,46 @@ const SOURCES = [
   {id: 'crunchyroll', name: 'Crunchyroll', feed: 'https://cr-news-api-service.prd.crunchyrollsvc.com/v1/en-US/rss', host: 'www.crunchyroll.com'}
 ];
 const CATEGORIES = ['announcement', 'trailer', 'release', 'industry', 'event'];
-const parser = new Parser();
+const parser = new Parser({customFields: {item: ['media:thumbnail', 'media:content']}});
+
+function safeImageUrl(value) {
+  try {
+    const url = new URL(String(value || '').replace(/&amp;|&#38;/g, '&'));
+    const hosts = ['a.storyblok.com', 'www.animenewsnetwork.com', 'cdn.animenewsnetwork.com', 'images.animenewsnetwork.com'];
+    return url.protocol === 'https:' && hosts.includes(url.hostname) ? url.href : '';
+  } catch {return '';}
+}
+
+function imageFromHtml(html) {
+  for (const tag of String(html).match(/<meta\b[^>]*>/gi) || []) {
+    const attrs = Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*["']([^"']*)["']/g)].map(match => [match[1].toLowerCase(), match[2]]));
+    if (['og:image', 'twitter:image'].includes(attrs.property || attrs.name)) {
+      const url = safeImageUrl(attrs.content); if (url) return url;
+    }
+  }
+  return '';
+}
+
+async function addNewsImages(items, previous = {}) {
+  const existing = new Map((previous.items || []).map(item => [item.id, safeImageUrl(item.imageUrl)]));
+  const result = [];
+  for (let i = 0; i < items.length; i += 4) {
+    result.push(...await Promise.all(items.slice(i, i + 4).map(async item => {
+      let imageUrl = safeImageUrl(item.imageUrl) || existing.get(item.id) || '';
+      if (!imageUrl && SOURCES.some(source => safeArticleUrl(item.url, source.host))) {
+        try {
+          const response = await fetch(item.url, {signal: AbortSignal.timeout(12000), headers: {'User-Agent': 'OtoVerseNews/1.0 (+https://otoverse.games/news)'}});
+          if (response.ok) {
+            const html = await response.text();
+            if (html.length <= 2_000_000) imageUrl = imageFromHtml(html);
+          }
+        } catch { /* Keep the article if its source image is temporarily unavailable. */ }
+      }
+      return {...item, imageUrl};
+    })));
+  }
+  return result;
+}
 
 function plain(value, max = 600) {
   return String(value || '').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
@@ -29,6 +68,7 @@ function normalizeItems(feed, source, now = Date.now()) {
     return [{id: createHash('sha256').update(url).digest('hex').slice(0, 24), titleOriginal: title,
       contentHash: createHash('sha256').update(title + excerpt).digest('hex').slice(0, 24),
       source: source.name, sourceId: source.id, url, publishedAt: new Date(published).toISOString(),
+      imageUrl: safeImageUrl(item['media:thumbnail']?.$?.url || item['media:content']?.$?.url || item.enclosure?.url),
       excerpt}];
   });
 }
@@ -81,10 +121,12 @@ async function summarizeNews(items, apiKey) {
 }
 
 async function createDigest(apiKey, previous = {}) {
-  const {items, unavailableSources} = await collectNews();
+  const collected = await collectNews();
+  const unavailableSources = collected.unavailableSources;
+  const items = await addNewsImages(collected.items, previous);
   const reusable = new Map((previous.items || []).filter(item => item.aiSummarized).map(item => [item.contentHash, item]));
   const pending = items.filter(item => !reusable.has(item.contentHash));
-  const summarized = new Map(items.filter(item => reusable.has(item.contentHash)).map(item => [item.id, reusable.get(item.contentHash)]));
+  const summarized = new Map(items.filter(item => reusable.has(item.contentHash)).map(item => [item.id, {...reusable.get(item.contentHash), imageUrl: item.imageUrl}]));
   // Bound each response and the total number of AI calls per scheduled refresh.
   for (let i = 0; i < pending.length; i += 8) {
     for (const item of await summarizeNews(pending.slice(i, i + 8), apiKey)) summarized.set(item.id, item);
@@ -93,7 +135,7 @@ async function createDigest(apiKey, previous = {}) {
     sources: SOURCES.map(({id, name, feed}) => ({id, name, feed}))};
 }
 
-module.exports = {createDigest, collectNews, summarizeNews, validateSummaries, normalizeItems, safeArticleUrl, SOURCES};
+module.exports = {createDigest, collectNews, summarizeNews, validateSummaries, normalizeItems, safeArticleUrl, safeImageUrl, imageFromHtml, addNewsImages, SOURCES};
 
 if (require.main === module) {
   const fs = require('node:fs');

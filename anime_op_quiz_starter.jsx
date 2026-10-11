@@ -5776,7 +5776,7 @@ useEffect(() => {
           <div className="oto-home-destinations">
             <button type="button" onClick={() => {setPage("library"); setLibraryTab("catalog");}}><ListMusic /><strong>คลังเพลง</strong><span>ค้นหาเพลงและอนิเมะที่คุ้นเคย</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => {setPage("library"); setLibraryTab("legal");}}><Eye /><strong>รายชื่ออนิเมะ</strong><span>สำรวจช่องทางรับชมในไทย</span><i aria-hidden="true">↗</i></button>
-            <button type="button" onClick={() => confirmLeaveGame(() => setPage("news"))}><Eye /><strong>ข่าวอนิเมะ</strong><span>อ่านข่าวใหม่ สรุปไทยด้วย AI</span><i aria-hidden="true">↗</i></button>
+            <button type="button" onClick={() => confirmLeaveGame(() => setPage("news"))}><Eye /><strong>ข่าวสารอนิเมะ</strong><span>อ่านข่าวใหม่ สรุปไทยด้วย AI</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => confirmLeaveGame(() => setPage("community"))}><Trophy /><strong>Community</strong><span>แบ่งปันเรื่องโปรดกับทุกคน</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => confirmLeaveGame(() => setPage("online"))}><Users /><strong>เล่นกับเพื่อน</strong><span>สร้างห้องแล้วมาทายไปด้วยกัน</span><i aria-hidden="true">↗</i></button>
           </div>
@@ -9778,7 +9778,7 @@ useEffect(() => {
                   },
                   {
                     key: "news",
-                    label: "ข่าวอนิเมะ",
+                    label: "ข่าวสารอนิเมะ",
                     isActive: page === "news",
                     onClick: () => confirmLeaveGame(() => setPage("news"))
                   },

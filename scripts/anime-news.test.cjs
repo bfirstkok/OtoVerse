@@ -1,6 +1,6 @@
 const {test} = require('node:test');
 const assert = require('node:assert/strict');
-const {normalizeItems, safeArticleUrl, validateSummaries, createDigest, SOURCES} = require('./anime-news.cjs');
+const {normalizeItems, safeArticleUrl, validateSummaries, createDigest, safeImageUrl, imageFromHtml, SOURCES} = require('./anime-news.cjs');
 
 test('RSS accepts only trusted HTTPS links and recent dated anime stories', () => {
   const now = Date.now();
@@ -30,7 +30,7 @@ test('AI output cannot replace source metadata or publish unknown stories', () =
 test('unchanged articles reuse their summaries without calling AI', async () => {
   const now = Date.now(), publishedAt = new Date(now).toISOString();
   const original = normalizeItems({items: [{title: 'Anime announcement', link: 'https://www.animenewsnetwork.com/news/a', isoDate: publishedAt, contentSnippet: 'A new anime'}]}, SOURCES[0], now)[0];
-  const saved = {...original, title: 'ประกาศอนิเมะ', summary: 'มีอนิเมะใหม่', aiSummarized: true}; delete saved.excerpt;
+  const saved = {...original, title: 'ประกาศอนิเมะ', summary: 'มีอนิเมะใหม่', aiSummarized: true, imageUrl: 'https://www.animenewsnetwork.com/thumbnails/example.jpg'}; delete saved.excerpt;
   const originalFetch = global.fetch; let calls = 0;
   global.fetch = async url => {
     assert(SOURCES.some(source => source.feed === url), 'must not call the AI endpoint'); calls++;
@@ -40,4 +40,11 @@ test('unchanged articles reuse their summaries without calling AI', async () => 
     const digest = await createDigest('test-key', {items: [saved]});
     assert.equal(calls, 2); assert.equal(digest.items.length, 1); assert.equal(digest.items[0].summary, saved.summary);
   } finally {global.fetch = originalFetch;}
+});
+
+test('source image metadata ignores unsafe hosts and parses reversed attributes', () => {
+  assert.equal(safeImageUrl('javascript:alert(1)'), '');
+  assert.equal(safeImageUrl('https://a.storyblok.com.evil.example/image.jpg'), '');
+  assert.equal(imageFromHtml('<meta content="https://a.storyblok.com/image.jpg?a=1&amp;b=2" property="og:image">'), 'https://a.storyblok.com/image.jpg?a=1&b=2');
+  assert.equal(imageFromHtml('<meta property="og:image" content="https://evil.example/image.jpg">'), '');
 });
