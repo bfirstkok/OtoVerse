@@ -453,11 +453,19 @@ export async function touchUserPresence(uid) {
   });
 }
 
-export async function updateProfileShowcase(uid, { bio, topAnimeIds, recommendedAnimeIds, photoURL, coverURL }) {
+export async function updateProfileShowcase(uid, { nickname, bio, topAnimeIds, recommendedAnimeIds, photoURL, coverURL }) {
   const ref = profileDocRef(uid);
   if (!firebaseReady || !ref) throw new Error("firebase_not_ready");
+  let nextNickname;
+  if (nickname !== undefined) {
+    nextNickname = String(nickname).trim();
+    if (!nextNickname) throw new Error("nickname_required");
+    if (nextNickname.length > 14) throw new Error("nickname_too_long");
+    if (await checkNicknameExists(nextNickname, uid)) throw new Error("nickname_taken");
+  }
   const normalize = values => [...new Set((Array.isArray(values) ? values : []).map(Number).filter(n => Number.isFinite(n) && n > 0))].slice(0, 5);
   await setDoc(ref, {
+    ...(nextNickname !== undefined ? { nickname: nextNickname } : {}),
     bio: String(bio || "").trim().slice(0, 160),
     topAnimeIds: normalize(topAnimeIds),
     recommendedAnimeIds: normalize(recommendedAnimeIds),
