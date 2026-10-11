@@ -1,3 +1,4 @@
+import {matchesAnimeSearch} from '@/lib/animeSearch';
 import React,{useMemo,useState,useEffect} from 'react';
 import {getAnimeImageUrl,getYouTubeId} from '@/lib/media';
 import {GENRE_CONFIG} from '@/lib/animeGenre';
@@ -11,7 +12,7 @@ export default function MusicLibrary({songs=[],search='',onSearch,uid,watchlist=
   const map=new Map();const query=search.toLowerCase().trim();
   for(const song of songs){const songType=song.songType || song.title?.match(/\((OP|ED)/i)?.[1]?.toUpperCase() || 'OP';
    if(type!=='all'&&songType!==type)continue;if(genre!=='all'&&song.genre!==genre)continue;if(onlyFavorites&&!favoriteSet.has(String(song.id)))continue;
-   if(query&&![song.title,song.animeTitle,song.songTitle,song.note,song.artist,...(song.altTitles||[])].join(' ').toLowerCase().includes(query))continue;
+   if(!matchesAnimeSearch(song,query))continue;
    const key=animeSeriesKey(song);if(!map.has(key))map.set(key,{key,title:String(song.animeTitle||song.title||'').replace(/\s*\((OP|ED)\s*\d*\)\s*$/i,''),items:[]});map.get(key).items.push(song);
   }
   return [...map.values()].sort((a,b)=>sort==='year'?Number(b.items[0].year||0)-Number(a.items[0].year||0)||a.title.localeCompare(b.title):a.title.localeCompare(b.title,'th',{numeric:true}));

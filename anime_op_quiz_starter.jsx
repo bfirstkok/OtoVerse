@@ -1,3 +1,4 @@
+import {matchesAnimeSearch} from "./src/lib/animeSearch";
 import MusicLibrary from "./src/components/system/MusicLibrary";
 import ShareCardDialog from "./src/components/system/ShareCardDialog";
 import ContentSubmission from "./src/components/system/ContentSubmission";
@@ -3841,8 +3842,7 @@ useEffect(() => {
     const filtered = !q
       ? source
       : source.filter((anime) => {
-      const haystack = [anime.title, ...(anime.altTitles || []), anime.note || ""].join(" ");
-      return normalize(haystack).includes(q);
+      return matchesAnimeSearch(anime, search);
       });
 
     return filtered
@@ -4171,7 +4171,7 @@ console.log("library works =", works.length);
       const genreKey = item?.anime?.genre || "";
       const genreLabel = genreKey ? (genreConfig[genreKey]?.label || genreKey) : "";
       const haystack = [item.title, genresText, providersText, genreKey, genreLabel].filter(Boolean).join(" ");
-      return normalize(haystack).includes(q);
+      return matchesAnimeSearch({...item.anime, ...item, note: haystack}, legalSearch);
     });
     const relevance = (item) => {
       const title = normalize(item?.title);
