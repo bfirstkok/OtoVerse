@@ -1,3 +1,4 @@
+import { matchesAnimeSearch } from "@/lib/animeSearch";
 import { prepareProfileImage } from "@/lib/avatars";
 import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -99,6 +100,11 @@ export default function AnimeSongForm({
       return true;
     });
   }, [existingItems]);
+
+  const matchingAnime = useMemo(() => existingAnimeOptions.filter(entry => matchesAnimeSearch({
+    ...entry,
+    altTitles: Array.isArray(entry.altTitles) ? entry.altTitles : [entry.altTitles].filter(Boolean)
+  }, animeSearch)), [existingAnimeOptions, animeSearch]);
 
   useEffect(() => {
     setForm(toFormValue(item));
@@ -233,7 +239,12 @@ export default function AnimeSongForm({
 
           {createMode === "existing" ? (
             <Field label="เลือกเรื่อง Anime ที่มีอยู่แล้ว">
-              <Input aria-label="ค้นหาอนิเมะ" value={animeSearch} onChange={e => setAnimeSearch(e.target.value)} placeholder="ค้นหาชื่ออนิเมะก่อนเลือก…" className="mb-2"/>
+              <Input aria-label="ค้นหาอนิเมะ" value={animeSearch} onChange={e => setAnimeSearch(e.target.value)} placeholder="พิมพ์ชื่อไทยหรือชื่อย่อ เช่น rezero…" className="mb-2"/>
+              {animeSearch.trim() && <div className="mb-3 rounded-xl border border-slate-700 bg-slate-950 p-2">
+                <p className="px-2 py-1 text-xs text-slate-400" role="status">{matchingAnime.length ? `พบ ${matchingAnime.length} เรื่อง · กดชื่อเพื่อเลือก` : 'ไม่พบเรื่องนี้ ลองชื่ออื่นหรือเพิ่มอนิเมะเรื่องใหม่'}</p>
+                <div className="max-h-60 overflow-y-auto">{matchingAnime.slice(0, 20).map(entry => <button key={entry.id} type="button" disabled={saving} aria-pressed={selectedExistingId === entry.id} onClick={() => selectExistingAnime(entry.id)} className={`block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-400 ${selectedExistingId === entry.id ? 'bg-violet-500/20 text-violet-200' : 'text-slate-100'}`}>{baseAnimeTitle(entry.title)}{selectedExistingId === entry.id ? ' ✓' : ''}</button>)}</div>
+                {matchingAnime.length > 20 && <p className="px-2 py-1 text-xs text-slate-400">แสดง 20 เรื่องแรก · พิมพ์เพิ่มเพื่อค้นหาให้เจาะจงขึ้น</p>}
+              </div>}
               <select
                 className="w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
                 aria-label="เลือกอนิเมะเดิม"
@@ -242,7 +253,7 @@ export default function AnimeSongForm({
                 required
               >
                 <option value="">— เลือกเรื่อง —</option>
-                {existingAnimeOptions.filter(entry => entry.id === selectedExistingId || [entry.title, ...(entry.altTitles || [])].join(" ").toLowerCase().includes(animeSearch.toLowerCase())).map((entry) => (
+                {existingAnimeOptions.filter(entry => entry.id === selectedExistingId || matchingAnime.includes(entry)).map((entry) => (
                   <option key={entry.id} value={entry.id}>{baseAnimeTitle(entry.title)}</option>
                 ))}
               </select>
