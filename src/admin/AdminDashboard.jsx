@@ -1,3 +1,4 @@
+import { matchesAnimeSearch } from "@/lib/animeSearch";
 import ReportsPanel from "./ReportsPanel";
 import UsersPanel from "./UsersPanel";
 import LogsPanel from "./LogsPanel";
@@ -134,21 +135,12 @@ export default function AdminDashboard() {
   }, [authState]);
 
   const filteredItems = useMemo(() => {
-    const keyword = search.trim().toLocaleLowerCase();
     let sourceItems = items;
     if (displayMode === "songs") sourceItems = items.filter(isSongEntry);
-
-    return sourceItems.filter((item) => {
-      if (!keyword) return true;
-      const haystack = [
-        item.title,
-        ...(Array.isArray(item.altTitles) ? item.altTitles : [item.altTitles]),
-        item.songTitle,
-        item.artist,
-        item.note
-      ].join(" ").toLocaleLowerCase();
-      return haystack.includes(keyword);
-    });
+    return sourceItems.filter(item => matchesAnimeSearch({
+      ...item,
+      altTitles: Array.isArray(item.altTitles) ? item.altTitles : [item.altTitles].filter(Boolean)
+    }, search));
   }, [items, search, displayMode]);
 
   const summary = useMemo(() => {
@@ -408,7 +400,7 @@ export default function AdminDashboard() {
               <div className="mt-5 grid gap-3 lg:grid-cols-[minmax(0,1fr)_260px]">
                 <div className="relative">
                   <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
-                  <Input className="!border-white/10 !bg-black/20 pl-10" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="ค้นหาอนิเมะ เพลง ศิลปิน หรือชื่ออื่น…" />
+                  <Input className="!border-white/10 !bg-black/20 pl-10" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="ค้นชื่อไทย ชื่อย่อ อนิเมะ เพลง หรือศิลปิน…" />
                 </div>
                 <div className="relative">
                   <ListFilter className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
