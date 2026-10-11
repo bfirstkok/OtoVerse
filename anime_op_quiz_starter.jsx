@@ -59,7 +59,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { firebaseAuth, firebaseAuthPersistenceReady, firebaseDb, firebaseProjectId, firebaseReady } from "@/lib/firebase";
 import { subscribeActiveAnimeSongs } from "@/lib/adminContent";
 import { getAnimeImageUrl, getYouTubeId, getYouTubeThumbUrl } from "@/lib/media";
-import { GENRE_CONFIG as genreConfig, getEffectiveAnimeGenre as inferGenre } from "@/lib/animeGenre";
+import { GENRE_CONFIG as genreConfig, getEffectiveAnimeGenre as inferGenre, getEffectiveAnimeGenres, getAnimeGenreLabel as multiGenreLabel, matchesAnimeGenre } from "@/lib/animeGenre";
 import {
   bumpPlayCount,
   bumpTotalScore,
@@ -120,9 +120,7 @@ const answerModeConfig = {
 };
 
 function getFallbackGenreLabel(anime) {
-  const key = String(anime?.genre || "").trim();
-  if (key) return genreConfig[key]?.label || key;
-  return genreConfig.other.label;
+  return multiGenreLabel(anime);
 }
 
 function normalize(text) {
@@ -3520,6 +3518,7 @@ useEffect(() => {
     if (!Array.isArray(animeData) || animeData.length === 0) return [];
     const result = animeData.map((anime) => ({
       ...anime,
+      genres: getEffectiveAnimeGenres(anime),
       genre: inferGenre(anime)
     }));
     console.log('animeWithGenre count:', result.length, 'animeData count:', animeData.length);
@@ -3533,6 +3532,7 @@ useEffect(() => {
     if (!Array.isArray(libraryAnimeData)) return [];
     return libraryAnimeData.map((anime) => ({
       ...anime,
+      genres: getEffectiveAnimeGenres(anime),
       genre: inferGenre(anime)
     }));
   }, [libraryAnimeData]);
@@ -3570,7 +3570,7 @@ useEffect(() => {
 
   const genreCounts = useMemo(() => {
     return animeWithGenre.reduce((acc, anime) => {
-      acc[anime.genre] = (acc[anime.genre] || 0) + 1;
+      for (const genre of getEffectiveAnimeGenres(anime)) acc[genre] = (acc[genre] || 0) + 1;
       return acc;
     }, {});
   }, [animeWithGenre]);
@@ -3664,7 +3664,7 @@ useEffect(() => {
 
   const activeGenrePool = useMemo(() => {
     if (selectedGenre === "all") return animeWithGenre;
-    return animeWithGenre.filter((anime) => anime.genre === selectedGenre);
+    return animeWithGenre.filter((anime) => matchesAnimeGenre(anime, selectedGenre));
   }, [animeWithGenre, selectedGenre]);
 
   useEffect(() => {
@@ -3792,7 +3792,7 @@ useEffect(() => {
     const q = normalize(search);
     const source = selectedGenre === "all"
       ? libraryAnimeWithGenre
-      : libraryAnimeWithGenre.filter((anime) => anime.genre === selectedGenre);
+      : libraryAnimeWithGenre.filter((anime) => matchesAnimeGenre(anime, selectedGenre));
 
     const filtered = !q
       ? source
@@ -3980,7 +3980,7 @@ console.log("library works =", works.length);
       // Still allow filtering by inferred genre tags when the catalog isn't available.
       const tags = new Set();
       for (const item of legalRawItems) {
-        tags.add(getFallbackGenreLabel(item?.anime));
+        for (const key of getEffectiveAnimeGenres(item?.anime)) tags.add(genreConfig[key].label);
       }
       return Array.from(tags).sort((a, b) => a.localeCompare(b, "th", { sensitivity: "base" }));
     }
@@ -4004,7 +4004,7 @@ console.log("library works =", works.length);
         }
       } else {
         // If an item isn't present in the catalog, fall back to inferred genre.
-        tags.add(getFallbackGenreLabel(item?.anime));
+        for (const key of getEffectiveAnimeGenres(item?.anime)) tags.add(genreConfig[key].label);
       }
     }
 
@@ -4088,7 +4088,7 @@ console.log("library works =", works.length);
         const genres = entry?.genres;
         if (Array.isArray(genres) && genres.length) return genres.includes(legalGenreFilter);
 
-        return getFallbackGenreLabel(item?.anime) === legalGenreFilter;
+        return getEffectiveAnimeGenres(item?.anime).some(key => genreConfig[key].label === legalGenreFilter);
       });
     }
 

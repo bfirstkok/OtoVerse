@@ -13,7 +13,7 @@ import {
   where
 } from "firebase/firestore";
 import { firebaseDb } from "@/lib/firebase";
-import { getEffectiveAnimeGenre } from "@/lib/animeGenre";
+import { getEffectiveAnimeGenre, getEffectiveAnimeGenres, normalizeAnimeGenres } from "@/lib/animeGenre";
 
 const COLLECTION_NAME = "animeSongs";
 
@@ -83,6 +83,9 @@ function cleanAnimeSong(data) {
     isActive: data?.isActive !== false
   };
   payload.genre = getEffectiveAnimeGenre({ ...payload, genreSource: data?.genre ? "manual" : undefined });
+  payload.genres = Array.isArray(data?.genres) ? normalizeAnimeGenres(data.genres) : getEffectiveAnimeGenres(data);
+  if (!payload.genres.length) payload.genres = [payload.genre];
+  payload.genre = payload.genres[0];
   payload.genreSource = "manual";
   return payload;
 }
@@ -95,6 +98,7 @@ function withId(snapshot) {
     animeTitle: String(item.animeTitle || parsedTitle.animeTitle),
     songType: String(item.songType || parsedTitle.songType),
     songNumber: Number(item.songNumber || parsedTitle.songNumber),
+    genres: getEffectiveAnimeGenres(item),
     genre: getEffectiveAnimeGenre(item)
   };
 }

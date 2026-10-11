@@ -48,11 +48,47 @@ export function inferAnimeGenre(anime) {
 }
 
 export function getEffectiveAnimeGenre(anime) {
+  const stored = normalizeAnimeGenres(anime?.genres);
+  if (stored.length) return stored[0];
   const current = String(anime?.genre || '').trim();
   if (anime?.genreSource === 'manual' && GENRE_CONFIG[current]) return current;
   return curatedGenre(anime) || (GENRE_CONFIG[current] ? current : 'other');
 }
 
 export function getAnimeGenreLabel(anime) {
-  return GENRE_CONFIG[getEffectiveAnimeGenre(anime)]?.label || GENRE_CONFIG.other.label;
+  return getEffectiveAnimeGenres(anime).map(key => GENRE_CONFIG[key].label).join(' / ');
+}
+
+// Supplemental editorial tags; the first genre remains the compatible primary.
+const SECONDARY = {
+  action: ['Re Zero', 'Sword Art Online', '86', 'Vinland Saga', 'Code Geass', 'Tokyo Ghoul', 'Overlord', 'Mushoku Tensei', 'The Rising of the Shield Hero', 'Tate no Yuusha', 'Fate', 'Cyberpunk', 'Gundam', 'Hellsing', 'Berserk', 'Fairy Tail', 'Black Clover', 'Spy x Family', 'One Punch Man', 'Mob Psycho', 'No Game No Life', 'Shangri La Frontier', 'Solo Leveling'],
+  fantasy: ['Re Zero', 'Konosuba', 'Mushoku Tensei', 'Overlord', 'No Game No Life', 'Tensei shitara slime', 'That Time I Got Reincarnated', 'The Rising of the Shield Hero', 'Tate no Yuusha', 'Jujutsu Kaisen', 'Kimetsu no Yaiba', 'InuYasha', 'Solo Leveling', 'Dandadan', 'Dan Da Dan'],
+  drama: ['Vinland Saga', '86', 'Your Lie in April', 'Shigatsu wa Kimi no Uso', 'Oshi no Ko', 'Nana', 'Fruits Basket', 'Steins Gate', 'Violet Evergarden', 'Your Name', 'Kimi no Na wa', 'Clannad', 'To Your Eternity', 'Made in Abyss', 'Neon Genesis Evangelion', 'Fate Zero'],
+  romance: ['Your Lie in April', 'Shigatsu wa Kimi no Uso', 'Clannad', 'Plastic Memories', 'Koe no Katachi', 'Nana', 'Given', 'Sword Art Online', 'Blue Box', 'Spice and Wolf', 'Fruits Basket'],
+  comedy: ['Konosuba', 'Spy x Family', 'Bocchi the Rock', 'K On', 'Kaguya', 'Toradora', 'Horimiya', 'Aharen', 'Komi', 'Dungeon Meshi', 'One Punch Man', 'Mob Psycho', 'Witch Watch', 'Dandadan', 'Dan Da Dan'],
+  slice: ['K On', 'Bocchi the Rock', 'Hyouka', 'Komi', 'Aharen', 'Horimiya', 'Nichijou', 'Yuru Camp'],
+  mystery: ['Oshi no Ko', 'Steins Gate', 'Psycho Pass', 'Made in Abyss', 'The Apothecary Diaries', 'Kusuriya no Hitorigoto', 'Re Zero'],
+  scifi: ['86', 'Code Geass', 'Gundam', 'Neon Genesis Evangelion', 'Macross', 'Plastic Memories'],
+  sports: ['Blue Box'],
+  music: ['Oshi no Ko', 'Macross'],
+  horror: ['Made in Abyss', 'Yakusoku no Neverland', 'The Promised Neverland', 'Parasyte']
+};
+
+export function normalizeAnimeGenres(values) {
+  const list = [...new Set((Array.isArray(values) ? values : []).filter(key => Object.hasOwn(GENRE_CONFIG, key)))];
+  return list.length > 1 ? list.filter(key => key !== 'other') : list;
+}
+
+export function getEffectiveAnimeGenres(anime) {
+  const stored = normalizeAnimeGenres(anime?.genres);
+  if (stored.length) return stored;
+  const primary = getEffectiveAnimeGenre(anime);
+  if (anime?.genreSource === 'manual') return [primary];
+  const names = [anime?.animeTitle, anime?.title, ...(Array.isArray(anime?.altTitles) ? anime.altTitles : [])].filter(Boolean).map(normalize);
+  const extra = Object.entries(SECONDARY).filter(([, titles]) => titles.some(title => names.some(name => name.startsWith(normalize(title))))).map(([genre]) => genre);
+  return normalizeAnimeGenres([primary, ...extra]);
+}
+
+export function matchesAnimeGenre(anime, genre) {
+  return genre === 'all' || getEffectiveAnimeGenres(anime).includes(genre);
 }

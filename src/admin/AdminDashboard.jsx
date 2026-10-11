@@ -228,6 +228,7 @@ export default function AdminDashboard() {
           acceptedAnswers: data.acceptedAnswers,
           year: data.year,
           genre: data.genre,
+          genres: data.genres,
           difficulty: data.difficulty,
           imageUrl: data.imageUrl,
           synopsis: data.synopsis,
@@ -293,6 +294,7 @@ export default function AdminDashboard() {
             artist: anime.artist || "",
             imageUrl: anime.imageUrl || "",
             genre: anime.genre || "other",
+            genres: anime.genres,
             synopsis,
             isActive: true
           };

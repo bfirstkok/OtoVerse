@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getYouTubeId, getYouTubeThumbUrl } from "@/lib/media";
-import { GENRE_CONFIG } from "@/lib/animeGenre";
+import { GENRE_CONFIG, getEffectiveAnimeGenres } from "@/lib/animeGenre";
 
 const EMPTY_CHARACTER = { name: "", role: "", image: "", bio: "" };
 const EMPTY_FORM = {
@@ -19,6 +19,7 @@ const EMPTY_FORM = {
   youtubeVideoId: "",
   imageUrl: "",
   genre: "other",
+  genres: ["other"],
   difficulty: "medium",
   year: "",
   note: "",
@@ -38,6 +39,7 @@ function toFormValue(item) {
   return {
     ...EMPTY_FORM,
     ...item,
+    genres: getEffectiveAnimeGenres(item),
     animeTitle: String(item.animeTitle || titleMatch?.[1] || item.title || "").trim(),
     songType: String(item.songType || titleMatch?.[2] || "OP").toUpperCase(),
     songNumber: Number(item.songNumber || titleMatch?.[3] || 1),
@@ -185,6 +187,7 @@ export default function AnimeSongForm({
     event.preventDefault();
     setFormError("");
     if (!item && createMode === "existing" && !String(form.animeTitle || "").trim()) { setFormError("กรุณาค้นหาและเลือกอนิเมะก่อนบันทึก"); return; }
+    if (!form.genres.length) { setFormError("กรุณาเลือกประเภทอนิเมะอย่างน้อย 1 หมวด"); return; }
     const videoId = getYouTubeId(form.youtubeVideoId);
     if (editScope !== "anime" && !/^[a-zA-Z0-9_-]{11}$/.test(videoId)) { setFormError("กรุณาวางลิงก์ YouTube หรือรหัสวิดีโอที่ถูกต้อง"); return; }
     const duplicate = existingItems.some(entry => entry.id !== item?.id && titleKey(entry.animeTitle || entry.title) === titleKey(form.animeTitle) && toFormValue(entry).songType === form.songType && Number(toFormValue(entry).songNumber) === Number(form.songNumber));
@@ -273,16 +276,17 @@ export default function AnimeSongForm({
               onChange={(e) => update("year", e.target.value)}
             />
           </Field>
-          <Field label="Genre">
-            <select
-              className="w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
-              value={form.genre}
-              onChange={(e) => update("genre", e.target.value)}
-            >
-              {Object.entries(GENRE_CONFIG).map(([value, config]) => (
-                <option key={value} value={value}>{config.label}</option>
-              ))}
-            </select>
+          <Field label="ประเภทอนิเมะ · เลือกได้หลายหมวด">
+            <div className="flex flex-wrap gap-2" role="group" aria-label="ประเภทอนิเมะ">
+              {Object.entries(GENRE_CONFIG).map(([value, config]) => <label key={value} className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-sm ${form.genres.includes(value) ? 'border-violet-500 bg-violet-500/20 text-violet-200' : 'border-slate-700 text-slate-300'}`}>
+                <input type="checkbox" checked={form.genres.includes(value)} disabled={saving} onChange={() => setForm(current => {
+                  let next = current.genres.includes(value) ? current.genres.filter(key => key !== value) : [...current.genres.filter(key => key !== 'other'), value];
+                  if (value === 'other' && !current.genres.includes(value)) next = ['other'];
+                  return { ...current, genres: next, genre: next[0] || 'other' };
+                })} />{config.label}
+              </label>)}
+            </div>
+            <p className="mt-2 text-xs text-slate-400">เลือกได้มากกว่า 1 หมวด · หมวดแรกใช้เป็นแนวหลักของเกม</p>
           </Field>
           <Field label="ระดับความยาก">
             <select
