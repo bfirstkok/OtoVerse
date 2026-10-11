@@ -2475,12 +2475,17 @@ useEffect(() => {
     setPublicProfileFollowers(null);
     setPublicProfile(null);
     setPublicProfileUid(nextUid);
+    setProfileOpen(false);
     setPublicProfileOpen(true);
   };
 
   const closeProfilePage = () => {
+    if (window.history.state?.profileUid && window.history.state?.profileBack) {
+      window.history.back();
+      return;
+    }
     setProfileOpen(false); setPublicProfileOpen(false);
-    if(window.location.pathname.startsWith('/profile/')) window.history.replaceState(null,'','/');
+    if(window.location.pathname.startsWith('/profile/')) window.history.replaceState(buildHistoryState({nextPage: page, nextLibraryTab: libraryTab, nextProfileUid: ''}),'','/');
   };
   useEffect(() => {
     if(!user?.uid)return;
@@ -4525,12 +4530,16 @@ useEffect(() => {
 
   const isGameInProgress = page === "play" && gameList.length > 0;
 
-  const buildHistoryState = ({ nextPage, nextLibraryTab }) => {
+  const historyInitialSyncRef = useRef(true);
+  const activeProfileUid = profileOpen ? user?.uid || "" : publicProfileOpen ? publicProfileUid : "";
+
+  const buildHistoryState = ({ nextPage, nextLibraryTab, nextProfileUid = activeProfileUid }) => {
     return {
       __app: "anime-op-quiz",
       v: 1,
       page: nextPage,
-      libraryTab: nextLibraryTab
+      libraryTab: nextLibraryTab,
+      profileUid: nextProfileUid
     };
   };
 
@@ -4539,7 +4548,8 @@ useEffect(() => {
       a?.__app === "anime-op-quiz" &&
       b?.__app === "anime-op-quiz" &&
       a?.page === b?.page &&
-      (a?.libraryTab || "catalog") === (b?.libraryTab || "catalog")
+      (a?.libraryTab || "catalog") === (b?.libraryTab || "catalog") &&
+      (a?.profileUid || "") === (b?.profileUid || "")
     );
   };
 
@@ -4550,9 +4560,13 @@ useEffect(() => {
       if (s?.__app === "anime-op-quiz" && typeof s.page === "string") {
         setPage(s.page);
         if (typeof s.libraryTab === "string") setLibraryTab(s.libraryTab);
+        if (s.profileUid && user?.uid) {
+          if (s.profileUid === user.uid) setProfileOpen(true);
+          else openPublicProfile(s.profileUid);
+        }
       } else {
         window.history.replaceState(
-          buildHistoryState({ nextPage: page, nextLibraryTab: libraryTab }),
+          buildHistoryState({ nextPage: page, nextLibraryTab: libraryTab, nextProfileUid: decodeURIComponent(window.location.pathname.match(/^\/profile\/([^/]+)/)?.[1] || "") }),
           "",
           window.location.pathname + window.location.search
         );
@@ -4568,15 +4582,19 @@ useEffect(() => {
   // Push a new history entry when changing app "pages".
   useEffect(() => {
     if (!historyReadyRef.current) return;
+    if (historyInitialSyncRef.current) { historyInitialSyncRef.current = false; return; }
+    if (window.location.pathname.startsWith("/profile/") && !user?.uid) return;
     try {
       const next = buildHistoryState({ nextPage: page, nextLibraryTab: libraryTab });
       const curr = window.history?.state;
       if (isSameHistoryState(curr, next)) return;
-      window.history.pushState(next, "", window.location.pathname + window.location.search);
+      next.profileBack = Boolean(next.profileUid);
+      const url = next.profileUid ? `/profile/${encodeURIComponent(next.profileUid)}` : "/";
+      window.history.pushState(next, "", url + window.location.search);
     } catch {
       // ignore
     }
-  }, [page, libraryTab]);
+  }, [page, libraryTab, activeProfileUid]);
 
   // Handle browser Back/Forward.
   useEffect(() => {
@@ -4588,6 +4606,11 @@ useEffect(() => {
       const apply = () => {
         setPage(nextPage);
         setLibraryTab(nextLibraryTab);
+        setProfileSettingsOpen(false);
+        const uid = s?.profileUid || "";
+        setProfileOpen(Boolean(uid && uid === user?.uid));
+        setPublicProfileOpen(Boolean(uid && uid !== user?.uid));
+        if (uid && uid !== user?.uid) openPublicProfile(uid);
       };
 
       // If leaving an active game via Back, ask first.
@@ -4618,7 +4641,7 @@ useEffect(() => {
 
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
-  }, [isGameInProgress, page, libraryTab]);
+  }, [isGameInProgress, page, libraryTab, activeProfileUid, user?.uid]);
 
   const confirmLeaveGame = (next) => {
     if (!isGameInProgress) {
