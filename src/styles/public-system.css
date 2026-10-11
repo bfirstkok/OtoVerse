@@ -8,7 +8,7 @@
 .oto-home-layout { grid-template-columns: minmax(0, 1fr) 360px; }
 .oto-home-main { min-width: 0; }
 .oto-home-hero { border: 1px solid #a5b4fc26; border-radius: 28px; background: radial-gradient(ellipse at 90% 20%, #4338ca38, transparent 65%), linear-gradient(135deg, #10172d, #0b1020); }
-.oto-home-hero > div:not(.oto-home-record) { padding: 36px; }
+.oto-home-hero > div:not(.oto-home-mascot) { padding: 36px; }
 .oto-home-hero > div:last-child { padding-top: 0; }
 .oto-home-eyebrow { font-size: 11px; letter-spacing: .18em; color: #a5b4fc; font-weight: 700; margin-bottom: 18px; }
 .oto-home-title { font-size: clamp(34px, 4vw, 58px); line-height: 1.22; font-weight: 700; color: #f8fafc; letter-spacing: -.04em; position: relative; }
@@ -20,9 +20,6 @@
 .oto-home-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; border-top: 1px solid #ffffff10; padding-top: 24px; margin-top: 32px; }
 .oto-home-stats strong { display: block; font-family: "Chakra Petch", sans-serif; font-size: 20px; color: #e0e7ff; }
 .oto-home-stats span { display: block; font-size: 11px; margin-top: 5px; color: #8e9cba; }
-.oto-home-record { position: absolute; right: -100px; top: -45px; width: 360px; height: 360px; border-radius: 50%; border: 1px solid #a5b4fc18; background: repeating-radial-gradient(circle, #a5b4fc05 0 3px, transparent 4px 11px); opacity: .5; transform: rotate(-15deg); pointer-events: none; }
-.oto-home-record div { position: absolute; inset: 110px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed40, #06b6d440); border: 1px solid #a5b4fc30; }
-.oto-home-record span { position: absolute; inset: 0; display: grid; place-items: center; font-family: "Chakra Petch", sans-serif; font-weight: 700; letter-spacing: .3em; font-size: 24px; color: #c4b5fd60; }
 .oto-home-section-label { color: #cbd5e1; font-weight: 600; font-size: 14px; margin: 28px 0 14px; }
 .oto-home-destinations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .oto-home-destinations button { position: relative; text-align: left; padding: 22px; background: #0e1525d9; border: 1px solid #ffffff0f; border-radius: 18px; transition: border-color .2s, background .2s; }
@@ -39,9 +36,8 @@
 .oto-home-leaderboard button [data-ui="badge"] { font-size: 10px; padding-inline: 4px; }
 @media (max-width: 1024px) { .oto-home-layout { grid-template-columns: 1fr; } }
 @media (max-width: 640px) {
-  .oto-home-hero > div:not(.oto-home-record) { padding: 24px; }
+  .oto-home-hero > div:not(.oto-home-mascot) { padding: 24px; }
   .oto-home-hero > div:last-child { padding-top: 0; }
-  .oto-home-record { right: -220px; opacity: .25; }
   .oto-home-start { width: 100%; }
   .oto-home-stats { gap: 8px; }
   .oto-home-stats strong { font-size: 15px; }
@@ -259,4 +255,12 @@
   .otoverse-public > div > .relative.z-20 > .sticky.top-0.z-50 * {
     transform: none !important;
   }
+}
+
+.oto-home-mascot { position:absolute; right:20px; top:16px; width:240px; height:335px; margin:0; pointer-events:none; }
+.oto-home-mascot img { width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 12px 24px #7460e630); }
+.oto-home-hero > div:first-child { padding-right:260px; }
+@media (max-width:640px) {
+  .oto-home-hero > div:first-child { padding-right:24px; }
+  .oto-home-mascot { position:relative; right:auto; top:auto; width:180px; height:215px; margin:-12px auto 20px; }
 }

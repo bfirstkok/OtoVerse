@@ -5614,12 +5614,12 @@ useEffect(() => {
       <div className="oto-home-layout grid gap-6 items-start">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="oto-home-main">
           <Card className="oto-home-hero relative overflow-hidden">
-            <div className="oto-home-record" aria-hidden="true"><div /><span>OTO</span></div>
             <CardHeader className="relative">
               <div className="oto-home-eyebrow">YOUR ANIME SOUNDTRACK</div>
               <h1 className="oto-home-title">แค่ได้ยิน…<br /><span>ก็รู้ว่าเรื่องอะไร</span></h1>
               <CardDescription className="oto-home-description">เพลงที่คุ้นเคย ความทรงจำที่คิดถึง<br />มาทดสอบกันว่าคุณรู้จักเพลงอนิเมะดีแค่ไหน</CardDescription>
             </CardHeader>
+            <figure className="oto-home-mascot" aria-hidden="true"><img src="/otto-music-hero.png" alt="" width="1024" height="1536" decoding="async" /></figure>
             <CardContent className="relative">
               <Button className="oto-home-start" onClick={() => setHomeSetupOpen(true)}><Play className="w-5 h-5 mr-2" />เริ่มเล่นทายเพลง<span aria-hidden="true"> →</span></Button>
               <div className="oto-home-game-hint">เลือกแนวที่ชอบ · ตั้งค่าโหมด · เริ่มทาย</div>
