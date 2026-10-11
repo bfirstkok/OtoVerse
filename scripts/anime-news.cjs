@@ -12,6 +12,7 @@ function safeImageUrl(value) {
   try {
     const url = new URL(String(value || '').replace(/&amp;|&#38;/g, '&'));
     const hosts = ['a.storyblok.com', 'www.animenewsnetwork.com', 'cdn.animenewsnetwork.com', 'images.animenewsnetwork.com'];
+    if (url.protocol === 'https:' && url.hostname === 'raw.githubusercontent.com' && /^\/bfirstkok\/OtoVerse\/main\/public\/news-images\/[a-f0-9]{24}\.(jpg|png|webp|gif|avif)$/.test(url.pathname)) return url.href;
     return url.protocol === 'https:' && hosts.includes(url.hostname) ? url.href : '';
   } catch {return '';}
 }
@@ -31,7 +32,7 @@ async function addNewsImages(items, previous = {}) {
   const result = [];
   for (let i = 0; i < items.length; i += 4) {
     result.push(...await Promise.all(items.slice(i, i + 4).map(async item => {
-      let imageUrl = safeImageUrl(item.imageUrl) || existing.get(item.id) || '';
+      let imageUrl = existing.get(item.id) || safeImageUrl(item.imageUrl) || '';
       if (!imageUrl && SOURCES.some(source => safeArticleUrl(item.url, source.host))) {
         try {
           const response = await fetch(item.url, {signal: AbortSignal.timeout(12000), headers: {'User-Agent': 'OtoVerseNews/1.0 (+https://otoverse.games/news)'}});
@@ -45,6 +46,29 @@ async function addNewsImages(items, previous = {}) {
     })));
   }
   return result;
+}
+
+async function archiveNewsImages(digest, destination) {
+  const fs = require('node:fs/promises'), path = require('node:path');
+  const folder = path.join(path.dirname(destination), 'news-images');
+  await fs.mkdir(folder, {recursive: true});
+  const extensions = {'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/gif':'gif','image/avif':'avif'};
+  for (const item of digest.items) {
+    const source = safeImageUrl(item.imageUrl);
+    if (!source || !/^[a-f0-9]{24}$/.test(item.id) || source.includes('raw.githubusercontent.com')) continue;
+    try {
+      const response = await fetch(source, {signal: AbortSignal.timeout(15000)});
+      const extension = extensions[response.headers.get('content-type')?.split(';')[0]];
+      if (!response.ok || !extension || Number(response.headers.get('content-length')) > 4000000) continue;
+      const bytes = Buffer.from(await response.arrayBuffer());
+      if (!bytes.length || bytes.length > 4000000) continue;
+      const filename = `${item.id}.${extension}`;
+      await fs.writeFile(path.join(folder, filename), bytes);
+      item.sourceImageUrl = source;
+      item.imageUrl = `https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/${filename}`;
+    } catch { /* Keep the source image and retry at the next scheduled refresh. */ }
+  }
+  return digest;
 }
 
 function plain(value, max = 600) {
@@ -135,7 +159,7 @@ async function createDigest(apiKey, previous = {}) {
     sources: SOURCES.map(({id, name, feed}) => ({id, name, feed}))};
 }
 
-module.exports = {createDigest, collectNews, summarizeNews, validateSummaries, normalizeItems, safeArticleUrl, safeImageUrl, imageFromHtml, addNewsImages, SOURCES};
+module.exports = {createDigest, collectNews, summarizeNews, validateSummaries, normalizeItems, safeArticleUrl, safeImageUrl, imageFromHtml, addNewsImages, archiveNewsImages, SOURCES};
 
 if (require.main === module) {
   const fs = require('node:fs');
@@ -143,7 +167,7 @@ if (require.main === module) {
   const apiKey = process.env.NEWS_AI_KEY;
   if (!apiKey) {console.error('NEWS_AI_KEY is required.'); process.exit(1);}
   let previous = {}; try {previous = JSON.parse(fs.readFileSync(destination, 'utf8'));} catch {}
-  createDigest(apiKey, previous).then(digest => {
+  createDigest(apiKey, previous).then(digest => archiveNewsImages(digest, destination)).then(digest => {
     fs.writeFileSync(destination, JSON.stringify(digest, null, 2) + '\n');
     console.log(`Updated anime news: ${digest.items.length} articles.`);
   }).catch(error => {console.error('News refresh failed:', /^ai_http_\d+$/.test(error.message) ? error.message : 'feed_or_summary_unavailable'); process.exitCode = 1;});

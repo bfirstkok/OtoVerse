@@ -13,7 +13,8 @@
       "category": "release",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://a.storyblok.com/f/178900/1200x630/7499718b68/noa-senpai-wa-tomodachi.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/c930eebe9337544815cc1e28.jpg",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/1200x630/7499718b68/noa-senpai-wa-tomodachi.jpg"
     },
     {
       "id": "4d7ea86f51677732f70336bd",
@@ -28,7 +29,8 @@
       "category": "announcement",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gI3/herald/202101/0d1ac0029bae8744c2639b0d172eb23a.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/4d7ea86f51677732f70336bd.jpg",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gI3/herald/202101/0d1ac0029bae8744c2639b0d172eb23a.jpg"
     },
     {
       "id": "6a77407e4576c16ae0a7bd45",
@@ -43,7 +45,8 @@
       "category": "trailer",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gFF/youtube/bo-P_qi2-RU.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/6a77407e4576c16ae0a7bd45.jpg",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gFF/youtube/bo-P_qi2-RU.jpg"
     },
     {
       "id": "6ff6d2c018b072e739ad4924",
@@ -58,7 +61,8 @@
       "category": "announcement",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gJ4/youtube/C6ecZk2mHqA.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/6ff6d2c018b072e739ad4924.jpg",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gJ4/youtube/C6ecZk2mHqA.jpg"
     },
     {
       "id": "438e9b611ff03e63c973ba04",
@@ -73,7 +77,8 @@
       "category": "release",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gB1/cms/news.9/241278/dbsbe-surgekv-en.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/438e9b611ff03e63c973ba04.jpg",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gB1/cms/news.9/241278/dbsbe-surgekv-en.jpg"
     },
     {
       "id": "aba87fd29697b3cc34ee48d9",
@@ -88,7 +93,8 @@
       "category": "trailer",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://a.storyblok.com/f/178900/960x540/b2dc634921/sss-class-revival-hunter.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/aba87fd29697b3cc34ee48d9.jpg",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/b2dc634921/sss-class-revival-hunter.jpg"
     },
     {
       "id": "ff76fe6c8c9bcc65e51a6302",
@@ -103,7 +109,8 @@
       "category": "announcement",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gEB/youtube/0GvvZ9p_eEQ.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/ff76fe6c8c9bcc65e51a6302.jpg",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gEB/youtube/0GvvZ9p_eEQ.jpg"
     },
     {
       "id": "f37c5bfb36fb6a4f8124b413",
@@ -118,7 +125,8 @@
       "category": "trailer",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://a.storyblok.com/f/178900/960x540/7635ea51ba/the-apothecary-diaries-the-late-ladys-treasure.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/f37c5bfb36fb6a4f8124b413.jpg",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/7635ea51ba/the-apothecary-diaries-the-late-ladys-treasure.jpg"
     },
     {
       "id": "edcc34c321dbb76e0f2aca16",
@@ -133,7 +141,8 @@
       "category": "release",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gS9/youtube/iOFHoZWeEw4.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/edcc34c321dbb76e0f2aca16.jpg",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gS9/youtube/iOFHoZWeEw4.jpg"
     },
     {
       "id": "503d5639ce295ef8149c658c",
@@ -148,7 +157,8 @@
       "category": "announcement",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://a.storyblok.com/f/178900/1519x851/7e5201991d/naruto-shadow-rising-manga.png"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/503d5639ce295ef8149c658c.png",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/1519x851/7e5201991d/naruto-shadow-rising-manga.png"
     },
     {
       "id": "f59d0bee886b15a935075892",
@@ -163,7 +173,8 @@
       "category": "announcement",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gL7/cms/news.10/242693/naruto-ninku-visual.jfif.jpeg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/f59d0bee886b15a935075892.jpg",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gL7/cms/news.10/242693/naruto-ninku-visual.jfif.jpeg"
     },
     {
       "id": "5b7d0d178f8b8c57ca5085b3",
@@ -178,7 +189,8 @@
       "category": "release",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://a.storyblok.com/f/178900/1460x821/7e2159d517/onepunch_man_saitama_flashy_flash_header.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/5b7d0d178f8b8c57ca5085b3.jpg",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/1460x821/7e2159d517/onepunch_man_saitama_flashy_flash_header.jpg"
     },
     {
       "id": "d4a2ae0d4b2afe5784de0e08",
@@ -193,7 +205,8 @@
       "category": "industry",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gY8/encyc/A38196-2030294674.1789213930.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/d4a2ae0d4b2afe5784de0e08.jpg",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gY8/encyc/A38196-2030294674.1789213930.jpg"
     },
     {
       "id": "2752565588de24ac636e2c92",
@@ -208,7 +221,8 @@
       "category": "announcement",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://a.storyblok.com/f/178900/960x540/44e7c06c44/mill-fam-noel.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/2752565588de24ac636e2c92.jpg",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/44e7c06c44/mill-fam-noel.jpg"
     },
     {
       "id": "20bc784c3d09a19639f6cce9",
@@ -223,7 +237,8 @@
       "category": "trailer",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://a.storyblok.com/f/178900/960x540/36c1f6e3ce/firefly_wedding_satoko_header.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/20bc784c3d09a19639f6cce9.jpg",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/36c1f6e3ce/firefly_wedding_satoko_header.jpg"
     },
     {
       "id": "7c232f4b25ff62a57c9719f5",
@@ -238,10 +253,11 @@
       "category": "trailer",
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
-      "imageUrl": "https://a.storyblok.com/f/178900/960x540/a0c60c1411/overgeared_header.jpg"
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/7c232f4b25ff62a57c9719f5.jpg",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/a0c60c1411/overgeared_header.jpg"
     }
   ],
-  "updatedAt": "2026-10-11T10:33:52.861Z",
+  "updatedAt": "2026-10-11T10:56:40.648Z",
   "unavailableSources": [],
   "sources": [
     {
