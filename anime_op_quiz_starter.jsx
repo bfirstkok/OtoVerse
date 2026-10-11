@@ -5774,7 +5774,7 @@ useEffect(() => {
           <div className="oto-home-section-label">ค้นพบสิ่งที่ชอบ</div>
           <div className="oto-home-destinations">
             <button type="button" onClick={() => {setPage("library"); setLibraryTab("catalog");}}><ListMusic /><strong>คลังเพลง</strong><span>ค้นหาเพลงและอนิเมะที่คุ้นเคย</span><i aria-hidden="true">↗</i></button>
-            <button type="button" onClick={() => {setPage("library"); setLibraryTab("legal");}}><Eye /><strong>ดูและฟังที่ไหน</strong><span>สำรวจช่องทางรับชมในไทย</span><i aria-hidden="true">↗</i></button>
+            <button type="button" onClick={() => {setPage("library"); setLibraryTab("legal");}}><Eye /><strong>รายชื่ออนิเมะ</strong><span>สำรวจช่องทางรับชมในไทย</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => confirmLeaveGame(() => setPage("community"))}><Trophy /><strong>Community</strong><span>แบ่งปันเรื่องโปรดกับทุกคน</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => confirmLeaveGame(() => setPage("online"))}><Users /><strong>เล่นกับเพื่อน</strong><span>สร้างห้องแล้วมาทายไปด้วยกัน</span><i aria-hidden="true">↗</i></button>
           </div>
@@ -7600,7 +7600,7 @@ useEffect(() => {
                     เหมาะทั้งเล่นคนเดียว เล่นท้าทาย หรือเล่นแบบกลุ่มกับเพื่อน
                   </p>
                   <p>
-                    เรามีคลังเพลงให้ค้นหา และหน้าช่องทางดู/ฟังเพื่อช่วยตามหาแหล่งรับชมที่เหมาะกับคุณ (ข้อมูลอาจมีการเปลี่ยนแปลงตามผู้ให้บริการ)
+                    เรามีคลังเพลงให้ค้นหา และหน้ารายชื่ออนิเมะเพื่อช่วยตามหาแหล่งรับชมที่เหมาะกับคุณ (ข้อมูลอาจมีการเปลี่ยนแปลงตามผู้ให้บริการ)
                   </p>
                 </div>
 
@@ -8048,7 +8048,7 @@ useEffect(() => {
             <div>
               {libraryTab === "legal" && !legalSelectedItem ? <div className="oto-discover-eyebrow">OTOVERSE • DISCOVER</div> : null}
               <CardTitle className="text-2xl">
-                {libraryTab === "legal" ? (legalSelectedItem ? "รายละเอียด" : "เรื่องต่อไปที่อยากดู อยู่ที่นี่") : "เพลงที่รู้จัก เรื่องที่คิดถึง"}
+                {libraryTab === "legal" ? (legalSelectedItem ? "รายละเอียด" : "รายชื่ออนิเมะ") : "เพลงที่รู้จัก เรื่องที่คิดถึง"}
               </CardTitle>
               <CardDescription>
                 {libraryTab === "catalog"
@@ -9776,7 +9776,7 @@ useEffect(() => {
                   },
                   {
                     key: "library-music",
-                    label: "ช่องทางดู/ฟัง",
+                    label: "รายชื่ออนิเมะ",
                     isActive: page === "library" && libraryTab === "legal",
                     onClick: () =>
                       confirmLeaveGame(() => {
