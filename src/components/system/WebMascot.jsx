@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./web-mascot.css";
 import MascotChat from "./MascotChat";
+import { createLinePicker } from "./mascotLines";
 
 const STORAGE_KEY = "otoverse-mascot-hidden";
 
@@ -13,23 +14,49 @@ export default function WebMascot() {
   const [greeting, setGreeting] = useState(false);
   const [pose, setPose] = useState({ x: 24, direction: 1, walking: false });
   const greetingTimer = useRef(null);
+  const pickLine = useRef(createLinePicker());
+  const lastSpoken = useRef(0);
   const character = useRef(null);
   const [chatOpen, setChatOpen] = useState(false);
   const closeChat = useCallback(() => { setChatOpen(false); character.current?.focus(); }, []);
+  const speak = useCallback((category, outcome = '') => {
+    lastSpoken.current = Date.now();
+    setMessage(pickLine.current(category));
+    setReaction(outcome);
+    setGreeting(true);
+    clearTimeout(greetingTimer.current);
+    greetingTimer.current = setTimeout(() => { setGreeting(false); setReaction(''); }, 6500);
+  }, []);
+
+  useEffect(() => {
+    if (hidden || chatOpen) {
+      clearTimeout(greetingTimer.current);
+      setGreeting(false);
+      setReaction('');
+      return;
+    }
+    const available = () => !document.hidden && !document.querySelector('[role="dialog"]') && !['play', 'online'].includes(window.history.state?.page);
+    const welcome = setTimeout(() => {
+      if (!lastSpoken.current && available()) speak('welcome');
+    }, 5000);
+    const idle = setInterval(() => {
+      // Keep spontaneous chatter out of an active round and other dialogs.
+      if (available() && Date.now() - lastSpoken.current >= 60000) speak('idle');
+    }, 15000);
+    return () => { clearTimeout(welcome); clearInterval(idle); };
+  }, [hidden, chatOpen, speak]);
 
   useEffect(() => () => clearTimeout(greetingTimer.current), []);
   useEffect(() => {
     const react = event => {
-      if(hidden)return;
+      if(hidden || chatOpen || document.hidden)return;
       const outcome=event.detail?.outcome;
       if(!['correct','wrong','skip'].includes(outcome))return;
-      setMessage(outcome==='correct'?'เก่งมาก! เพลงนี้ใช่เลย ✦':outcome==='wrong'?'ไม่เป็นไร ลองเพลงถัดไปกันนะ ♡':'เก็บเพลงนี้ไว้ลองฟังทีหลังนะ ♪');
-      setReaction(outcome);setGreeting(true);clearTimeout(greetingTimer.current);
-      greetingTimer.current=setTimeout(()=>{setGreeting(false);setReaction('');},3200);
+      speak(outcome, outcome);
     };
     window.addEventListener('otoverse:answer',react);
     return ()=>window.removeEventListener('otoverse:answer',react);
-  },[hidden]);
+  },[hidden, chatOpen, speak]);
 
   useEffect(() => {
     if (hidden) return;
