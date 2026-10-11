@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./web-mascot.css";
+import MascotChat from "./MascotChat";
 
 const STORAGE_KEY = "otoverse-mascot-hidden";
 
@@ -12,6 +13,9 @@ export default function WebMascot() {
   const [greeting, setGreeting] = useState(false);
   const [pose, setPose] = useState({ x: 24, direction: 1, walking: false });
   const greetingTimer = useRef(null);
+  const character = useRef(null);
+  const [chatOpen, setChatOpen] = useState(false);
+  const closeChat = useCallback(() => { setChatOpen(false); character.current?.focus(); }, []);
 
   useEffect(() => () => clearTimeout(greetingTimer.current), []);
   useEffect(() => {
@@ -41,7 +45,7 @@ export default function WebMascot() {
       previous = now;
       if (document.hidden) return;
       elapsed += delta;
-      const walking = !reducedMotion && !greeting && elapsed % 18 < 13;
+      const walking = !reducedMotion && !greeting && !chatOpen && elapsed % 18 < 13;
       setPose(current => {
         const max = Math.max(12, window.innerWidth - 110);
         let x = Math.min(max, Math.max(12, current.x));
@@ -55,29 +59,26 @@ export default function WebMascot() {
       });
     }, 100);
     return () => { clearInterval(timer); preference.removeEventListener("change", updatePreference); };
-  }, [hidden, greeting]);
+  }, [hidden, greeting, chatOpen]);
 
   function toggleHidden(value) {
     setHidden(value);
+    if (value) setChatOpen(false);
     try { localStorage.setItem(STORAGE_KEY, value ? "1" : "0"); } catch { /* Optional preference. */ }
-  }
-
-  function greet() {
-    setMessage("เพลงนี้คุ้น ๆ ใช่ไหม? ♪");setReaction("");
-    setGreeting(true);
-    clearTimeout(greetingTimer.current);
-    greetingTimer.current = setTimeout(() => setGreeting(false), 2800);
   }
 
   if (hidden) return <button className="oto-mascot-restore" onClick={() => toggleHidden(false)} aria-label="แสดงมาสคอต">♫</button>;
 
   return (
+    <>
     <div className={`oto-mascot ${pose.walking ? "is-walking" : ""} ${greeting ? "is-greeting" : ""} ${reaction === "correct" ? "is-celebrating" : ""}`} style={{ left: pose.x }}>
       {greeting ? <div className="oto-mascot-bubble" role="status" style={{ left: Math.max(8 - pose.x, Math.min(-10, window.innerWidth - pose.x - 168)) }}>{message}</div> : null}
       <button className="oto-mascot-hide" onClick={() => toggleHidden(true)} aria-label="ซ่อนมาสคอต" title="ซ่อนมาสคอต">×</button>
-      <button className="oto-mascot-character" onClick={greet} aria-label="ทักทายมาสคอต OtoVerse" title="ทักทายมาสคอต" style={{ transform: `scaleX(${pose.direction})` }}>
+      <button className="oto-mascot-character" ref={character} onClick={() => setChatOpen(value => !value)} aria-expanded={chatOpen} aria-label="คุยกับน้องอ๊อตโต่ะ" title="คุยกับน้องอ๊อตโต่ะ" style={{ transform: `scaleX(${pose.direction})` }}>
         <span className="oto-mascot-sprite" aria-hidden="true" />
       </button>
     </div>
+    <MascotChat open={chatOpen} onClose={closeChat}/>
+    </>
   );
 }

@@ -1193,9 +1193,6 @@ export default function AnimeOPQuizStarter() {
   const [providerIcons, setProviderIcons] = useState(null);
   const [legalAvailability, setLegalAvailability] = useState(null);
   const [legalCatalogTH, setLegalCatalogTH] = useState(null);
-  const [legalBotMessages, setLegalBotMessages] = useState([]); // [{id, role:'user'|'bot', text, ts}]
-  const [legalBotInput, setLegalBotInput] = useState("");
-  const [legalBotOpen, setLegalBotOpen] = useState(false);
   const [songRequestBusy, setSongRequestBusy] = useState(false);
   const iframeRef = useRef(null);
   const playFocusRef = useRef(null);
@@ -1204,7 +1201,6 @@ export default function AnimeOPQuizStarter() {
   const libraryLazyRef = useRef(new Set());
   const historyReadyRef = useRef(false);
   const appliedProfileSettingsRef = useRef(null);
-  const legalBotScrollRef = useRef(null);
 
   const TIME_ATTACK_MS = 3 * 60 * 1000;
 
@@ -1298,54 +1294,6 @@ useEffect(() => {
     if (playElapsedMs < TIME_ATTACK_MS) return;
     setPage("result");
   }, [TIME_ATTACK_MS, isTimeAttack, page, playElapsedMs]);
-
-  const makeLegalBotId = () => {
-    try {
-      if (typeof crypto !== "undefined" && crypto.randomUUID) return crypto.randomUUID();
-    } catch {
-      // ignore
-    }
-    return `m_${Date.now()}_${Math.random().toString(16).slice(2)}`;
-  };
-
-  const appendLegalBotMessage = (role, text) => {
-    const msg = {
-      id: makeLegalBotId(),
-      role,
-      text: String(text || "").trim(),
-      ts: Date.now()
-    };
-    if (!msg.text) return;
-    setLegalBotMessages((prev) => [...(prev || []), msg]);
-  };
-
-  useEffect(() => {
-    if (page !== "library" || libraryTab !== "legal") return;
-    if (Array.isArray(legalBotMessages) && legalBotMessages.length) return;
-
-    appendLegalBotMessage(
-      "bot",
-      "สวัสดี! ถามได้เลย เช่น “Jujutsu Kaisen ดูที่ไหน” หรือ “เพลง OP ของ Demon Slayer ฟังที่ไหน”"
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, libraryTab]);
-
-  useEffect(() => {
-    if (page !== "library" || libraryTab !== "legal") {
-      setLegalBotOpen(false);
-    }
-  }, [page, libraryTab]);
-
-  useEffect(() => {
-    if (page !== "library" || libraryTab !== "legal") return;
-    const el = legalBotScrollRef.current;
-    if (!el) return;
-    try {
-      el.scrollTop = el.scrollHeight;
-    } catch {
-      // ignore
-    }
-  }, [page, libraryTab, legalBotMessages]);
 
   const scrollPlayFocusToFit = (behavior) => {
     try {
@@ -4340,100 +4288,6 @@ console.log("library works =", works.length);
     }
 
     return "";
-  };
-
-  const buildLegalBotReply = (rawText) => {
-    const text = String(rawText || "").trim();
-    const q = normalize(text);
-    if (!q) return "พิมพ์คำถามได้เลยครับ";
-
-    const isListen = q.includes("ฟัง") || q.includes("spotify") || q.includes("apple") || q.includes("ytmusic") || q.includes("youtube music");
-    const isWatch = q.includes("ดู") || q.includes("รับชม") || q.includes("netflix") || q.includes("disney") || q.includes("prime") || q.includes("crunchyroll");
-    const isSongLikeQuery = isListen || q.includes("เพลง") || q.includes("op") || q.includes("ed");
-
-    if (q.includes("ช่วย") && (q.includes("ใช้") || q.includes("ทำไง") || q.includes("วิธี"))) {
-      return "ทิป: พิมพ์ ‘ชื่อเรื่อง + ดูที่ไหน’ หรือ ‘ชื่อเพลง OP/ED + ฟังที่ไหน’ แล้วฉันจะบอกแพลตฟอร์มที่ฐานข้อมูลในเว็บมีให้";
-    }
-
-    if (!legalCatalogTH && !legalAvailability) {
-      return "กำลังโหลดข้อมูลช่องทางรับชม/ฟังอยู่ ลองถามใหม่อีกครั้งในอีกสักครู่ครับ";
-    }
-
-    const providerKey = detectProviderKeyFromText(text);
-    const wantsList = q.includes("มี") && (q.includes("อะไร") || q.includes("เรื่อง") || q.includes("เพลง"));
-    const wantsCount = q.includes("กี่") || q.includes("จำนวน") || q.includes("ทั้งหมด") || q.includes("รวม");
-
-    if (wantsCount && !providerKey) {
-      const worksCount = (libraryTitleLists?.works || []).length;
-      const songsCount = (libraryTitleLists?.songs || []).length;
-      const allCount = (libraryTitleLists?.all || []).length;
-      return `ในฐานข้อมูลของเกมตอนนี้: เรื่อง (แยกภาค/ซีซั่น ไม่รวม OP/ED) ${worksCount.toLocaleString()} เรื่อง, เพลง OP/ED ${songsCount.toLocaleString()} เพลง, รายการทั้งหมด ${allCount.toLocaleString()} รายการ`;
-    }
-
-    if (providerKey && wantsList) {
-      const mode = isSongLikeQuery ? "songs" : "works";
-      const pool = mode === "songs"
-        ? (libraryTitleLists?.songs || [])
-        : (libraryTitleLists?.works || []).map((w) => w?.title).filter(Boolean);
-
-      const hits = [];
-      for (const tRaw of pool) {
-        const t = String(tRaw || "").trim();
-        if (!t) continue;
-        const providers = getProvidersForQueryTitle({ rawTitle: t, isSongLike: mode === "songs" });
-        if (providers.includes(providerKey)) hits.push(t);
-        if (hits.length >= 8) break;
-      }
-
-      const label = LEGAL_PROVIDER_PRESETS?.[providerKey]?.label || providerKey;
-      if (!hits.length) {
-        return `ยังไม่พบรายการตัวอย่างสำหรับ ${label} จากฐานข้อมูลที่เว็บมีตอนนี้ ลองพิมพ์ชื่อเรื่อง/เพลงเพื่อเช็คเป็นรายการ ๆ ได้ครับ`;
-      }
-
-      const kind = mode === "songs" ? "เพลง" : "เรื่อง";
-      return `ตัวอย่าง${kind}ในเกมที่เจอว่ามี ${label}: ${hits.join(" • ")}${hits.length >= 8 ? " …" : ""}`;
-    }
-
-    const matches = findTopMatches({ rawText: text, mode: isSongLikeQuery ? "songs" : "works", limit: 6 });
-    const guessedTitle = matches[0] || "";
-
-    if (providerKey && !guessedTitle) {
-      const label = LEGAL_PROVIDER_PRESETS?.[providerKey]?.label || providerKey;
-      return `ถ้าต้องการหาเฉพาะ ${label}: เลือก “ทุกแพลตฟอร์ม” เป็น ${label} แล้วพิมพ์ชื่อเรื่อง/เพลงในช่องค้นหาด้านบน หรือพิมพ์ชื่อเรื่องมาพร้อมชื่อแพลตฟอร์มก็ได้`;
-    }
-
-    const titleToLookup = guessedTitle || text;
-    const displayTitle = isSongLikeQuery ? titleToLookup : stripOpEdSuffix(titleToLookup);
-    const providers = getProvidersForQueryTitle({ rawTitle: titleToLookup, isSongLike: isSongLikeQuery });
-    const providersText = buildProviderLabelList(providers);
-    if (providersText) {
-      const modeHint = isSongLikeQuery
-        ? "ทิป: ถ้าอยากฟัง ให้ลอง Spotify / Apple Music / YouTube Music"
-        : "ทิป: กดไอคอนแพลตฟอร์มบนการ์ดเพื่อค้นหาได้เลย";
-      const watchListen = isListen && !isWatch ? "ฟัง" : isWatch && !isListen ? "ดู" : "ดู/ฟัง";
-      const extra = matches.length > 1 ? `\nชื่อที่ใกล้เคียง: ${matches.slice(1, 4).join(" • ")}${matches.length > 4 ? " …" : ""}` : "";
-      return `สำหรับ “${displayTitle}” (อิงจากรายการที่มีในเกม) แนะนำลอง ${watchListen}ที่: ${providersText} (สิทธิ์อาจเปลี่ยนได้) • ${modeHint}${extra}`;
-    }
-
-    if (guessedTitle) {
-      return `ยังไม่พบข้อมูลสิทธิ์ในไทยสำหรับ “${displayTitle}” ในฐานข้อมูลที่เว็บมีตอนนี้ ลองกดปุ่ม “เพิ่มเติม” ในการ์ด หรือพิมพ์ชื่อให้ใกล้เคียงขึ้นครับ`;
-    }
-
-    return "ยังจับชื่อเรื่อง/เพลงไม่เจอ ลองพิมพ์ชื่อให้ชัดขึ้น เช่น ‘Attack on Titan ดูที่ไหน’ หรือ ‘OP1 Oshi no Ko ฟังที่ไหน’";
-  };
-
-  const handleLegalBotSend = (e) => {
-    e?.preventDefault?.();
-    if (page !== "library" || libraryTab !== "legal") return;
-
-    const text = String(legalBotInput || "").trim();
-    if (!text) return;
-
-    appendLegalBotMessage("user", text);
-    setLegalBotInput("");
-
-    const reply = buildLegalBotReply(text);
-    appendLegalBotMessage("bot", reply);
   };
 
   const currentAnime = gameList[currentIndex] || null;
@@ -8857,70 +8711,8 @@ useEffect(() => {
               </CardContent>
             </Card>
 
-            {page === "library" && libraryTab === "legal" ? (
-              <div className="fixed bottom-20 right-4 z-[139]">
-                <div className="relative">
-                  {legalBotOpen ? (
-                    <div className="absolute bottom-0 right-full mr-3 w-[340px] max-w-[calc(100vw-7.5rem)]">
-                  <Card className="rounded-3xl border border-white/70 bg-white/90 shadow-[0_16px_28px_rgba(15,23,42,0.16)] dark:border-slate-700/40 dark:bg-slate-950/70 dark:shadow-[0_16px_28px_rgba(0,0,0,0.45)]">
-                    <CardHeader className="py-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0">
-                          <CardTitle className="text-base">แชทบอทช่วยค้นหาช่องทางรับชม/ฟัง</CardTitle>
-                          <CardDescription className="text-xs">
-                            ถามได้เลย เช่น “Jujutsu Kaisen ดูที่ไหน” หรือ “เพลง OP Demon Slayer ฟังที่ไหน”
-                          </CardDescription>
-                        </div>
-                        <Button type="button" variant="outline" className="rounded-2xl" onClick={() => setLegalBotOpen(false)}>
-                          ปิด
-                        </Button>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      <div
-                        ref={legalBotScrollRef}
-                        className="h-56 overflow-auto rounded-2xl border border-slate-200 bg-white/60 p-3 space-y-2 dark:border-slate-700 dark:bg-slate-950/35"
-                      >
-                        {(legalBotMessages || []).map((m) => (
-                          <div key={m.id} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
-                            <div
-                              className={
-                                m.role === "user"
-                                  ? "max-w-[85%] rounded-2xl bg-slate-900 text-white px-3 py-2 text-sm dark:bg-slate-200 dark:text-slate-900"
-                                  : "max-w-[85%] rounded-2xl bg-slate-100 text-slate-900 px-3 py-2 text-sm dark:bg-slate-900/60 dark:text-slate-100"
-                              }
-                            >
-                              {m.text}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
 
-                      <form onSubmit={handleLegalBotSend} className="flex gap-2">
-                        <Input
-                          value={legalBotInput}
-                          onChange={(e) => setLegalBotInput(e.target.value)}
-                          placeholder="พิมพ์คำถาม..."
-                          className="rounded-2xl"
-                        />
-                        <Button type="submit" className="rounded-2xl">ส่ง</Button>
-                      </form>
-                    </CardContent>
-                  </Card>
-                    </div>
-                  ) : null}
 
-                  <Button
-                    type="button"
-                    className="rounded-2xl font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg hover:shadow-xl relative"
-                    onClick={() => setLegalBotOpen((v) => !v)}
-                    title="แชทบอทช่องทางรับชม/ฟัง"
-                  >
-                    🤖 แชทบอท
-                  </Button>
-                </div>
-              </div>
-            ) : null}
           </>
         )
       ) : (

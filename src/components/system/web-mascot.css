@@ -8,7 +8,7 @@
 .oto-mascot-bubble { position: absolute; bottom: 130px; left: -10px; width: 160px; border-radius: 14px; padding: 10px 12px; border: 1px solid #a5b4fc40; background: #10172df5; color: #e0e7ff; font-size: 11px; text-align: center; box-shadow: 0 8px 25px #0004; }
 .oto-mascot-restore { position: fixed; bottom: 12px; left: 12px; z-index: 45; width: 32px; height: 32px; border: 1px solid #818cf83a; border-radius: 50%; background: #10172d; color: #a5b4fc; cursor: pointer; }
 .oto-mascot button:focus-visible, .oto-mascot-restore:focus-visible { outline: 2px solid #a5b4fc; outline-offset: 3px; }
-body:has([role="dialog"]) .oto-mascot { visibility: hidden; }
+body:has([role="dialog"]:not(.oto-mascot-chat)) .oto-mascot { visibility: hidden; }
 @keyframes oto-mascot-walk { to { background-position-x: -256px; } }
 @keyframes oto-mascot-hop { 50% { translate: 0 -10px; } }
 @media (hover: none) { .oto-mascot-hide { opacity: 1; } }

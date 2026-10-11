@@ -66,6 +66,27 @@ service cloud.firestore {
       allow read, write: if isSignedIn() && request.auth.uid == uid;
     }
 
+    // AI requests use the caller's token; clients cannot reset their quota.
+    match /ai_chat_usage/{uid} {
+      allow get: if isSignedIn() && request.auth.uid == uid;
+      allow list, delete: if false;
+      allow create: if isSignedIn() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['count', 'windowStart', 'updatedAt'])
+        && request.resource.data.count == 1
+        && request.resource.data.windowStart == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if isSignedIn() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['count', 'windowStart', 'updatedAt'])
+        && request.resource.data.updatedAt == request.time
+        && ((request.resource.data.windowStart == resource.data.windowStart
+          && request.resource.data.count == resource.data.count + 1
+          && request.resource.data.count <= 60
+          && request.time >= resource.data.updatedAt + duration.value(5, 's'))
+        || (request.time >= resource.data.windowStart + duration.value(24, 'h')
+          && request.resource.data.count == 1
+          && request.resource.data.windowStart == request.time));
+    }
+
     // chats
     match /chats/{chatId} {
       allow read: if isSignedIn() && (request.auth.uid in resource.data.participants);
