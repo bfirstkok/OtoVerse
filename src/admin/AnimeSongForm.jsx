@@ -184,6 +184,7 @@ export default function AnimeSongForm({
   const handleSubmit = (event) => {
     event.preventDefault();
     setFormError("");
+    if (!item && createMode === "existing" && !String(form.animeTitle || "").trim()) { setFormError("กรุณาค้นหาและเลือกอนิเมะก่อนบันทึก"); return; }
     const videoId = getYouTubeId(form.youtubeVideoId);
     if (editScope !== "anime" && !/^[a-zA-Z0-9_-]{11}$/.test(videoId)) { setFormError("กรุณาวางลิงก์ YouTube หรือรหัสวิดีโอที่ถูกต้อง"); return; }
     const duplicate = existingItems.some(entry => entry.id !== item?.id && titleKey(entry.animeTitle || entry.title) === titleKey(form.animeTitle) && toFormValue(entry).songType === form.songType && Number(toFormValue(entry).songNumber) === Number(form.songNumber));
@@ -245,18 +246,7 @@ export default function AnimeSongForm({
                 <div className="max-h-60 overflow-y-auto">{matchingAnime.slice(0, 20).map(entry => <button key={entry.id} type="button" disabled={saving} aria-pressed={selectedExistingId === entry.id} onClick={() => selectExistingAnime(entry.id)} className={`block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-400 ${selectedExistingId === entry.id ? 'bg-violet-500/20 text-violet-200' : 'text-slate-100'}`}>{baseAnimeTitle(entry.title)}{selectedExistingId === entry.id ? ' ✓' : ''}</button>)}</div>
                 {matchingAnime.length > 20 && <p className="px-2 py-1 text-xs text-slate-400">แสดง 20 เรื่องแรก · พิมพ์เพิ่มเพื่อค้นหาให้เจาะจงขึ้น</p>}
               </div>}
-              <select
-                className="w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
-                aria-label="เลือกอนิเมะเดิม"
-                value={selectedExistingId}
-                onChange={(event) => selectExistingAnime(event.target.value)}
-                required
-              >
-                <option value="">— เลือกเรื่อง —</option>
-                {existingAnimeOptions.filter(entry => entry.id === selectedExistingId || matchingAnime.includes(entry)).map((entry) => (
-                  <option key={entry.id} value={entry.id}>{baseAnimeTitle(entry.title)}</option>
-                ))}
-              </select>
+              {!animeSearch.trim() && <p className="text-xs text-slate-400" role="status">{form.animeTitle ? `เลือกแล้ว: ${form.animeTitle}` : 'พิมพ์ชื่อเรื่องด้านบน แล้วกดเลือกจากผลการค้นหา'}</p>}
             </Field>
           ) : null}
         </FormSection>
