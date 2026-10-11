@@ -1,3 +1,4 @@
+import {logUserActivity} from './src/lib/userActivity';
 import AnimeNews from "./src/components/system/AnimeNews";
 import {matchesAnimeSearch} from "./src/lib/animeSearch";
 import MusicLibrary from "./src/components/system/MusicLibrary";
@@ -5976,6 +5977,7 @@ useEffect(() => {
         projectId: firebaseProjectId || null,
         userAgent: typeof navigator !== "undefined" ? navigator.userAgent : ""
       });
+      logUserActivity("report_submitted");
       setReportText("");
       setReportNotice("ส่งแล้ว ขอบคุณครับ");
     } catch (e) {
@@ -6036,6 +6038,7 @@ useEffect(() => {
         projectId: firebaseProjectId || null,
         userAgent: typeof navigator !== "undefined" ? navigator.userAgent : ""
       });
+      logUserActivity("report_submitted");
       setVideoReportSubject("");
       setVideoReportDetails("");
       setVideoReportOpen(false);

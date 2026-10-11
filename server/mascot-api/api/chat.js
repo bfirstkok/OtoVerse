@@ -19,6 +19,13 @@ async function publicData() {
 async function consumeQuota(uid, token) {
   const name = `projects/${PROJECT}/databases/(default)/documents/ai_chat_usage/${uid}`;
   const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
+  const accountResponse = await fetch(`${DATABASE}/account_controls/${uid}`, {headers,signal:AbortSignal.timeout(8000)});
+  if (!accountResponse.ok && accountResponse.status !== 404) throw Object.assign(new Error('ยังตรวจสิทธิ์แชทไม่ได้ ลองใหม่อีกครั้งนะคะ'),{status:503});
+  if (accountResponse.ok) {
+    const control=(await accountResponse.json()).fields;
+    const until=control.until?.timestampValue;
+    if(control.status?.stringValue === 'suspended' && (!until || Date.parse(until)>Date.now())) throw Object.assign(new Error('บัญชีนี้ถูกระงับการใช้งาน OtoVerse'),{status:403});
+  }
   const response = await fetch(`${DATABASE}/ai_chat_usage/${uid}`, { headers, signal: AbortSignal.timeout(8000) });
   if (!response.ok && response.status !== 404) throw Object.assign(new Error('ยังตรวจสิทธิ์แชทไม่ได้ ลองใหม่อีกครั้งนะคะ'), { status: 503 });
   const doc = response.ok ? await response.json() : null;

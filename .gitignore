@@ -26,3 +26,6 @@ pnpm-debug.log*
 /backg.gif
 /0406-copy.mp4
 /public/0406-copy.mp4
+
+# Local Firebase emulator logs
+*-debug.log

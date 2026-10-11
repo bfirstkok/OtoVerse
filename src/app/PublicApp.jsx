@@ -1,3 +1,4 @@
+import AccountGuard from "@/components/system/AccountGuard";
 import React, { Suspense, useEffect, useState } from "react";
 import PageLoader from "@/components/system/PageLoader";
 import WebMascot from "@/components/system/WebMascot";
@@ -16,11 +17,11 @@ export default function PublicApp() {
   }, []);
 
   return (
-    <div className="otoverse-public">
+    <AccountGuard><div className="otoverse-public">
       <Suspense fallback={<PageLoader label="กำลังเตรียมเกมและคลังอนิเมะ…" />}>
         {newsEntry ? <AnimeNews standalone /> : <OtoVerseExperience />}
         <WebMascot />
       </Suspense>
-    </div>
+    </div></AccountGuard>
   );
 }

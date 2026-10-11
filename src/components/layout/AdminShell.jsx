@@ -1,8 +1,8 @@
 import React from "react";
-import { Database, ExternalLink, LayoutDashboard, LogOut, Music2 } from "lucide-react";
+import { Database, ExternalLink, LayoutDashboard, LogOut, Music2, Flag, Users, ScrollText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export default function AdminShell({ user, title, description, actions, onLogout, children }) {
+export default function AdminShell({ user, title, description, actions, onLogout, activeSection = "content", onSection, children }) {
   return (
     <div className="min-h-screen bg-[#080b14] text-slate-100">
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -22,13 +22,8 @@ export default function AdminShell({ user, title, description, actions, onLogout
             </span>
           </a>
 
-          <nav className="mt-8 space-y-1.5">
-            <a href="/admin" className="flex items-center gap-3 rounded-xl bg-indigo-500/12 px-3 py-3 text-sm font-semibold text-indigo-200 ring-1 ring-inset ring-indigo-500/20">
-              <LayoutDashboard className="h-4 w-4" /> ภาพรวมระบบ
-            </a>
-            <div className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-slate-400">
-              <Database className="h-4 w-4" /> Anime Content
-            </div>
+          <nav className="mt-8 space-y-1.5" aria-label="เมนูแอดมิน">
+            {[['content','คลังอนิเมะและเพลง',Database],['reports','Report / แจ้งปัญหา',Flag],['users','จัดการผู้ใช้',Users],['logs','บันทึกการใช้งาน',ScrollText]].map(([key,label,Icon])=><button key={key} type="button" aria-current={activeSection===key?'page':undefined} onClick={()=>onSection?.(key)} className={`w-full flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold ${activeSection===key?'bg-indigo-500/12 text-indigo-200 ring-1 ring-inset ring-indigo-500/20':'text-slate-400 hover:bg-white/5'}`}><Icon className="h-4 w-4"/>{label}</button>)}
           </nav>
 
           <div className="mt-auto space-y-3">
@@ -59,6 +54,7 @@ export default function AdminShell({ user, title, description, actions, onLogout
             </div>
           </header>
 
+          <nav className="flex gap-2 overflow-x-auto border-b border-white/10 p-4 lg:hidden" aria-label="เมนูแอดมินมือถือ">{[['content','คลังเพลง'],['reports','Report'],['users','ผู้ใช้'],['logs','Log']].map(([key,label])=><button key={key} type="button" aria-current={activeSection===key?'page':undefined} onClick={()=>onSection?.(key)} className={`shrink-0 rounded-xl px-4 py-2 text-sm ${activeSection===key?'bg-indigo-600 text-white':'bg-slate-900 text-slate-400'}`}>{label}</button>)}</nav>
           <main className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">{children}</main>
         </div>
       </div>

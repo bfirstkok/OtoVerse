@@ -1,3 +1,6 @@
+import ReportsPanel from "./ReportsPanel";
+import UsersPanel from "./UsersPanel";
+import LogsPanel from "./LogsPanel";
 import ContentInbox from "./ContentInbox";
 import AnimeCoverEditor from "./AnimeCoverEditor";
 import React, { useEffect, useMemo, useState } from "react";
@@ -63,6 +66,11 @@ function isSongEntry(item) {
 }
 
 export default function AdminDashboard() {
+  const [section,setSection] = useState(() => {const value=new URLSearchParams(window.location.search).get('section');return ['reports','users','logs'].includes(value)?value:'content';});
+  const [focusUid,setFocusUid] = useState('');
+  useEffect(()=>{const pop=()=>{const value=new URLSearchParams(window.location.search).get('section');setSection(['reports','users','logs'].includes(value)?value:'content');};window.addEventListener('popstate',pop);return()=>window.removeEventListener('popstate',pop);},[]);
+  const changeSection = value => {setSection(value);setFocusUid('');setFormOpen(false);window.history.pushState({},'',value==='content'?'/admin':`/admin?section=${value}`);};
+  const openUser = uid => {changeSection('users');setFocusUid(uid);};
   const [authState, setAuthState] = useState("checking");
   const [user, setUser] = useState(null);
   const [items, setItems] = useState([]);
@@ -86,7 +94,11 @@ export default function AdminDashboard() {
       return undefined;
     }
 
-    return onAuthStateChanged(firebaseAuth, async (nextUser) => {
+    let generation = 0;
+    const unsubscribe = onAuthStateChanged(firebaseAuth, async (nextUser) => {
+      const current = ++generation;
+      setAuthState("checking");
+      setItems([]);
       setUser(nextUser);
       if (!nextUser) {
         window.location.replace("/admin/login");
@@ -95,12 +107,14 @@ export default function AdminDashboard() {
 
       try {
         const role = await getAdminRole(nextUser.uid);
-        setAuthState(role === "admin" ? "authorized" : "denied");
+        if(current === generation) setAuthState(role === "admin" ? "authorized" : "denied");
       } catch (err) {
+        if(current !== generation) return;
         setError(err?.message || "ตรวจสอบสิทธิ์ไม่สำเร็จ");
         setAuthState("denied");
       }
     });
+    return () => {generation++;unsubscribe();};
   }, []);
 
   useEffect(() => {
@@ -326,14 +340,16 @@ export default function AdminDashboard() {
   return (
     <AdminShell
       user={user}
+      activeSection={section}
+      onSection={changeSection}
       onLogout={handleLogout}
-      title={formOpen ? editorTitle : "Content Dashboard"}
-      description={formOpen ? "แก้ไขข้อมูลโดยแยกข้อมูลเรื่องและข้อมูลเพลงให้ชัดเจน" : "จัดการอนิเมะ เพลง OP/ED เรื่องย่อ ตัวละคร และสถานะการใช้งาน"}
+      title={section !== "content" ? ({reports:"Report และแจ้งปัญหา",users:"จัดการผู้ใช้",logs:"บันทึกการใช้งาน"})[section] : formOpen ? editorTitle : "Content Dashboard"}
+      description={section !== "content" ? "ตรวจสอบและจัดการข้อมูลสำหรับผู้ดูแลระบบ" : formOpen ? "แก้ไขข้อมูลโดยแยกข้อมูลเรื่องและข้อมูลเพลงให้ชัดเจน" : "จัดการอนิเมะ เพลง OP/ED เรื่องย่อ ตัวละคร และสถานะการใช้งาน"}
       actions={(
         <>
           {formOpen ? <Button variant="outline" onClick={resetEditor}>ยกเลิกการแก้ไข</Button> : null}
           <a href="/"><Button variant="outline"><ExternalLink className="h-4 w-4" /> เปิดหน้าเกม</Button></a>
-          {!formOpen ? (
+          {section === "content" && !formOpen ? (
             <Button onClick={openCreate}><Plus className="h-4 w-4" /> เพิ่มข้อมูล</Button>
           ) : null}
         </>
@@ -343,7 +359,7 @@ export default function AdminDashboard() {
         <div className="mb-5 rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{error}</div>
       ) : null}
 
-      {formOpen ? (
+      {section === "reports" ? <ReportsPanel onUser={openUser}/> : section === "users" ? <UsersPanel adminUid={user.uid} initialUid={focusUid}/> : section === "logs" ? <LogsPanel/> : formOpen ? (
         <Card className="!border-white/8 !bg-white/[0.035]">
           <CardHeader className="border-b border-white/8">
             <div className="flex items-center gap-3">

@@ -3,7 +3,11 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function isSignedIn() {
-      return request.auth != null;
+      return request.auth != null
+        && (!exists(/databases/$(database)/documents/account_controls/$(request.auth.uid))
+          || get(/databases/$(database)/documents/account_controls/$(request.auth.uid)).data.status != 'suspended'
+          || (get(/databases/$(database)/documents/account_controls/$(request.auth.uid)).data.until is timestamp
+            && get(/databases/$(database)/documents/account_controls/$(request.auth.uid)).data.until <= request.time));
     }
 
     function isAdmin() {
@@ -39,6 +43,60 @@ service cloud.firestore {
         isRoomHost(roomId)
         || exists(/databases/$(database)/documents/rooms/$(roomId)/players/$(request.auth.uid))
       );
+    }
+
+    function validControl(uid) {
+      let data = request.resource.data;
+      let audit = getAfter(/databases/$(database)/documents/admin_audit/$(data.lastActionId)).data;
+      return uid != request.auth.uid
+        && (!exists(/databases/$(database)/documents/admins/$(uid))
+          || get(/databases/$(database)/documents/admins/$(uid)).data.role != 'admin')
+        && data.keys().hasOnly(['status','reason','until','updatedAt','updatedBy','lastActionId'])
+        && data.status in ['active','suspended']
+        && data.reason is string && data.reason.size() > 0 && data.reason.size() <= 500
+        && (data.until == null || (data.until is timestamp && data.until > request.time))
+        && (data.status != 'active' || data.until == null)
+        && data.updatedBy == request.auth.uid && data.updatedAt == request.time
+        && audit.actorUid == request.auth.uid && audit.targetUid == uid
+        && audit.status == data.status && audit.reason == data.reason
+        && audit.until == data.until && audit.createdAt == request.time;
+    }
+
+    match /account_controls/{uid} {
+      allow get: if request.auth != null && (request.auth.uid == uid || isAdmin());
+      allow list: if isAdmin();
+      allow create, update: if isAdmin() && validControl(uid);
+      allow delete: if false;
+    }
+
+    match /admin_audit/{eventId} {
+      allow read: if isAdmin();
+      allow update, delete: if false;
+      allow create: if isAdmin()
+        && request.resource.data.actorUid == request.auth.uid
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.reason is string && request.resource.data.reason.size() <= 1000
+        && request.resource.data.targetUid is string
+        && ((request.resource.data.action in ['suspend','restore']
+          && request.resource.data.keys().hasOnly(['action','targetUid','actorUid','reason','until','previousStatus','status','createdAt'])
+          && request.resource.data.action == (request.resource.data.status == 'suspended' ? 'suspend' : 'restore')
+          && getAfter(/databases/$(database)/documents/account_controls/$(request.resource.data.targetUid)).data.lastActionId == eventId
+          && getAfter(/databases/$(database)/documents/account_controls/$(request.resource.data.targetUid)).data.updatedAt == request.time)
+        || (request.resource.data.action == 'review_report'
+          && request.resource.data.keys().hasOnly(['action','reportId','targetUid','actorUid','reason','status','createdAt'])
+          && request.resource.data.targetUid == (getAfter(/databases/$(database)/documents/reports/$(request.resource.data.reportId)).data.get('uid','') == null ? '' : getAfter(/databases/$(database)/documents/reports/$(request.resource.data.reportId)).data.get('uid',''))
+          && getAfter(/databases/$(database)/documents/reports/$(request.resource.data.reportId)).data.lastActionId == eventId
+          && getAfter(/databases/$(database)/documents/reports/$(request.resource.data.reportId)).data.reviewedAt == request.time));
+    }
+
+    match /user_activity/{eventId} {
+      allow read: if isAdmin();
+      allow update, delete: if false;
+      allow create: if isSignedIn()
+        && request.resource.data.keys().hasOnly(['uid','action','createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.action in ['session_started','report_submitted','song_suggested']
+        && request.resource.data.createdAt == request.time;
     }
 
     // Admin membership. Users may read only their own role; an existing admin
@@ -129,13 +187,25 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    // reports (bug reports / video issues)
+    // Reports retain their original reporter and content. Review is audited atomically.
     match /reports/{reportId} {
       allow create: if isSignedIn()
         && request.resource.data.uid == request.auth.uid
-        && request.resource.data.createdAt is timestamp;
-
-      allow read, update: if isAdmin();
+        && request.resource.data.createdAt == request.time
+        && (!('status' in request.resource.data) || request.resource.data.status == 'pending')
+        && !request.resource.data.keys().hasAny(['adminNote','reviewedBy','reviewedAt','lastActionId']);
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','adminNote','reviewedAt','reviewedBy','lastActionId'])
+        && request.resource.data.status in ['pending','investigating','resolved','rejected']
+        && request.resource.data.adminNote is string && request.resource.data.adminNote.size() <= 1000
+        && request.resource.data.reviewedBy == request.auth.uid
+        && request.resource.data.reviewedAt == request.time
+        && getAfter(/databases/$(database)/documents/admin_audit/$(request.resource.data.lastActionId)).data.reportId == reportId
+        && getAfter(/databases/$(database)/documents/admin_audit/$(request.resource.data.lastActionId)).data.actorUid == request.auth.uid
+        && getAfter(/databases/$(database)/documents/admin_audit/$(request.resource.data.lastActionId)).data.status == request.resource.data.status
+        && getAfter(/databases/$(database)/documents/admin_audit/$(request.resource.data.lastActionId)).data.reason == request.resource.data.adminNote
+        && getAfter(/databases/$(database)/documents/admin_audit/$(request.resource.data.lastActionId)).data.createdAt == request.time;
       allow delete: if false;
     }
 
