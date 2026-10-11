@@ -1,3 +1,4 @@
+import AnimeNews from "./src/components/system/AnimeNews";
 import {matchesAnimeSearch} from "./src/lib/animeSearch";
 import MusicLibrary from "./src/components/system/MusicLibrary";
 import ShareCardDialog from "./src/components/system/ShareCardDialog";
@@ -923,7 +924,7 @@ export default function AnimeOPQuizStarter() {
     return [];
   });
   const [libraryAnimeData, setLibraryAnimeData] = useState([]);
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState(() => window.location.pathname.replace(/\/+$/, "") === "/news" ? "news" : "home");
   const [search, setSearch] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("all");
   const [answerMode, setAnswerMode] = useState("choice6");
@@ -4589,7 +4590,7 @@ useEffect(() => {
       const curr = window.history?.state;
       if (isSameHistoryState(curr, next)) return;
       next.profileBack = Boolean(next.profileUid);
-      const url = next.profileUid ? `/profile/${encodeURIComponent(next.profileUid)}` : "/";
+      const url = next.profileUid ? `/profile/${encodeURIComponent(next.profileUid)}` : next.page === "news" ? "/news" : "/";
       window.history.pushState(next, "", url + window.location.search);
     } catch {
       // ignore
@@ -5775,6 +5776,7 @@ useEffect(() => {
           <div className="oto-home-destinations">
             <button type="button" onClick={() => {setPage("library"); setLibraryTab("catalog");}}><ListMusic /><strong>คลังเพลง</strong><span>ค้นหาเพลงและอนิเมะที่คุ้นเคย</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => {setPage("library"); setLibraryTab("legal");}}><Eye /><strong>รายชื่ออนิเมะ</strong><span>สำรวจช่องทางรับชมในไทย</span><i aria-hidden="true">↗</i></button>
+            <button type="button" onClick={() => confirmLeaveGame(() => setPage("news"))}><Eye /><strong>ข่าวอนิเมะ</strong><span>อ่านข่าวใหม่ สรุปไทยด้วย AI</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => confirmLeaveGame(() => setPage("community"))}><Trophy /><strong>Community</strong><span>แบ่งปันเรื่องโปรดกับทุกคน</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => confirmLeaveGame(() => setPage("online"))}><Users /><strong>เล่นกับเพื่อน</strong><span>สร้างห้องแล้วมาทายไปด้วยกัน</span><i aria-hidden="true">↗</i></button>
           </div>
@@ -9775,6 +9777,12 @@ useEffect(() => {
                       })
                   },
                   {
+                    key: "news",
+                    label: "ข่าวอนิเมะ",
+                    isActive: page === "news",
+                    onClick: () => confirmLeaveGame(() => setPage("news"))
+                  },
+                  {
                     key: "library-music",
                     label: "รายชื่ออนิเมะ",
                     isActive: page === "library" && libraryTab === "legal",
@@ -9919,6 +9927,7 @@ useEffect(() => {
           <>
             {page === "home" && renderHome()}
             {page === "library" && renderLibrary()}
+            {page === "news" && <AnimeNews />}
             {page === "community" && renderCommunity()}
             {page === "online" && renderOnline()}
             {page === "play" && renderPlay()}

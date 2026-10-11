@@ -1,0 +1,40 @@
+name: Update anime news
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: anime-news
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Fetch RSS and summarize new articles
+        env:
+          NEWS_AI_KEY: ${{ secrets.NEWS_AI_KEY }}
+        run: node scripts/anime-news.cjs
+      - name: Publish the news digest
+        run: |
+          git config user.name 'OtoVerse News'
+          git config user.email 'news@users.noreply.github.com'
+          git add public/anime-news.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Update anime news digest'
+          git pull --rebase origin main
+          git push origin HEAD:main
