@@ -403,11 +403,18 @@ export default function AnimeSongForm({
                     <Input value={character.name} onChange={(e) => updateCharacter(index, "name", e.target.value)} />
                   </Field>
                   <Field label="บทบาท">
-                    <Input
+                    <select
+                      aria-label={`บทบาทตัวละคร ${index + 1}`}
+                      className="w-full rounded-xl border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
                       value={character.role}
+                      disabled={saving}
                       onChange={(e) => updateCharacter(index, "role", e.target.value)}
-                      placeholder="Main / Supporting"
-                    />
+                    >
+                      <option value="">— เลือกบทบาท —</option>
+                      <option value="Main">ตัวละครหลัก</option>
+                      <option value="Supporting">ตัวละครสมทบ</option>
+                      {character.role && !['Main', 'Supporting'].includes(character.role) && <option value={character.role}>{character.role} (ค่าเดิม)</option>}
+                    </select>
                   </Field>
                   <Field label="รูปตัวละคร URL">
                     <Input
