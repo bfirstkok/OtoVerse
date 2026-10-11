@@ -59,7 +59,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { firebaseAuth, firebaseAuthPersistenceReady, firebaseDb, firebaseProjectId, firebaseReady } from "@/lib/firebase";
 import { subscribeActiveAnimeSongs } from "@/lib/adminContent";
 import { getAnimeImageUrl, getYouTubeId, getYouTubeThumbUrl } from "@/lib/media";
-import { GENRE_CONFIG as genreConfig, inferAnimeGenre as inferGenre } from "@/lib/animeGenre";
+import { GENRE_CONFIG as genreConfig, getEffectiveAnimeGenre as inferGenre } from "@/lib/animeGenre";
 import {
   bumpPlayCount,
   bumpTotalScore,
@@ -3520,7 +3520,7 @@ useEffect(() => {
     if (!Array.isArray(animeData) || animeData.length === 0) return [];
     const result = animeData.map((anime) => ({
       ...anime,
-      genre: anime?.genre && anime.genre !== "other" ? anime.genre : inferGenre(anime)
+      genre: inferGenre(anime)
     }));
     console.log('animeWithGenre count:', result.length, 'animeData count:', animeData.length);
     if (result.length !== animeData.length) {
@@ -3533,7 +3533,7 @@ useEffect(() => {
     if (!Array.isArray(libraryAnimeData)) return [];
     return libraryAnimeData.map((anime) => ({
       ...anime,
-      genre: anime?.genre && anime.genre !== "other" ? anime.genre : inferGenre(anime)
+      genre: inferGenre(anime)
     }));
   }, [libraryAnimeData]);
 

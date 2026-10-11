@@ -82,7 +82,8 @@ function cleanAnimeSong(data) {
     characters: normalizeCharacters(data?.characters),
     isActive: data?.isActive !== false
   };
-  payload.genre = getEffectiveAnimeGenre(payload);
+  payload.genre = getEffectiveAnimeGenre({ ...payload, genreSource: data?.genre ? "manual" : undefined });
+  payload.genreSource = "manual";
   return payload;
 }
 

@@ -1,59 +1,58 @@
 export const GENRE_CONFIG = {
-  action: { label: "แอ็กชัน" },
-  fantasy: { label: "แฟนตาซี" },
-  isekai: { label: "ต่างโลก" },
-  scifi: { label: "ไซไฟ" },
-  sports: { label: "กีฬา" },
-  mystery: { label: "สืบสวน/จิตวิทยา" },
-  romance: { label: "โรแมนซ์" },
-  comedy: { label: "คอมเมดี้" },
-  music: { label: "ดนตรี/ไอดอล" },
-  mecha: { label: "หุ่นยนต์" },
-  slice: { label: "ชีวิตประจำวัน" },
+  action: { label: "แอ็กชัน" }, fantasy: { label: "แฟนตาซี" },
+  isekai: { label: "ต่างโลก" }, scifi: { label: "ไซไฟ" },
+  sports: { label: "กีฬา" }, mystery: { label: "สืบสวน/จิตวิทยา" },
+  romance: { label: "โรแมนซ์" }, comedy: { label: "คอมเมดี้" },
+  music: { label: "ดนตรี/ไอดอล" }, mecha: { label: "หุ่นยนต์" },
+  slice: { label: "ชีวิตประจำวัน" }, drama: { label: "ดราม่า" },
+  historical: { label: "ประวัติศาสตร์" }, horror: { label: "สยองขวัญ" },
   other: { label: "อื่นๆ" }
 };
 
-const GENRE_KEYWORD_RULES = [
-  { genre: "sports", keywords: ["haikyuu", "slam dunk", "kuroko", "blue lock", "diamond no ace", "yowamushi", "prince of tennis"] },
-  { genre: "music", keywords: ["k-on", "bocchi", "paripi", "zombieland saga", "your lie in april", "idol", "love live", "macross"] },
-  { genre: "mecha", keywords: ["gundam", "evangelion", "code geass", "darling in the franxx", "gurren lagann", "mecha", "eureka seven"] },
-  { genre: "isekai", keywords: ["re:zero", "konosuba", "slime", "shield hero", "mushoku", "overlord", "tanya", "log horizon", "sao", "sword art", "no game no life"] },
-  { genre: "scifi", keywords: ["steins", "psycho", "ghost in the shell", "cyberpunk", "86", "dr. stone", "vivy", "akudama", "edgerunners", "science"] },
-  { genre: "mystery", keywords: ["death note", "conan", "erased", "neverland", "parasyte", "monster", "summertime", "boku dake", "higurashi"] },
-  { genre: "romance", keywords: ["kaguya", "toradora", "your name", "horimiya", "clannad", "bunny girl", "kimi ni todoke", "fruits basket", "shigatsu"] },
-  { genre: "comedy", keywords: ["gintama", "nichijou", "asobi", "saiki", "grand blue", "osomatsu", "komi", "spy x family"] },
-  { genre: "fantasy", keywords: ["fate", "frieren", "made in abyss", "vinland", "seven deadly sins", "black clover", "fairy tail", "akame", "magi"] },
-  { genre: "slice", keywords: ["barakamon", "non non", "yuru camp", "hyouka", "violet", "anohana", "daily life", "slice"] }
-];
+// Editorial primary genres for series families, not keywords from their songs.
+// A primary genre is a browsing aid; many shows combine several genres.
+const SERIES = {
+  historical: ['Ulysses: Jeanne', 'Vinland Saga', 'Golden Kamuy', 'Rurouni Kenshin', 'Orb: On the Movements of the Earth'],
+  drama: ['Oshi no Ko', 'Charlotte', 'Kiznaiver', 'Violet Evergarden', 'Koe no Katachi', 'A Silent Voice', 'Anohana', 'Meiji x Kokosake', 'To Your Eternity', 'Fumetsu no Anata', 'Anne Shirley', 'Higehiro', 'Air', 'Summer Pockets', 'Wonder Egg Priority', 'Clannad', 'Angel Beats', 'Plastic Memories'],
+  horror: ['Gakkou kurashi', 'Ajin Demi Human', 'Another', 'Higurashi', 'Highschool of the Dead', 'High school of the dead', 'Gakkou Gurashi', 'School Live', 'Shiki', 'Elfen Lied', 'Devilman', 'Ajin', 'Tokyo Ghoul'],
+  mystery: ['Mirai Nikki', 'Kuroshitsuji', 'Black Butler', 'Death Note', 'Detective Conan', 'Case Closed', 'Monster', 'Hyouka', 'Erased', 'Boku dake ga Inai Machi', 'Yakusoku no Neverland', 'The Promised Neverland', 'Parasyte', 'Kakegurui', 'Kaiji', 'Gyakkyou Burai Kaiji', 'Danganronpa', 'Death Parade', 'Summer Time', 'Summertime', 'Kusuriya no Hitorigoto', 'The Apothecary Diaries', 'Ameku', 'Tasokare Hotel', 'Kamisama no memo', 'Tantei wa mou', 'Youkoso jitsuryoku', 'Classroom of the Elite', 'Grisaia', 'Tengoku Daimakyou'],
+  mecha: ['86 Eighty Six', '86', 'Neon Genesis Evangelion', 'Evangelion', 'Code Geass', 'Mobile Suit Gundam', 'Gundam', 'Tengen Toppa Gurren Lagann', 'Gurren Lagann', 'Darling in the Franxx', 'Aldnoah', 'Infinite Stratos', 'Macross', 'Eureka Seven', 'Deca Dence'],
+  music: ['Your Lie in April', 'Shigatsu wa Kimi no Uso', 'K On', 'Bocchi the Rock', 'Love Live', 'Beck', 'Nana', 'Nodame Cantabile', 'Carole', 'Given', 'Sakamichi no Apollon', 'Kids on the Slope', 'Symphogear', 'Senki Zesshou', 'Paripi', 'Ya Boy Kongming', 'Zombieland Saga', 'Rock Is a Lady', 'Flower and Asura', 'Hana wa Saku'],
+  sports: ['Haikyuu', 'Slam Dunk', 'Kuroko', 'Blue Lock', 'Free', 'Yuri on Ice', 'Chihayafuru', 'Inazuma Eleven', 'Captain Tsubasa', 'Medalist', 'Umamusume', 'Uma Musume', 'Diamond no Ace', 'Yowamushi', 'Prince of Tennis', 'Keppeki Danshi', 'Beyblade', 'Crush Gear', 'Bakusou Kyoudai'],
+  isekai: ['Re Zero', 'Rezero', 'KonoSuba', 'No Game No Life', 'Log Horizon', 'Overlord', 'Saga of Tanya', 'Youjo Senki', 'Mushoku Tensei', 'The Rising of the Shield Hero', 'Tate no Yuusha', 'That Time I Got Reincarnated', 'Tensei shitara slime', 'Isekai wa Smartphone', 'Arifureta', 'Choujin Koukousei', 'Kumo desu', 'Genjitsu Shugi', 'Tsuki ga Michibiku', 'Sekai Saikou no Ansatsusha', 'The Eminence in Shadow', 'Kage no Jitsuryokusha', 'Zenshu', 'The Beginning After the End', 'Outbreak Company', 'Isekai maou', 'Death March', 'Zero no Tsukaima', 'The devil is a part timer', 'Hataraku Maou', 'Hyakuren', 'Kenja no Mago', 'Isekai Quote', 'Isekai Quartet', 'Shinchou Yuusha', 'Kemono Michi', 'Hachi nan', '100 man no Inochi', 'Hai to gensou', 'Grimgar', 'Gaikotsu Kishi', 'Seirei Gensouki', 'Sentouin Hakenshimasu', 'Gate', 'Drifters', 'Oda Nobuna'],
+  scifi: ['Vivy Fluorite', 'The Melancholy of Haruhi Suzumiya', 'Haruhi Suzumiya', 'Sword Art Online', 'SAO', 'Shangri La Frontier', 'Accel World', 'Infinite Dendrogram', 'Steins Gate', 'Ghost in the Shell', 'Cyberpunk', 'Dr Stone', 'Psycho Pass', 'Vivy', 'Akudama', 'Akira', 'Cowboy Bebop', 'Trigun', 'Space Battleship', 'Galaxy Express', 'Coppelion', 'Edens Zero', 'Gantz', 'Terra Formars', 'Black Bullet', 'Guilty Crown', 'Lazarus'],
+  romance: ['Toradora', 'Kaguya', 'Horimiya', 'Kimi ni Todoke', 'Your Name', 'Kimi no Na wa', 'Nisekoi', 'My Teen Romantic', 'Yahari', 'Oregairu', 'Rascal Does Not Dream', 'Seishun Buta', 'Fruits Basket', 'Kanojo Okarishimasu', 'Rent a Girlfriend', 'The Quintessential', 'Gotoubun', 'Ouran', 'Spice and Wolf', 'Ookami to Koushinryou', 'Amagami', 'Nyan Koi', 'To Love Ru', 'Motto To Love', 'Sankarea', 'Masamune', 'The World God Only Knows', 'Kami nomi', 'Tonikaku', 'Tonikawa', 'Okinawa de Suki', 'Watashi no Shiawase', 'My Happy Marriage', 'Kimi no Koto', 'Honey Lemon', 'Kono Kaisha', 'Kisaki Kyouiku', 'Kowloon Generic', 'Danjo no Yuujou', 'The Fragrant Flower', 'Kaoru Hana', 'Sono Bisque', 'My Dress Up Darling', 'Yosuga no Sora', 'Gakkou Juliet', 'Kishuku Gakkou', 'Ore no Kanojo', 'Ore wo Suki', 'Mikakunin', 'Mikakuin', 'Blue Box'],
+  comedy: ['Great Pretender', 'Netoge no Yome', 'Joukamachi no dandelion', 'Gintama', 'Nichijou', 'Asobi', 'Saiki', 'Grand Blue', 'Osomatsu', 'Spy x Family', 'Spy Family', 'One Punch Man', 'Mob Psycho', 'Shokugeki', 'Food Wars', 'Great Teacher Onizuka', 'Crayon Shin', 'Lucky Star', 'Ranma', 'Beelzebub', 'SKET Dance', 'Mashle', 'Zom 100', 'Himouto', 'Uzaki', 'Aharen', 'Murenase', 'Witch Watch', 'City The Animation', 'Ninja to Koroshiya', 'Shomin Sample', 'Prison School', 'Gekkan Shoujo', 'Boku wa Tomodachi', 'Nobunaga sensei', 'Monster Musume'],
+  slice: ['Komi san', 'Doraemon', 'Chibi Maruko', 'Barakamon', 'Non Non', 'Yuru Camp', 'Laid Back Camp', 'Komi', 'Bakuman', 'Hataraku Saibou', 'Cells at Work', 'Apocalypse Hotel', 'Catch Me at the Ballpark', 'mono', 'Zatsu Tabi', 'Juku chan Tomizaki', 'Jaku Chara Tomozaki'],
+  fantasy: ['Fate Zero', 'Fate Stay Night', 'Fate Grand Order', 'Fate Apocrypha', 'Magi The Labyrinth', 'Gunjou no magmel', 'Kimi to Boku no Saigo', 'Fate', 'Frieren', 'Sousou no Frieren', 'Fairy Tail', 'Black Clover', 'Nanatsu no Taizai', 'Seven Deadly Sins', 'Made in Abyss', 'Berserk', 'Claymore', 'Magi', 'Magic Knight Rayearth', 'Cardcaptor Sakura', 'Sailor Moon', 'Ojamajo', 'Suzume', 'Akatsuki no Yona', 'Dorohedoro', 'Ousama Ranking', 'Ranking of Kings', 'Bakemonogatari', 'Yofukashi', 'Call of the Night', 'Re Creators', 'Dungeon Meshi', 'Delicious in Dungeon', 'DanMachi', 'Is It Wrong to Try', 'Guild Receptionist', 'Guild no Uketsukejou', 'Trinity Seven', 'High School DxD', 'Date A Live', 'Goblin Slayer', 'Maoyuu', 'Yuusha Yamemasu', 'Densetsu no Yuusha', 'Maou Gakuin', 'Seven Knights', 'Kaifuku', 'Shikkakumon', 'Tensai Ouji', 'S Rank Monster', 'Silent Witch', 'Clevatess', 'Rokudenashi', 'Seiken no Blacksmith', 'Seisen Cerberus', 'Marimashita Iruma', 'Mairimashita Iruma', 'Ore dake Haireru', 'Shin no nakama', 'Seikoku', 'King s Raid'],
+  action: ['JoJo s Bizarre Adventure', 'JoJo Golden Wind', 'Kinnikuman', 'Hokuto no Ken', 'Lupin III', 'Shingeki no Kyojin', 'Attack on Titan', 'Kimetsu no Yaiba', 'Demon Slayer', 'Jujutsu Kaisen', 'Naruto', 'Boruto', 'One Piece', 'Fullmetal Alchemist', 'Boku no Hero', 'My Hero Academia', 'Hunter x Hunter', 'Bleach', 'JoJo', 'Dragon Ball', 'Pokemon', 'Digimon', 'InuYasha', 'Akame ga Kill', 'Tokyo Revengers', 'Chainsaw Man', 'Ansatsu', 'Assassination Classroom', 'Enen no Shouboutai', 'Fire Force', 'Kill la Kill', 'Soul Eater', 'Ao no Exorcist', 'Blue Exorcist', 'Noragami', 'Toaru', 'Mahouka', 'Lycoris', 'Hellsing', 'Shaman King', 'Saint Seiya', 'Bungou', 'Bungo', 'Banana Fish', 'Black Lagoon', 'Deadman', 'Darker than Black', 'Baccano', 'Durarara', 'Yu Yu Hakusho', 'City Hunter', 'Zatch Bell', 'Katekyou', 'Reborn', 'Skull Man', 'Kekkai', 'The God of High School', 'Tower of God', 'Solo Leveling', 'Undead Unluck', 'Kaiju', 'Dandadan', 'Dan Da Dan', 'Sakamoto Days', 'Wind Breaker', 'Yaiba', 'Gachiakuta', 'Tougen Anki', 'Madan no Ou', 'Girls Panzer', 'Girls and Panzer', 'Qualidea', 'Gakusen', 'The Asterisk War', 'Absolute Duo', 'Seiken Tsukai', 'Hundred', 'Rakudai', 'Saijaku', 'Toriko', 'Koutetsujou', 'Strike the Blood', 'Owari no Seraph', 'Assassins Pride', 'High School Fleet', 'Kantai', 'Busou', 'Machine Doll', 'Taimadou', 'Sousei', 'Kuusen', 'Shimai Maou', 'Nejimaki', 'Darwin', 'Sword Gai', 'Kemono Jihen', 'Yu Gi Oh', 'Cardfight']
+};
 
-function normalizeGenreText(value) {
-  return String(value || "")
-    .toLowerCase()
-    .normalize("NFKC")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^\p{L}\p{N}]+/gu, " ")
-    .trim();
+function normalize(value) {
+  return String(value || '').normalize('NFKC').toLowerCase()
+    .replace(/[\u0300-\u036f]/g, '').replace(/[^\p{L}\p{N}]+/gu, '');
+}
+const seriesRules = Object.entries(SERIES).flatMap(([genre, names]) => names.map(name => ({ genre, key: normalize(name) })))
+  .sort((a, b) => b.key.length - a.key.length);
+
+function curatedGenre(anime) {
+  const names = [anime?.animeTitle, anime?.title, ...(Array.isArray(anime?.altTitles) ? anime.altTitles : [])].filter(Boolean).map(normalize);
+  // Short names require an exact title (or a season/OP suffix), preventing e.g. Air matching Air Gear.
+  return seriesRules.find(rule => names.some(name => rule.key.length <= 4
+    ? name === rule.key || new RegExp(`^${rule.key}(?:op|ed|season|s[0-9]|[0-9])`).test(name)
+    : name.startsWith(rule.key)))?.genre;
 }
 
 export function inferAnimeGenre(anime) {
-  const haystack = normalizeGenreText([
-    anime?.title,
-    ...(Array.isArray(anime?.altTitles) ? anime.altTitles : []),
-    anime?.note,
-    anime?.songTitle
-  ].join(" "));
-  const matched = GENRE_KEYWORD_RULES.find((rule) =>
-    rule.keywords.some((keyword) => haystack.includes(normalizeGenreText(keyword)))
-  );
-  return matched?.genre || "action";
+  return curatedGenre(anime) || 'other';
 }
 
 export function getEffectiveAnimeGenre(anime) {
-  const current = String(anime?.genre || "").trim();
-  return current && current !== "other" ? current : inferAnimeGenre(anime);
+  const current = String(anime?.genre || '').trim();
+  if (anime?.genreSource === 'manual' && GENRE_CONFIG[current]) return current;
+  return curatedGenre(anime) || (GENRE_CONFIG[current] ? current : 'other');
 }
 
 export function getAnimeGenreLabel(anime) {
-  const genre = getEffectiveAnimeGenre(anime);
-  return GENRE_CONFIG[genre]?.label || genre;
+  return GENRE_CONFIG[getEffectiveAnimeGenre(anime)]?.label || GENRE_CONFIG.other.label;
 }
