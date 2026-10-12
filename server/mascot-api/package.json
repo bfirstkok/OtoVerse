@@ -1,1 +1,1 @@
-{"name":"otoverse-mascot-api","private":true,"version":"1.0.0","engines":{"node":"22.x"},"dependencies":{"firebase-admin":"^13.0.0"}}
+{"name":"otoverse-mascot-api","private":true,"version":"1.0.0","engines":{"node":"22.x"},"dependencies":{"cheerio":"^1.2.0","firebase-admin":"^13.0.0"}}

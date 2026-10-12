@@ -1,3 +1,4 @@
+const { fetchMal } = require('../lib/mal-source');
 const { getAuth } = require('firebase-admin/auth');
 require('./chat');
 const ORIGINS = new Set(['https://otoverse.games','https://otoverse.web.app']);
@@ -14,7 +15,6 @@ module.exports=async(req,res)=>{
   const body=typeof req.body==='string'?JSON.parse(req.body):req.body;const id=Number(body?.malId);const q=String(body?.query||'').trim();
   const path=Number.isInteger(id)&&id>0&&id<99999999?`anime/${id}`:q.length>=2&&q.length<=150?`anime?q=${encodeURIComponent(q)}&limit=8&sfw=true`:null;
   if(!path)return res.status(400).json({error:'พิมพ์ชื่อ 2-150 ตัวอักษร หรือรหัส MAL ที่ถูกต้อง'});
-  const source=await fetch(`https://api.jikan.moe/v4/${path}`,{signal:AbortSignal.timeout(20000)});if(!source.ok)return res.status(source.status===429?429:503).json({error:source.status===429?'ค้นถี่ไปนิด รอสักครู่แล้วลองใหม่':'MyAnimeList ยังดึงข้อมูลไม่ได้ ลองใหม่อีกครั้ง'});
-  return res.status(200).json({data:(await source.json()).data});
+  return res.status(200).json(await fetchMal({id:Number.isInteger(id)&&id>0?id:null,query:q}));
  }catch{return res.status(503).json({error:'ยังเชื่อมต่อข้อมูล MyAnimeList ไม่ได้ ลองใหม่อีกครั้ง ข้อมูลเดิมไม่หาย'});}
 };

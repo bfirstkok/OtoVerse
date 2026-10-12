@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {createRequire} from 'node:module';const require=createRequire(import.meta.url);const {fetchMal}=require('../server/mascot-api/lib/mal-source');
+test('Jikan timeout falls back to MAL page and promotional trailer only',async()=>{
+ const original=globalThis.fetch;const calls=[];
+ globalThis.fetch=async url=>{calls.push(url);if(url.includes('api.jikan.moe'))throw new Error('timeout');if(url.endsWith('/video'))return {ok:true,text:async()=>'<a class="video-unit promotion" href="https://www.youtube-nocookie.com/embed/abcdefghijk?autoplay=1">PV</a>'};return {ok:true,text:async()=>'<h1 class="title-name"><strong>Example anime</strong></h1><p itemprop="description">Story.</p><div class="spaceit_pad"><span class="dark_text">English:</span> Example</div><div class="spaceit_pad"><span class="dark_text">Aired:</span> Jan 6, 2024</div><span itemprop="genre">Fantasy</span><img itemprop="image" data-src="https://cdn.myanimelist.net/images/anime/1.jpg">'};};
+ try{const {data}=await fetchMal({id:999991});assert.equal(data.title,'Example anime');assert.equal(data.year,2024);assert.equal(data.trailer.youtube_id,'abcdefghijk');assert.equal(data._source,'MyAnimeList');assert.equal(calls.length,3);}finally{globalThis.fetch=original;}
+});
