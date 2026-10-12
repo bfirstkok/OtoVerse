@@ -25,9 +25,9 @@ async function firestore(path, init = {}) {
 }
 const decode = value => value.stringValue ?? value.timestampValue ?? (value.integerValue !== undefined ? Number(value.integerValue) : value.booleanValue ?? (value.arrayValue ? (value.arrayValue.values || []).map(decode) : null));
 const encode = value => typeof value==='string' ? {stringValue:value} : typeof value==='boolean' ? {booleanValue:value} : typeof value==='number' ? {integerValue:String(Math.trunc(value))} : Array.isArray(value) ? {arrayValue:{values:value.map(encode)}} : {nullValue:null};
-const existing=[]; let next='';
-do { const result = await firestore('/animeSongs?pageSize=300'+(next?'&pageToken='+encodeURIComponent(next):'')); existing.push(...(result.documents||[]).map(doc=>({id:doc.name.split('/').pop(),_updateTime:doc.updateTime,...Object.fromEntries(Object.entries(doc.fields||{}).map(([k,v])=>[k,decode(v)]))}))); next=result.nextPageToken; } while(next);
-writeFileSync(join(dir, 'backup-'+Date.now()+'.json'), JSON.stringify(existing));
+const existing=[],rawDocuments=[]; let next='';
+do { const result = await firestore('/animeSongs?pageSize=300'+(next?'&pageToken='+encodeURIComponent(next):'')); rawDocuments.push(...(result.documents||[]));existing.push(...(result.documents||[]).map(doc=>({id:doc.name.split('/').pop(),_updateTime:doc.updateTime,...Object.fromEntries(Object.entries(doc.fields||{}).map(([k,v])=>[k,decode(v)]))}))); next=result.nextPageToken; } while(next);
+writeFileSync(join(dir, 'backup-'+Date.now()+'.json'), JSON.stringify(rawDocuments));
 if(args.includes('--apply-summaries')) {
  const summaries=JSON.parse(readFileSync('public/mal-synopsis-th.json','utf8')).items;let count=0;
  for(const row of existing){const summary=summaries[row.malId];if(!summary || row.importSource!=='MyAnimeList bulk' || row.updatedAt || row.synopsis===summary.text)continue;
