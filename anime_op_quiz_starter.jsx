@@ -5640,7 +5640,7 @@ useEffect(() => {
           <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_20px_40px_rgba(19,34,76,0.14)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
             <CardHeader className="relative">
               <div className="oto-home-eyebrow">THE LEADERBOARD</div><CardTitle className="text-lg">อันดับผู้เล่น</CardTitle>
-              <CardDescription>🎮 จำนวนครั้ง · 🔥 สถิติต่อเนื่อง · ⭐ คะแนนสะสม</CardDescription>
+              <CardDescription>ทายเพลง เก็บคะแนน แล้วขึ้นอันดับไปด้วยกัน</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
               {!user?.uid ? (
@@ -5675,25 +5675,17 @@ useEffect(() => {
                       type="button"
                       key={p.id || idx}
                       onClick={() => (p?.id ? openPublicProfile(p.id) : null)}
-                      className="w-full grid grid-cols-[minmax(0,1fr)_11rem] items-center gap-3 rounded-2xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-900 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-950/35 dark:text-slate-50 dark:hover:border-slate-700 dark:hover:bg-slate-950/55"
+                      className={`oto-rank-row ${idx < 3 ? "oto-rank-podium" : ""}`}
                     >
-                      <div className="flex items-center gap-2 min-w-0">
-                        <div className="w-6 text-center font-black text-slate-700 dark:text-slate-200">{idx + 1}</div>
-                        <div className="h-8 w-8 rounded-2xl border border-slate-200 bg-white/70 overflow-hidden flex items-center justify-center flex-shrink-0 dark:border-slate-700 dark:bg-slate-950/30">
-                          {photo ? (
-                            <img src={photo} alt="" className="h-full w-full object-cover" draggable={false} />
-                          ) : (
-                            <span aria-hidden>👤</span>
-                          )}
-                        </div>
-                        <div className="truncate">{name}</div>
+                      <span className="oto-rank-number">{idx + 1}</span>
+                      <div className="oto-rank-avatar">
+                        {photo ? <img src={photo} alt="" draggable={false} loading="lazy" /> : <span aria-hidden>👤</span>}
                       </div>
-
-                      <div className="grid grid-cols-3 gap-2 w-44 justify-self-end">
-                        <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🎮 {formatCompactNumber(plays)}</Badge>
-                        <Badge variant="outline" className="rounded-full w-full justify-center tabular-nums">🔥 {formatCompactNumber(best)}</Badge>
-                        <Badge className="rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-white border-0 w-full justify-center tabular-nums">⭐ {formatCompactNumber(total)}</Badge>
+                      <div className="oto-rank-player">
+                        <strong title={name}>{name}</strong>
+                        <span>เล่น {formatCompactNumber(plays)} ครั้ง <i aria-hidden>·</i> ต่อเนื่องสูงสุด {formatCompactNumber(best)}</span>
                       </div>
+                      <div className="oto-rank-score"><strong>{formatCompactNumber(total)}</strong><span>คะแนน</span></div>
                     </button>
                   );
                 })
@@ -8741,7 +8733,7 @@ useEffect(() => {
 
     return (
       <>
-        <div className="grid gap-6">
+        <div className="oto-play grid gap-6">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -8749,7 +8741,7 @@ useEffect(() => {
           >
             <Card className="rounded-3xl border border-white/70 bg-gradient-to-br from-white/90 via-white/85 to-blue-50/40 shadow-[0_28px_56px_rgba(19,34,76,0.18)] backdrop-blur-xl overflow-hidden dark:border-slate-700/40 dark:from-slate-950/60 dark:via-slate-950/45 dark:to-slate-900/40 dark:shadow-[0_28px_56px_rgba(0,0,0,0.45)]">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-400/5 via-transparent to-purple-400/5 pointer-events-none dark:from-cyan-400/10 dark:to-blue-500/10" />
-              <CardHeader className="relative">
+              <CardHeader className="oto-play-header relative">
                 <div className="flex items-center justify-between gap-3 flex-wrap">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -8780,6 +8772,13 @@ useEffect(() => {
                   </div>
                 </div>
               </CardHeader>
+              <div className="oto-play-stats">
+                <div><span>{isGroupMode ? "ผู้เล่นในตานี้" : "คะแนนรอบนี้"}</span><strong>{isGroupMode ? String(groupTurnPlayer?.name || "ผู้เล่น") : score}</strong></div>
+                <div><span>ตอบถูกต่อเนื่อง</span><strong>{runCurrStreak}<small> ข้อ</small></strong></div>
+                <div><span>{isTimeAttack ? "เวลาที่เหลือ" : "เวลาเล่น"}</span><strong>{isTimeAttack ? formatRemainingThai(remainingMs) : formatPlayElapsedThai(playElapsedMs)}</strong></div>
+                {isSoloChallenge ? <div><span>พลังชีวิต</span><strong>{soloHp}<small> HP · x{soloWrongMultiplier}</small></strong></div> : null}
+              </div>
+              {isNormalPlay ? <div className="oto-play-progress" role="progressbar" aria-label="ความคืบหน้าของเกม" aria-valuemin={0} aria-valuemax={gameList.length} aria-valuenow={currentIndex + 1}><span style={{ width: `${((currentIndex + 1) / Math.max(1, gameList.length)) * 100}%` }} /></div> : null}
               <CardContent className="space-y-5 relative">
               {isGroupMode ? (
                 <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-950/35">
@@ -8820,7 +8819,7 @@ useEffect(() => {
   initial={{ opacity: 0, y: 10 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ delay: 0.1, duration: 0.3 }}
-  className="relative aspect-video overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 to-black shadow-2xl w-[70%] mx-auto"
+  className="oto-play-video relative aspect-video overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 to-black shadow-2xl mx-auto"
 >
   {playVideoStarted ? (
     <iframe
@@ -8860,7 +8859,7 @@ useEffect(() => {
   ) : null}
 </motion.div>
 
-                <div className="grid grid-cols-3 gap-2">
+                <div className="oto-play-controls grid grid-cols-3 gap-2">
                   <Button
                     variant="outline"
                     className="rounded-2xl border-2 border-slate-300 hover:border-orange-400 hover:bg-orange-50 font-semibold dark:border-slate-700 dark:hover:bg-slate-900/60 dark:hover:border-cyan-400/40"
@@ -9005,7 +9004,7 @@ useEffect(() => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25, duration: 0.3 }}
-                className="space-y-3 pt-2"
+                className="oto-play-answer space-y-3 pt-2"
               >
                 <div className="space-y-2">
                     <label className="text-sm font-semibold text-slate-700 dark:text-slate-200">พิมพ์ชื่อเรื่องที่คิดว่าใช่</label>

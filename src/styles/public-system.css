@@ -30,10 +30,41 @@
 .oto-home-destinations i { position: absolute; right: 20px; top: 20px; color: #64748b; font-style: normal; }
 .oto-home-destinations button:focus-visible { outline: 2px solid #a5b4fc; outline-offset: 4px; }
 .oto-home-leaderboard > [data-ui="card"] { border-radius: 24px; background: #0b1020e8; border-color: #ffffff0f; }
-.oto-home-leaderboard [data-ui="card"] > div:last-child > button { grid-template-columns: minmax(0, 1fr) 132px; gap: 8px; min-height: 56px; border-radius: 12px; border-color: transparent; background: #11192b80; }
-.oto-home-leaderboard [data-ui="card"] > div:last-child > button:nth-of-type(1) { background: linear-gradient(100deg, #a1620724, #11192b80); border-color: #fbbf2420; }
-.oto-home-leaderboard button > .grid { width: 132px; gap: 4px; }
-.oto-home-leaderboard button [data-ui="badge"] { font-size: 10px; padding-inline: 4px; }
+/* Keep names and supporting stats together, with one clear score column. */
+.oto-rank-row { width: 100%; display: grid; grid-template-columns: 22px 40px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 13px 10px; text-align: left; border: 1px solid transparent; border-radius: 15px; background: #121a2c80; color: #e2e8f0; transition: background .2s, border-color .2s; }
+.oto-rank-row:hover { background: #202943; border-color: #818cf850; }
+.oto-rank-row:focus-visible { outline: 2px solid #a5b4fc; outline-offset: 3px; }
+.oto-rank-podium { background: linear-gradient(110deg, #51458530, #11192b); border-color: #a78bfa20; }
+.oto-rank-podium:first-of-type { background: linear-gradient(110deg, #ad7b2128, #11192b); border-color: #fbbf2430; }
+.oto-rank-number { color: #8997b2; font-size: 13px; font-weight: 700; text-align: center; }
+.oto-rank-podium .oto-rank-number { color: #ddd6fe; }
+.oto-rank-avatar { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: #24223c; border: 1px solid #a5b4fc30; }
+.oto-rank-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.oto-rank-player { min-width: 0; }
+.oto-rank-player strong { display: block; overflow-wrap: anywhere; font-size: 14px; line-height: 1.4; }
+.oto-rank-player > span { display: block; color: #94a3b8; font-size: 10px; line-height: 1.6; margin-top: 4px; }
+.oto-rank-player i { padding: 0 3px; font-style: normal; }
+.oto-rank-score { text-align: right; min-width: 40px; }
+.oto-rank-score strong { display: block; color: #c4b5fd; font-size: 19px; font-family: "Chakra Petch", sans-serif; font-variant-numeric: tabular-nums; }
+.oto-rank-podium:first-of-type .oto-rank-score strong { color: #fcd34d; }
+.oto-rank-score span { display: block; color: #94a3b8; font-size: 9px; }
+.oto-play { max-width: 1050px; margin-inline: auto; }
+.oto-play > div > [data-ui="card"] { background: radial-gradient(ellipse at 100% 0%, #4f46e522, transparent 50%), #0b1120; border: 1px solid #a5b4fc24; }
+.oto-play-header { padding-bottom: 20px; }
+.oto-play-stats { display: flex; flex-wrap: wrap; gap: 12px; padding: 0 24px 22px; }
+.oto-play-stats > div { flex: 1 1 130px; background: #151e32; border: 1px solid #ffffff0c; padding: 14px 18px; border-radius: 16px; }
+.oto-play-stats span { display: block; color: #94a3b8; font-size: 12px; margin-bottom: 6px; }
+.oto-play-stats strong { display: block; color: #e0e7ff; font-size: 24px; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.oto-play-stats small { font-size: 12px; font-weight: 400; color: #a5b4fc; }
+.oto-play-progress { height: 3px; background: #ffffff0a; margin-bottom: 24px; }
+.oto-play-progress span { display: block; height: 100%; background: linear-gradient(90deg, #8b5cf6, #22d3ee); transition: width .3s; }
+.oto-play-video { width: 100%; max-width: 800px; border: 1px solid #818cf830; }
+.oto-play-controls { max-width: 800px; margin: 16px auto 0; }
+.oto-play-controls button { min-height: 46px; }
+.oto-play-answer { border: 1px solid #818cf830; background: #151b30; padding: 22px !important; border-radius: 20px; }
+.oto-play-answer input { height: 56px; font-size: 16px; }
+.oto-play-answer button { min-height: 48px; }
+@media (max-width: 640px) { .oto-play-stats { padding-inline: 16px; gap: 8px; } .oto-play-stats > div { padding: 12px; flex-basis: 100px; } .oto-play-stats strong { font-size: 19px; } .oto-play-answer { padding: 16px !important; } .oto-rank-row { gap: 8px; } }
 @media (max-width: 1024px) { .oto-home-layout { grid-template-columns: 1fr; } }
 @media (max-width: 640px) {
   .oto-home-hero > div:not(.oto-home-mascot) { padding: 24px; }
