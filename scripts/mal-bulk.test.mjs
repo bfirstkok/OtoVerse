@@ -15,6 +15,8 @@ test('duplicates respect MAL season IDs and legacy aliases/year',()=>{
  assert.equal(isDuplicate({mal_id:6,title:'Shingeki no Kyojin: The Final Season',year:2020},[{animeTitle:'Shingeki no Kyojin (Attack On Titan): Final Season',year:2020}]),true);
  assert.equal(isDuplicate({mal_id:7,title:'Kono Subarashii Sekai ni Shukufuku wo! 2',year:2017},[{animeTitle:'KonoSuba Season 2',year:2017}]),true);
  assert.equal(isDuplicate({mal_id:8,title:'Assassination Classroom 2nd Season',year:2016},[{animeTitle:'Assassination Classroom Staffel 2',year:2016}]),true);
+ assert.equal(isDuplicate({mal_id:20,title:'Naruto',year:2002},[{animeTitle:'Naruto Shippuden',year:2002}]),false);
+ assert.equal(isDuplicate({mal_id:9,title:'Spy x Family Part 2',year:2022},[{animeTitle:'Spy x Family',year:2022}]),false);
 });
 test('MAL theme parser separates opening and ending and ignores specials',()=>{
  const $=cheerio.load('<div class="theme-songs opnening"><table><tr><td>▶</td><td>1: "Yuusha (勇者)"<span> by YOASOBI</span> (eps 1-16)</td></tr></table></div><div class="theme-songs ending"><table><tr><td></td><td>1: "Anytime Anywhere" by milet (eps 1-28)</td></tr><tr><td></td><td>S1: "bliss" by milet</td></tr></table></div>');

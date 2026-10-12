@@ -4,11 +4,11 @@ const titleKeys = value => {
  const title=String(value).replace(/\([^)]*\)/g,'').replace(/\b(\d+)(?:st|nd|rd|th)\s+season\b/gi,'Season $1').replace(/\bstaffel\b/gi,'Season').replace(/\bthe\s+final\b/gi,'Final').replace(/\bseason\s*1\b/gi,'').replace(/kyoushitsu e(?=\s|$)/gi,'kyoushitsu');
  return [key(value),key(title)];
 };
-function season(value){const title=String(value).replace(/\s*\((?:op|ed)\s*\d*\)\s*$/i,'');return title.match(/(?:season|staffel|ภาค)\s*(\d+)|(\d+)(?:st|nd|rd|th)\s+season|\s(\d+)\s*$/i)?.slice(1).find(Boolean)||'1';}
-function legacyNames(row){const title=row.animeTitle||String(row.title).replace(/\s*\((?:op|ed)\s*\d*\)\s*$/i,'');return [title,...(row.altTitles||[]),...(aliases[key(title)]||[]).filter(alias=>season(alias)===season(title))];}
+function season(value){const title=String(value).replace(/\s*\((?:op|ed)\s*\d*\)\s*$/i,'');const number=title.match(/(?:season|staffel|ภาค)\s*(\d+)|(\d+)(?:st|nd|rd|th)\s+season|(?<!part)\s(\d+)\s*$/i)?.slice(1).find(Boolean)||'1';const part=title.match(/\bpart\s*(\d+)/i)?.[1]||'';return [number,part,/\bfinal\b/i.test(title),/\bmovie\b|\bseason\s*0\b/i.test(title)].join(':');}
+function legacyNames(row){const title=row.animeTitle||String(row.title).replace(/\s*\((?:op|ed)\s*\d*\)\s*$/i,'');return [title,...(row.altTitles||[]),...(aliases[key(title)]||[]).filter(alias=>key(alias).length>=8 && season(alias)===season(title))];}
 export function isDuplicate(anime, existing) {
  const names = [anime.title, anime.title_english, anime.title_japanese, ...(anime.title_synonyms || [])].filter(Boolean).flatMap(titleKeys);
- return existing.some(row => Number(row.malId) === Number(anime.mal_id) || (!row.malId && (!row.year || !anime.year || Number(row.year) === Number(anime.year)) && legacyNames(row).filter(Boolean).flatMap(titleKeys).some(name => names.includes(name))));
+ return existing.some(row => Number(row.malId) === Number(anime.mal_id) || (!row.malId && (!row.year || !anime.year || Number(row.year) === Number(anime.year)) && legacyNames(row).filter(name=>name && season(name)===season(anime.title)).flatMap(titleKeys).some(name => names.includes(name))));
 }
 export function parseThemes($) {
  const songs=[];

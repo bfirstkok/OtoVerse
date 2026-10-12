@@ -57,7 +57,7 @@ for(let page=0;page<pages;page++){
  const start=offset+page*50;const $=cheerio.load(await get('https://myanimelist.net/topanime.php?type=bypopularity&limit='+start));
  const ids=[...new Set($('a.hoverinfo_trigger').map((_,el)=>Number(($(el).attr('href')||'').match(/\/anime\/(\d+)/)?.[1])).get().filter(Boolean))];
  if(!ids.length){if(start===0)throw new Error('Ranking unavailable; no entries parsed');break;}
- for(const id of ids){
+ const processAnime=async id=>{
   stats.scanned++;
   try{
    const path=join(dir,'mal-v2-'+id+'.json');let anime,songs;
@@ -66,10 +66,10 @@ for(let page=0;page<pages;page++){
     if(!anime.trailer?.youtube_id){try{const video=cheerio.load(await get('https://myanimelist.net/anime/'+id+'/video'));anime.trailer.youtube_id=(video('a.video-unit.promotion').first().attr('href')||'').match(/\/embed\/([\w-]{11})/)?.[1]||null;}catch{}}
     writeFileSync(path,JSON.stringify({anime,songs}));
    }
-   if(isDuplicate(anime,existing)){stats.duplicates++;continue;}
+   if(isDuplicate(anime,existing)){stats.duplicates++;return;}
    // No existing record is overwritten. Distinct MAL IDs retain separate seasons.
    const draft=malDraft(anime);const shared={...draft,altTitles:draft.altTitles.split('\n').filter(Boolean),year:Number(draft.year)||null,genreSource:'manual',difficulty:'medium',acceptedAnswers:[anime.title,...draft.altTitles.split('\n').filter(Boolean)],characters:[],note:'',importSource:'MyAnimeList bulk',importedAt:new Date().toISOString()};
-   if(anime.genres.some(genre=>['Hentai','Erotica'].includes(genre.name)))continue;
+   if(anime.genres.some(genre=>['Hentai','Erotica'].includes(genre.name)))return;
    const entries=songs.length?songs:[{songType:'',songNumber:0,songTitle:'',artist:''}];let ready=0;const writes=[];
    const videos=new Map();
    for(let index=0;index<entries.length;index+=3)await Promise.all(entries.slice(index,index+3).map(async song=>{let video=null;try{if(song.songTitle)video=await findVideo(song);}catch{/* Uncertain or inaccessible videos stay pending. */}videos.set(song,video);}));
@@ -85,7 +85,8 @@ for(let page=0;page<pages;page++){
    writeFileSync(join(dir,'report-'+offset+'.json'),JSON.stringify({apply,offset,stats,entries:report},null,2));
    await new Promise(resolve=>setTimeout(resolve,1000));
   }catch(error){stats.errors.push({id,message:error.message});console.log(JSON.stringify({error:id,message:error.message}));}
- }
+ };
+ for(let batch=0;batch<ids.length;batch+=2)await Promise.all(ids.slice(batch,batch+2).map(processAnime));
  stats.pages++;
  console.log(JSON.stringify({page:start,stats}));
 }
