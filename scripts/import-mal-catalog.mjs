@@ -70,12 +70,12 @@ for(let page=0;page<pages;page++){
    // No existing record is overwritten. Distinct MAL IDs retain separate seasons.
    const draft=malDraft(anime);const shared={...draft,altTitles:draft.altTitles.split('\n').filter(Boolean),year:Number(draft.year)||null,genreSource:'manual',difficulty:'medium',acceptedAnswers:[anime.title,...draft.altTitles.split('\n').filter(Boolean)],characters:[],note:'',importSource:'MyAnimeList bulk',importedAt:new Date().toISOString()};
    if(anime.genres.some(genre=>['Hentai','Erotica'].includes(genre.name)))continue;
-   const entries=songs.length?songs:[{songType:'OP',songNumber:1,songTitle:'',artist:''}];let ready=0;const writes=[];
+   const entries=songs.length?songs:[{songType:'',songNumber:0,songTitle:'',artist:''}];let ready=0;const writes=[];
    const videos=new Map();
    for(let index=0;index<entries.length;index+=3)await Promise.all(entries.slice(index,index+3).map(async song=>{let video=null;try{if(song.songTitle)video=await findVideo(song);}catch{/* Uncertain or inaccessible videos stay pending. */}videos.set(song,video);}));
    for(const song of entries){const video=videos.get(song);
-    const docId='mal-'+id+'-'+song.songType.toLowerCase()+song.songNumber;
-    const payload={...shared,title:anime.title+' ('+song.songType+song.songNumber+')',songType:song.songType,songNumber:song.songNumber,songTitle:song.songTitle,artist:song.artist,youtubeVideoId:video?.id||'',isActive:!!video,importStatus:video?'verified-video':'needs-video',videoSource:video?'https://www.youtube.com/watch?v='+video.id:'',videoChannel:video?.channel||''};
+    const docId='mal-'+id+'-'+(song.songType?song.songType.toLowerCase()+song.songNumber:'info');
+    const payload={...shared,title:anime.title+(song.songType?' ('+song.songType+song.songNumber+')':''),songType:song.songType,songNumber:song.songNumber,songTitle:song.songTitle,artist:song.artist,youtubeVideoId:video?.id||'',isActive:!!video,importStatus:video?'verified-video':song.songTitle?'needs-video':'metadata-only',videoSource:video?'https://www.youtube.com/watch?v='+video.id:'',videoChannel:video?.channel||''};
     writes.push({update:{name:endpoint.replace('https://firestore.googleapis.com/v1/','')+'/animeSongs/'+docId,fields:Object.fromEntries(Object.entries(payload).map(([k,v])=>[k,encode(v)]))},currentDocument:{exists:false}});
     report.push({id:docId,title:payload.title,song:song.songTitle,artist:song.artist,video:video?.id||null,status:payload.importStatus});stats.songs+=song.songTitle?1:0;if(video){stats.playable++;ready++;}else stats.pending++;
    }
