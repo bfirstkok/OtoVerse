@@ -77,3 +77,5 @@ module.exports = async (req, res) => {
   } catch (error) { return res.status(error.status || 503).json({ error: error.status ? error.message : 'น้องอ๊อตโต่ะยังตอบไม่ได้ตอนนี้ ลองใหม่อีกครั้งนะคะ' }); }
 };
 module.exports.contextFor = contextFor;
+
+module.exports.consumeQuota = consumeQuota;

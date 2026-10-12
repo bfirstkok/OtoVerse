@@ -12,6 +12,7 @@ import {
   updateDoc,
   where
 } from "firebase/firestore";
+import { getYouTubeId } from "@/lib/media";
 import { firebaseDb } from "@/lib/firebase";
 import { getEffectiveAnimeGenre, getEffectiveAnimeGenres, normalizeAnimeGenres } from "@/lib/animeGenre";
 
@@ -79,6 +80,10 @@ function cleanAnimeSong(data) {
     year: Number.isFinite(parsedYear) && parsedYear > 0 ? Math.trunc(parsedYear) : null,
     note: String(data?.note || "").trim(),
     synopsis: String(data?.synopsis || "").trim(),
+    malId: Number.isInteger(Number(data?.malId)) && Number(data.malId) > 0 ? Number(data.malId) : null,
+    malUrl: Number(data?.malId) > 0 ? `https://myanimelist.net/anime/${Number(data.malId)}` : '',
+    trailerVideoId: /^[a-zA-Z0-9_-]{11}$/.test(getYouTubeId(data?.trailerVideoId)) ? getYouTubeId(data.trailerVideoId) : '',
+    synopsisSource: String(data?.synopsisSource || '').slice(0, 100),
     characters: normalizeCharacters(data?.characters),
     isActive: data?.isActive !== false
   };

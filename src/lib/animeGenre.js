@@ -1,4 +1,5 @@
 export const GENRE_CONFIG = {
+  adventure: { label: "ผจญภัย" }, supernatural: { label: "เหนือธรรมชาติ" },
   action: { label: "แอ็กชัน" }, fantasy: { label: "แฟนตาซี" },
   isekai: { label: "ต่างโลก" }, scifi: { label: "ไซไฟ" },
   sports: { label: "กีฬา" }, mystery: { label: "สืบสวน/จิตวิทยา" },

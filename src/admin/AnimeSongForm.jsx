@@ -1,3 +1,4 @@
+import MyAnimeListImport from "./MyAnimeListImport";
 import { matchesAnimeSearch } from "@/lib/animeSearch";
 import { prepareProfileImage } from "@/lib/avatars";
 import React, { useEffect, useMemo, useState } from "react";
@@ -24,6 +25,7 @@ const EMPTY_FORM = {
   year: "",
   note: "",
   synopsis: "",
+  malId: null, malUrl: "", trailerVideoId: "", synopsisSource: "",
   characters: [],
   isActive: true
 };
@@ -256,6 +258,7 @@ export default function AnimeSongForm({
       ) : null}
 
       {!editingSongOnly ? <FormSection title="ข้อมูลอนิเมะ">
+        <MyAnimeListImport saving={saving} onImport={draft => setForm(current => ({ ...current, ...draft }))} />
         <div className="grid gap-4 md:grid-cols-2">
           <Field label="ชื่อเรื่องอนิเมะ *">
             <Input value={form.animeTitle} onChange={(e) => update("animeTitle", e.target.value)} required />
@@ -312,6 +315,11 @@ export default function AnimeSongForm({
         <Field label="เรื่องย่อ / ประวัติเนื้อเรื่อง">
           <TextArea rows={7} value={form.synopsis} onChange={(e) => update("synopsis", e.target.value)} />
         </Field>
+        <Field label="ตัวอย่างอนิเมะ YouTube (แยกจากเพลง OP/ED)">
+          <Input value={form.trailerVideoId || ''} onChange={e => update('trailerVideoId', e.target.value)} placeholder="ลิงก์ YouTube หรือ Video ID · เว้นว่างได้" />
+        </Field>
+        {getYouTubeId(form.trailerVideoId) && <a className="text-sm text-violet-300 underline" href={`https://www.youtube.com/watch?v=${getYouTubeId(form.trailerVideoId)}`} target="_blank" rel="noreferrer">ดูตัวอย่างอนิเมะ ↗</a>}
+        {form.malUrl && <p className="text-xs text-slate-400">แหล่งข้อมูล: {form.synopsisSource || 'MyAnimeList'} · บันทึกแล้วจะใส่ลิงก์ต้นทางในรายละเอียด</p>}
         {previewImage ? (
           <div className="space-y-2">
             <div className="text-sm font-medium text-slate-200">ตัวอย่างรูป</div>

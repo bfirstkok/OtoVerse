@@ -8312,6 +8312,8 @@ useEffect(() => {
   </Card>
 ) : null}
 
+{legalSelectedItem?.anime?.malId && <div className="text-sm text-slate-400">{legalSelectedItem.anime.synopsisSource || 'MyAnimeList'} · <a className="text-violet-300 underline" href={`https://myanimelist.net/anime/${Number(legalSelectedItem.anime.malId)}`} target="_blank" rel="noreferrer">ดูข้อมูลต้นทาง ↗</a></div>}
+{getYouTubeId(legalSelectedItem?.anime?.trailerVideoId) && <Card><CardContent className="space-y-3"><h3 className="font-bold">ตัวอย่างอนิเมะ</h3><iframe className="aspect-video w-full rounded-xl" loading="lazy" src={`https://www.youtube.com/embed/${getYouTubeId(legalSelectedItem.anime.trailerVideoId)}`} title={`ตัวอย่าง ${legalSelectedDisplayTitle}`} allow="encrypted-media; picture-in-picture" allowFullScreen/><a className="text-sm text-violet-300 underline" href={`https://www.youtube.com/watch?v=${getYouTubeId(legalSelectedItem.anime.trailerVideoId)}`} target="_blank" rel="noreferrer">เปิดตัวอย่างใน YouTube ↗</a></CardContent></Card>}
 {Array.isArray(legalSelectedItem?.anime?.characters) && legalSelectedItem.anime.characters.length > 0 ? (
   <Card className="rounded-3xl border border-white/70 bg-white/85 shadow-[0_16px_28px_rgba(15,23,42,0.1)] dark:border-slate-700/40 dark:bg-slate-950/55 dark:shadow-[0_16px_28px_rgba(0,0,0,0.35)]">
     <CardContent className="space-y-4">

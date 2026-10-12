@@ -232,6 +232,7 @@ export default function AdminDashboard() {
           difficulty: data.difficulty,
           imageUrl: data.imageUrl,
           synopsis: data.synopsis,
+          malId: data.malId, malUrl: data.malUrl, trailerVideoId: data.trailerVideoId, synopsisSource: data.synopsisSource,
           characters: data.characters
         };
         await Promise.all(editingSeriesItems.map((seriesItem) => updateAnimeSong(seriesItem.id, { ...seriesItem, ...sharedFields })));
