@@ -1,3 +1,4 @@
+import PlayerAvatar from "./src/components/system/PlayerAvatar";
 import {logUserActivity} from './src/lib/userActivity';
 import AnimeNews from "./src/components/system/AnimeNews";
 import {matchesAnimeSearch} from "./src/lib/animeSearch";
@@ -5678,9 +5679,7 @@ useEffect(() => {
                       className={`oto-rank-row ${idx < 3 ? "oto-rank-podium" : ""}`}
                     >
                       <span className="oto-rank-number">{idx + 1}</span>
-                      <div className="oto-rank-avatar">
-                        {photo ? <img src={photo} alt="" draggable={false} loading="lazy" /> : <span aria-hidden>👤</span>}
-                      </div>
+                      <PlayerAvatar src={photo} name={name} />
                       <div className="oto-rank-player">
                         <strong title={name}>{name}</strong>
                         <span>เล่น {formatCompactNumber(plays)} ครั้ง <i aria-hidden>·</i> ต่อเนื่องสูงสุด {formatCompactNumber(best)}</span>

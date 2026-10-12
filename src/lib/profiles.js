@@ -88,16 +88,17 @@ export async function ensureProfile(uid, { email = "", displayName = "", photoUR
   if (snap.exists()) {
     const data = snap.data() || {};
     const updates = {
-      email: email || "",
-      displayName: displayName || "",
+      ...(String(email || "").trim() ? { email: email.trim() } : {}),
+      ...(String(displayName || "").trim() ? { displayName: displayName.trim() } : {}),
       lastLoginAt: serverTimestamp()
     };
 
-    if (typeof photoURL === "string" && photoURL.trim()) updates.photoURL = photoURL.trim();
+    // Provider pictures only fill missing avatars; never replace a saved custom image.
+    if (!String(data.photoURL || "").trim() && typeof photoURL === "string" && photoURL.trim()) updates.photoURL = photoURL.trim();
 
     // Backfill fields for older profiles.
     if (!data.createdAt) updates.createdAt = safeAccountCreatedAt || serverTimestamp();
-    if (!data.nickname) {
+    if (!String(data.nickname || "").trim()) {
       const nick = inferDefaultNickname({ email, displayName });
       if (nick) updates.nickname = nick;
     } else {
