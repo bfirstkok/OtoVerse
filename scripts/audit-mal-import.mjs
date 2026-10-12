@@ -21,6 +21,14 @@ for(const row of imported){
 const repair=process.argv.includes('--repair');
 if(repair){const writes=[...duplicates,...metadata];for(let i=0;i<writes.length;i+=300)await request(':commit',{writes:writes.slice(i,i+300)});}
 const remaining=repair?imported.filter(row=>!deleted.has(row.doc.name)):imported;
+if(process.argv.includes('--publish-info')){
+ const groups=new Map();remaining.forEach(row=>{if(!groups.has(row.malId))groups.set(row.malId,row);});let count=0;
+ for(const [malId,row] of groups){
+  const name=endpoint.replace('https://firestore.googleapis.com/v1/','')+'/animeSongs/mal-'+malId+'-info';const previous=rows.find(item=>item.doc.name===name);if(previous?.updatedAt || previous?.entryType==='metadata')continue;
+  const fields={...row.doc.fields,title:{stringValue:row.animeTitle},entryType:{stringValue:'metadata'},songType:{stringValue:''},songNumber:{integerValue:'0'},songTitle:{stringValue:''},artist:{stringValue:''},youtubeVideoId:{stringValue:''},isActive:{booleanValue:true},importStatus:{stringValue:'metadata-only'},videoSource:{stringValue:''},videoChannel:{stringValue:''}};
+  await request(':commit',{writes:[{update:{name,fields},currentDocument:previous?{updateTime:previous.doc.updateTime}:{exists:false}}]});count++;
+ }console.log(JSON.stringify({publishedAnimeMetadata:count}));
+}
 const result={repair,legacySongs:legacy.length,importedAnime:new Set(remaining.map(row=>row.malId)).size,importedSongs:remaining.filter(row=>row.songTitle).length,playableSongs:remaining.filter(row=>row.isActive && row.youtubeVideoId).length,pendingSongs:remaining.filter(row=>row.songTitle && !row.youtubeVideoId).length,metadataOnly:remaining.filter(row=>!row.songTitle).length,thaiAnime:new Set(remaining.filter(row=>row.synopsisSource==='MyAnimeList · AI สรุปภาษาไทย').map(row=>row.malId)).size,duplicateRecords:duplicates.length,metadataCorrections:metadata.length};
 writeFileSync('.firebase/mal-import/audit-report.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));
 writeFileSync('.firebase/mal-import/audit-duplicates.json',JSON.stringify(imported.filter(row=>deleted.has(row.doc.name)).map(row=>({id:row.doc.name.split('/').pop(),title:row.title})),null,2));

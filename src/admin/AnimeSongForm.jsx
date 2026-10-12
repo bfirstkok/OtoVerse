@@ -157,6 +157,7 @@ export default function AnimeSongForm({
     const nextTitle = nextOpeningTitle(baseTitle, existingItems);
     setForm({
       ...toFormValue({ ...source, title: nextTitle, animeTitle: baseTitle }),
+      entryType: 'song',
       songType: "OP",
       songNumber: Number(nextTitle.match(/OP(\d+)/)?.[1]) || 1,
       songTitle: "",

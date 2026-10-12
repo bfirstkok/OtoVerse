@@ -137,7 +137,7 @@ export default function AdminDashboard() {
   const filteredItems = useMemo(() => {
     let sourceItems = items;
     if (displayMode === "songs") sourceItems = items.filter(isSongEntry);
-    if (displayMode === "pending") sourceItems = items.filter(item => item.importSource === "MyAnimeList bulk" && !item.youtubeVideoId);
+    if (displayMode === "pending") sourceItems = items.filter(item => item.entryType !== 'metadata' && item.importSource === "MyAnimeList bulk" && !item.youtubeVideoId);
     return sourceItems.filter(item => matchesAnimeSearch({
       ...item,
       altTitles: Array.isArray(item.altTitles) ? item.altTitles : [item.altTitles].filter(Boolean)

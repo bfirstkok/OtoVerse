@@ -10,7 +10,7 @@ export default function MusicLibrary({songs=[],search='',onSearch,uid,watchlist=
  const favoriteSet=useMemo(()=>new Set(favoriteIds.map(String)),[favoriteIds]);
  const groups=useMemo(()=>{
   const map=new Map();const query=search.toLowerCase().trim();
-  for(const song of songs){const songType=song.songType || song.title?.match(/\((OP|ED)/i)?.[1]?.toUpperCase() || 'OP';
+  for(const song of songs){if(song.entryType==='metadata')continue;const songType=song.songType || song.title?.match(/\((OP|ED)/i)?.[1]?.toUpperCase() || 'OP';
    if(type!=='all'&&songType!==type)continue;if(!matchesAnimeGenre(song,genre))continue;if(onlyFavorites&&!favoriteSet.has(String(song.id)))continue;
    if(!matchesAnimeSearch(song,query))continue;
    const key=animeSeriesKey(song);if(!map.has(key))map.set(key,{key,title:String(song.animeTitle||song.title||'').replace(/\s*\((OP|ED)\s*\d*\)\s*$/i,''),items:[]});map.get(key).items.push(song);

@@ -87,6 +87,15 @@ function cleanAnimeSong(data) {
     characters: normalizeCharacters(data?.characters),
     isActive: data?.isActive !== false
   };
+  payload.entryType = data?.entryType === 'metadata' ? 'metadata' : 'song';
+  if (payload.entryType === 'metadata') {
+    payload.title = animeTitle;
+    payload.songType = '';
+    payload.songNumber = 0;
+    payload.songTitle = '';
+    payload.artist = '';
+    payload.youtubeVideoId = '';
+  }
   payload.genre = getEffectiveAnimeGenre({ ...payload, genreSource: data?.genre ? "manual" : undefined });
   payload.genres = Array.isArray(data?.genres) ? normalizeAnimeGenres(data.genres) : getEffectiveAnimeGenres(data);
   if (!payload.genres.length) payload.genres = [payload.genre];
