@@ -149,7 +149,7 @@ export default function AnimeSongTable({
                       <div className="mt-1 truncate text-xs text-slate-600">{item.title}</div>
                     </div>
                     <YouTubePreview videoSource={item.youtubeVideoId} title={item.title} />
-                    <div><Badge variant={item.isActive !== false ? "success" : "secondary"}>{item.isActive !== false ? "ใช้งาน" : "ปิด"}</Badge></div>
+                    <div><Badge variant={item.isActive !== false ? "success" : "secondary"}>{item.importSource === 'MyAnimeList bulk' && !item.youtubeVideoId ? 'รอวิดีโอ' : item.isActive !== false ? "ใช้งาน" : "ปิด"}</Badge></div>
                     <div className="flex gap-2 md:justify-end">
                       <Button size="sm" variant="outline" onClick={() => onEdit(item)}><Pencil className="h-3.5 w-3.5" /> แก้ไข</Button>
                       <Button size="sm" variant="destructive" onClick={() => onDelete(item)} disabled={deletingId === item.id}>

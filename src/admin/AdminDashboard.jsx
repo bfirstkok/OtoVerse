@@ -137,6 +137,7 @@ export default function AdminDashboard() {
   const filteredItems = useMemo(() => {
     let sourceItems = items;
     if (displayMode === "songs") sourceItems = items.filter(isSongEntry);
+    if (displayMode === "pending") sourceItems = items.filter(item => item.importSource === "MyAnimeList bulk" && !item.youtubeVideoId);
     return sourceItems.filter(item => matchesAnimeSearch({
       ...item,
       altTitles: Array.isArray(item.altTitles) ? item.altTitles : [item.altTitles].filter(Boolean)
@@ -410,6 +411,7 @@ export default function AdminDashboard() {
                   <select className="pl-10" value={displayMode} onChange={(event) => setDisplayMode(event.target.value)}>
                     <option value="series">แยกตามเรื่อง</option>
                     <option value="songs">เฉพาะเพลง OP/ED</option>
+                    <option value="pending">นำเข้าแล้ว · รอวิดีโอ</option>
                     <option value="all">ทั้งหมด</option>
                   </select>
                 </div>
