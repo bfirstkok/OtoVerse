@@ -21,7 +21,7 @@ const endpoint = 'https://firestore.googleapis.com/v1/projects/animequiz-8a93b/d
 async function auth() { return (await getAccessToken(configstore.get('tokens').refresh_token, [])).access_token; }
 async function firestore(path, init = {}) {
  const response = await fetch(endpoint+path, { ...init, headers: { Authorization: 'Bearer '+await auth(), 'Content-Type':'application/json', ...init.headers }, signal: AbortSignal.timeout(30000) });
- const result = await response.json(); if(!response.ok) throw new Error('Firestore '+response.status+': '+result.error?.message); return result;
+ const result = await response.json(); if(!response.ok){const error=new Error('Firestore '+response.status+': '+result.error?.message);error.code=result.error?.status;throw error;} return result;
 }
 const decode = value => value.stringValue ?? value.timestampValue ?? (value.integerValue !== undefined ? Number(value.integerValue) : value.booleanValue ?? (value.arrayValue ? (value.arrayValue.values || []).map(decode) : null));
 const encode = value => typeof value==='string' ? {stringValue:value} : typeof value==='boolean' ? {booleanValue:value} : typeof value==='number' ? {integerValue:String(Math.trunc(value))} : Array.isArray(value) ? {arrayValue:{values:value.map(encode)}} : {nullValue:null};
@@ -29,10 +29,12 @@ const existing=[],rawDocuments=[]; let next='';
 do { const result = await firestore('/animeSongs?pageSize=300'+(next?'&pageToken='+encodeURIComponent(next):'')); rawDocuments.push(...(result.documents||[]));existing.push(...(result.documents||[]).map(doc=>({id:doc.name.split('/').pop(),_updateTime:doc.updateTime,...Object.fromEntries(Object.entries(doc.fields||{}).map(([k,v])=>[k,decode(v)]))}))); next=result.nextPageToken; } while(next);
 writeFileSync(join(dir, 'backup-'+Date.now()+'.json'), JSON.stringify(rawDocuments));
 if(args.includes('--apply-summaries')) {
- const summaries=JSON.parse(readFileSync('public/mal-synopsis-th.json','utf8')).items;let count=0;
+ const summaries=JSON.parse(readFileSync('public/mal-synopsis-th.json','utf8')).items;let count=0,preserved=0;const writes=[];
  for(const row of existing){const summary=summaries[row.malId];if(!summary || row.importSource!=='MyAnimeList bulk' || row.updatedAt || row.synopsis===summary.text)continue;
-  await firestore(':commit',{method:'POST',body:JSON.stringify({writes:[{update:{name:endpoint.replace('https://firestore.googleapis.com/v1/','')+'/animeSongs/'+row.id,fields:{synopsis:encode(summary.text),synopsisSource:encode(summary.source)}},updateMask:{fieldPaths:['synopsis','synopsisSource']},currentDocument:{updateTime:row._updateTime}}]})});count++;
- }console.log(JSON.stringify({summariesApplied:count}));process.exit(0);
+  writes.push({update:{name:endpoint.replace('https://firestore.googleapis.com/v1/','')+'/animeSongs/'+row.id,fields:{synopsis:encode(summary.text),synopsisSource:encode(summary.source)}},updateMask:{fieldPaths:['synopsis','synopsisSource']},currentDocument:{updateTime:row._updateTime}});
+ }
+ for(let index=0;index<writes.length;index+=100){const batch=writes.slice(index,index+100);try{await firestore(':commit',{method:'POST',body:JSON.stringify({writes:batch})});count+=batch.length;}catch(error){if(!['FAILED_PRECONDITION','ABORTED','NOT_FOUND'].includes(error.code))throw error;for(const write of batch){try{await firestore(':commit',{method:'POST',body:JSON.stringify({writes:[write]})});count++;}catch(error){if(!['FAILED_PRECONDITION','ABORTED','NOT_FOUND'].includes(error.code))throw error;preserved++;}}}}
+ console.log(JSON.stringify({summariesApplied:count,preservedEditedRecords:preserved}));process.exit(0);
 }
 const stats={existing:existing.length, scanned:0, duplicates:0, newAnime:0, songs:0, playable:0, pending:0, errors:[], pages:0};
 async function get(url) {
