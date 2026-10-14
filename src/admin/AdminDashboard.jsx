@@ -78,6 +78,8 @@ export default function AdminDashboard() {
   const [loadingItems, setLoadingItems] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const showStatus = (value) => { setStatusFilter(value); setDisplayMode("series"); setSearch(""); document.getElementById("admin-content-library")?.scrollIntoView({behavior:"smooth", block:"start"}); };
   const [displayMode, setDisplayMode] = useState("series");
   const [songDraft, setSongDraft] = useState(null);
   const [editing, setEditing] = useState(null);
@@ -138,11 +140,11 @@ export default function AdminDashboard() {
     let sourceItems = items;
     if (displayMode === "songs") sourceItems = items.filter(isSongEntry);
     if (displayMode === "pending") sourceItems = items.filter(item => item.entryType !== 'metadata' && item.importSource === "MyAnimeList bulk" && !item.youtubeVideoId);
-    return sourceItems.filter(item => matchesAnimeSearch({
+    return sourceItems.filter(item => (statusFilter === "all" || (statusFilter === "inactive" ? item.isActive === false : item.isActive !== false)) && matchesAnimeSearch({
       ...item,
       altTitles: Array.isArray(item.altTitles) ? item.altTitles : [item.altTitles].filter(Boolean)
     }, search));
-  }, [items, search, displayMode]);
+  }, [items, search, displayMode, statusFilter]);
 
   const summary = useMemo(() => {
     const series = new Set(items.map((item) => normalizeTitleKey(item?.title)).filter(Boolean)).size;
@@ -382,8 +384,8 @@ export default function AdminDashboard() {
           <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <Metric icon={LibraryBig} label="Anime series" value={summary.series} hint="จำนวนเรื่องไม่ซ้ำ" />
             <Metric icon={Music2} label="OP / ED" value={summary.songs} hint="เพลงในคลัง" />
-            <Metric icon={Database} label="Active" value={summary.active} hint="พร้อมใช้ในระบบ" tone="success" />
-            <Metric icon={CircleOff} label="Inactive" value={summary.inactive} hint="ปิดการใช้งาน" tone="muted" />
+            <Metric icon={Database} label="Active" value={summary.active} hint="กดเพื่อดูรายการที่เปิดใช้งาน" tone="success" onClick={() => showStatus("active")} />
+            <Metric icon={CircleOff} label="Inactive" value={summary.inactive} hint="กดเพื่อดูรายการที่ยังไม่เปิด" tone="muted" onClick={() => showStatus("inactive")} />
           </section>
 
           <Card className="!border-white/8 !bg-white/[0.035]">
@@ -401,11 +403,12 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-3 lg:grid-cols-[minmax(0,1fr)_260px]">
+              <div id="admin-content-library" className="mt-5 grid gap-3 lg:grid-cols-[minmax(0,1fr)_200px_220px]">
                 <div className="relative">
                   <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
                   <Input className="!border-white/10 !bg-black/20 pl-10" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="ค้นชื่อไทย ชื่อย่อ อนิเมะ เพลง หรือศิลปิน…" />
                 </div>
+                <label className="relative"><span className="sr-only">สถานะรายการ</span><select aria-label="สถานะรายการ" value={statusFilter} onChange={event => setStatusFilter(event.target.value)}><option value="all">ทุกสถานะ</option><option value="active">Active · เปิดใช้งาน</option><option value="inactive">Inactive · ยังไม่เปิด</option></select></label>
                 <div className="relative">
                   <ListFilter className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
                   <select className="pl-10" value={displayMode} onChange={(event) => setDisplayMode(event.target.value)}>
@@ -442,20 +445,21 @@ export default function AdminDashboard() {
   );
 }
 
-function Metric({ icon: Icon, label, value, hint, tone = "default" }) {
+function Metric({ icon: Icon, label, value, hint, tone = "default", onClick }) {
   const tones = {
     default: "bg-indigo-500/10 text-indigo-300 ring-indigo-500/15",
     success: "bg-emerald-500/10 text-emerald-300 ring-emerald-500/15",
     muted: "bg-slate-500/10 text-slate-400 ring-slate-500/15"
   };
 
+  const Container = onClick ? "button" : "div";
   return (
-    <div className="rounded-2xl border border-white/8 bg-white/[0.035] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.15)]">
+    <Container type={onClick ? "button" : undefined} onClick={onClick} className="w-full text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-400 rounded-2xl border border-white/8 bg-white/[0.035] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.15)]">
       <div className={`grid h-10 w-10 place-items-center rounded-xl ring-1 ring-inset ${tones[tone] || tones.default}`}><Icon className="h-5 w-5" /></div>
       <div className="mt-5 text-3xl font-bold text-white">{value.toLocaleString()}</div>
       <div className="mt-1 text-sm font-semibold text-slate-300">{label}</div>
       <div className="mt-1 text-xs text-slate-500">{hint}</div>
-    </div>
+    </Container>
   );
 }
 
