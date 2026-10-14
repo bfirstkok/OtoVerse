@@ -70,7 +70,7 @@ function titleKey(value) {
 
 function nextOpeningTitle(baseTitle, existingItems) {
   const key = titleKey(baseTitle);
-  const highestOpening = existingItems.reduce((highest, entry) => {
+  const highestOpening = existingItems.filter(entry => entry.entryType !== "metadata").reduce((highest, entry) => {
     if (titleKey(entry?.title) !== key) return highest;
     const match = String(entry?.title || "").match(/\(OP\s*(\d+)\)\s*$/i);
     return match ? Math.max(highest, Number(match[1]) || 0) : highest;
@@ -181,7 +181,7 @@ export default function AnimeSongForm({
   useEffect(() => {
     if (!initialSongDraft || item) return;
     const type=initialSongDraft.songType || 'OP';
-    const highest=existingItems.filter(entry => titleKey(entry.animeTitle || entry.title)===titleKey(initialSongDraft.animeTitle) && toFormValue(entry).songType===type).reduce((n,entry)=>Math.max(n,Number(toFormValue(entry).songNumber)||0),0);
+    const highest=existingItems.filter(entry => entry.entryType !== "metadata" && titleKey(entry.animeTitle || entry.title)===titleKey(initialSongDraft.animeTitle) && toFormValue(entry).songType===type).reduce((n,entry)=>Math.max(n,Number(toFormValue(entry).songNumber)||0),0);
     setCreateMode(initialSongDraft.fromExisting ? 'existing':'new');
     setForm(current=>({...current,...initialSongDraft,songNumber:highest+1}));
   }, [initialSongDraft, item]);
@@ -193,7 +193,7 @@ export default function AnimeSongForm({
     if (!form.genres.length) { setFormError("กรุณาเลือกประเภทอนิเมะอย่างน้อย 1 หมวด"); return; }
     const videoId = getYouTubeId(form.youtubeVideoId);
     if (editScope !== "anime" && !/^[a-zA-Z0-9_-]{11}$/.test(videoId)) { setFormError("กรุณาวางลิงก์ YouTube หรือรหัสวิดีโอที่ถูกต้อง"); return; }
-    const duplicate = existingItems.some(entry => entry.id !== item?.id && titleKey(entry.animeTitle || entry.title) === titleKey(form.animeTitle) && toFormValue(entry).songType === form.songType && Number(toFormValue(entry).songNumber) === Number(form.songNumber));
+    const duplicate = existingItems.some(entry => entry.entryType !== "metadata" && String(entry.id) !== String(item?.id) && titleKey(entry.animeTitle || entry.title) === titleKey(form.animeTitle) && toFormValue(entry).songType === form.songType && Number(toFormValue(entry).songNumber) === Number(form.songNumber));
     if (editScope !== "anime" && duplicate) { setFormError("เรื่องนี้มีเพลงประเภทและลำดับนี้แล้ว กรุณาแก้รายการเดิมหรือเปลี่ยนลำดับเพลง"); return; }
     onSave({
       ...form,
@@ -348,7 +348,7 @@ export default function AnimeSongForm({
               onChange={(e) => {
                 const type = e.target.value;
                 if (!item) {
-                  const highest = existingItems.filter(entry => titleKey(entry.animeTitle || entry.title) === titleKey(form.animeTitle) && toFormValue(entry).songType === type).reduce((max,entry) => Math.max(max, Number(toFormValue(entry).songNumber) || 0), 0);
+                  const highest = existingItems.filter(entry => entry.entryType !== "metadata" && titleKey(entry.animeTitle || entry.title) === titleKey(form.animeTitle) && toFormValue(entry).songType === type).reduce((max,entry) => Math.max(max, Number(toFormValue(entry).songNumber) || 0), 0);
                   setForm(current => ({...current, songType:type, songNumber:highest + 1}));
                 } else update("songType",type);
               }}
