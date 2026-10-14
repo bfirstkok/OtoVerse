@@ -43,13 +43,14 @@ async function get(url) {
 }
 async function findVideo(song) {
  const cachePath=join(dir,'youtube-v2-'+Buffer.from(song.artist+' '+song.songTitle).toString('base64url').slice(0,180)+'.json');
- if(existsSync(cachePath))return JSON.parse(readFileSync(cachePath,'utf8'));
+ if(existsSync(cachePath)){const cached=JSON.parse(readFileSync(cachePath,'utf8'));if(!cached || !/cover|remix|karaoke|music\s*box|instrumental|piano|orchestral|arrangement|オルゴール|歌ってみた|弾いてみた|sped up|slowed/i.test(cached.title))return cached;}
  let candidates=[];
  if(song.sourceVideo){const match=song.sourceVideo.match(/(?:youtu\.be\/|[?&]v=)([\w-]{11})/);if(match)candidates=[{id:match[1],title:song.songTitle,channel:'MyAnimeList link'}];}
  if(!candidates.length){const html=await get('https://www.youtube.com/results?hl=en&search_query='+encodeURIComponent(song.artist+' '+song.songTitle+' official'));const match=html.match(/var ytInitialData = (\{.*?\});<\/script>/s);if(match)candidates=videoCandidates(JSON.parse(match[1]),song);}
  for(const candidate of candidates.slice(0,3)){
   const html=await get('https://www.youtube.com/watch?hl=en&v='+candidate.id);const match=html.match(/var ytInitialPlayerResponse = (\{.*?\});/s);if(!match)continue;
   const player=JSON.parse(match[1]);const seconds=Number(player.videoDetails?.lengthSeconds);
+  if(/cover|karaoke|music\s*box|instrumental|piano|orchestral|arrangement|オルゴール|歌ってみた|弾いてみた|sped up|slowed/i.test(player.videoDetails?.title||''))continue;
   if(player.playabilityStatus?.status==='OK' && player.playabilityStatus.playableInEmbed===true && seconds>=60 && seconds<=600 && !player.videoDetails?.isLiveContent){writeFileSync(cachePath,JSON.stringify(candidate));return candidate;}
  }
  writeFileSync(cachePath,'null');return null;
