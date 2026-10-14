@@ -27,7 +27,7 @@ export function videoCandidates(data,song) {
  function walk(value){if(!value || typeof value!=='object')return;
   if(value.videoRenderer){const v=value.videoRenderer;const title=v.title?.runs?.map(x=>x.text).join('')||v.title?.simpleText||'';const owner=v.ownerText?.runs?.map(x=>x.text).join('')||'';
    const verified=(v.ownerBadges||[]).some(x=>/VERIFIED/.test(x.metadataBadgeRenderer?.style||''));
-   if(verified && titles.some(x=>key(title).includes(x)) && artist.length>=3 && (key(owner).includes(artist)||key(title).includes(artist)) && !/cover|remix|karaoke|live\s|english ver|歌ってみた|弾いてみた|sped up|slowed/i.test(title)) videos.push({id:v.videoId,title,channel:owner});
+   if(verified && titles.some(x=>key(title).includes(x)) && artist.length>=3 && (key(owner).includes(artist)||key(title).includes(artist)) && !/cover|remix|karaoke|music\s*box|instrumental|piano|orchestral|arrangement|オルゴール|live\s|english ver|歌ってみた|弾いてみた|sped up|slowed/i.test(title)) videos.push({id:v.videoId,title,channel:owner});
    return;
   }
   for(const child of Object.values(value))if(typeof child==='object')walk(child);

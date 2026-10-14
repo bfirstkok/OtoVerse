@@ -24,6 +24,6 @@ test('MAL theme parser separates opening and ending and ignores specials',()=>{
 });
 test('video matcher requires verified channel, correct song and artist and excludes covers',()=>{
  const video=(title,owner='YOASOBI',verified=true)=>({videoRenderer:{videoId:'OIBODIPC_8Y',title:{runs:[{text:title}]},ownerText:{runs:[{text:owner}]},ownerBadges:verified?[{metadataBadgeRenderer:{style:'BADGE_STYLE_TYPE_VERIFIED_ARTIST'}}]:[]}});
- const data=[video('YOASOBI「勇者」 Official Music Video'),video('YOASOBI Yuusha cover'),video('YOASOBI Yuusha','Impostor',false),video('YOASOBI Idol'),video('Yuusha','Someone')];
+ const data=[video('YOASOBI「勇者」 Official Music Video'),video('YOASOBI Yuusha cover'),video('YOASOBI Yuusha','Impostor',false),video('YOASOBI Idol'),video('Yuusha','Someone'),video('YOASOBI Yuusha [Music Box]'),video('YOASOBI Yuusha Piano Arrangement'),video('YOASOBI Yuusha Instrumental')];
  assert.equal(videoCandidates(data,{songTitle:'Yuusha (勇者)',artist:'YOASOBI'}).length,1);
 });
