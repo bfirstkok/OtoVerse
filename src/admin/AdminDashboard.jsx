@@ -1,3 +1,4 @@
+import {catalogDisplayTitle, catalogSeriesKey, isCatalogSong, songStatus} from "@/lib/catalogOrganization";
 import { matchesAnimeSearch } from "@/lib/animeSearch";
 import ReportsPanel from "./ReportsPanel";
 import UsersPanel from "./UsersPanel";
@@ -63,7 +64,7 @@ function createSynopsisIndex(database) {
 }
 
 function isSongEntry(item) {
-  return /\((?:OP|ED)\s*\d*\)\s*$/i.test(String(item?.title || ""));
+  return isCatalogSong(item);
 }
 
 export default function AdminDashboard() {
@@ -139,18 +140,22 @@ export default function AdminDashboard() {
   const filteredItems = useMemo(() => {
     let sourceItems = items;
     if (displayMode === "songs") sourceItems = items.filter(isSongEntry);
-    if (displayMode === "pending") sourceItems = items.filter(item => item.entryType !== 'metadata' && item.importSource === "MyAnimeList bulk" && !item.youtubeVideoId);
-    return sourceItems.filter(item => (statusFilter === "all" || (statusFilter === "inactive" ? item.isActive === false : item.isActive !== false)) && matchesAnimeSearch({
+    if (displayMode === "review") sourceItems = items.filter(item => songStatus(item) === "review");
+    if (displayMode === "pending") sourceItems = items.filter(item => songStatus(item) === "pending");
+    return sourceItems.filter(item => (statusFilter === "all" || (statusFilter === "inactive" ? item.isActive === false : songStatus(item) === statusFilter || (statusFilter === "active" && songStatus(item) === "ready"))) && matchesAnimeSearch({
       ...item,
+      animeTitle: catalogDisplayTitle(item),
       altTitles: Array.isArray(item.altTitles) ? item.altTitles : [item.altTitles].filter(Boolean)
     }, search));
   }, [items, search, displayMode, statusFilter]);
 
   const summary = useMemo(() => {
-    const series = new Set(items.map((item) => normalizeTitleKey(item?.title)).filter(Boolean)).size;
+    const series = new Set(items.map(catalogSeriesKey).filter(Boolean)).size;
     const songs = items.filter(isSongEntry).length;
-    const active = items.filter((item) => item?.isActive !== false).length;
-    return { series, songs, active, inactive: Math.max(0, items.length - active) };
+    const active = items.filter((item) => songStatus(item) === "ready").length;
+    const pending = items.filter(item => songStatus(item) === "pending").length;
+    const review = items.filter(item => songStatus(item) === "review").length;
+    return { series, songs, active, pending, review, inactive: pending + review };
   }, [items]);
 
   const resetEditor = () => {
@@ -187,7 +192,7 @@ export default function AdminDashboard() {
   const openEditAnime = (item, seriesItems) => {
     setEditing(item);
     setEditScope("anime");
-    setEditingSeriesItems(items.filter(entry => normalizeTitleKey(entry.title) === normalizeTitleKey(item.title)));
+    setEditingSeriesItems(items.filter(entry => catalogSeriesKey(entry) === catalogSeriesKey(item)));
     setCreateFromId("");
     setFormOpen(true);
     setError("");
@@ -196,7 +201,7 @@ export default function AdminDashboard() {
 
   const openCover = (item) => {
     setEditing(item); setEditScope("cover");
-    setEditingSeriesItems(items.filter(entry => normalizeTitleKey(entry.title) === normalizeTitleKey(item.title)));
+    setEditingSeriesItems(items.filter(entry => catalogSeriesKey(entry) === catalogSeriesKey(item)));
     setFormOpen(true); setError(""); window.scrollTo({top:0, behavior:"smooth"});
   };
 
@@ -341,7 +346,7 @@ export default function AdminDashboard() {
       activeSection={section}
       onSection={changeSection}
       onLogout={handleLogout}
-      title={section !== "content" ? ({reports:"Report และแจ้งปัญหา",users:"จัดการผู้ใช้",logs:"บันทึกการใช้งาน"})[section] : formOpen ? editorTitle : "Content Dashboard"}
+      title={section !== "content" ? ({reports:"Report และแจ้งปัญหา",users:"จัดการผู้ใช้",logs:"บันทึกการใช้งาน"})[section] : formOpen ? editorTitle : "จัดการอนิเมะและเพลง"}
       description={section !== "content" ? "ตรวจสอบและจัดการข้อมูลสำหรับผู้ดูแลระบบ" : formOpen ? "แก้ไขข้อมูลโดยแยกข้อมูลเรื่องและข้อมูลเพลงให้ชัดเจน" : "จัดการอนิเมะ เพลง OP/ED เรื่องย่อ ตัวละคร และสถานะการใช้งาน"}
       actions={(
         <>
@@ -384,8 +389,8 @@ export default function AdminDashboard() {
           <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <Metric icon={LibraryBig} label="Anime series" value={summary.series} hint="จำนวนเรื่องไม่ซ้ำ" />
             <Metric icon={Music2} label="OP / ED" value={summary.songs} hint="เพลงในคลัง" />
-            <Metric icon={Database} label="Active" value={summary.active} hint="กดเพื่อดูรายการที่เปิดใช้งาน" tone="success" onClick={() => showStatus("active")} />
-            <Metric icon={CircleOff} label="Inactive" value={summary.inactive} hint="กดเพื่อดูรายการที่ยังไม่เปิด" tone="muted" onClick={() => showStatus("inactive")} />
+            <Metric icon={Database} label="พร้อมเล่น" value={summary.active} hint="กดเพื่อดูรายการที่เปิดใช้งาน" tone="success" onClick={() => showStatus("ready")} />
+            <Metric icon={CircleOff} label="รอวิดีโอ / ต้องตรวจสอบ" value={summary.inactive} hint={`รอวิดีโอ ${summary.pending} · ต้องตรวจ ${summary.review}`} tone="muted" onClick={() => showStatus("inactive")} />
           </section>
 
           <Card className="!border-white/8 !bg-white/[0.035]">
@@ -408,13 +413,13 @@ export default function AdminDashboard() {
                   <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
                   <Input className="!border-white/10 !bg-black/20 pl-10" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="ค้นชื่อไทย ชื่อย่อ อนิเมะ เพลง หรือศิลปิน…" />
                 </div>
-                <label className="relative"><span className="sr-only">สถานะรายการ</span><select aria-label="สถานะรายการ" value={statusFilter} onChange={event => setStatusFilter(event.target.value)}><option value="all">ทุกสถานะ</option><option value="active">Active · เปิดใช้งาน</option><option value="inactive">Inactive · ยังไม่เปิด</option></select></label>
+                <label className="relative"><span className="sr-only">สถานะรายการ</span><select aria-label="สถานะรายการ" value={statusFilter} onChange={event => setStatusFilter(event.target.value)}><option value="all">ทุกสถานะ</option><option value="ready">พร้อมเล่น</option><option value="pending">รอวิดีโอ</option><option value="review">ต้องตรวจสอบ</option><option value="inactive">ยังไม่พร้อมทั้งหมด</option></select></label>
                 <div className="relative">
                   <ListFilter className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
                   <select className="pl-10" value={displayMode} onChange={(event) => setDisplayMode(event.target.value)}>
-                    <option value="series">แยกตามเรื่อง</option>
+                    <option value="series">รายชื่ออนิเมะและภาค</option>
                     <option value="songs">เฉพาะเพลง OP/ED</option>
-                    <option value="pending">นำเข้าแล้ว · รอวิดีโอ</option>
+                    <option value="pending">เพลงรอวิดีโอ</option><option value="review">เพลงต้องตรวจสอบ</option>
                     <option value="all">ทั้งหมด</option>
                   </select>
                 </div>

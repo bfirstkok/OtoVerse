@@ -975,7 +975,7 @@ export default function AnimeOPQuizStarter() {
 
           if (normalized.length > 0) {
             firestoreHasContent = true;
-            const playableItems = normalized.filter((item) => item.isActive !== false && item.entryType !== "metadata" && getYouTubeId(item.youtubeVideoId));
+            const playableItems = normalized.filter((item) => item.isActive !== false && !item.videoReviewReason && !item.catalogReviewReason && item.entryType !== "metadata" && getYouTubeId(item.youtubeVideoId));
             window.__DATA_SOURCE = "firestore";
             window.__DATA_LOADED = normalized.length;
             setLibraryAnimeData(normalized);

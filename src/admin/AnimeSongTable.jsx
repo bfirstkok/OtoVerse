@@ -1,3 +1,4 @@
+import {groupCatalogItems, songStatus, SONG_STATUS_LABELS} from "@/lib/catalogOrganization";
 import React, { useMemo, useState } from "react";
 import {
   ChevronDown,
@@ -25,22 +26,6 @@ function songTypeLabel(item) {
   const match = String(item?.title || "").match(/\((OP|ED)\s*(\d*)\)\s*$/i);
   if (match) return `${match[1].toUpperCase()}${match[2] || ""}`;
   return item?.songTitle ? "เพลง" : "ข้อมูลเรื่อง";
-}
-
-function groupItems(items) {
-  const groups = new Map();
-  items.forEach((item) => {
-    const key = seriesKey(item.title) || item.id;
-    if (!groups.has(key)) groups.set(key, { key, title: baseAnimeTitle(item.title) || item.title, items: [] });
-    groups.get(key).items.push(item);
-  });
-
-  return [...groups.values()]
-    .map((group) => ({
-      ...group,
-      items: group.items.sort((a, b) => String(a.title).localeCompare(String(b.title), "th", { numeric: true }))
-    }))
-    .sort((a, b) => a.title.localeCompare(b.title, "th", { numeric: true }));
 }
 
 function YouTubePreview({ videoSource, title }) {
@@ -73,7 +58,7 @@ export default function AnimeSongTable({
   importing,
   displayMode = "all"
 }) {
-  const groups = useMemo(() => groupItems(items), [items]);
+  const groups = useMemo(() => groupCatalogItems(items), [items]);
   const [expandedGroups, setExpandedGroups] = useState(() => new Set());
 
   const toggleGroup = (key) => {
@@ -103,9 +88,9 @@ export default function AnimeSongTable({
   return (
     <div className="space-y-3">
       {groups.map((group) => {
-        const primary = group.items[0];
+        const primary = group.primary;
         const isExpanded = displayMode !== "series" || expandedGroups.has(group.key);
-        const songCount = group.items.filter((item) => /\((?:OP|ED)\s*\d*\)\s*$/i.test(item.title)).length;
+        const songCount = group.songs.length;
         const imageUrl = getAnimeImageUrl(primary);
 
         return (
@@ -140,16 +125,17 @@ export default function AnimeSongTable({
 
             {isExpanded ? (
               <div className="border-t border-white/8 bg-black/10">
-                {group.items.map((item) => (
+                <div className="p-4 text-sm text-slate-400">{primary.synopsis || "ยังไม่มีเรื่องย่อ"}{primary.synopsisSource?.includes("AI") && <p className="mt-2 text-xs text-amber-300">เรื่องย่อจาก AI · ยังไม่ผ่านการตรวจโดยผู้ดูแล</p>}{!songCount && <p className="mt-2">ยังไม่มีเพลงของภาคนี้ · เพิ่ม OP/ED ได้จากปุ่มด้านบน</p>}</div>
+                {group.songs.map((item) => (
                   <article key={item.id} className="grid gap-4 border-b border-white/6 p-4 last:border-b-0 md:grid-cols-[74px_minmax(220px,1fr)_150px_100px_auto] md:items-center">
                     <div><Badge variant="outline" className="justify-center">{songTypeLabel(item)}</Badge></div>
                     <div className="min-w-0">
                       <div className="truncate font-semibold text-slate-100">{item.songTitle || item.note || item.title}</div>
                       {item.artist ? <div className="mt-1 truncate text-sm text-slate-400">{item.artist}</div> : null}
-                      <div className="mt-1 truncate text-xs text-slate-600">{item.title}</div>
+                      <div className="mt-1 truncate text-xs text-slate-600">{item.title}</div>{item.themeContext && <p className="mt-2 text-xs text-cyan-300">{item.themeContext}</p>}{item.videoReviewReason && <p className="mt-2 text-xs text-amber-300">ต้องเปลี่ยนวิดีโอและตรวจสอบก่อนเปิดเล่น</p>}
                     </div>
                     <YouTubePreview videoSource={item.youtubeVideoId} title={item.title} />
-                    <div><Badge variant={item.isActive !== false ? "success" : "secondary"}>{item.entryType !== 'metadata' && item.importSource === 'MyAnimeList bulk' && !item.youtubeVideoId ? 'รอวิดีโอ' : item.isActive !== false ? "ใช้งาน" : "ปิด"}</Badge></div>
+                    <div><Badge variant={songStatus(item) === "ready" ? "success" : "warning"}>{SONG_STATUS_LABELS[songStatus(item)]}</Badge></div>
                     <div className="flex gap-2 md:justify-end">
                       <Button size="sm" variant="outline" onClick={() => item.entryType === 'metadata' ? onEditAnime(item, group.items) : onEdit(item)}><Pencil className="h-3.5 w-3.5" /> แก้ไข</Button>
                       <Button size="sm" variant="destructive" onClick={() => onDelete(item)} disabled={deletingId === item.id}>

@@ -110,8 +110,8 @@ function withId(snapshot) {
   return {
     ...item,
     animeTitle: String(item.animeTitle || parsedTitle.animeTitle),
-    songType: String(item.songType || parsedTitle.songType),
-    songNumber: Number(item.songNumber || parsedTitle.songNumber),
+    songType: item.entryType === "metadata" ? "" : String(item.songType || parsedTitle.songType),
+    songNumber: item.entryType === "metadata" ? 0 : Number(item.songNumber || parsedTitle.songNumber),
     genres: getEffectiveAnimeGenres(item),
     genre: getEffectiveAnimeGenre(item)
   };
@@ -177,6 +177,7 @@ export async function updateAnimeSong(id, data) {
 
   await updateDoc(doc(requireDb(), COLLECTION_NAME, id), {
     ...payload,
+    ...(payload.entryType === "song" && payload.isActive && /^[\w-]{11}$/.test(getYouTubeId(payload.youtubeVideoId)) ? {videoReviewReason:"", catalogReviewReason:""} : {}),
     updatedAt: serverTimestamp()
   });
 }

@@ -15,6 +15,7 @@ const args = process.argv.slice(2);
 const option = (name, fallback) => args.includes(name) ? Number(args[args.indexOf(name)+1]) : fallback;
 const pages = option('--pages', 1), offset = option('--offset', 0);
 const apply = args.includes('--apply');
+if(apply && !args.includes('--resume-import'))throw new Error('Bulk import paused during catalog cleanup. Review the catalog before explicitly resuming with --resume-import.');
 if (!Number.isInteger(pages) || pages < 1 || !Number.isInteger(offset) || offset < 0) throw new Error('Invalid pagination');
 const dir = '.firebase/mal-import'; mkdirSync(dir, { recursive: true });
 const endpoint = 'https://firestore.googleapis.com/v1/projects/animequiz-8a93b/databases/(default)/documents';
