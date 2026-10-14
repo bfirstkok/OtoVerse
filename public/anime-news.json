@@ -1,6 +1,38 @@
 {
   "items": [
     {
+      "id": "d3bf488ce943cddf21f573df",
+      "titleOriginal": "North American Anime, Manga Releases, October 11-17",
+      "contentHash": "2f38749a2bdb2e67f75b9349",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-10-12/north-american-anime-manga-releases-october-11-17/.242757",
+      "publishedAt": "2026-10-14T21:00:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/d3bf488ce943cddf21f573df.jpg",
+      "title": "สรุปรายชื่ออนิเมะและมังงะวางจำหน่ายในอเมริกาเหนือ (11-17 ต.ค.)",
+      "summary": "มีการวางจำหน่ายอนิเมะ The Rising of the Shield Hero ซีซัน 4 รวมถึงมังงะเรื่อง Badducks, GalaXic Baseball League และ Are You a Landmine, Chihara-san?",
+      "category": "release",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gM7/herald/202201/rising-of-shield-hero-s4.jpg"
+    },
+    {
+      "id": "2d784baebe05222e6ff0c449",
+      "titleOriginal": "Nintendo Classics Adds Monster Rancher Advance and More to GBA Lineup",
+      "contentHash": "f244c7fb2d27e52562e88da6",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/14/nintendo-classics-monster-rancher-advance-metal-slug-kururin-paradise-gba",
+      "publishedAt": "2026-10-14T17:38:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/2d784baebe05222e6ff0c449.jpg",
+      "title": "Nintendo เพิ่มเกม Monster Rancher Advance และเกมอื่นๆ ลงใน GBA",
+      "summary": "Nintendo เพิ่มเกม Monster Rancher Advance, Metal Slug Advance และ Kururin Paradise เข้าสู่คลังเกม GBA",
+      "category": "release",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x535/c33eba1a09/monster-rancher-advance.jpg"
+    },
+    {
       "id": "2b5d29fbfd91bf1b9295ee85",
       "titleOriginal": "See More of The Legend of Zelda: Ocarina of Time Remake in Overview Trailer",
       "contentHash": "996cd68208e701569cfc0efc",
@@ -31,6 +63,22 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gGF/youtube/7K7iGohHpWU.jpg"
+    },
+    {
+      "id": "cf45f45c3df17ec7efe58f55",
+      "titleOriginal": "Witch on the Holy Night Anime Film Teams Up with Puella Magi Madoka Magica Movie in Collaboration Illustration",
+      "contentHash": "eb7304501c057423df72a6e4",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/14/witch-on-the-holy-night-anime-film-puella-magi-madoka-magica-movie-collaboration-illustration",
+      "publishedAt": "2026-10-14T15:01:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/cf45f45c3df17ec7efe58f55.png",
+      "title": "ภาพโปรโมตพิเศษ Witch on the Holy Night ร่วมกับ Puella Magi Madoka Magica",
+      "summary": "ภาพยนตร์ Witch on the Holy Night เผยภาพโปรโมตพิเศษร่วมกับ Puella Magi Madoka Magica โดยมีกำหนดฉายในญี่ปุ่น 20 พ.ย. และทั่วโลกในเดือน ม.ค. 2027",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/1920x1080/e13f0efe40/witch-on-the-holy-night.png"
     },
     {
       "id": "12af4787393ed8b307d6b6a8",
@@ -178,19 +226,18 @@
     },
     {
       "id": "6b0dc7566ce000cc2d454a20",
-      "titleOriginal": "Cyberpunk: Edgerunners 2 Anime Deploys New Characters in Latest Visual",
-      "contentHash": "28e517bfd2ae093858619c99",
+      "titleOriginal": "Cyberpunk: Edgerunners 2 Anime Deploys New Characters in Latest Trailer, Visual",
+      "contentHash": "5c08d1a9ed31fdf439fa6ecb",
       "source": "Crunchyroll",
       "sourceId": "crunchyroll",
       "url": "https://crunchyroll.com/news/latest/2026/10/14/cyberpunk-edgerunners-2-anime-visual",
       "publishedAt": "2026-10-14T08:02:00.000Z",
       "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/6b0dc7566ce000cc2d454a20.jpg",
-      "title": "Cyberpunk: Edgerunners 2 เผยภาพวิชวลใหม่พร้อมตัวละครชุดใหม่",
-      "summary": "สตูดิโอ TRIGGER ประกาศสร้างเรื่องราวใหม่โดยมี Kai Ikarashi รับหน้าที่เป็นผู้กำกับ",
-      "category": "announcement",
+      "title": "Cyberpunk: Edgerunners 2 ปล่อยตัวอย่างและภาพวิชวลใหม่",
+      "summary": "อนิเมะ Cyberpunk: Edgerunners 2 เผยตัวอย่างและภาพวิชวลใหม่ โดยเป็นเรื่องราวแยกเดี่ยวที่กำกับโดย Kai Ikarashi จากสตูดิโอ TRIGGER",
+      "category": "trailer",
       "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/1200x675/d8270996ea/cyberpunk-edgerunners-2.jpg"
+      "summaryBasis": "feed_excerpt"
     },
     {
       "id": "9590f4162eeaf3f55c07fc84",
@@ -207,41 +254,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gHG/youtube/LCAL2iL5vLc.jpg"
-    },
-    {
-      "id": "1aa6160e7a1239a378ce6622",
-      "titleOriginal": "The Apothecary Diaries Film's New Video Unveils Miyuki Sawashiro, Ai Mikami in Cast",
-      "contentHash": "7533a11e24040a736629046f",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-10-13/the-apothecary-diaries-film-new-video-unveils-miyuki-sawashiro-ai-mikami-in-cast/.242797",
-      "publishedAt": "2026-10-14T02:21:58.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/1aa6160e7a1239a378ce6622.jpg",
-      "title": "เผยรายชื่อนักพากย์ใหม่ในภาพยนตร์ The Apothecary Diaries",
-      "summary": "Miyuki Sawashiro และ Ai Mikami เข้าร่วมทีมพากย์เสียงในบทบาท Ruoqing และ Yinshan สำหรับภาพยนตร์เรื่องนี้",
-      "category": "announcement",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gQ8/youtube/dipjaCmYris.jpg"
-    },
-    {
-      "id": "17ca5d48bebaa6b9f933a5e4",
-      "titleOriginal": "Japan Box Office: Chiikawa the Movie: The Secret of the Mermaid Island Climbs Back to No. 1 in 12th Weekend",
-      "contentHash": "7d31f798690ae9f548aa4645",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/14/chiikawa-the-movie-the-secret-of-the-mermaid-island-number-1-12th-weekend-japan-box-office",
-      "publishedAt": "2026-10-14T01:12:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/17ca5d48bebaa6b9f933a5e4.jpg",
-      "title": "สรุปอันดับบ็อกซ์ออฟฟิศญี่ปุ่นล่าสุด",
-      "summary": "Chiikawa the Movie: The Secret of the Mermaid Island กลับขึ้นสู่อันดับ 1 ในสัปดาห์ที่ 12 ส่วน GIRLS und PANZER das Finale Chapter 5 เปิดตัวในอันดับที่ 5",
-      "category": "industry",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x519/6a6bd75256/chiikawa-the-movie.jpg"
     }
   ],
-  "updatedAt": "2026-10-14T17:08:54.039Z",
+  "updatedAt": "2026-10-14T21:39:46.995Z",
   "unavailableSources": [],
   "sources": [
     {
