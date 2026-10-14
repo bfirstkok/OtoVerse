@@ -106,10 +106,10 @@ service cloud.firestore {
       allow create, update, delete: if isAdmin();
     }
 
-    // Public content is queryable only when the query filters isActive == true.
+    // Catalog includes active and inactive songs; only admins may edit them.
     // Admins can read and manage every item.
     match /animeSongs/{songId} {
-      allow read: if resource.data.isActive == true || isAdmin();
+      allow read: if resource.data.isActive in [true, false] || isAdmin();
       allow create, update, delete: if isAdmin();
     }
 

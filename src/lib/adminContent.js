@@ -148,6 +148,16 @@ export function subscribeActiveAnimeSongs(callback) {
   );
 }
 
+// Catalog visibility is separate from eligibility for quiz playback.
+export function subscribeCatalogAnimeSongs(callback) {
+  const db = requireDb();
+  return onSnapshot(
+    query(collection(db, COLLECTION_NAME), where("isActive", "in", [true, false])),
+    (snapshot) => callback(snapshot.docs.map(withId), null),
+    (error) => callback([], error)
+  );
+}
+
 export async function createAnimeSong(data) {
   const payload = cleanAnimeSong(data);
   if (!payload.title) throw new Error("กรุณากรอกชื่ออนิเมะ");

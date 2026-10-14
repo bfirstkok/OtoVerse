@@ -58,7 +58,7 @@ import {
 } from "firebase/auth";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { firebaseAuth, firebaseAuthPersistenceReady, firebaseDb, firebaseProjectId, firebaseReady } from "@/lib/firebase";
-import { subscribeActiveAnimeSongs } from "@/lib/adminContent";
+import { subscribeCatalogAnimeSongs } from "@/lib/adminContent";
 import { getAnimeImageUrl, getYouTubeId, getYouTubeThumbUrl } from "@/lib/media";
 import { GENRE_CONFIG as genreConfig, getEffectiveAnimeGenre as inferGenre, getEffectiveAnimeGenres, getAnimeGenreLabel as multiGenreLabel, matchesAnimeGenre } from "@/lib/animeGenre";
 import {
@@ -960,7 +960,7 @@ export default function AnimeOPQuizStarter() {
     let unsubscribe = null;
     const startSubscription = () => {
       try {
-        unsubscribe = subscribeActiveAnimeSongs((firestoreItems, firestoreError) => {
+        unsubscribe = subscribeCatalogAnimeSongs((firestoreItems, firestoreError) => {
           if (cancelled) return;
           if (firestoreError) {
             console.warn("Firestore animeSongs unavailable; using JSON fallback:", firestoreError);
@@ -975,7 +975,7 @@ export default function AnimeOPQuizStarter() {
 
           if (normalized.length > 0) {
             firestoreHasContent = true;
-            const playableItems = normalized.filter((item) => getYouTubeId(item.youtubeVideoId));
+            const playableItems = normalized.filter((item) => item.isActive !== false && item.entryType !== "metadata" && getYouTubeId(item.youtubeVideoId));
             window.__DATA_SOURCE = "firestore";
             window.__DATA_LOADED = normalized.length;
             setLibraryAnimeData(normalized);
