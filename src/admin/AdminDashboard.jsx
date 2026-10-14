@@ -27,6 +27,7 @@ import {
   importAnimeSongs,
   subscribeAnimeSongs,
   updateAnimeSong,
+  setAnimeSongActive,
   updateAnimeCovers
 } from "@/lib/adminContent";
 import { Button } from "@/components/ui/button";
@@ -90,6 +91,7 @@ export default function AdminDashboard() {
   const [formOpen, setFormOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState("");
+  const [togglingId, setTogglingId] = useState("");
   const [importing, setImporting] = useState(false);
 
   useEffect(() => {
@@ -254,6 +256,19 @@ export default function AdminDashboard() {
       setError(err?.message || "บันทึกข้อมูลไม่สำเร็จ");
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleToggleActive = async (item) => {
+    if (togglingId) return;
+    setTogglingId(item.id);
+    setError("");
+    try {
+      await setAnimeSongActive(item.id, songStatus(item) !== "ready");
+    } catch (err) {
+      setError(err?.message || "เปลี่ยนสถานะไม่สำเร็จ");
+    } finally {
+      setTogglingId("");
     }
   };
 
@@ -433,6 +448,8 @@ export default function AdminDashboard() {
                   items={filteredItems}
                   onEdit={openEdit}
                   onDelete={handleDelete}
+                  onToggleActive={handleToggleActive}
+                  togglingId={togglingId}
                   onAddSong={openAddSongForAnime}
                   onEditAnime={openEditAnime}
                   onCover={openCover}

@@ -50,6 +50,8 @@ export default function AnimeSongTable({
   items,
   onEdit,
   onDelete,
+  onToggleActive,
+  togglingId,
   onAddSong,
   onEditAnime,
   onCover,
@@ -136,7 +138,8 @@ export default function AnimeSongTable({
                     </div>
                     <YouTubePreview videoSource={item.youtubeVideoId} title={item.title} />
                     <div><Badge variant={songStatus(item) === "ready" ? "success" : "warning"}>{SONG_STATUS_LABELS[songStatus(item)]}</Badge></div>
-                    <div className="flex gap-2 md:justify-end">
+                    <div className="flex flex-wrap gap-2 md:justify-end">
+                      {onToggleActive && <Button size="sm" variant={songStatus(item) === "ready" ? "outline" : "default"} disabled={Boolean(togglingId) || deletingId === item.id} onClick={() => /^[a-zA-Z0-9_-]{11}$/.test(getYouTubeId(item.youtubeVideoId)) ? onToggleActive(item) : onEdit(item)}>{togglingId === item.id ? "กำลังบันทึก…" : songStatus(item) === "ready" ? "ปิดใช้งาน" : !/^[a-zA-Z0-9_-]{11}$/.test(getYouTubeId(item.youtubeVideoId)) ? "เพิ่มวิดีโอ" : songStatus(item) === "review" ? "ตรวจแล้ว · เปิดใช้งาน" : "เปิดใช้งาน"}</Button>}
                       <Button size="sm" variant="outline" onClick={() => item.entryType === 'metadata' ? onEditAnime(item, group.items) : onEdit(item)}><Pencil className="h-3.5 w-3.5" /> แก้ไข</Button>
                       <Button size="sm" variant="destructive" onClick={() => onDelete(item)} disabled={deletingId === item.id}>
                         <Trash2 className="h-3.5 w-3.5" /> {deletingId === item.id ? "กำลังลบ…" : "ลบ"}

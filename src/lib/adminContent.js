@@ -182,6 +182,23 @@ export async function updateAnimeSong(id, data) {
   });
 }
 
+export async function setAnimeSongActive(id, active) {
+  if (!id) throw new Error("ไม่พบรหัสรายการ");
+  const ref = doc(requireDb(), COLLECTION_NAME, id);
+  const snapshot = await getDoc(ref);
+  if (!snapshot.exists()) throw new Error("ไม่พบเพลงนี้แล้ว");
+  const song = snapshot.data();
+  if (song.entryType === "metadata") throw new Error("ข้อมูลเรื่องไม่ใช่เพลงสำหรับเล่นเกม");
+  if (active && !/^[a-zA-Z0-9_-]{11}$/.test(getYouTubeId(song.youtubeVideoId))) {
+    throw new Error("กรุณาเพิ่มวิดีโอที่ถูกต้องก่อนเปิดใช้งาน");
+  }
+  await updateDoc(ref, {
+    isActive: Boolean(active),
+    ...(active ? { videoReviewReason: "", catalogReviewReason: "", catalogStatus: "ready", videoReviewedAt: serverTimestamp() } : { catalogStatus: "review" }),
+    updatedAt: serverTimestamp()
+  });
+}
+
 export async function deleteAnimeSong(id) {
   if (!id) throw new Error("ไม่พบรหัสรายการ");
   await deleteDoc(doc(requireDb(), COLLECTION_NAME, id));
