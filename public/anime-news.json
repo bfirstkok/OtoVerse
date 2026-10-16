@@ -1,6 +1,38 @@
 {
   "items": [
     {
+      "id": "84cd67a0b3ae2115a1d6d20a",
+      "titleOriginal": "Bleach: Thousand-Year Blood War - The Calamity Anime Goes Out with a Bang in Final Trailer",
+      "contentHash": "aa0fc11efbff4ea95c8c902b",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/16/bleach-thousand-year-blood-war-the-calamity-anime-final-trailer",
+      "publishedAt": "2026-10-16T20:01:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/84cd67a0b3ae2115a1d6d20a.jpg",
+      "title": "Bleach: Thousand-Year Blood War - The Calamity ปล่อยตัวอย่างสุดท้าย",
+      "summary": "อนิเมะ Bleach: Thousand-Year Blood War - The Calamity ปล่อยตัวอย่างสุดท้ายก่อนฉาย 2 ตอนจบในเดือนนี้",
+      "category": "trailer",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/1920x1080/903af40feb/bleach-ep49.jpeg"
+    },
+    {
+      "id": "dc5573fa7561133786bde9da",
+      "titleOriginal": "Magical Girl Raising Project restart Anime Shares Creditless Opening and Ending Videos",
+      "contentHash": "46da3df9ace39f676ada9614",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/16/magical-girl-raising-project-restart-anime-creditless-opening-ending-videos",
+      "publishedAt": "2026-10-16T16:50:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/dc5573fa7561133786bde9da.jpg",
+      "title": "Magical Girl Raising Project restart เผยคลิปเปิดและปิดแบบไม่มีเครดิต",
+      "summary": "อนิเมะ Magical Girl Raising Project restart เผยแพร่วิดีโอเพลงเปิดและเพลงปิดแบบไม่มีเครดิต โดย Crunchyroll ได้นำซีรีส์ต้นฉบับมาสตรีมให้รับชม",
+      "category": "trailer",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/2360x1312/b4184d1650/magical-girl-raising-project-restart-op-hero.jpeg"
+    },
+    {
       "id": "9c235bdcbef22d8a926593da",
       "titleOriginal": "The Irregular at Magic High School THE MOVIE -Yotsuba Succession Arc- Tickets Now on Sale",
       "contentHash": "80adb72c534074da23528922",
@@ -223,41 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gEB/cms/news.10/242886/umezou.jpg"
-    },
-    {
-      "id": "e85839e3d28a574525be6017",
-      "titleOriginal": "Magical DoReMi, Star Detective Precure! Anime Get Crossover Episode on October 25",
-      "contentHash": "28914ea2418831ee8b55ef17",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-10-16/magical-doremi-star-detective-precure-anime-get-crossover-episode-on-october-25/.242871",
-      "publishedAt": "2026-10-16T06:29:05.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/e85839e3d28a574525be6017.jpg",
-      "title": "Magical DoReMi และ Star Detective Precure! ประกาศตอนพิเศษครอสโอเวอร์",
-      "summary": "อนิเมะ Magical DoReMi และ Star Detective Precure! จะมีตอนพิเศษครอสโอเวอร์ร่วมกันในตอนที่ 39 ซึ่งจะออกอากาศในวันที่ 25 ตุลาคม",
-      "category": "announcement",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gQH/cms/news.10/242871/doremi-precure01.jpg"
-    },
-    {
-      "id": "e85e21898f636a490104f6d6",
-      "titleOriginal": "Star Detective Precure! Anime Episode 39 to Feature Ojamajo Doremi Crossover",
-      "contentHash": "fd6ebc8751ea84b36425817b",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/16/star-detective-precure-anime-episode-39-ojamajo-doremi-crossover",
-      "publishedAt": "2026-10-16T04:46:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/e85e21898f636a490104f6d6.jpg",
-      "title": "Star Detective Precure! ตอนที่ 39 จะมีเนื้อหาครอสโอเวอร์กับ Ojamajo Doremi",
-      "summary": "อนิเมะ Star Detective Precure! ตอนที่ 39 จะนำเสนอเนื้อหาครอสโอเวอร์กับ Ojamajo Doremi โดยซีรีส์นี้สามารถรับชมได้ทาง Crunchyroll",
-      "category": "announcement",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/2f2e5cea61/detective-precure-ojamajo-doremi-collab-header.jpg"
     }
   ],
-  "updatedAt": "2026-10-16T16:37:32.619Z",
+  "updatedAt": "2026-10-16T21:06:00.612Z",
   "unavailableSources": [],
   "sources": [
     {
