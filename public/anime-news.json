@@ -1,6 +1,54 @@
 {
   "items": [
     {
+      "id": "90fa79946d5a66150cfc80bd",
+      "titleOriginal": "GROW UP SHOW -Sunflower Circus- Anime Streams Opening, Ending Song Music Videos",
+      "contentHash": "e8872ef1d001c6403efdeed6",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/17/grow-up-show-sunflower-circus-anime-opening-ending-song-music-videos",
+      "publishedAt": "2026-10-17T02:41:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/90fa79946d5a66150cfc80bd.jpg",
+      "title": "GROW UP SHOW -Sunflower Circus- ปล่อยมิวสิควิดีโอเพลงเปิดและเพลงปิด",
+      "summary": "อนิเมะทีวีซีรีส์ต้นฉบับเรื่อง GROW UP SHOW -Sunflower Circus- ได้ปล่อยมิวสิควิดีโอเพลงเปิดและเพลงปิดออกมาให้รับชมแล้ว โดยสามารถรับชมอนิเมะได้ทาง Crunchyroll",
+      "category": "trailer",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/56b781a9c2/nomelon-nolemon-yurariyureru-mv.jpg"
+    },
+    {
+      "id": "33c27c04813204952e2edf5b",
+      "titleOriginal": "Kyary Pamyu Pamyu Shares Pan Dorobo TV Anime Ending Song Music Video",
+      "contentHash": "c22dfe593f0f39e1a33e8721",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/17/pan-dorobo-tv-anime-ending-song-music-video-kyary-pamyu-pamyu",
+      "publishedAt": "2026-10-17T01:33:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/33c27c04813204952e2edf5b.png",
+      "title": "Kyary Pamyu Pamyu ปล่อยมิวสิควิดีโอเพลงปิดอนิเมะ Pan Dorobo",
+      "summary": "Kyary Pamyu Pamyu ได้แชร์มิวสิควิดีโอเพลงปิดของอนิเมะเรื่อง Pan Dorobo ซึ่งภายในวิดีโอมีการนำเสนอการคารวะต่อเพลงเดบิวต์ของเธออย่าง PONPONPON",
+      "category": "trailer",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/34428cc9e4/kyary-pamyu-pamyu-pan-dorobo-ed-mv.png"
+    },
+    {
+      "id": "3abffb666e19326a8f57d1da",
+      "titleOriginal": "Aikatsu! TV Anime Reveals New Creditless Opening and Ending Videos for Rebroadcast",
+      "contentHash": "d76f66c554b3e9fd483bf9c5",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/17/aikatsu-tv-anime-rebroadcast-new-creditless-opening-ending-videos",
+      "publishedAt": "2026-10-17T00:39:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/3abffb666e19326a8f57d1da.jpg",
+      "title": "Aikatsu! เผยคลิปเพลงเปิดและเพลงปิดใหม่สำหรับการฉายซ้ำ",
+      "summary": "อนิเมะ Aikatsu! ได้เผยคลิปเพลงเปิดและเพลงปิดแบบไม่มีเครดิตสำหรับการฉายซ้ำ โดยเกมตู้ Aikatsu! Encore ได้เริ่มเปิดให้บริการแล้วเมื่อวันที่ 8 ตุลาคมที่ผ่านมา",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/e193614fd4/aikatsu-rebroadcast-opening.jpg"
+    },
+    {
       "id": "84cd67a0b3ae2115a1d6d20a",
       "titleOriginal": "Bleach: Thousand-Year Blood War - The Calamity Anime Goes Out with a Bang in Final Trailer",
       "contentHash": "aa0fc11efbff4ea95c8c902b",
@@ -47,22 +95,6 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/1920x1080/cce11c3b70/the-irregular-at-magic-high-school-the-movie-yotsuba-succession-arc.jpg"
-    },
-    {
-      "id": "63d8411c57c3a7ded1cfe60d",
-      "titleOriginal": "Black Clover Season 2 English Dub Now Streaming on Crunchyroll",
-      "contentHash": "80dc88e2c5bacec5f9988d1e",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/announcements/2026/10/16/black-clover-season-2-anime-english-dub-release-date-cast-crew",
-      "publishedAt": "2026-10-16T16:00:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/63d8411c57c3a7ded1cfe60d.jpg",
-      "title": "Black Clover ซีซัน 2 ฉบับพากย์อังกฤษสตรีมบน Crunchyroll แล้ว",
-      "summary": "Black Clover ซีซัน 2 ฉบับพากย์ภาษาอังกฤษเริ่มสตรีมบน Crunchyroll แล้ว โดยจะมีการปล่อยตอนใหม่ทุกสัปดาห์",
-      "category": "release",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/e1bf4bd618/black-clover-season-2.jpg"
     },
     {
       "id": "e5d38c9a4cadf176f1e4cf33",
@@ -223,41 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gMB/cms/news.10/242890/visual-3.webp"
-    },
-    {
-      "id": "ab0780417e512f797087f0b7",
-      "titleOriginal": "Wound & Bandage Anime Teaser Trailer Reveals Premiere Date, Main Cast",
-      "contentHash": "8084697303ad0b847578afee",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/16/wound-and-bandage-anime-teaser-trailer-visual-january-9-release-date-main-cast",
-      "publishedAt": "2026-10-16T08:33:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/ab0780417e512f797087f0b7.jpg",
-      "title": "Wound & Bandage เผยตัวอย่างใหม่และทีมงานผู้สร้าง",
-      "summary": "อนิเมะ Wound & Bandage เผยตัวอย่างใหม่พร้อมประกาศรายชื่อนักพากย์หลัก โดยมี Miyuki Ishida รับหน้าที่กำกับที่สตูดิโอ J.C.Staff",
-      "category": "announcement",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/13069ca4fd/wound-and-bandage.jpg"
-    },
-    {
-      "id": "11d1bc6e05387db679f72b3e",
-      "titleOriginal": "Magical Sisters Lulutto Lilly Anime Reveals 2 More Cast Members",
-      "contentHash": "de6cb9399f5ebfa7cfdc1785",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-10-16/magical-sisters-lulutto-lilly-anime-reveals-2-more-cast-members/.242886",
-      "publishedAt": "2026-10-16T08:04:15.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/11d1bc6e05387db679f72b3e.jpg",
-      "title": "Magical Sisters Lulutto Lilly เพิ่มนักพากย์ใหม่ 2 ท่าน",
-      "summary": "อนิเมะ Magical Sisters Lulutto Lilly ประกาศเพิ่มนักพากย์ Hirofumi Nojima และ Shōgo Yano ซึ่งจะเริ่มปรากฏตัวตั้งแต่ตอนที่ 15 เป็นต้นไป",
-      "category": "announcement",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gEB/cms/news.10/242886/umezou.jpg"
     }
   ],
-  "updatedAt": "2026-10-16T21:06:00.612Z",
+  "updatedAt": "2026-10-17T04:23:16.759Z",
   "unavailableSources": [],
   "sources": [
     {
