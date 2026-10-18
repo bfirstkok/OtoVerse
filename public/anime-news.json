@@ -1,6 +1,22 @@
 {
   "items": [
     {
+      "id": "1abbfcc568778f82da07171f",
+      "titleOriginal": "PSYREN English Dub Reveals Release Date, Cast and Crew",
+      "contentHash": "6707e32d6952631a7341990b",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/announcements/2026/10/18/psyren-anime-english-dub-release-date-cast-crew",
+      "publishedAt": "2026-10-18T17:00:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/1abbfcc568778f82da07171f.jpg",
+      "title": "PSYREN เผยกำหนดการฉายพากย์ภาษาอังกฤษ",
+      "summary": "PSYREN ประกาศกำหนดการฉายพากย์ภาษาอังกฤษตอนแรกบน Crunchyroll ในวันที่ 19 ตุลาคม พร้อมเปิดเผยรายชื่อทีมงานและนักพากย์แล้ว",
+      "category": "release",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/d78f44e98a/psyren.jpg"
+    },
+    {
       "id": "e3e9dcf48093d5466fe526ea",
       "titleOriginal": "Singer-Songwriter Touka on Creating the New Magic Knight Rayearth Anime Opening",
       "contentHash": "cf93807fe3e615844d85ad88",
@@ -239,25 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/1460x1033/37c178c793/reincarnated_as_a_sword_season2_stephan.jpg"
-    },
-    {
-      "id": "2c1d4d7b811c6029bc33273f",
-      "titleOriginal": "A Certain Dark Item Anime Shares Creditless Opening & Ending Animation Videos",
-      "contentHash": "b9b86ee97a70664bb7a64f02",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/17/a-certain-dark-item-anime-creditless-opening-ending",
-      "publishedAt": "2026-10-17T12:46:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/2c1d4d7b811c6029bc33273f.jpg",
-      "title": "อนิเมะ A Certain Dark Item เผยคลิปวิดีโอเพลงเปิดและเพลงปิดแบบไม่มีเครดิต",
-      "summary": "Crunchyroll สตรีมอนิเมะที่ดัดแปลงมาจากซีรีส์ไลท์โนเวลแนวไซไฟ",
-      "category": "trailer",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/1500x844/6da51d17de/a_certain_dark_item_header.jpg"
     }
   ],
-  "updatedAt": "2026-10-18T15:50:59.545Z",
+  "updatedAt": "2026-10-18T20:40:28.987Z",
   "unavailableSources": [],
   "sources": [
     {
