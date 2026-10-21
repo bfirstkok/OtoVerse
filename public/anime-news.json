@@ -1,6 +1,21 @@
 {
   "items": [
     {
+      "id": "420334c9eb2e6c6a15eec2a2",
+      "titleOriginal": "The World's Strongest Witch English Dub Reveals Release Date, Cast and Crew",
+      "contentHash": "f40568c5a2b607756b50cd37",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/announcements/2026/10/21/the-worlds-strongest-witch-english-dub-release-date-cast-crew",
+      "publishedAt": "2026-10-21T18:18:00.000Z",
+      "imageUrl": "https://a.storyblok.com/f/178900/1920x1080/2db9393ba1/the-world-s-strongest-witch.png",
+      "title": "The World's Strongest Witch เผยกำหนดการฉายและทีมพากย์ฉบับภาษาอังกฤษ",
+      "summary": "The World's Strongest Witch ประกาศกำหนดการฉายและรายชื่อทีมพากย์ฉบับภาษาอังกฤษแล้ว โดยตอนแรกสามารถรับชมได้แล้วในขณะนี้",
+      "category": "release",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt"
+    },
+    {
       "id": "254cfcfb6459cef406df44e1",
       "titleOriginal": "Magic Knight Rayearth, Sasaki and Peeps 2nd Season Anime Reveal English Dub Debuts, Casts",
       "contentHash": "95faa3a77f34e2c3b198850e",
@@ -239,25 +254,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/0fdaa27e51/one-piece-mugiwara-hero.jpg"
-    },
-    {
-      "id": "883a1d56da69e8d5bab22968",
-      "titleOriginal": "Nana Mizuki Releases Red River Anime Cour 2 Opening Song Music Video",
-      "contentHash": "29dfd242d2e286402a232c7a",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/21/red-river-anime-cour-2-opening-song-music-video-nana-mizuki",
-      "publishedAt": "2026-10-21T01:32:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/883a1d56da69e8d5bab22968.jpg",
-      "title": "Nana Mizuki ปล่อยมิวสิควิดีโอเพลงเปิดอนิเมะ Red River",
-      "summary": "Nana Mizuki ปล่อยมิวสิควิดีโอเพลงเปิดของอนิเมะ Red River ซีซันที่ 2 ซึ่งดัดแปลงจากมังงะของ Chie Yoshihara และรับชมได้ทาง Crunchyroll",
-      "category": "release",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/33356bd048/nana-mizuki-akatsuki-no-hoshi-mv.jpg"
     }
   ],
-  "updatedAt": "2026-10-21T17:10:20.594Z",
+  "updatedAt": "2026-10-21T21:41:24.843Z",
   "unavailableSources": [],
   "sources": [
     {
