@@ -1,6 +1,38 @@
 {
   "items": [
     {
+      "id": "8a56e9bd32f202d64364c8a4",
+      "titleOriginal": "Kaiju No. 8 Anime's 'Conclusion Arc' Revealed as Film Opening in 2027",
+      "contentHash": "5fd3c24cde19e9245ef8cb78",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-10-24/kaiju-no-8-anime-conclusion-arc-revealed-as-film-opening-in-2027/.243156",
+      "publishedAt": "2026-10-24T07:01:29.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/8a56e9bd32f202d64364c8a4.jpg",
+      "title": "Kaiju No. 8 ประกาศภาคสรุปในรูปแบบภาพยนตร์ปี 2027",
+      "summary": "อนิเมะ Kaiju No. 8 เผยว่าภาคสรุปจะถูกสร้างเป็นภาพยนตร์และมีกำหนดฉายในปี 2027 โดยมี Shigeyuki Miya กลับมารับหน้าที่กำกับที่สตูดิโอ Production I.G",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gE1/cms/news.10/243156/kaiju-no-8-film.jpg"
+    },
+    {
+      "id": "e6916f798d082730b6b25240",
+      "titleOriginal": "Kaiju No. 8: The Final Mission Anime Film Announced for 2027",
+      "contentHash": "05854af0d6330d65c0044ada",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/24/kaiju-no-8-the-final-mission-anime-film-announced-for-2027",
+      "publishedAt": "2026-10-24T06:24:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/e6916f798d082730b6b25240.jpg",
+      "title": "ประกาศภาพยนตร์ Kaiju No. 8: The Final Mission ฉายปี 2027",
+      "summary": "มีการประกาศสร้างภาพยนตร์อนิเมะเรื่อง Kaiju No. 8: The Final Mission พร้อมกำหนดฉายในปี 2027 และมีการเปิดตัวภาพทีเซอร์วิชวลใหม่แล้ว",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/90a70f10e6/kaiju-no-8-season-2.jpg"
+    },
+    {
       "id": "bfaa8e8dab5e495ff2a35225",
       "titleOriginal": "The Iceblade Sorcerer Shall Rule the World II English Dub Now Streaming on Crunchyroll",
       "contentHash": "4c6baabe8faa587d36426d6c",
@@ -223,41 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/1200x675/43cb37128d/grotesqqque.jpg"
-    },
-    {
-      "id": "4d31392a2d4aa0db0734cdf7",
-      "titleOriginal": "Delicious in Dungeon Season 2 Anime Unveils Character Visuals for Returning Cast",
-      "contentHash": "704b155b389fba37bca5d6f4",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/23/delicious-in-dungeon-season-2-anime-character-visuals",
-      "publishedAt": "2026-10-23T13:33:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/4d31392a2d4aa0db0734cdf7.jpg",
-      "title": "Delicious in Dungeon ซีซัน 2 เผยภาพตัวละครหลัก",
-      "summary": "อนิเมะ Delicious in Dungeon ซีซัน 2 เผยภาพตัวละครของนักพากย์ชุดเดิม โดยมีกำหนดกลับมาฉายในเดือนตุลาคม 2027",
-      "category": "announcement",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/1320x741/703e3cbad1/delicious-in-dungeon.jpg"
-    },
-    {
-      "id": "5cf55798c879643ed0b6accb",
-      "titleOriginal": "Armored Trooper VOTOMS: Die Graue Hexe Anime Reveals New Trailers & Visual",
-      "contentHash": "8cf38da0f81344d74ef9345c",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/23/armored-trooper-votoms-die-graue-hexe-anime-trailers-visual-theme-song",
-      "publishedAt": "2026-10-23T12:01:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/5cf55798c879643ed0b6accb.jpg",
-      "title": "Armored Trooper VOTOMS: Die Graue Hexe เผยตัวอย่างและภาพใหม่",
-      "summary": "อนิเมะภาพยนตร์ 2 ตอนจบเรื่อง Armored Trooper VOTOMS: Die Graue Hexe เผยตัวอย่างและภาพวิชวลใหม่ พร้อมประกาศข้อมูลเพลงประกอบ",
-      "category": "trailer",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x542/a613679c6e/armored_trooper_votoms_die_graue_hexe_header3.jpg"
     }
   ],
-  "updatedAt": "2026-10-24T04:33:55.278Z",
+  "updatedAt": "2026-10-24T10:56:36.328Z",
   "unavailableSources": [],
   "sources": [
     {
