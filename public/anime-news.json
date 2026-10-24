@@ -1,6 +1,22 @@
 {
   "items": [
     {
+      "id": "445bf0be73cc49ac71ae21a7",
+      "titleOriginal": "Beast in Black on Drawing Inspiration from Berserk Throughout Their Career",
+      "contentHash": "adff62c49073d04c921c92c4",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/interviews/2026/10/24/beast-in-black-interview",
+      "publishedAt": "2026-10-24T15:00:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/445bf0be73cc49ac71ae21a7.jpg",
+      "title": "Beast in Black เผยแรงบันดาลใจจาก Berserk ในการทำเพลง",
+      "summary": "วง Beast in Black กล่าวถึงการได้รับแรงบันดาลใจจากมังงะเรื่อง Berserk ตลอดเส้นทางอาชีพ โดยมีความต้องการที่จะแต่งเพลงเกี่ยวกับเรื่องราวของตัวละคร Rosine และ Jill",
+      "category": "industry",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/c1d523a9d6/beast-in-black-band.jpg"
+    },
+    {
       "id": "8a56e9bd32f202d64364c8a4",
       "titleOriginal": "Kaiju No. 8 Anime's 'Conclusion Arc' Revealed as Film Opening in 2027",
       "contentHash": "5fd3c24cde19e9245ef8cb78",
@@ -239,25 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/960x697/0d8593ea7b/naruto-x-ninku-key-art.jpg"
-    },
-    {
-      "id": "0f3279189aa5c1755a091246",
-      "titleOriginal": "GROTESQQQUE Anime Anthology Film Shares Two Collab Visuals with Darling in the FRANXX",
-      "contentHash": "272688ed54fa4aa96cfe6361",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/23/grotesqqque-anime-anthology-film-collab-visuals-darling-in-the-franxx",
-      "publishedAt": "2026-10-23T14:09:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/0f3279189aa5c1755a091246.jpg",
-      "title": "ภาพยนตร์อนิเมะ GROTESQQQUE เผยภาพโปรโมทคอลแลปกับ Darling in the FRANXX",
-      "summary": "ภาพยนตร์อนิเมะ 3 ภาคเรื่องนี้มีกำหนดเข้าฉายในประเทศญี่ปุ่นวันที่ 6 พฤศจิกายน",
-      "category": "announcement",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/1200x675/43cb37128d/grotesqqque.jpg"
     }
   ],
-  "updatedAt": "2026-10-24T10:56:36.328Z",
+  "updatedAt": "2026-10-24T15:55:43.246Z",
   "unavailableSources": [],
   "sources": [
     {
