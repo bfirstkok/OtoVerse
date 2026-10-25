@@ -1,6 +1,22 @@
 {
   "items": [
     {
+      "id": "358cfab9b5c4b1dd243f60db",
+      "titleOriginal": "Tougen Anki: Nikko Kegon Falls Arc Anime Gets English Dub on Crunchyroll",
+      "contentHash": "c05f4abbb95001b1752f80dd",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-10-24/tougen-anki-nikko-kegon-falls-arc-anime-gets-english-dub-on-crunchyroll/.243166",
+      "publishedAt": "2026-10-25T02:55:41.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/358cfab9b5c4b1dd243f60db.jpg",
+      "title": "Tougen Anki: Nikko Kegon Falls Arc ประกาศพากย์ภาษาอังกฤษบน Crunchyroll",
+      "summary": "อนิเมะ Tougen Anki: Nikko Kegon Falls Arc ได้รับการพากย์ภาษาอังกฤษแล้วบน Crunchyroll โดยมีให้รับชม 2 ตอนแรกของซีซันใหม่ในขณะนี้",
+      "category": "release",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gI6/cms/news.9/241963/tougen-anki-kv-en-sm.png.jpg"
+    },
+    {
       "id": "f97a902e33c202107901ed09",
       "titleOriginal": "Full Clearing Another World under a Goddess with Zero Believers English Dub Reveals Release Date, Cast and Crew",
       "contentHash": "4ec51a9e70dbb8c807496ae5",
@@ -239,25 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gHG/cms/news.10/243147/conan-733.jpg"
-    },
-    {
-      "id": "aea37e90997ac2c6b86efc5b",
-      "titleOriginal": "HORROR COLLECTOR English Dub Reveals Release Date, Cast and Crew",
-      "contentHash": "0db2602d177aeeafb97cdd51",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/announcements/2026/10/23/horror-collector-anime-english-dub-release-date-cast-crew",
-      "publishedAt": "2026-10-23T18:00:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/aea37e90997ac2c6b86efc5b.jpg",
-      "title": "Horror Collector เผยข้อมูลนักพากย์และกำหนดการฉายพากย์อังกฤษ",
-      "summary": "อนิเมะเรื่อง Horror Collector จะเริ่มฉายตอนแรกในวันที่ 24 ตุลาคมนี้",
-      "category": "release",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/785cf968c5/horror-collector.jpg"
     }
   ],
-  "updatedAt": "2026-10-24T20:47:03.823Z",
+  "updatedAt": "2026-10-25T04:38:26.765Z",
   "unavailableSources": [],
   "sources": [
     {
