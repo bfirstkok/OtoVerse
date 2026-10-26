@@ -1,6 +1,38 @@
 {
   "items": [
     {
+      "id": "3296f81ce9f303908f6fa1fe",
+      "titleOriginal": "The Eternal Fool's Words of Wisdom: A Pawsitively Fantastic Adventure Anime Unveils Main Visual",
+      "contentHash": "533dc441b45643d3a4b1e1ff",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/26/the-eternal-fools-words-of-wisdom-a-pawsitively-fantastic-adventure-anime-main-visual",
+      "publishedAt": "2026-10-26T09:01:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/3296f81ce9f303908f6fa1fe.jpg",
+      "title": "อนิเมะ The Eternal Fool's Words of Wisdom เผยภาพวิชวลหลัก",
+      "summary": "อนิเมะเรื่อง The Eternal Fool's Words of Wisdom เผยภาพวิชวลหลักออกมาแล้ว โดย Crunchyroll จะเริ่มสตรีมมิ่งในเดือนมกราคม 2027",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/1460x821/aaf782d73e/the-eternal-fools-words-of-wisdom-a-pawsitively-fantastic-adventure.jpg"
+    },
+    {
+      "id": "a3e3d41f008f146654ca994a",
+      "titleOriginal": "As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World Season 3 Anime Previews Fujimiya Arc in New Trailer",
+      "contentHash": "f6251764e602ce6e297a8a90",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/26/as-a-reincarnated-aristocrat-i-ll-use-my-appraisal-skill-to-rise-in-the-world-season-3-anime-fujimiya-arc-trailer",
+      "publishedAt": "2026-10-26T08:00:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/a3e3d41f008f146654ca994a.png",
+      "title": "อนิเมะ As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World ซีซัน 3 ปล่อยตัวอย่างใหม่",
+      "summary": "อนิเมะ As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World ซีซัน 3 ปล่อยตัวอย่างเนื้อเรื่องบท Fujimiya พร้อมเปิดเผยรายชื่อนักพากย์ตัวละครครอบครัว Fujimiya",
+      "category": "trailer",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/1920x1076/82cbcb3982/as-a-reincarnated-aristocrat-i-ll-use-my-appraisal-skill-to-rise-in-the-world-season-3-anime-third-trailer.png"
+    },
+    {
       "id": "cc9a69c01be81d1e05bfa523",
       "titleOriginal": "Patlabor EZY Anime Gets Novelization in 2027",
       "contentHash": "c787d21ca8573ac43aa65e30",
@@ -223,41 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/a569a8d914/date-a-live-f-last-date.jpg"
-    },
-    {
-      "id": "ca80de209ca76801c093b613",
-      "titleOriginal": "Date A Live F Last Date Anime Reveals Film Format, March 26, 2027 Opening in Teaser Video",
-      "contentHash": "c896ecdc61189339d34fcf06",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-10-25/date-a-live-f-last-date-anime-reveals-film-format-march-26-2027-opening-in-teaser-video/.243174",
-      "publishedAt": "2026-10-25T10:00:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/ca80de209ca76801c093b613.jpg",
-      "title": "Date A Live F Last Date เผยรูปแบบภาพยนตร์และกำหนดฉาย 26 มีนาคม 2027",
-      "summary": "อนิเมะ Date A Live F Last Date ยืนยันการฉายในรูปแบบภาพยนตร์ พร้อมประกาศทีมงาน 2 ท่านที่กลับมาร่วมงานและกำหนดฉายในวันที่ 26 มีนาคม 2027",
-      "category": "release",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gH4/cms/news.10/243174/date.jpg"
-    },
-    {
-      "id": "8708422566a2cbe103a7d437",
-      "titleOriginal": "Akane-banashi Season 2 Anime Reveals More Cast, Teaser Trailer",
-      "contentHash": "095f9d90c15ba74f16e00553",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-10-25/akane-banashi-season-2-anime-reveals-more-cast-teaser-trailer/.243178",
-      "publishedAt": "2026-10-25T09:10:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/8708422566a2cbe103a7d437.jpg",
-      "title": "อนิเมะ Akane-banashi ซีซัน 2 เผยรายชื่อนักพากย์และตัวอย่างใหม่",
-      "summary": "อนิเมะ Akane-banashi ซีซัน 2 เผยภาพคีย์วิชวลและตัวอย่างใหม่ โดยมีกำหนดการออกอากาศในเดือนมกราคม 2027",
-      "category": "announcement",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gJB/cms/news.10/243178/ab2-tespv-013.jpg"
     }
   ],
-  "updatedAt": "2026-10-26T04:43:56.113Z",
+  "updatedAt": "2026-10-26T12:58:16.104Z",
   "unavailableSources": [],
   "sources": [
     {
