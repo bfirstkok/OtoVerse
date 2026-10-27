@@ -1,6 +1,38 @@
 {
   "items": [
     {
+      "id": "5374075ec6c29a50c86d5216",
+      "titleOriginal": "Shaman King's Hiroyuki Takei Designs Short Net Anime Mecha Samurai",
+      "contentHash": "64933e23fa0989fe8fa82975",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-10-27/shaman-king-hiroyuki-takei-designs-short-net-anime-mecha-samurai/.243242",
+      "publishedAt": "2026-10-27T11:11:22.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/5374075ec6c29a50c86d5216.jpg",
+      "title": "Hiroyuki Takei ผู้วาด Shaman King ออกแบบหุ่นยนต์ในอนิเมะสั้นเรื่องใหม่",
+      "summary": "TV Tokyo และสตูดิโอ Plott เตรียมฉายอนิเมะสั้นแนวหุ่นยนต์ในรูปแบบแนวตั้งเดือนพฤศจิกายนนี้ โดยตอนหลักจะเริ่มฉายในฤดูใบไม้ผลิปีหน้า",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gFF/youtube/6FdS26mkHvE.jpg"
+    },
+    {
+      "id": "9ef3731a2d9a034090aac777",
+      "titleOriginal": "Ashita no Joe Creator Tetsuya Chiba Dies at 87",
+      "contentHash": "23224bee36945c14dc8bd80c",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-10-27/ashita-no-joe-creator-tetsuya-chiba-dies-at-87/.243235",
+      "publishedAt": "2026-10-27T04:02:14.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/9ef3731a2d9a034090aac777.jpg",
+      "title": "Tetsuya Chiba ผู้สร้าง Ashita no Joe เสียชีวิตในวัย 87 ปี",
+      "summary": "Tetsuya Chiba ผู้สร้างผลงานมังงะมวยชื่อดังเรื่อง Ashita no Joe ที่ตีพิมพ์ในช่วงปี 1968-1973 ได้เสียชีวิตลงแล้วในวัย 87 ปี",
+      "category": "industry",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gD3/cms/news.7/217153/chiba-tetsuya.png.jpg"
+    },
+    {
       "id": "ca087a223443d0459cc01c34",
       "titleOriginal": "Idol Group M!LK Releases Super Psychic Policeman Chojo Anime Opening Song Dance Performance Video",
       "contentHash": "69840b9c3e808d5e4338d81c",
@@ -223,41 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/b1c86da903/xenoverse-2-10th-anni.jpg"
-    },
-    {
-      "id": "b276a92033a8bed1d566d43a",
-      "titleOriginal": "Looney Tunes Voice Actor Eric Bauza Dies at 46",
-      "contentHash": "9ca13b64ade24dc2a0b63613",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-10-26/looney-tunes-voice-actor-eric-bauza-dies-at-46/.243204",
-      "publishedAt": "2026-10-26T14:46:39.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/b276a92033a8bed1d566d43a.jpg",
-      "title": "Eric Bauza นักพากย์ Looney Tunes เสียชีวิตในวัย 46 ปี",
-      "summary": "Eric Bauza นักพากย์จาก Looney Tunes เสียชีวิตในวัย 46 ปี โดยมีสาเหตุจากโรคหัวใจและหลอดเลือดจากความดันโลหิตสูง",
-      "category": "industry",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gKH/cms/news.10/243204/bauza.jpg"
-    },
-    {
-      "id": "729dbe067fa7c643dd32e447",
-      "titleOriginal": "My Happy Marriage Anime Special Episodes Creditless Opening, Ending Videos Streamed",
-      "contentHash": "8e254303e37631a293c4179b",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/26/my-happy-marriage-anime-special-episodes-creditless-opening-ending-videos",
-      "publishedAt": "2026-10-26T14:37:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/729dbe067fa7c643dd32e447.png",
-      "title": "My Happy Marriage ปล่อยวิดีโอเพลงเปิดและเพลงปิดแบบไม่มีเครดิต",
-      "summary": "อนิเมะ My Happy Marriage ฉบับพิเศษ 3 ตอนที่เพิ่งออกอากาศไป ได้ปล่อยวิดีโอเพลงเปิดและเพลงปิดแบบไม่มีเครดิตออกมาให้ชมแล้ว",
-      "category": "release",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/1920x1080/7becaa624e/my-happy-marriage-special-episodes-op.png"
     }
   ],
-  "updatedAt": "2026-10-27T05:00:46.215Z",
+  "updatedAt": "2026-10-27T12:08:54.573Z",
   "unavailableSources": [],
   "sources": [
     {
