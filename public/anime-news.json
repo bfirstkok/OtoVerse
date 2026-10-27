@@ -1,6 +1,38 @@
 {
   "items": [
     {
+      "id": "f0cca659a53a91e71b222f22",
+      "titleOriginal": "Deadline: Takashi Yamazaki's Grandgear Film Casts Sam Nivola, Nico Parker",
+      "contentHash": "365dc746fcca061ee9d4387c",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-10-27/deadline-takashi-yamazaki-grandgear-film-casts-sam-nivola-nico-parker/.243234",
+      "publishedAt": "2026-10-27T22:00:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/f0cca659a53a91e71b222f22.jpg",
+      "title": "ภาพยนตร์ Grandgear ของ Takashi Yamazaki เผยรายชื่อนักแสดง",
+      "summary": "ภาพยนตร์เรื่อง Grandgear ของ Takashi Yamazaki ได้รับการยืนยันรายชื่อนักแสดงคือ Sam Nivola และ Nico Parker โดยมีรายงานว่า Paul Giamatti อาจเข้าร่วมแสดงด้วย",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gCF/cms/news.6/200167/godzilla-minus-one.jpg"
+    },
+    {
+      "id": "4d4056362401c6d3dd489844",
+      "titleOriginal": "AniBiz Anime Licensing Platform Receives US$6 Million Investment From TBS, Toei Animation, TV Tokyo",
+      "contentHash": "c34431c5f41ef2208b5271d7",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-10-27/anibiz-anime-licensing-platform-receives-usd6-million-investment-from-tbs-toei-animation-tv-tokyo/.243261",
+      "publishedAt": "2026-10-27T19:00:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/4d4056362401c6d3dd489844.jpg",
+      "title": "AniBiz แพลตฟอร์มลิขสิทธิ์อนิเมะได้รับเงินลงทุน 6 ล้านดอลลาร์",
+      "summary": "แพลตฟอร์ม AniBiz ของ Kun Gao ได้รับเงินลงทุน 6 ล้านดอลลาร์จาก TBS, Toei Animation และ TV Tokyo เพื่อใช้เป็นตลาดกลาง B2B สำหรับอุตสาหกรรมอนิเมะทั่วโลก",
+      "category": "industry",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gLG/cms/news.10/243261/anibiz.jpg"
+    },
+    {
       "id": "f617629b6f9854c98995a958",
       "titleOriginal": "Detective Conan Anime's 4th Collection of Episodes 'Clash of the Red and Black' Streams on Crunchyroll, Netflix on November 1",
       "contentHash": "d431d3cdb99608831f31214a",
@@ -223,41 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gFF/youtube/6FdS26mkHvE.jpg"
-    },
-    {
-      "id": "9ef3731a2d9a034090aac777",
-      "titleOriginal": "Ashita no Joe Creator Tetsuya Chiba Dies at 87",
-      "contentHash": "23224bee36945c14dc8bd80c",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-10-27/ashita-no-joe-creator-tetsuya-chiba-dies-at-87/.243235",
-      "publishedAt": "2026-10-27T04:02:14.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/9ef3731a2d9a034090aac777.jpg",
-      "title": "Tetsuya Chiba ผู้สร้าง Ashita no Joe เสียชีวิตในวัย 87 ปี",
-      "summary": "Tetsuya Chiba ผู้สร้างผลงานมังงะมวยชื่อดังเรื่อง Ashita no Joe ที่ตีพิมพ์ในช่วงปี 1968-1973 ได้เสียชีวิตลงแล้วในวัย 87 ปี",
-      "category": "industry",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gD3/cms/news.7/217153/chiba-tetsuya.png.jpg"
-    },
-    {
-      "id": "ca087a223443d0459cc01c34",
-      "titleOriginal": "Idol Group M!LK Releases Super Psychic Policeman Chojo Anime Opening Song Dance Performance Video",
-      "contentHash": "69840b9c3e808d5e4338d81c",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/27/super-psychic-policeman-chojo-anime-opening-song-dance-performance-video-milk",
-      "publishedAt": "2026-10-27T02:07:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/ca087a223443d0459cc01c34.jpg",
-      "title": "M!LK ปล่อยวิดีโอเต้นเพลงเปิดอนิเมะ Super Psychic Policeman Chojo",
-      "summary": "กลุ่มไอดอล M!LK เผยแพร่วิดีโอการแสดงเต้นประกอบเพลงเปิดของอนิเมะ Super Psychic Policeman Chojo ซึ่งดัดแปลงมาจากมังงะตลกของ Shun Numa",
-      "category": "trailer",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/33e6e4e30d/m-lk-thats-chojo-mv.jpg"
     }
   ],
-  "updatedAt": "2026-10-27T17:59:47.929Z",
+  "updatedAt": "2026-10-27T22:12:21.265Z",
   "unavailableSources": [],
   "sources": [
     {
