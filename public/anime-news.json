@@ -1,6 +1,38 @@
 {
   "items": [
     {
+      "id": "79f0626feff0248efb8abf53",
+      "titleOriginal": "Cowboy Bebop: The Movie Shares 4K Remaster Teaser Trailer",
+      "contentHash": "233d6ae783b6464434c83fe4",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/10/28/cowboy-bebop-the-movie-4k-remaster-teaser-trailer",
+      "publishedAt": "2026-10-28T12:44:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/79f0626feff0248efb8abf53.jpg",
+      "title": "Cowboy Bebop: The Movie ปล่อยตัวอย่างฉบับรีมาสเตอร์ 4K",
+      "summary": "ภาพยนตร์ Cowboy Bebop ปี 2001 ปล่อยตัวอย่างฉบับรีมาสเตอร์ 4K โดยจะมีกำหนดฉายรอบพิเศษครบรอบ 25 ปีในประเทศญี่ปุ่นวันที่ 30 ตุลาคมนี้",
+      "category": "trailer",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x511/3d5fce405d/cowboy_bebop_the_movie_4k_remaster_header.jpg"
+    },
+    {
+      "id": "a7ec38313043dbab285becaf",
+      "titleOriginal": "MASHLE: MAGIC AND MUSCLES Season 3 Streams on Crunchyroll in January 2027",
+      "contentHash": "d03cfe5d1cd6d6bdf12596a5",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/announcements/2026/10/28/mashle-magic-and-muscles-season-3-january-2027-stream-crunchyroll",
+      "publishedAt": "2026-10-28T08:00:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/a7ec38313043dbab285becaf.png",
+      "title": "MASHLE: MAGIC AND MUSCLES ซีซัน 3 เตรียมฉายบน Crunchyroll มกราคม 2027",
+      "summary": "อนิเมะ MASHLE: MAGIC AND MUSCLES ซีซัน 3 จะสตรีมบน Crunchyroll ในเดือนมกราคม 2027 โดยจะเข้าสู่เนื้อหาบท The Tri-Magicathlon Divine Visionary Final Exam Arc",
+      "category": "release",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/1746x982/0a1727bc8a/mashle-season-3.png"
+    },
+    {
       "id": "1e1c9d0ebb2b8e62d2b5372c",
       "titleOriginal": "BAND-MAID Releases BEYBLADE X Anime Bey Kingdom Arc Ending Theme Music Video",
       "contentHash": "ea55d83e1454094a2c54227b",
@@ -223,41 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/960x541/408b178b4a/phantom_busters_manga_header.jpg"
-    },
-    {
-      "id": "0df9e5340d6f58e9240611e3",
-      "titleOriginal": "Pokémon UNITE to Shut Down on March 23, 2027",
-      "contentHash": "1d41626dd8724da15b40845f",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/10/27/pokemon-unite-end-service-date",
-      "publishedAt": "2026-10-27T14:22:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/0df9e5340d6f58e9240611e3.webp",
-      "title": "Pokémon UNITE ประกาศยุติการให้บริการ 23 มีนาคม 2027",
-      "summary": "เกม MOBA แบบเล่นฟรีที่เปิดตัวครั้งแรกในปี 2021 เตรียมปิดตัวลง",
-      "category": "industry",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/1200x630/a68854433e/pokemon-unite.webp"
-    },
-    {
-      "id": "9b26162f09fc6b26201feec5",
-      "titleOriginal": "Welcome to Demon School! Iruma-kun: IruMafia Edition TV Anime Reveals January 4 Debut, Returning Cast Members",
-      "contentHash": "5c8117793f35567bf190367b",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-10-27/welcome-to-demon-school-iruma-kun-irumafia-edition-tv-anime-reveals-january-4-debut-returning-cast-/.243245",
-      "publishedAt": "2026-10-27T14:09:29.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/9b26162f09fc6b26201feec5.jpg",
-      "title": "Welcome to Demon School! Iruma-kun: IruMafia Edition เผยวันฉาย 4 มกราคม",
-      "summary": "อนิเมะภาคแยกยืนยันการกลับมาของนักพากย์ชุดเดิม อาทิ Ayumu Murase, Ryōhei Kimura และ Ayaka Asai",
-      "category": "release",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gID/cms/news.10/243245/if.jpg"
     }
   ],
-  "updatedAt": "2026-10-28T05:40:03.291Z",
+  "updatedAt": "2026-10-28T12:51:51.892Z",
   "unavailableSources": [],
   "sources": [
     {
