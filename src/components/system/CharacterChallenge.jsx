@@ -6,6 +6,7 @@ import {applyAnswer, lookupCharacter, normalize, startGame} from '../../../funct
 import './character-challenge.css';
 
 export default function CharacterChallenge({user, onBack}) {
+ const onlineEnabled = firebaseReady && import.meta.env.VITE_CHARACTER_ONLINE_ENABLED === 'true';
  const [game,setGame] = useState(null);
  const [roomId,setRoomId] = useState('');
  const [code,setCode] = useState('');
@@ -74,9 +75,10 @@ export default function CharacterChallenge({user, onBack}) {
    <button disabled={busy} onClick={()=>{setNow(Date.now());setGame(startGame(names.map((name,i)=>({id:String(i),name:name.trim() || `ผู้เล่น ${i+1}`}))));}}>เล่นจอเดียวกัน</button>
    <hr/>
    <p>ออนไลน์ 2 คน: เข้าสู่ระบบ แล้วส่งรหัสห้องให้เพื่อน เมื่อเพื่อนเข้าห้องเกมจะเริ่มทันที</p>
-   <button disabled={busy || !user || !firebaseReady} onClick={()=>run(async()=>{const r=await call('create'); if(active.current)setRoomId(r.roomId);})}>สร้างห้องออนไลน์</button>
+   <button disabled={busy || !user || !onlineEnabled} onClick={()=>run(async()=>{const r=await call('create'); if(active.current)setRoomId(r.roomId);})}>สร้างห้องออนไลน์</button>
    <label>รหัสห้อง<input value={code} maxLength={12} onChange={e=>setCode(e.target.value.toUpperCase().trim())}/></label>
-   <button disabled={busy || !user || !firebaseReady || !/^[A-F0-9]{12}$/.test(code)} onClick={()=>run(async()=>{await call('join',{roomId:code});if(active.current)setRoomId(code);})}>เข้าร่วมห้อง</button>
+   <button disabled={busy || !user || !onlineEnabled || !/^[A-F0-9]{12}$/.test(code)} onClick={()=>run(async()=>{await call('join',{roomId:code});if(active.current)setRoomId(code);})}>เข้าร่วมห้อง</button>
+   {!onlineEnabled && <p>โหมดออนไลน์กำลังเตรียมเปิดให้บริการ เล่นจอเดียวกันได้แล้ว</p>}
    {!user && <p>เข้าสู่ระบบจากหน้าหลักเพื่อเล่นออนไลน์</p>}
   </div>}
   {roomId && <p>รหัสห้อง: <strong>{roomId}</strong></p>}
