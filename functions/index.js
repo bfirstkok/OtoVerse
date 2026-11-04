@@ -60,3 +60,5 @@ exports.cleanupEmptyRooms = onSchedule(
     }
   }
 );
+
+exports.characterChallenge = require("./character-challenge").characterChallenge;

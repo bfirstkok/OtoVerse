@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:moderation": "firebase emulators:exec --only firestore --project demo-otoverse-moderation --config firebase.test.json \"node --test scripts/moderation-rules.test.mjs\""
+    "test:moderation": "firebase emulators:exec --only firestore --project demo-otoverse-moderation --config firebase.test.json \"node --test scripts/moderation-rules.test.mjs\"",
+    "test:characters": "node --test scripts/character-challenge.test.mjs scripts/character-online.test.mjs"
   },
   "dependencies": {
     "firebase": "^12.11.0",

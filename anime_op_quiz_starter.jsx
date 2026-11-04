@@ -9,6 +9,7 @@ import WatchStatusSelector from "./src/components/system/WatchStatusSelector";
 import "./src/styles/social-features.css";
 import ProfilePage from "./src/components/system/ProfilePage";
 import React, { useMemo, useRef, useState, useEffect } from "react";
+const CharacterChallenge = React.lazy(() => import("./src/components/system/CharacterChallenge"));
 window.__QUIZ_LOADED = true;
 // TEMP_MARKER_REMOVE
 import qrPaymentImg from "./QRpayment.jpg";
@@ -5630,6 +5631,7 @@ useEffect(() => {
           </Card>
           <div className="oto-home-section-label">ค้นพบสิ่งที่ชอบ</div>
           <div className="oto-home-destinations">
+            <button type="button" onClick={() => setPage("characters")}><Users /><strong>ท้าชื่อตัวละคร A–Z</strong><span>ผลัดกันตอบ จอเดียวหรือออนไลน์</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => {setPage("library"); setLibraryTab("catalog");}}><ListMusic /><strong>คลังเพลง</strong><span>ค้นหาเพลงและอนิเมะที่คุ้นเคย</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => {setPage("library"); setLibraryTab("legal");}}><Eye /><strong>รายชื่ออนิเมะ</strong><span>สำรวจช่องทางรับชมในไทย</span><i aria-hidden="true">↗</i></button>
             <button type="button" onClick={() => confirmLeaveGame(() => setPage("news"))}><Eye /><strong>ข่าวสารอนิเมะ</strong><span>อ่านข่าวใหม่ สรุปไทยด้วย AI</span><i aria-hidden="true">↗</i></button>
@@ -9725,6 +9727,7 @@ useEffect(() => {
             {page === "news" && <AnimeNews />}
             {page === "community" && renderCommunity()}
             {page === "online" && renderOnline()}
+            {page === "characters" && <React.Suspense fallback={<p>กำลังเปิดเกม…</p>}><CharacterChallenge user={user} onBack={() => setPage("home")} /></React.Suspense>}
             {page === "play" && renderPlay()}
             {page === "result" && renderResult()}
             {page === "about" && renderAbout()}
