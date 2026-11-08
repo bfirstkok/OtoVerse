@@ -1,6 +1,22 @@
 {
   "items": [
     {
+      "id": "35a8c17eab1607898f1cbce2",
+      "titleOriginal": "Harajuku Himegoto House Multimedia Project Announced",
+      "contentHash": "f9e2ccd7cd5dac8bff3987f4",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-11-07/harajuku-himegoto-house-multimedia-project-announced/.243612",
+      "publishedAt": "2026-11-08T01:51:50.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/35a8c17eab1607898f1cbce2.jpg",
+      "title": "ประกาศโปรเจกต์มัลติมีเดีย Harajuku Himegoto House",
+      "summary": "มีการประกาศเปิดตัวโปรเจกต์มัลติมีเดีย Harajuku Himegoto House ซึ่งมีเนื้อหาเกี่ยวกับคาเฟ่ที่มีพนักงานเป็นนักฆ่า โดยโปรเจกต์นี้จะรวมถึงการสร้างเป็นทีวีอนิเมะด้วย",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gFG/youtube/q_3Mkye4sQg.jpg"
+    },
+    {
       "id": "a3996612859b27ccaeac50a3",
       "titleOriginal": "Rascal Does Not Dream of a Dear Friend Anime Film Shares New Clip Featuring Kaede",
       "contentHash": "087b30d2c1749e8020c59cbb",
@@ -239,25 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/3890a86195/paradox-live-the-movie-header.jpg"
-    },
-    {
-      "id": "72aae571cf610ac97d9ef1eb",
-      "titleOriginal": "North American Anime, Manga Releases, November 1-7",
-      "contentHash": "17da6269771b6f94b8132d99",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-11-06/north-american-anime-manga-releases-november-1-7/.243459",
-      "publishedAt": "2026-11-06T22:00:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/72aae571cf610ac97d9ef1eb.jpg",
-      "title": "สรุปรายการอนิเมะและมังงะวางจำหน่ายในอเมริกาเหนือช่วงวันที่ 1-7 พฤศจิกายน",
-      "summary": "มีการวางจำหน่ายภาพยนตร์อนิเมะ KPop Demon Hunters รวมถึงมังงะเรื่อง Black Jack และ Full Metal Panic! Family ในช่วงสัปดาห์ดังกล่าว",
-      "category": "release",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gNC/herald/202851/kpop-demon-hunters-4k-uhd.jpg"
     }
   ],
-  "updatedAt": "2026-11-07T21:48:07.870Z",
+  "updatedAt": "2026-11-08T05:58:03.231Z",
   "unavailableSources": [],
   "sources": [
     {
