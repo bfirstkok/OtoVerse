@@ -1,6 +1,38 @@
 {
   "items": [
     {
+      "id": "aeb508c58685a32bc4ac3209",
+      "titleOriginal": "Even the Student Council Has Its Holes! Anime Casts Yoko Hikasa, Shares New Opening Video",
+      "contentHash": "7735a8e74fe9ed6b78da2aed",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/11/14/even-the-student-council-has-its-holes-anime-new-opening-video-yoko-hikasa-cast",
+      "publishedAt": "2026-11-14T20:08:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/aeb508c58685a32bc4ac3209.png",
+      "title": "Even the Student Council Has Its Holes! เผยรายชื่อนักพากย์และวิดีโอเปิดตัวใหม่",
+      "summary": "อนิเมะ Even the Student Council Has Its Holes! ประกาศรายชื่อนักพากย์ Yoko Hikasa และปล่อยวิดีโอเปิดตัวใหม่ โดยปัจจุบันอนิเมะกำลังออกอากาศอยู่",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/1460x821/2c0ae6fb2d/even-the-student-council-has-its-holes-new-op-hero.png"
+    },
+    {
+      "id": "c11c345a835c6a9725a64436",
+      "titleOriginal": "Kakao, OpenAI Collaborate on AI-Generated Short Animation Based on Ryan Begins Webtoon",
+      "contentHash": "e02f451bcb684b5e1fe3f256",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-11-14/kakao-openai-collaborate-on-ai-generated-short-animation-based-on-ryan-begins-webtoon/.243712",
+      "publishedAt": "2026-11-14T18:15:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/c11c345a835c6a9725a64436.jpg",
+      "title": "Kakao และ OpenAI ร่วมมือผลิตอนิเมะสั้นจากเว็บตูน Ryan",
+      "summary": "Kakao และ OpenAI ร่วมมือกันสร้างอนิเมะสั้นจากเว็บตูนเรื่อง Ryan โดยทีมงานระบุว่าใช้คำสั่ง (prompt) ประมาณ 1,500 คำต่อหนึ่งฉากเพื่อให้ได้อารมณ์ตามที่ต้องการ",
+      "category": "industry",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gMG/youtube/REXgHT6Y_oo.jpg"
+    },
+    {
       "id": "b9baa1c23e5c5c611018498b",
       "titleOriginal": "Giant Ojo-sama Anime Casts Rina Kawaguchi as Stella",
       "contentHash": "b9896b5ce1970dbce1a42f89",
@@ -223,41 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gSM/herald/203040/apothecary-diaries-season-2-bluray.png.jpg"
-    },
-    {
-      "id": "5a8061d379d79eb405f3aa24",
-      "titleOriginal": "Naruto's Original Voice Actors on Why Returning to Team 7 Feels Different After 20 Years",
-      "contentHash": "c115fedee5c69b9aa8e3922c",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/interviews/2026/11/13/naruto-original-voice-actors-after-20-years-interview",
-      "publishedAt": "2026-11-13T22:00:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/5a8061d379d79eb405f3aa24.jpg",
-      "title": "นักพากย์ต้นฉบับ Naruto เผยความรู้สึกหลังกลับมารวมตัวทีม 7 ในรอบ 20 ปี",
-      "summary": "นักพากย์ต้นฉบับจาก Naruto ให้สัมภาษณ์ถึงความรู้สึกที่แตกต่างออกไปเมื่อได้กลับมารวมตัวกันในฐานะทีม 7 อีกครั้งหลังจากผ่านไป 20 ปี",
-      "category": "industry",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/1134x638/41dd8aafbd/naruto-x-ninku.jpeg"
-    },
-    {
-      "id": "0117c1ce76898b2e7c9ed594",
-      "titleOriginal": "Giant Ojosama TV Anime Reveals More Cast",
-      "contentHash": "cd3192b804480df846be0641",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-11-13/giant-ojosama-tv-anime-reveals-more-cast/.243804",
-      "publishedAt": "2026-11-13T20:00:05.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/0117c1ce76898b2e7c9ed594.jpg",
-      "title": "อนิเมะ Giant Ojosama เผยรายชื่อนักพากย์เพิ่มเติม",
-      "summary": "อนิเมะเรื่อง Giant Ojosama ประกาศรายชื่อนักพากย์เพิ่มเติม ได้แก่ Rina Kawaguchi รับบท Stella และ Risa Imayanagi รับบท Madoka Ito",
-      "category": "announcement",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gI1/youtube/d9dCZ_tZ7zk.jpg"
     }
   ],
-  "updatedAt": "2026-11-14T17:59:06.636Z",
+  "updatedAt": "2026-11-14T22:21:46.906Z",
   "unavailableSources": [],
   "sources": [
     {
