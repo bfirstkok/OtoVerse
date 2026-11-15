@@ -1,6 +1,22 @@
 {
   "items": [
     {
+      "id": "69e19a1827c302454286f49b",
+      "titleOriginal": "Even the Student Council Has It's Holes! Anime Casts Yōko Hikasa",
+      "contentHash": "b5873f7550857602c40bd49e",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-11-14/even-the-student-council-has-its-holes-anime-casts-yoko-hikasa/.243815",
+      "publishedAt": "2026-11-14T23:44:31.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/69e19a1827c302454286f49b.jpg",
+      "title": "Even the Student Council Has It's Holes! ประกาศนักพากย์ใหม่",
+      "summary": "Yōko Hikasa จะมารับบทเป็นแม่ของประธานนักเรียน Hisako ในอนิเมะ Even the Student Council Has It's Holes! ตอนที่ 7 ซึ่งจะออกอากาศในสุดสัปดาห์นี้",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gG0/cms/news.10/243815/hxbgctybqaaqm8k.jpg"
+    },
+    {
       "id": "aeb508c58685a32bc4ac3209",
       "titleOriginal": "Even the Student Council Has Its Holes! Anime Casts Yoko Hikasa, Shares New Opening Video",
       "contentHash": "7735a8e74fe9ed6b78da2aed",
@@ -115,18 +131,17 @@
     {
       "id": "dad940ddccfa31846a23a3f9",
       "titleOriginal": "Re:ZERO -Starting Life in Another World- TV Anime Gets 5th Season",
-      "contentHash": "3d846d468e8ff3cee060c4d6",
+      "contentHash": "c46dcef33364649a38fc753d",
       "source": "Anime News Network",
       "sourceId": "ann",
       "url": "https://www.animenewsnetwork.com/news/2026-11-14/re-zero-starting-life-in-another-world-tv-anime-gets-5th-season/.243813",
       "publishedAt": "2026-11-14T12:00:00.000Z",
       "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/dad940ddccfa31846a23a3f9.jpg",
-      "title": "Re:ZERO -Starting Life in Another World- ประกาศทำซีซัน 5",
-      "summary": "อนิเมะ Re:ZERO -Starting Life in Another World- ได้รับการประกาศสร้างซีซันที่ 5 พร้อมเผยภาพทีเซอร์วิชวลแรก",
+      "title": "Re:ZERO -Starting Life in Another World- ประกาศสร้างซีซัน 5",
+      "summary": "อนิเมะ Re:ZERO -Starting Life in Another World- ได้รับการประกาศสร้างซีซันที่ 5 อย่างเป็นทางการ พร้อมเผยภาพทีเซอร์วิชวลชุดพิเศษออกมาให้ชมกันแล้ว",
       "category": "announcement",
       "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gFQ/cms/news.10/243813/re05-teaserv-jpn.jpg"
+      "summaryBasis": "feed_excerpt"
     },
     {
       "id": "bb624c68f1c1f2b40fb3bc7b",
@@ -239,25 +254,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/9dd6061ebe/77th-kohaku-header.jpg"
-    },
-    {
-      "id": "235e7b6c1b325a3dde75bd5f",
-      "titleOriginal": "North American Anime, Manga Releases, November 8-14",
-      "contentHash": "77d59edbfecfd51a50a2e9d3",
-      "source": "Anime News Network",
-      "sourceId": "ann",
-      "url": "https://www.animenewsnetwork.com/news/2026-11-13/north-american-anime-manga-releases-november-8-14/.243661",
-      "publishedAt": "2026-11-13T22:00:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/235e7b6c1b325a3dde75bd5f.jpg",
-      "title": "สรุปรายชื่ออนิเมะและมังงะวางจำหน่ายในอเมริกาเหนือช่วงวันที่ 8-14 พฤศจิกายน",
-      "summary": "มีการวางจำหน่ายอนิเมะ The Apothecary Diaries ซีซัน 2, Call of the Night ซีซัน 2 และมังงะ Albus Changes the World รวมถึง Pokémon Adventures: Red and Blue Deluxe Edition",
-      "category": "release",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gSM/herald/203040/apothecary-diaries-season-2-bluray.png.jpg"
     }
   ],
-  "updatedAt": "2026-11-14T22:21:46.906Z",
+  "updatedAt": "2026-11-15T06:26:00.729Z",
   "unavailableSources": [],
   "sources": [
     {
