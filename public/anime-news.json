@@ -1,6 +1,38 @@
 {
   "items": [
     {
+      "id": "9ccdefdf93fd1ca2728d1f95",
+      "titleOriginal": "Wanpaku! Touken Ranbu Anime Unveils January 6, 2027 Premiere Date, Teaser Visual",
+      "contentHash": "7fecdb2dace079f6131cc32f",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/11/16/wanpaku-touken-ranbu-anime-january-6-2027-premiere-date-teaser-visual",
+      "publishedAt": "2026-11-16T04:20:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/9ccdefdf93fd1ca2728d1f95.jpg",
+      "title": "อนิเมะ Wanpaku! Touken Ranbu เผยภาพทีเซอร์และกำหนดฉาย 6 ม.ค. 2027",
+      "summary": "อนิเมะเรื่อง Wanpaku! Touken Ranbu ประกาศกำหนดการฉายในวันที่ 6 มกราคม 2027 พร้อมเผยภาพทีเซอร์ โดยมี Gaku Kinoshita รับหน้าที่เป็นผู้กำกับ",
+      "category": "release",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/fb0a1ac908/wanpaku-touken-ranbu-header.jpg"
+    },
+    {
+      "id": "f7575e43fb5310dd12999b2e",
+      "titleOriginal": "SPITZ Band's Drummer Tatsuo Sakiyama Seriously Injured in Traffic Accident",
+      "contentHash": "b83b00989290dc4c6705cd03",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-11-15/spitz-band-drummer-tatsuo-sakiyama-seriously-injured-in-traffic-accident/.243836",
+      "publishedAt": "2026-11-15T22:53:16.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/f7575e43fb5310dd12999b2e.jpg",
+      "title": "Tatsuo Sakiyama มือกลองวง SPITZ ประสบอุบัติเหตุทางรถยนต์",
+      "summary": "Tatsuo Sakiyama มือกลองวง SPITZ ได้รับบาดเจ็บสาหัสจากอุบัติเหตุทางรถยนต์ โดยงานออกรายการโทรทัศน์หลังจากนี้จะใช้การแสดงที่บันทึกเทปไว้ล่วงหน้าในช่วงที่เขาพักรักษาตัว",
+      "category": "industry",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gIG/cms/news.10/243836/profile-sakiyama.jpg"
+    },
+    {
       "id": "c80343eefb9fbe5e784c75cc",
       "titleOriginal": "Magical Sisters Lulutto Lilly Anime Showcases Idols Toko and Sena in New Character Trailer",
       "contentHash": "9ab74d9ed5919a8ffc7ac8d3",
@@ -223,41 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/483b439b3b/giant-ojosama-stella.jpeg"
-    },
-    {
-      "id": "6cf3369ff78044a988c2d6ca",
-      "titleOriginal": "Release the Villains: How Shogo Makishima Challenges the System",
-      "contentHash": "d80e719a95255455c44e1066",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/features/2026/11/14/anime-villains-shogo-makishima",
-      "publishedAt": "2026-11-14T15:00:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/6cf3369ff78044a988c2d6ca.jpg",
-      "title": "บทวิเคราะห์ตัวร้าย Shogo Makishima",
-      "summary": "บทความวิเคราะห์ถึงวิธีการที่ตัวละคร Shogo Makishima ใช้ในการท้าทายระบบ",
-      "category": "industry",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/ba0dc98d53/psycho-pass.jpg"
-    },
-    {
-      "id": "f6f202756ae332f74b3860ff",
-      "titleOriginal": "Love Live! Hasunosora Jyogakuin School Idol Club Trailer Shows Off New TV Anime Footage",
-      "contentHash": "acbde15ca9297f396f0f5812",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/11/14/love-live-hasunosora-jyogakuin-school-idol-club-trailer-tv-anime-footage",
-      "publishedAt": "2026-11-14T14:46:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/f6f202756ae332f74b3860ff.jpg",
-      "title": "ตัวอย่างใหม่ Love Live! Hasunosora Jyogakuin School Idol Club ฉบับทีวีอนิเมะ",
-      "summary": "เผยตัวอย่างใหม่ของ Love Live! Hasunosora Jyogakuin School Idol Club ฉบับทีวีอนิเมะ โดยมีกำหนดออกอากาศในญี่ปุ่นวันที่ 10 มกราคม",
-      "category": "trailer",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x539/e8582ed6a5/love-live-hasunosora-tv-anime-pv.jpg"
     }
   ],
-  "updatedAt": "2026-11-15T18:49:16.192Z",
+  "updatedAt": "2026-11-16T06:24:20.911Z",
   "unavailableSources": [],
   "sources": [
     {
