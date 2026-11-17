@@ -1,6 +1,38 @@
 {
   "items": [
     {
+      "id": "695ac98cb436306e498ca000",
+      "titleOriginal": "LiSA Earns Grammy Nomination for The Irregular at Magic High School THE MOVIE -Yotsuba Succession Arc- Anime Theme Song",
+      "contentHash": "8ee6962bb9dbfdb1ad3b96b2",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/11/17/lisa-grammy-nomination-best-asian-pop-music-performance-category",
+      "publishedAt": "2026-11-17T01:39:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/695ac98cb436306e498ca000.jpg",
+      "title": "LiSA ได้รับการเสนอชื่อเข้าชิงรางวัล Grammy จากเพลงประกอบอนิเมะ The Irregular at Magic High School THE MOVIE -Yotsuba Succession Arc-",
+      "summary": "เพลง YES ของ LiSA เป็นเพลงประกอบอนิเมะเพียงเพลงเดียวที่ได้รับการเสนอชื่อเข้าชิงในสาขา Best Asian Pop Music Performance",
+      "category": "industry",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/8f6f958af2/lisa-header.jpg"
+    },
+    {
+      "id": "41ba52aa5d143f9ce61ade50",
+      "titleOriginal": "Japan Box Office: Godzilla Minus Zero Stays at No. 1 for 2nd Weekend",
+      "contentHash": "97e651d0a9fefc88aa8c5642",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/11/17/japan-box-office-godzilla-minus-zero-number-1-2nd-weekend-japan-box-office",
+      "publishedAt": "2026-11-17T00:56:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/41ba52aa5d143f9ce61ade50.png",
+      "title": "Godzilla Minus Zero ครองแชมป์บ็อกซ์ออฟฟิศญี่ปุ่นต่อเนื่องเป็นสัปดาห์ที่ 2",
+      "summary": "ภาพยนตร์เรื่อง Expelled from Paradise: Resonance from the Heart เปิดตัวในอันดับที่ 5",
+      "category": "industry",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/6ad67d2ab5/godzilla-minus-zero.png"
+    },
+    {
       "id": "2927c03dd91b76f9a4618fb7",
       "titleOriginal": "Ultraman Teo Actress Noa Nekada Dies at 23",
       "contentHash": "c6c2c21dcad853cd4c36986f",
@@ -31,6 +63,22 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://a.storyblok.com/f/178900/1200x675/b97892a452/miyamoto-legend-award.jpeg"
+    },
+    {
+      "id": "bb6f3fbfe3882feefa387e25",
+      "titleOriginal": "PAC-MAN Returns for 100th Macy's Thanksgiving Day Parade with Balloon, Pop-Up",
+      "contentHash": "f342b395964de8fb564e8f82",
+      "source": "Crunchyroll",
+      "sourceId": "crunchyroll",
+      "url": "https://crunchyroll.com/news/latest/2026/11/16/pac-man-100th-macys-thanksgiving-day-parade",
+      "publishedAt": "2026-11-16T20:13:00.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/bb6f3fbfe3882feefa387e25.png",
+      "title": "PAC-MAN กลับมาร่วมขบวนพาเหรด Macy's Thanksgiving Day Parade ครั้งที่ 100",
+      "summary": "ตัวละคร PAC-MAN จะกลับมาในรูปแบบบอลลูนยักษ์เป็นปีที่สองติดต่อกัน",
+      "category": "event",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://a.storyblok.com/f/178900/1920x1080/e8ca5be525/pac-man-macy-100.png"
     },
     {
       "id": "63b78a624a8b37408531339c",
@@ -207,41 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gDE/cms/news.10/243843/summerhikarudied-novel-engvol01.jpg"
-    },
-    {
-      "id": "77d277aa08b8711c69fd6c92",
-      "titleOriginal": "Are You a Landmine, Chihara-san? Anime Goes Bang with New Visual",
-      "contentHash": "690e90044714123a9e07cbc5",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/11/16/are-you-a-landmine-chihara-san-anime-main-visual",
-      "publishedAt": "2026-11-16T10:52:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/77d277aa08b8711c69fd6c92.jpg",
-      "title": "อนิเมะ Are You a Landmine, Chihara-san? เผยภาพวิชวลใหม่",
-      "summary": "อนิเมะแนวรอมคอมเรื่อง Are You a Landmine, Chihara-san? เผยภาพวิชวลใหม่และมีกำหนดออกอากาศในวันที่ 7 มกราคม",
-      "category": "trailer",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/1460x821/04b5edb974/are-you-a-landmine-chihara-san.jpg"
-    },
-    {
-      "id": "61f8b76a8263a103b2bca06f",
-      "titleOriginal": "Skip and Loafer Season 2 Anime Releases New Trailer, Key Visual",
-      "contentHash": "a85a7aef1294a59af88a285c",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/11/16/skip-and-loafer-season-2-anime-trailer-key-visual-additional-cast",
-      "publishedAt": "2026-11-16T09:48:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/61f8b76a8263a103b2bca06f.jpg",
-      "title": "อนิเมะ Skip and Loafer ซีซัน 2 ปล่อยตัวอย่างและภาพวิชวลใหม่",
-      "summary": "อนิเมะ Skip and Loafer ซีซัน 2 เผยตัวอย่างและภาพวิชวลใหม่ โดย Crunchyroll ยืนยันเตรียมสตรีมให้รับชมในเดือนเมษายน 2027",
-      "category": "trailer",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/1460x821/541e01c090/skip-and-loafer-season-2.jpg"
     }
   ],
-  "updatedAt": "2026-11-16T21:59:38.999Z",
+  "updatedAt": "2026-11-17T07:52:19.076Z",
   "unavailableSources": [],
   "sources": [
     {
