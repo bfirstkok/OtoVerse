@@ -1,6 +1,22 @@
 {
   "items": [
     {
+      "id": "e8f60aaa6b97f33bc78a37f7",
+      "titleOriginal": "'As a Reincarnated Aristocrat, I'll Use My Appraisal Skill' Season 3's New Video Announces More Cast",
+      "contentHash": "af05d0386d5f2c2bacae2be5",
+      "source": "Anime News Network",
+      "sourceId": "ann",
+      "url": "https://www.animenewsnetwork.com/news/2026-11-22/as-a-reincarnated-aristocrat-ill-use-my-appraisal-skill-season-3-new-video-announces-more-cast/.244094",
+      "publishedAt": "2026-11-23T00:39:33.000Z",
+      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/e8f60aaa6b97f33bc78a37f7.jpg",
+      "title": "'As a Reincarnated Aristocrat, I'll Use My Appraisal Skill' ซีซัน 3 เผยรายชื่อนักพากย์ใหม่",
+      "summary": "อนิเมะ 'As a Reincarnated Aristocrat, I'll Use My Appraisal Skill' ซีซัน 3 ปล่อยวิดีโอใหม่ประกาศรายชื่อนักพากย์เพิ่มเติม ได้แก่ Anna Nagase, Kōsuke Toriumi และ Ayumu Murase ซึ่งจะเริ่มปรากฏตัวในตอนที่ 33",
+      "category": "announcement",
+      "aiSummarized": true,
+      "summaryBasis": "feed_excerpt",
+      "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gHE/youtube/elxZeOjE7OE.jpg"
+    },
+    {
       "id": "00a055dd211c800f6dda7ab8",
       "titleOriginal": "Shozen Anime Reveals New Trailer, Visual, Cast Additions",
       "contentHash": "530bce7fc236846ecf1b18ec",
@@ -239,25 +255,9 @@
       "aiSummarized": true,
       "summaryBasis": "feed_excerpt",
       "sourceImageUrl": "https://www.animenewsnetwork.com/thumbnails/crop600x315gG2/cms/news.10/244074/detective-is-already-dead-visual.jpg"
-    },
-    {
-      "id": "81efd332240344fce9409ccd",
-      "titleOriginal": "The Detective Is Already Dead Season 2 Anime Releases New Arc Trailer, Visual",
-      "contentHash": "af0460cf093f79a753664d18",
-      "source": "Crunchyroll",
-      "sourceId": "crunchyroll",
-      "url": "https://crunchyroll.com/news/latest/2026/11/22/the-detective-is-already-dead-season-2-anime-new-arc-trailer-visual",
-      "publishedAt": "2026-11-22T06:00:00.000Z",
-      "imageUrl": "https://raw.githubusercontent.com/bfirstkok/OtoVerse/main/public/news-images/81efd332240344fce9409ccd.jpg",
-      "title": "The Detective Is Already Dead ซีซัน 2 ปล่อยตัวอย่างและภาพวิชวลใหม่",
-      "summary": "อนิเมะ The Detective Is Already Dead ซีซัน 2 ปล่อยตัวอย่างและภาพวิชวลสำหรับเนื้อเรื่องบทใหม่ โดยปัจจุบันสามารถรับชมได้ทาง Crunchyroll",
-      "category": "trailer",
-      "aiSummarized": true,
-      "summaryBasis": "feed_excerpt",
-      "sourceImageUrl": "https://a.storyblok.com/f/178900/960x540/ea20220700/the-detective-is-already-dead-season-2-new-arc-trailer.jpg"
     }
   ],
-  "updatedAt": "2026-11-22T19:35:57.889Z",
+  "updatedAt": "2026-11-23T07:33:43.690Z",
   "unavailableSources": [],
   "sources": [
     {
